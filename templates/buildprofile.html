@@ -1,28 +1,30 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}Build Profile{% endblock %}
 
 {% block content %}
+
   <div class="row">
-    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('login')}}">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('buildprofile', username=session['user'])}}">
         <div class="card-panel">
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-user-plus prefix light-blue-text text-darken-4"></i>
-                    <input type="text" id="username" name="username" class="validate" required >
-                    <label for="username">Username</label>
+                    <input type="text" id="dog_name" name="dog_name" class="validate" min-length="2"
+                     maxlength="15" pattern="^[a-zA-Z0-9]{2,15}$" required >
+                    <label for="dog_name">Dog Name</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-user-lock prefix light-blue-text text-darken-4"></i>
-                    <input id="password" type="password" name="password" class="validate" min-length="5"
-                    pattern="^[a-zA-Z0-9]{5,15}$" maxlength="15" required>
-                    <label for="password">Password</label>
+                    <input id="dog_description" type="text" name="dog_description" class="validate" min-length="5"
+                    maxlength="100" required>
+                    <label for="dog_description">Description</label>
                 </div>
             </div>
             <div class="row">
                 <button type="submit" class="co s12 btn-large light-blue darken-4 text-shadow">
-                    Login <i class="fas fa-sign-in-alt"></i>
+                    Register <i class="fas fa-sign-in-alt"></i>
                 </button>
             </div>            
         </div>
