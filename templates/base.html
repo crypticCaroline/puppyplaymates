@@ -16,30 +16,30 @@
                 <a href="#" class="brand-logo">Puppy Playmates</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    {% is session.user %}
+                    {% if session.user %}
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Potential Playmates</a></li>
                     <li><a href="#">Woof Chat</a></li>
                     <li><a href="#">Sign Out</a></li>
                     {% else %}
                     <li><a href="#">Login</a></li>
-                    <li><a href="#">Register</a></li>
+                    <li><a href="{{ url_for('register')}}">Register</a></li>
                     {% endif %}
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                    {% is session.user %}
+                    {% if session.user %}
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Potential Playmates</a></li>
                     <li><a href="#">Woof Chat</a></li>
                     <li><a href="#">Sign Out</a></li>
                     {% else %}
                     <li><a href="#">Login</a></li>
-                    <li><a href="#">Register</a></li>
+                    <li><a href="{{ url_for('register')}}">Register</a></li>
                     {% endif %}
                 </ul>
             </div>
             {% block nav %}
-            {% block end %}
+            {% endblock %}
         </nav>    
 
     </header>
