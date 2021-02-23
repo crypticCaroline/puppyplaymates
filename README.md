@@ -1,45 +1,321 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
-Welcome crypticCaroline,
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use.
+# Puppy Playmates 
 
-## Gitpod Reminders
+![Main Mockup]()
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+[Link to Live Website](https://puppy-playmates.herokuapp.com/)
 
-`python3 -m http.server`
+[GitHub Repo](https://github.com/crypticCaroline/puppy-playmates)
 
-A blue button should appear to click: *Make Public*,
+*** 
 
-Another blue button should appear to click: *Open Browser*.
+## About  
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
 
-A blue button should appear to click: *Make Public*,
+## Index – Table of Contents
 
-Another blue button should appear to click: *Open Browser*.
+* [User Experience (UX)](#user-experience) 
+* [Features](#features)
+* [Designs](#designs)
+* [Technologies Used](#technologies-used)
+* [Testing](#testing)
+* [Known Bugs](#known-bugs)
+* [Deployment](#deployment)
+* [Acknowledgements](#credit)
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+*** 
 
-## Updates Since The Instructional Video
+## User Experience (UX)
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+## Strategy
+### User Stories  
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+#### Reasons a user may visit the website
+* Doing research on visual stress either for themselves or for a family member
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+#### Reasons for the website
+* Provide information to users about what visual stress is and how to get additional help
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+  
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+## Scope - CRUD 
+#### What a user may expect
+* Easy to navigate website
+* Good presentation and visually appealing
+* A way to add dog info
+* a way to edit dog info
+* A way to view other profiles 
+* A way to delete 
+* Links and functions work as expected
+* Users to find information about visual stress
+* Have a way to test for visual stress
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+#### What a user may want 
+*
 
---------
 
-Happy coding!
+#### As a developer / business I expect
+* To provide an easy to use website
+* 
+
+
+## Structure
+
+
+
+## Designs
+
+## Surface
+
+#### Colour
+
+
+
+#### Typography 
+
+
+
+#### Call to Action
+
+
+### Imagery   
+
+
+
+***
+
+## Skeleton 
+
+
+### Layout 
+
+#### Homepage Wire Frame 
+
+
+***
+
+### Mockup
+#### Home Page
+
+
+#### Resources Page
+
+
+
+## Features
+
+#### Universal Features Across the Site
+
+###### Logo and Navigation Bar
+The Navigation Bar is at the top of the webpage. The logo and nav links all change colour when they are hovered over. The active page is set to pink, so the user knows what page they are on.  The nav links direct the user to the correct page of the website. When the logo is clicked on it will take the user to the home page. 
+
+
+###### Responsiveness
+
+The website is fully responsive between different screen resolutions.  I have done this by using media queries.  I have changed the width and included content within containers so that everything stays neat and in the correct order.  The test can be taken on a phone although it has been designed for large screens to mimic real word working conditions. 
+
+###### Accessibility
+
+###### Input Fields 
+
+* The email input fields are type specific, so will need to have a valid email and text, they are also set to be required in order for the user to submit. 
+* The calculator is number specific so users can not enter anything other than a number. 
+
+###### Footer 
+
+The Footer is split into three sections, an opening hours, copyright and contact. Although this is a testing website rather than a business users may want to get in contact with the website developers to let them know of any bugs or to ask questions about visual stress.   
+
+
+##### Meta data
+
+I have added keywords, author and description to the meta data to make the website easier to find.  This increases traffic to the website.  I have also given each page a different name, so the user knows which tab they are on. 
+
+
+##### Redirect
+
+Using app@route rendering templates 
+
+*** 
+
+#### Features Specific to Pages
+
+
+###### Email
+
+I have used [EmailJS](https://www.emailjs.com/) to send the email to the user.  This takes parameters defined in the contact.js file and the parameters set within the email template.  When the user clicks send email after they have submitted their details.  The email gets the data by using a loop to iterate through the results to create a string and pass the user all the results that they had.  
+
+
+### Future Features 
+
+
+***
+
+## Technologies Used 
+
+* HTML5 - Mark-up language using semantic structure.
+* CCS3 - Cascading style sheet used to style.
+* JavaScript - Programming language.  
+* python
+* flask 
+* sockets.io
+* Gitpod.io - for writing the code. Using the command line for committing and pushing to Git Hub
+* GitHub - hosting repositories
+* GIT - Pushing code to repositories
+* [EmailJS](https://www.emailjs.com/) - API sending emails to users
+ 
+Design 
+
+Front End
+* [Google fonts](https://fonts.google.com/)  - for the font
+* [Balsamiq wireframe](https://balsamiq.com/)  - for creating the wireframes
+* [Beautifer](https://beautifier.io/) - for helping to keep code tidy
+* [Coolors](https://coolors.co/palettes/trending) - Colour Selection
+
+Backend 
+https://miro.com/app/board/o9J_lTewBto=/
+mongodb
+herouku 
+Testing 
+* [HTML Validator](https://validator.w3.org/) - checking the validity of code
+* [CSS Validator](https://validator.w3.org/) - checking the validity of code
+* [JSHint](https://jshint.com/)- Testing and checking JS.  - checking for errors in code
+* [Am I Responsive](http://ami.responsivedesign.is/#) - checking whether the site is responsive. 
+* [Wave](https://wave.webaim.org/) - accessibility testing
+* [Internet Marketing Ninjas](https://www.internetmarketingninjas.com/online-spell-checker.php) - spell check
+* DEV Tools - Lighthouse
+
+***
+
+## Testing 
+    
+[HTML Validator](https://validator.w3.org/) 
+
+
+[CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input)
+
+[JSHint](https://jshint.com/)- Testing and checking JS. 
+
+### Usability Testing
+
+
+### Browser Compatibility
+
+Tested on Chrome, Firefox, Brave, Internet Explorer, Microsoft Edge, Safari.
+
+When using Internet Explorer the test doesn't run, the buttons are not built and the colour scheme is not shown. This is because Internet Explorer is not compatible with some of the latest JavaScript and CSS releases.  I have added a message at the bottom of the instructions to let users know to use an alternative browser to run the test.  In  a future releases of the project given more time I would like to make the test compatible with Internet Explorer. 
+
+### OS Compatibility
+ iOS, Android 10, and Windows 10. -
+Tested for responsiveness using Chrome DevTools. Runs well on both IOS and Android 10. 
+
+### Performance Testing
+Tested on the Developer Tools Lighthouse.  
+
+I used Lighthouse last in my testing to check for final things to improve and make sure everything was working well.  I had not added rel= noopeners to my resources page, Dev Tools highlighted this and I made the adjustment. 
+
+ 
+*** 
+
+### Testing User Stories
+
+
+
+
+## Deployment 
+
+### Adding and Committing files
+
+To add files to the repository take the following steps
+
+In the command line type -
+        git add .  
+        git commit -m "This is being committed"
+        git push
+
+To add all new files or modified file use " ."  - To add a single file use the pathway to the file eg .index.html  or assets/css/style.css
+When committing make sure your comments are clear about what changes have been made. 
+Pushing will send your work to the repository
+
+### Deployment 
+
+The project was deployed with the following steps
+
+
+### Forking
+
+Forking the GitHub Repository
+
+
+By forking the GitHub Repository, you can make a copy of the original repository in your own GitHub account.  This means we can view or make changes without making the changes affecting the original.
+
+* Log into GitHub and locate the GitHub Repository.
+* At the top of the Repository there is a "Fork" button about the "Settings" button on the menu.
+* You should now have a new copy of the original repository in your own GitHub account.
+
+### Cloning 
+
+Making a Local Clone
+
+* Log into your GitHub then find the gitpod repository
+* Under the repository name there is a button that says "Clone or download". Click on this button.
+* If cloning with HTTPS "Clone with HTTPS", copy this link.
+* Open Gitbash
+* Change the current working directory to the location where you want the cloned directory to be.
+* Type git clone, and then paste the URL you copied earlier.
+
+        $ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+        Press - Enter- Your local clone will be created.
+        $ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+                > Cloning into `CI-Clone`...
+                > remote: Counting objects: 10, done.
+                > remote: Compressing objects: 100% (8/8), done.
+                > remove: Total 10 (delta 1), reused 10 (delta 1)
+                > Unpacking objects: 100% (10/10), done.
+[Click Here](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for more info on cloning. 
+
+## Known Bugs 
+
+
+***
+
+## Acknowledgements
+
+
+### Credit
+
+* Brian Macharia- Mentor support, guidance, tips, and key things to look out for throughout the project. Helping me to check for errors and looking at my code. 
+* Matt Rudge - Template for gitpod.io 
+* [Code Institute SampleREADME](https://github.com/Code-Institute-Solutions/SampleREADME)
+* [Code Institute README Template](https://github.com/Code-Institute-Solutions/readme-template)
+* [W3schools](https://www.w3schools.com/) - for various code information and trouble shooting.
+* [Google fonts](https://fonts.google.com/) - CDN for the fonts were used in the project.
+* [Balsamiq wireframe](https://balsamiq.com/) - To build wireframes in the design phase. 
+* [HTML Validator](https://validator.w3.org/) - Testing validity of HTML.
+* [CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) -Testing validity of CSS.
+* [JSHint](https://jshint.com/)- Testing and checking JS. 
+* [Am I Responsive](http://ami.responsivedesign.is/#) - Checking the responsive nature.
+* [Beautifer](https://beautifier.io/) - Allowing me beautify my code.
+* [HTML Online](https://html-online.com/articles/smart-404-error-page-redirect/) - Redirect page Inspiration
+* [Coolors](https://coolors.co/palettes/trending) - colour inspiration
+* [Internet Marketing Ninjas](https://www.internetmarketingninjas.com/online-spell-checker.php) - spell check
+* [EmailJS](https://www.emailjs.com/) - for use in sending emails
+
+
+
+*** 
+
+
+### Code:
+
+
+
+
+### Content:
+
+Code & Content (not already attributed): Rebecca Kelsall
+
+### Inspiration & Research: 
+
