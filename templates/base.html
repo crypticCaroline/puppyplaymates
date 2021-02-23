@@ -22,7 +22,7 @@
                     <li><a href="#">Woof Chat</a></li>
                     <li><a href="#">Sign Out</a></li>
                     {% else %}
-                    <li><a href="#">Login</a></li>
+                    <li><a href="{{ url_for('login')}">Login</a></li>
                     <li><a href="{{ url_for('register')}}">Register</a></li>
                     {% endif %}
                 </ul>
@@ -33,7 +33,7 @@
                     <li><a href="#">Woof Chat</a></li>
                     <li><a href="#">Sign Out</a></li>
                     {% else %}
-                    <li><a href="#">Login</a></li>
+                    <li><a href="{{ url_for('login')}">Login</a></li>
                     <li><a href="{{ url_for('register')}}">Register</a></li>
                     {% endif %}
                 </ul>
