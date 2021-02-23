@@ -32,11 +32,11 @@
 ### User Stories  
 
 #### Reasons a user may visit the website
-* Doing research on visual stress either for themselves or for a family member
+* 
 
 
 #### Reasons for the website
-* Provide information to users about what visual stress is and how to get additional help
+* 
 
   
 
