@@ -3,12 +3,22 @@
 
 {% block nav %}
 
-
+{% if session.user == username %}
+<div class="nav-content">
+    <ul id="nav-sub" class="left hide-on-med-and-down red accent-2 s12">
+        <li><a href="{{ url_for('buildprofile', username=session['user'])}}">Edit Puppy</a></li>
+        <li><a href="#">Edit Prefernces</a></li>
+        <li><a href="#">Update Human</a></li>
+    </ul>
+</div>
+{% endif %}
 
 {% endblock %}
            
 {% block content %}
-  <h1>LOGGED IN </h1>
+
+  <h1>{{ user.username }}</h1>
+  <h2>{{ user.dog_name}} Profile Page</h2>
   <p class="important">
       <li class="tab"><a href="{{ url_for('buildprofile', username=session['user'])}}">Profile</a></li>
     Welcome on my awesome homepage.

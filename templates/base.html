@@ -37,15 +37,9 @@
                     <li><a href="{{ url_for('register')}}">Register</a></li>
                     {% endif %}
                 </ul>
-                {% if session.user %}            
-                <ul class="tabs tabs-transparent">
-                    <li class="tab"><a href="{{ url_for('buildprofile', username=session['user'])}}">Edit profile</a></li>
-                    <li class="tab"><a class="active" href="#test2">Edit Prefences</a></li>
-                    <li class="tab"><a href="#test3">Update Human Details</a></li>
-                    <li class="tab"><a href="#test4">Test 4</a></li>
-                </ul>
-                {% endif %}
             </div>
+            {% block nav %}
+            {% endblock %}                                           
         </nav>    
 
     </header>
