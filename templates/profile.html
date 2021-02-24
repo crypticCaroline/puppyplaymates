@@ -2,20 +2,15 @@
 {% block title %}Profile{% endblock %}
 
 {% block nav %}
-<div class="nav-content">
-    <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#test1">Test 1</a></li>
-        <li class="tab"><a class="active" href="#test2">Test 2</a></li>
-        <li class="tab"><a href="#test3">Test 3</a></li>
-        <li class="tab"><a href="#test4">Test 4</a></li>
-    </ul>
-</div>
+
+
 
 {% endblock %}
            
 {% block content %}
   <h1>LOGGED IN </h1>
   <p class="important">
+      <li class="tab"><a href="{{ url_for('buildprofile', username=session['user'])}}">Profile</a></li>
     Welcome on my awesome homepage.
 {% endblock %}
 

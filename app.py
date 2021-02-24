@@ -52,11 +52,8 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/profile/buildprofile/<username>", methods=["GET", "POST"])
+@app.route("/buildprofile/<username>", methods=["GET", "POST"])
 def buildprofile(username):
-
-    this_user = mongo.db.users.find_one({"username": session["user"]})
-    print(this_user)
 
     if request.method == "POST":
         mongo.db.users.update_one(
@@ -64,7 +61,7 @@ def buildprofile(username):
             {"$set": {
                 "dog_name": request.form.get("dog_name"),
                 "dog_description": request.form.get("dog_description")
-            }}
+            }} 
         )
 
         flash("Task Successfully Updated")
