@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+    
+        {% for user in users %}
+            <li><a href="#">{{ user.username }}</a></li>
+        {% endfor %}
+    
+{% endblock %}

@@ -21,7 +21,7 @@ mongo = PyMongo(app)
 
 @app.route("/")
 @app.route("/homepage")
-def render():
+def homepage():
     return render_template("homepage.html")
 
 
@@ -30,14 +30,14 @@ def register():
     if request.method == "POST":
         # check if username already exists in db
         existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
+            {"username": request.form.get("username")})
 
         if existing_user:
             flash("Username already exists")
             return redirect(url_for("register"))
 
         register = {
-            "username": request.form.get("username").lower(),
+            "username": request.form.get("username"),
             "email": request.form.get("email"),
             "password": generate_password_hash(request.form.get("password")),
             "dog_name": request.form.get("dog_name"),
@@ -46,7 +46,7 @@ def register():
         mongo.db.users.insert_one(register)
 
         # put the new user into 'session' cookie
-        session["user"] = request.form.get("username").lower()
+        session["user"] = request.form.get("username")
         flash("Registration Successful!")
         return redirect(url_for("buildprofile", username=session["user"]))
     return render_template("register.html")
@@ -65,7 +65,9 @@ def buildprofile(username):
                 "dog_gender": request.form.get("dog_gender"),
                 "dog_location": request.form.get("dog_location"),
                 "dog_size": request.form.get("dog_size"),
-                "dog_dob": request.form.get("dog_dob")
+                "dog_dob": request.form.get("dog_dob"),
+                "puppy_love": request.form.get("puppy_love"),
+                "fertile": request.form.get("fertile")
             }}
         )
 
@@ -88,17 +90,23 @@ def profile(username):
     return redirect(url_for('homepage'))
 
 
+@app.route("/all_users")
+def all_users():
+    users = mongo.db.users.find()
+    return render_template("all_users.html", users=users)
+
+
 @ app.route("/login", methods = ["GET", "POST"])
 def login():
     if request.method == "POST":
         existing_user=mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
+            {"username": request.form.get("username")})
 
         if existing_user:
             # ensure hash matches
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
-                session["user"]=request.form.get("username").lower()
+                session["user"]=request.form.get("username")
                 flash("Welcome, {}".format(request.form.get("username")))
                 return redirect(url_for(
                     "profile", username=session["user"]))
