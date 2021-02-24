@@ -40,9 +40,7 @@ def register():
             "username": request.form.get("username"),
             "email": request.form.get("email"),
             "password": generate_password_hash(request.form.get("password")),
-            "dog_name": request.form.get("dog_name"),
-            "dog_description": request.form.get("dog_description")
-        }
+            }
         mongo.db.users.insert_one(register)
 
         # put the new user into 'session' cookie
@@ -55,6 +53,10 @@ def register():
 @app.route("/buildprofile/<username>", methods=["GET", "POST"])
 def buildprofile(username):
 
+    user = mongo.db.users.find_one({"username": username})
+    puppy_love = "WOOF WOOF" if request.form.get("puppy_love") else "Not for Me"
+    fertile = "I got the goods" if request.form.get("fertile") else "Had the Snip"
+    
     if request.method == "POST":
         mongo.db.users.update_one(
             {"username": session["user"]},
@@ -66,22 +68,23 @@ def buildprofile(username):
                 "dog_location": request.form.get("dog_location"),
                 "dog_size": request.form.get("dog_size"),
                 "dog_dob": request.form.get("dog_dob"),
-                "puppy_love": request.form.get("puppy_love"),
-                "fertile": request.form.get("fertile")
+                "puppy_love": puppy_love,
+                "fertile": fertile
             }}
         )
 
         flash("Task Successfully Updated")
-        return redirect(url_for("profile",  username=session["user"]))
+        return redirect(url_for("profile",  username=session[
+            "user"], user=user))
 
     return render_template("buildprofile.html", username=session[
-        "user"])
+        "user"], user=user)
 
 
 @ app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
 
-    user = mongo.db.users.find_one({"username": session["user"]})
+    user = mongo.db.users.find_one({"username": username})
     print(user)
 
     if session["user"]:

@@ -19,8 +19,19 @@
 
   <h1>{{ user.username }}</h1>
   <h2>{{ user.dog_name}} Profile Page</h2>
-  <p class="important">
-      <li class="tab"><a href="{{ url_for('buildprofile', username=session['user'])}}">Profile</a></li>
-    Welcome on my awesome homepage.
+  <p>{{ user.dog_description}}</p>
+  <p>{{ user.dog_breed}}</p>
+  <p>{{ user.dog_gender}}</p>
+  <p>{{ user.dog_location}}</p>
+  <p>{{ user.dog_size}}</p>
+  <p>{{ user.dog_dob}}</p>
+  <p>{{ user.puppy_love}}</p>
+  <p>{{ user.fertile}}</p>
+  
+
+  {% if session.user != username %}
+  <h3>test</h3>
+  {% endif %}
+  
 {% endblock %}
 
