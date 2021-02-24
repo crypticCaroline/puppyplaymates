@@ -60,22 +60,30 @@ def buildprofile(username):
             {"username": session["user"]},
             {"$set": {
                 "dog_name": request.form.get("dog_name"),
-                "dog_description": request.form.get("dog_description")
-            }} 
+                "dog_description": request.form.get("dog_description"),
+                "dog_breed": request.form.get("dog_breed"),
+                "dog_gender": request.form.get("dog_gender"),
+                "dog_location": request.form.get("dog_location"),
+                "dog_size": request.form.get("dog_size"),
+                "dog_dob": request.form.get("dog_dob")
+            }}
         )
 
         flash("Task Successfully Updated")
         return redirect(url_for("profile",  username=session["user"]))
 
-    return render_template("buildprofile.html", username=session["user"])
+    return render_template("buildprofile.html", username=session[
+        "user"])
 
 
 @ app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
 
+    user = mongo.db.users.find_one({"username": session["user"]})
+    print(user)
 
     if session["user"]:
-        return render_template("profile.html", username = username)
+        return render_template("profile.html", username=username, user=user)
 
     return redirect(url_for('homepage'))
 
