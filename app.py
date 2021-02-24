@@ -52,44 +52,46 @@ def register():
 
 @app.route("/buildprofile/<username>", methods=["GET", "POST"])
 def buildprofile(username):
+    if session:
 
-    user = mongo.db.users.find_one({"username": username})
-    puppy_love = "WOOF WOOF" if request.form.get(
-        "puppy_love") else "Flying Solo"
-    fertile = "I got the goods" if request.form.get(
-        "fertile") else "Had the Snip"
+        user = mongo.db.users.find_one({"username": username})
+        puppy_love = "WOOF WOOF" if request.form.get(
+            "puppy_love") else "Flying Solo"
+        fertile = "I got the goods" if request.form.get(
+            "fertile") else "Had the Snip"
 
-    if request.method == "POST":
-        mongo.db.users.update_one(
-            {"username": session["user"]},
-            {"$set": {
-                "dog_name": request.form.get("dog_name"),
-                "dog_description": request.form.get("dog_description"),
-                "dog_breed": request.form.get("dog_breed"),
-                "dog_gender": request.form.get("dog_gender"),
-                "dog_location": request.form.get("dog_location"),
-                "dog_size": request.form.get("dog_size"),
-                "dog_dob": request.form.get("dog_dob"),
-                "puppy_love": puppy_love,
-                "fertile": fertile
-            }}
-        )
+        if request.method == "POST":
+            mongo.db.users.update_one(
+                {"username": session["user"]},
+                {"$set": {
+                    "dog_name": request.form.get("dog_name"),
+                    "dog_description": request.form.get("dog_description"),
+                    "dog_breed": request.form.get("dog_breed"),
+                    "dog_gender": request.form.get("dog_gender"),
+                    "dog_location": request.form.get("dog_location"),
+                    "dog_size": request.form.get("dog_size"),
+                    "dog_dob": request.form.get("dog_dob"),
+                    "puppy_love": puppy_love,
+                    "fertile": fertile
+                }}
+            )
 
-        flash("Task Successfully Updated")
-        return redirect(url_for("profile",  username=session[
+            flash("Task Successfully Updated")
+            return redirect(url_for("profile",  username=session[
             "user"], user=user))
 
-    return render_template("buildprofile.html", username=session[
-        "user"], user=user)
+        return render_template("buildprofile.html", username=session[
+            "user"], user=user)
+    return render_template("homepage.html")
+
 
 
 @ app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
-
-    user = mongo.db.users.find_one({"username": username})
-    print(user)
-
-    if session["user"]:
+    
+    if session:
+        user = mongo.db.users.find_one({"username": username})
+        print(user)
         return render_template("profile.html", username=username, user=user)
 
     return redirect(url_for('homepage'))
