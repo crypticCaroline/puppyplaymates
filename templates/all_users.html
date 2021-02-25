@@ -4,6 +4,7 @@
 {% block content %}
     
         {% for user in users %}
+            <h5><a href="{{url_for('profile', username=user.username)}}">{{ user.dog_name }}</a></h5>
             <li><a href="#">{{ user.username }}</a></li>
         {% endfor %}
     
