@@ -85,7 +85,6 @@ def buildprofile(username):
     return render_template("homepage.html")
 
 
-
 @ app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
     
@@ -103,17 +102,17 @@ def all_users():
     return render_template("all_users.html", users=users)
 
 
-@ app.route("/login", methods = ["GET", "POST"])
+@ app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        existing_user=mongo.db.users.find_one(
+        existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username")})
 
         if existing_user:
             # ensure hash matches
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
-                session["user"]=request.form.get("username")
+                session["user"] = request.form.get("username")
                 flash("Welcome, {}".format(request.form.get("username")))
                 return redirect(url_for(
                     "profile", username=session["user"]))
@@ -130,7 +129,19 @@ def login():
 def logout():
     flash("You have been logged out")
     session.pop("user")
-    return redirect(url_for("login"))  
+    return redirect(url_for("login"))
+
+
+@app.route("/delete_profile", methods=["GET", "POST"])
+def delete_profile():
+
+    if request.method == "POST":
+        user = mongo.db.users.find_one({"username": session["user"]})
+        mongo.db.users.remove(user)
+        session.pop("user")
+        flash("Category Successfully Removed")
+        return redirect(url_for("homepage"))
+    return render_template("delete_profile.html")
 
 
 if __name__ == "__main__":
