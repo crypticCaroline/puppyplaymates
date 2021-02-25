@@ -102,6 +102,13 @@ def all_users():
     return render_template("all_users.html", users=users)
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    users = list(mongo.db.users.find({"$text": {"$search": query}}))
+    return render_template("all_users.html", users=users)
+
+
 @ app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -138,7 +145,7 @@ def delete_profile():
     if request.method == "POST":
         user = mongo.db.users.find_one({"username": session["user"]})
         mongo.db.users.remove(user)
-        session.pop("user")
+        session.pop(session["user"])
         flash("Category Successfully Removed")
         return redirect(url_for("homepage"))
     return render_template("delete_profile.html")
