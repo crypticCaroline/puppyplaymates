@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+  <h1>Delete Profile</h1>
+  <form method="POST" action="{{ url_for('delete_profile')}}">
+  <p class="important">
+    Are you sure you want to delete your profile this action can not be undone and all your information will be removed from our database
+   </p>
+   <a href="{{ url_for('profile', username=session['user'])}}" class="btn blue">Take me back to my profile</a> 
+   <button class="red" type="submit">Delete my Profile</button>
+   </form>
+{% endblock %}
