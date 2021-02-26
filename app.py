@@ -57,8 +57,8 @@ def buildprofile(username):
         user = mongo.db.users.find_one({"username": username})
         puppy_love = "WOOF WOOF" if request.form.get(
             "puppy_love") else "Flying Solo"
-        fertile = "I got the goods" if request.form.get(
-            "fertile") else "Had the Snip"
+        fertile = "Had the Snip" if request.form.get(
+            "fertile") else "I got the goods"
 
         if request.method == "POST":
             mongo.db.users.update_one(
