@@ -87,11 +87,29 @@ def buildprofile(username):
 
 @ app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
-    
+
     if session:
         user = mongo.db.users.find_one({"username": username})
-        print(user)
-        return render_template("profile.html", username=username, user=user)
+        likers = mongo.db.users.find_one({"username": session['user']})
+        liker = mongo.db.users.find({}, {"dog_name": 1})
+        for likes in liker:
+            print(likes)
+        
+        print(liker)
+
+
+        if request.method == "POST":
+            liker_btn = request.form.get("liker_btn")
+            print(liker_btn)
+
+            mongo.db.users.update_one(
+                {"username": username},
+                {"$addToSet": {"dog_liker": session['user']}})
+
+            return render_template(
+                "profile.html", username=username, user=user)
+
+        return render_template("profile.html", username=username, user=user, liker=liker)
 
     return redirect(url_for('homepage'))
 
