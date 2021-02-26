@@ -30,7 +30,9 @@
   
 
   {% if session.user != username %}
-  <h3>test</h3>
+  <form method="POST" action="{{ url_for('profile', username=session['user']) }}"></form>
+  <button type="submit" class="big-btn blue">Like</button>
+
   {% endif %}
   
 {% endblock %}
