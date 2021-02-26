@@ -31,7 +31,7 @@
 
   {% if session.user != username %}
   <form method="POST" action="{{ url_for('profile', username }}"></form>
-  <button type="submit" class="big-btn blue" value="liked" id="liker_btn">Like</button>
+  <button type="submit" class="big-btn blue" value="liked" id="liker_btn" name="liker_btn">Like</button>
 
   {% endif %}
   
