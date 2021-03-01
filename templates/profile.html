@@ -33,7 +33,7 @@
     <p>{{ dog_like }}</p>
     {% if dog_like == True %}
     <form method="POST" action="{{ url_for('profile', username=username) }}">
-        <button type="submit" class="big-btn blue" value="unlike" id="unlike_btn" name="unlike_btn">Unlike</button>
+        <button type="submit" class="big-btn blue" value="unlike" id="unliker_btn" name="unliker_btn">Unlike</button>
     </form>
     {% else %}
     <form method="POST" action="{{ url_for('profile', username=username) }}">
