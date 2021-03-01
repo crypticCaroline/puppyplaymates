@@ -19,7 +19,7 @@
                     {% if session.user %}
                     <li><a href="{{ url_for('profile', username=session['user'])}}">Profile</a></li>
                     <li><a href="{{ url_for('all_users')}}">Potential Playmates</a></li>
-                    <li><a href="#">Woof Chat</a></li>
+                    <li><a href="{{ url_for('woof_chat')}}">Woof Chat</a></li>
                     <li><a href="{{ url_for('logout')}}">Sign Out</a></li>
                     {% else %}
                     <li><a href="{{ url_for('login')}}">Login</a></li>
@@ -30,7 +30,7 @@
                     {% if session.user %}
                     <li><a href="#">Profile</a></li>
                     <li><a href="{{ url_for('all_users')}}">Potential Playmates</a></li>
-                    <li><a href="#">Woof Chat</a></li>
+                    <li><a href="{{ url_for('woof_chat')}}">Woof Chat</a></li>
                     <li><a href="{{ url_for('logout')}}">Sign Out</a></li>
                     {% else %}
                     <li><a href="{{ url_for('login')}}">Login</a></li>
@@ -62,7 +62,7 @@
                             <li><a class="grey-text text-lighten-3" href="#!">Report User</a></li>
                             {% if session.user %}
                             <li><a class="grey-text text-lighten-3" href="{{ url_for('logout')}}">Sign Out</a></li>
-                            <li><a class="grey-text text-lighten-3" href="#!">WoofChat</a></li>
+                            <li><a class="grey-text text-lighten-3" href="{{ url_for('woof_chat')}}">WoofChat</a></li>
                             <li><a class="grey-text text-lighten-3" href="#!">Security</a></li>
                             <li><a class="grey-text text-lighten-3" href="#!">Update Account</a></li>
                             <li><a class="grey-text text-lighten-3" href="#!">Edit Preferences</a></li>
@@ -87,6 +87,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 
