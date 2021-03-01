@@ -72,7 +72,8 @@ def buildprofile(username):
                     "dog_size": request.form.get("dog_size"),
                     "dog_dob": request.form.get("dog_dob"),
                     "puppy_love": puppy_love,
-                    "fertile": fertile
+                    "fertile": fertile,
+                    "dog_liker": []
                 }}
             )
 
@@ -92,10 +93,7 @@ def profile(username):
         user = mongo.db.users.find_one({"username": username})
         likers = mongo.db.users.find_one({"username": session['user']})
         liker = mongo.db.users.find({}, {"dog_name": 1})
-        for likes in liker:
-            print(likes)
-        
-        print(liker)
+        print(user["dog_liker"])
 
 
         if request.method == "POST":
@@ -104,12 +102,22 @@ def profile(username):
 
             mongo.db.users.update_one(
                 {"username": username},
-                {"$addToSet": {"dog_liker": session['user']}})
+                {"$addToSet": {"dog_liker": likers["dog_name"]}})
 
             return render_template(
                 "profile.html", username=username, user=user)
 
-        return render_template("profile.html", username=username, user=user, liker=liker)
+        for dogo in user["dog_liker"]:
+            print(likers["dog_name"])
+            print(dogo)
+            if likers["dog_name"] == dogo:
+                print("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + " " + dogo)
+                return render_template(
+                    "profile.html",
+                    username=username, user=user, dog_like=True)
+        return render_template(
+            "profile.html",
+            username=username, user=user, dog_like=False)
 
     return redirect(url_for('homepage'))
 
