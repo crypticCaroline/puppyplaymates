@@ -4,6 +4,7 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from flask_socketio import SocketIO, send, emit
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
@@ -11,10 +12,11 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 
-
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
+
+socketio = SocketIO(app)
 
 mongo = PyMongo(app)
 
@@ -184,10 +186,35 @@ def delete_profile():
     return render_template("delete_profile.html")
 
 
+@app.route('/woofchat', methods=["GET", "POST"])
+def woof_chat():
+    return render_template('woof_chat.html')
+
+
+def messageReceived(methods=['GET', 'POST']):
+    print('message was received!!!')
+
+
+@socketio.on('message')
+def handle_message(message):
+    send(message, namespace='/chat')
+
+
+@socketio.on('my event')
+def handle_my_custom_event(username, methods=['GET', 'POST']):
+    emit('my response', username=username, namespace='/chat')
+
+
+@socketio.on("event")
+def my_event(message):
+    print('my response', {'data': 'got it!'})
+
+
 if __name__ == "__main__":
-    app.run(host = os.environ.get("IP"),
-            port = int(os.environ.get("PORT")),
-            debug = True)
+    socketio.run(app,
+                 host=os.environ.get("IP"),
+                 port=int(os.environ.get("PORT")),
+                 debug=True)
 
 
 # @app.errorhandler(werkzeug.exceptions.BadRequest)
