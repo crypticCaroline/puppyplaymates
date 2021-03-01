@@ -29,21 +29,19 @@
   <p>{{ user.fertile}}</p>
   <p>{{ user.dog_liker }}</p>
   
-
-  {% if session.user != username %}
-  <form method="POST" action="{{ url_for('profile', username=username) }}">
-      {% if session.user != liker %}
-    <button type="submit" class="big-btn blue" value="like" id="liker_btn" name="liker_btn" >Like</button>
-
-   </form> 
-      {% else %}
+{% if session.user != username %}
+    <p>{{ dog_like }}</p>
+    {% if dog_like == True %}
     <form method="POST" action="{{ url_for('profile', username=username) }}">
-      <button type="submit" class="big-btn blue" value="unlike" id="unlike_btn" name="unlike_btn">Unlike</button>
-   </form>   
-    
-    {% endif %}
-
-  {% endif %}
+        <button type="submit" class="big-btn blue" value="unlike" id="unlike_btn" name="unlike_btn">Unlike</button>
+    </form>
+    {% else %}
+    <form method="POST" action="{{ url_for('profile', username=username) }}">
+        <button type="submit" class="big-btn blue" value="like" id="liker_btn" name="liker_btn">Like</button>
+    </form>
+ 
+    {% endif %}  
+{% endif %}     
   
 {% endblock %}
 
