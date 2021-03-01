@@ -79,7 +79,7 @@ def buildprofile(username):
 
             flash("Task Successfully Updated")
             return redirect(url_for("profile",  username=session[
-            "user"], user=user))
+                "user"], user=user))
 
         return render_template("buildprofile.html", username=session[
             "user"], user=user)
@@ -92,26 +92,33 @@ def profile(username):
     if session:
         user = mongo.db.users.find_one({"username": username})
         likers = mongo.db.users.find_one({"username": session['user']})
-        liker = mongo.db.users.find({}, {"dog_name": 1})
-        print(user["dog_liker"])
-
 
         if request.method == "POST":
             liker_btn = request.form.get("liker_btn")
+            unliker_btn = request.form.get("unliker_btn")
             print(liker_btn)
+            print(unliker_btn)
 
-            mongo.db.users.update_one(
-                {"username": username},
-                {"$addToSet": {"dog_liker": likers["dog_name"]}})
+            if liker_btn:
+                mongo.db.users.update_one(
+                    {"username": username},
+                    {"$addToSet": {"dog_liker": likers["dog_name"]}})
 
-            return render_template(
-                "profile.html", username=username, user=user)
+                return render_template(
+                    "profile.html", username=username, user=user,
+                    dog_like=True)
+
+            if unliker_btn:
+                mongo.db.users.update_one(
+                    {"username": username},
+                    {"$pull": {"dog_liker": likers["dog_name"]}})
+
+                return render_template(
+                    "profile.html", username=username, user=user,
+                    dog_like=False)
 
         for dogo in user["dog_liker"]:
-            print(likers["dog_name"])
-            print(dogo)
             if likers["dog_name"] == dogo:
-                print("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + " " + dogo)
                 return render_template(
                     "profile.html",
                     username=username, user=user, dog_like=True)
