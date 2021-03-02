@@ -4,7 +4,6 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from flask_socketio import SocketIO, send, emit
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
@@ -15,8 +14,6 @@ app = Flask(__name__)
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
-
-socketio = SocketIO(app)
 
 mongo = PyMongo(app)
 
@@ -94,6 +91,7 @@ def profile(username):
     if session:
         user = mongo.db.users.find_one({"username": username})
         likers = mongo.db.users.find_one({"username": session['user']})
+        dog_like = False
 
         if request.method == "POST":
             liker_btn = request.form.get("liker_btn")
@@ -106,27 +104,22 @@ def profile(username):
                     {"username": username},
                     {"$addToSet": {"dog_liker": likers["dog_name"]}})
 
-                return render_template(
-                    "profile.html", username=username, user=user,
-                    dog_like=True)
+                dog_like = True
 
             if unliker_btn:
                 mongo.db.users.update_one(
                     {"username": username},
                     {"$pull": {"dog_liker": likers["dog_name"]}})
 
-                return render_template(
-                    "profile.html", username=username, user=user,
-                    dog_like=False)
+                dog_like = False
 
         for dogo in user["dog_liker"]:
             if likers["dog_name"] == dogo:
-                return render_template(
-                    "profile.html",
-                    username=username, user=user, dog_like=True)
+                dog_like = True
+
         return render_template(
             "profile.html",
-            username=username, user=user, dog_like=False)
+            username=username, user=user, dog_like=dog_like)
 
     return redirect(url_for('homepage'))
 
@@ -191,30 +184,10 @@ def woof_chat():
     return render_template('woof_chat.html')
 
 
-def messageReceived(methods=['GET', 'POST']):
-    print('message was received!!!')
-
-
-@socketio.on('message')
-def handle_message(message):
-    send(message, namespace='/chat')
-
-
-@socketio.on('my event')
-def handle_my_custom_event(username, methods=['GET', 'POST']):
-    emit('my response', username=username, namespace='/chat')
-
-
-@socketio.on("event")
-def my_event(message):
-    print('my response', {'data': 'got it!'})
-
-
 if __name__ == "__main__":
-    socketio.run(app,
-                 host=os.environ.get("IP"),
-                 port=int(os.environ.get("PORT")),
-                 debug=True)
+    app.run(host=os.environ.get("IP"),
+            port=int(os.environ.get("PORT")),
+            debug=True)
 
 
 # @app.errorhandler(werkzeug.exceptions.BadRequest)
