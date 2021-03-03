@@ -96,6 +96,7 @@ def build_profile(username):
             "user"], user=user)
     return render_template("homepage.html")
 
+
 @app.route("/edit_profile/<username>", methods=["GET", "POST"])
 def edit_profile(username):
     if session:
@@ -126,6 +127,7 @@ def edit_profile(username):
             "user"], user=user)
     return render_template("homepage.html")
 
+
 @ app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
 
@@ -137,8 +139,6 @@ def profile(username):
         if request.method == "POST":
             liker_btn = request.form.get("liker_btn")
             unliker_btn = request.form.get("unliker_btn")
-            print(liker_btn)
-            print(unliker_btn)
 
             if liker_btn:
                 mongo.db.users.update_one(
@@ -243,8 +243,21 @@ def upload_image(username):
                     {"username": session["user"]},
                     {"$set": {"image_url": image_url}})
 
+        return redirect(url_for('profile_image', username=username))
+    return render_template("profile_image.html", username=username)
+
+
+@app.route("/profile/<username>/profile_image/", methods=["GET", "POST"])
+def profile_image(username):
+    user = mongo.db.users.find_one({"username": username})
+
+    if request.method == 'POST':
+        print(request.form.get('profile_photo'))
+        mongo.db.users.update_one(
+                    {"username": session["user"]},
+                    {"$set": {"image_url": request.form.get('profile_photo')}})
         return redirect(url_for('profile', username=username))
-    return render_template("upload_image.html", username=username)
+    return render_template("profile_image.html", username=username, user=user)
 
 
 @app.route('/woofchat', methods=["GET", "POST"])
