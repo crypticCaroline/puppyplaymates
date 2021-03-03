@@ -7,7 +7,7 @@
 <div class="nav-content">
     <ul id="nav-sub" class="left hide-on-med-and-down red accent-2 s12">
         <li><a href="{{ url_for('buildprofile', username=session['user'])}}">Edit Puppy</a></li>
-        <li><a href="#">Edit Prefernces</a></li>
+        <li><a href="{{ url_for('upload_image', username=session['user'])}}">Upload Images</a></li>
         <li><a href="#">Update Human</a></li>
     </ul>
 </div>
@@ -18,7 +18,7 @@
 {% block content %}
 
   <h1>{{ user.username }}</h1>
-  <h2>{{ user.dog_name}} Profile Page</h2>
+  <h2>{{ user.dog_name}} Profile Page <img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}"></h2>
   <p>{{ user.dog_description}}</p>
   <p>{{ user.dog_breed}}</p>
   <p>{{ user.dog_gender}}</p>
@@ -27,8 +27,13 @@
   <p>{{ user.dog_dob}}</p>
   <p>{{ user.puppy_love}}</p>
   <p>{{ user.fertile}}</p>
-  <p>{{ user.dog_liker }}</p>
-  <img src="{{ user.face_image }}" alt="">Image of {{ user.dog_name }}
+  {% for liker in user.dog_liker %}
+  <p>{{ liker }}</p>
+  {% endfor %}
+
+  {% for image in user.all_images  %}
+  <img src="{{image}}" alt="Image of {{ user.dog_name}}">
+  {% endfor %}
   
 {% if session.user != username %}
     <p>{{ dog_like }}</p>
