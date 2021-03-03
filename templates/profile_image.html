@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+
+{% if session.user == username %}
+<form action="{{ url_for('profile_image', username=username ) }}" method="POST" enctype="multipart/form-data">
+    
+    {% for image in user.all_images  %}
+    <p>
+        
+        <input type="radio" id="{{image}}" name="profile_photo" value="{{image}}" />
+        <label for="{{image}}"><img src="{{image}}" alt="Image of {{ user.dog_name}}"></label>
+    </p>
+    {% endfor %}
+    <button type="submit">Save</button>
+</form>
+
+<h3>Upload New Image</h3>
+<form action="{{ url_for('upload_image', username=username ) }}" method="POST" enctype="multipart/form-data">
+    <input type="file" name="image_file" />
+    <p>
+        <input type="checkbox" id="profile_check" name="profile_check" />
+        <label for="profile_check"> Make Profile Picture </label>
+    </p>
+    <button type="submit">Upload</button>
+</form>
+
+{% else %}
+<p>Bad Dog you can't edit another Pups Profile</p>
+<p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
+{% endif %}
+
+{% endblock %}
