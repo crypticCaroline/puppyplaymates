@@ -58,12 +58,12 @@ def register():
         # put the new user into 'session' cookie
         session["user"] = request.form.get("username")
         flash("Registration Successful!")
-        return redirect(url_for("buildprofile", username=session["user"]))
+        return redirect(url_for("build_profile", username=session["user"]))
     return render_template("register.html")
 
 
-@app.route("/buildprofile/<username>", methods=["GET", "POST"])
-def buildprofile(username):
+@app.route("/build_profile/<username>", methods=["GET", "POST"])
+def build_profile(username):
     if session:
 
         user = mongo.db.users.find_one({"username": username})
@@ -92,7 +92,7 @@ def buildprofile(username):
             return redirect(url_for("profile",  username=session[
                 "user"]))
 
-        return render_template("buildprofile.html", username=session[
+        return render_template("build_profile.html", username=session[
             "user"], user=user)
     return render_template("homepage.html")
 
