@@ -5,6 +5,10 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 if os.path.exists("env.py"):
     import env
 
@@ -14,6 +18,11 @@ app = Flask(__name__)
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
+cloudinary.config( 
+  cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"),
+  api_key = os.environ.get("CLOUDINARY_API_KEY"), 
+  api_secret = os.environ.get("CLOUDINARY_API_SECRET") 
+)
 
 mongo = PyMongo(app)
 
@@ -177,6 +186,26 @@ def delete_profile():
         flash("Category Successfully Removed")
         return redirect(url_for("homepage"))
     return render_template("delete_profile.html")
+
+
+@app.route("/profile/<username>/upload/", methods=["GET", "POST"])
+def upload_image(username):
+
+    if request.method == 'POST':
+        for item in request.files.getlist("image_file"):
+            filename = secure_filename(item.filename)
+            public_id = (username + '/' + filename)
+            cloudinary.uploader.unsigned_upload(
+                item, "puppy_image", cloud_name='puppyplaymates',
+                folder='/user_images/', public_id=public_id)
+            
+            # mongo.db.users.update_one(
+            #     {"username": session["user"]},
+            #     {"$set": {
+            #         "image_file": filename}})   #insert into database mongo db
+
+        return 'Image Upload Successfully'
+    return render_template("upload_image.html", username=username)
 
 
 @app.route('/woofchat', methods=["GET", "POST"])
