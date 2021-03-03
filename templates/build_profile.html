@@ -6,7 +6,7 @@
 
 <h3>Profile Edit for {{ username }}</h3>
 <div class="row">
-    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('buildprofile', username=session['user']) }}">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('build_profile', username=session['user']) }}">
         <div class="card-panel">
             <div class="row">
                 <div class="input-field col s12">
@@ -101,7 +101,8 @@
     </form>
 </div>
 {% else %}
-<h1>Barking up the wrong tree mate</h1>
+<p>Bad Dog you can't edit another Pups Profile</p>
+<p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
 {% endif %}
 
 
