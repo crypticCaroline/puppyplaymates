@@ -48,6 +48,10 @@ def register():
             "username": request.form.get("username"),
             "email": request.form.get("email"),
             "password": generate_password_hash(request.form.get("password")),
+            "dog_liker": [],
+            "image_url": 
+            "https://res.cloudinary.com/puppyplaymates/image/upload/dog_avatar_uskzh1.png",
+            "all_images": []
             }
         mongo.db.users.insert_one(register)
 
@@ -80,14 +84,13 @@ def buildprofile(username):
                     "dog_size": request.form.get("dog_size"),
                     "dog_dob": request.form.get("dog_dob"),
                     "puppy_love": puppy_love,
-                    "fertile": fertile,
-                    "dog_liker": []
+                    "fertile": fertile
                 }}
             )
 
             flash("Task Successfully Updated")
             return redirect(url_for("profile",  username=session[
-                "user"], user=user))
+                "user"]))
 
         return render_template("buildprofile.html", username=session[
             "user"], user=user)
@@ -194,20 +197,24 @@ def upload_image(username):
     if request.method == 'POST':
         for item in request.files.getlist("image_file"):
             filename = secure_filename(item.filename)
-            filename, file_extension = os.path.splitext('filename')
+            filename, file_extension = os.path.splitext(filename)
             public_id = (username + '/' + filename)
             cloudinary.uploader.unsigned_upload(
                 item, "puppy_image", cloud_name='puppyplaymates',
                 folder='/user_images/', public_id=public_id)
             image_url = (
                 "https://res.cloudinary.com/puppyplaymates/image/upload/user_images/"
-                + public_id)
+                + public_id + file_extension)
             mongo.db.users.update_one(
                 {"username": session["user"]},
-                {"$set": {
-                    "image_url": image_url}})   #insert into database mongo db
+                {"$addToSet": {"all_images": image_url}})
 
-        return 'Image Upload Successfully'
+            if request.form.get('profile_check'):
+                mongo.db.users.update_one(
+                    {"username": session["user"]},
+                    {"$set": {"image_url": image_url}})
+
+        return redirect(url_for('profile', username=username))
     return render_template("upload_image.html", username=username)
 
 
