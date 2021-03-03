@@ -3,8 +3,7 @@
 
 {% block content %}
 
-    <h3 class="bold">Search for you playmates
-    </h3>
+    <h3 class="bold">Search for you playmates</h3>
      <div class="row card-panel grey lighten-5">
         <form action="{{ url_for('search') }}" method="post" class="col s12">
             <div class="row valign-wrapper center-align">
@@ -24,7 +23,8 @@
     </div>
     
         {% for user in users %}
-            <h5><a href="{{url_for('profile', username=user.username)}}">{{ user.dog_name }}</a></h5>
+            <h5><img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}">
+            <a href="{{url_for('profile', username=user.username)}}">{{ user.dog_name }}</a></h5>
             <li><a href="#">{{ user.username }}</a></li>
         {% endfor %}
     
