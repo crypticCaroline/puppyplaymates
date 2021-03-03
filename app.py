@@ -194,15 +194,18 @@ def upload_image(username):
     if request.method == 'POST':
         for item in request.files.getlist("image_file"):
             filename = secure_filename(item.filename)
+            filename, file_extension = os.path.splitext('filename')
             public_id = (username + '/' + filename)
             cloudinary.uploader.unsigned_upload(
                 item, "puppy_image", cloud_name='puppyplaymates',
                 folder='/user_images/', public_id=public_id)
-            
-            # mongo.db.users.update_one(
-            #     {"username": session["user"]},
-            #     {"$set": {
-            #         "image_file": filename}})   #insert into database mongo db
+            image_url = (
+                "https://res.cloudinary.com/puppyplaymates/image/upload/user_images/"
+                + public_id)
+            mongo.db.users.update_one(
+                {"username": session["user"]},
+                {"$set": {
+                    "image_url": image_url}})   #insert into database mongo db
 
         return 'Image Upload Successfully'
     return render_template("upload_image.html", username=username)
