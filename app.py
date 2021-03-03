@@ -96,6 +96,35 @@ def buildprofile(username):
             "user"], user=user)
     return render_template("homepage.html")
 
+@app.route("/edit_profile/<username>", methods=["GET", "POST"])
+def edit_profile(username):
+    if session:
+
+        user = mongo.db.users.find_one({"username": username})
+        puppy_love = "WOOF WOOF" if request.form.get(
+            "puppy_love") else "Flying Solo"
+        fertile = "Had the Snip" if request.form.get(
+            "fertile") else "I got the goods"
+
+        if request.method == "POST":
+            mongo.db.users.update_one(
+                {"username": session["user"]},
+                {"$set": {
+                    "dog_description": request.form.get("dog_description"),
+                    "dog_location": request.form.get("dog_location"),
+                    "dog_size": request.form.get("dog_size"),
+                    "puppy_love": puppy_love,
+                    "fertile": fertile
+                }}
+            )
+
+            flash("Task Successfully Updated")
+            return redirect(url_for("profile",  username=session[
+                "user"]))
+
+        return render_template("edit_profile.html", username=session[
+            "user"], user=user)
+    return render_template("homepage.html")
 
 @ app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
