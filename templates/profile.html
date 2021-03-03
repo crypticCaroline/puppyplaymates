@@ -6,7 +6,7 @@
 {% if session.user == username %}
 <div class="nav-content">
     <ul id="nav-sub" class="left hide-on-med-and-down red accent-2 s12">
-        <li><a href="{{ url_for('buildprofile', username=session['user'])}}">Edit Puppy</a></li>
+        <li><a href="{{ url_for('edit_profile', username=session['user'])}}">Edit Puppy</a></li>
         <li><a href="{{ url_for('upload_image', username=session['user'])}}">Upload Images</a></li>
         <li><a href="#">Update Human</a></li>
     </ul>
