@@ -9,6 +9,7 @@ from werkzeug.utils import secure_filename
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import time
 if os.path.exists("env.py"):
     import env
 
@@ -132,8 +133,8 @@ def edit_profile(username):
 def profile(username):
 
     if session:
-        user = mongo.db.users.find_one({"username": username})
-        likers = mongo.db.users.find_one({"username": session['user']})
+        user_profile = mongo.db.users.find_one({"username": username})
+        user_session = mongo.db.users.find_one({"username": session['user']})
         dog_like = False
 
         if request.method == "POST":
@@ -141,28 +142,54 @@ def profile(username):
             unliker_btn = request.form.get("unliker_btn")
 
             if liker_btn:
-                mongo.db.users.update_one(
-                    {"username": username},
-                    {"$addToSet": {"dog_liker": likers["dog_name"]}})
-
-                dog_like = True
+                return redirect(url_for(
+                    'likes', username=username))
 
             if unliker_btn:
-                mongo.db.users.update_one(
-                    {"username": username},
-                    {"$pull": {"dog_liker": likers["dog_name"]}})
+                return redirect(url_for(
+                    'dislikes', username=username))
 
-                dog_like = False
-
-        for dogo in user["dog_liker"]:
-            if likers["dog_name"] == dogo:
+        for dogo in user_profile["dog_liker"]:
+            if user_session["dog_name"] == dogo:
                 dog_like = True
 
         return render_template(
             "profile.html",
-            username=username, user=user, dog_like=dog_like)
+            username=username, user_profile=user_profile,
+            user_session=user_session, dog_like=dog_like)
 
     return redirect(url_for('homepage'))
+
+
+@app.route("/profile/<username>/liker")
+def likes(username):
+    user_session = mongo.db.users.find_one({"username": session['user']})
+    mongo.db.users.update_one(
+        {"username": username},
+        {"$addToSet": {"dog_liker": user_session["dog_name"]}})
+
+    mongo.db.users.update_one(
+        {"username": user_session['username']},
+        {"$addToSet": {"dogs_liked": username}})
+
+    time.sleep(2)
+
+    return redirect(url_for('profile', username=username))
+
+
+@app.route('/profile/<username>/disliker')
+def dislikes(username):
+    user_session = mongo.db.users.find_one({"username": session['user']})
+    mongo.db.users.update_one(
+                    {"username": username},
+                    {"$pull": {"dog_liker": user_session["dog_name"]}})
+
+    mongo.db.users.update_one(
+        {"username": user_session['username']},
+        {"$pull": {"dogs_liked": username}})
+
+    time.sleep(2)
+    return redirect(url_for('profile', username=username))
 
 
 @app.route("/all_users")
@@ -213,8 +240,8 @@ def delete_profile():
 
     if request.method == "POST":
         user = mongo.db.users.find_one({"username": session["user"]})
+        session.pop("user")
         mongo.db.users.remove(user)
-        session.pop(session["user"])
         flash("Category Successfully Removed")
         return redirect(url_for("homepage"))
     return render_template("delete_profile.html")
