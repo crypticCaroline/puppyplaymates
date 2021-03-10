@@ -19,10 +19,10 @@ app = Flask(__name__)
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
-cloudinary.config( 
-  cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"),
-  api_key = os.environ.get("CLOUDINARY_API_KEY"), 
-  api_secret = os.environ.get("CLOUDINARY_API_SECRET") 
+cloudinary.config(
+    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET")
 )
 
 mongo = PyMongo(app)
@@ -49,11 +49,11 @@ def register():
             "username": request.form.get("username"),
             "email": request.form.get("email"),
             "password": generate_password_hash(request.form.get("password")),
-            "dog_liker": [],
-            "image_url": 
+            "dog_liker": [{"dog_name": "Puppy Playmates"}],
+            "image_url":
             "https://res.cloudinary.com/puppyplaymates/image/upload/dog_avatar_uskzh1.png",
             "all_images": []
-            }
+        }
         mongo.db.users.insert_one(register)
 
         # put the new user into 'session' cookie
@@ -68,10 +68,6 @@ def build_profile(username):
     if session:
 
         user = mongo.db.users.find_one({"username": username})
-        puppy_love = "WOOF WOOF" if request.form.get(
-            "puppy_love") else "Flying Solo"
-        fertile = "Had the Snip" if request.form.get(
-            "fertile") else "I got the goods"
 
         if request.method == "POST":
             mongo.db.users.update_one(
@@ -84,8 +80,8 @@ def build_profile(username):
                     "dog_location": request.form.get("dog_location"),
                     "dog_size": request.form.get("dog_size"),
                     "dog_dob": request.form.get("dog_dob"),
-                    "puppy_love": puppy_love,
-                    "fertile": fertile
+                    "puppy_love": request.form.get('puppy_love'),
+                    "fertile": request.form.get('fertile')
                 }}
             )
 
@@ -103,10 +99,6 @@ def edit_profile(username):
     if session:
 
         user = mongo.db.users.find_one({"username": username})
-        puppy_love = "WOOF WOOF" if request.form.get(
-            "puppy_love") else "Flying Solo"
-        fertile = "Had the Snip" if request.form.get(
-            "fertile") else "I got the goods"
 
         if request.method == "POST":
             mongo.db.users.update_one(
@@ -115,8 +107,8 @@ def edit_profile(username):
                     "dog_description": request.form.get("dog_description"),
                     "dog_location": request.form.get("dog_location"),
                     "dog_size": request.form.get("dog_size"),
-                    "puppy_love": puppy_love,
-                    "fertile": fertile
+                    "puppy_love": request.form.get('puppy_love'),
+                    "fertile": request.form.get('fertile')
                 }}
             )
 
@@ -137,6 +129,11 @@ def profile(username):
         user_session = mongo.db.users.find_one({"username": session['user']})
         dog_like = False
 
+        for dogs_like in user_profile["dog_liker"]:
+            dog_name = dogs_like['dog_name']
+            if user_session["dog_name"] == dog_name:
+                dog_like = True
+
         if request.method == "POST":
             liker_btn = request.form.get("liker_btn")
             unliker_btn = request.form.get("unliker_btn")
@@ -149,10 +146,6 @@ def profile(username):
                 return redirect(url_for(
                     'dislikes', username=username))
 
-        for dogo in user_profile["dog_liker"]:
-            if user_session["dog_name"] == dogo:
-                dog_like = True
-
         return render_template(
             "profile.html",
             username=username, user_profile=user_profile,
@@ -164,29 +157,44 @@ def profile(username):
 @app.route("/profile/<username>/liker")
 def likes(username):
     user_session = mongo.db.users.find_one({"username": session['user']})
+    user_profile = mongo.db.users.find_one({"username": username})
+
     mongo.db.users.update_one(
         {"username": username},
-        {"$addToSet": {"dog_liker": user_session["dog_name"]}})
+        {"$addToSet": {"dog_liker": {
+                       'user': user_session['_id'],
+                       'image_url': user_session['image_url'],
+                       'dog_name': user_session['dog_name'],
+                       'username': user_session['username']
+                       }}})
 
     mongo.db.users.update_one(
         {"username": user_session['username']},
-        {"$addToSet": {"dogs_liked": username}})
-
+        {"$addToSet": {"dogs_liked": {
+                       'user': user_profile['_id'],
+                       'image_url': user_profile['image_url'],
+                       'dog_name': user_profile['dog_name'],
+                       'username': user_profile['username']
+                       }}})
     time.sleep(2)
-
     return redirect(url_for('profile', username=username))
 
 
 @app.route('/profile/<username>/disliker')
 def dislikes(username):
     user_session = mongo.db.users.find_one({"username": session['user']})
-    mongo.db.users.update_one(
-                    {"username": username},
-                    {"$pull": {"dog_liker": user_session["dog_name"]}})
+    user_profile = mongo.db.users.find_one({"username": username})
+    print(user_session['_id'])
 
-    mongo.db.users.update_one(
+    mongo.db.users.update_many(
+        {"username": username},
+        {"$pull": {"dog_liker": {"user": ObjectId(user_session["_id"])}}})
+
+    mongo.db.users.update_many(
         {"username": user_session['username']},
-        {"$pull": {"dogs_liked": username}})
+        {"$pull": {"dogs_liked": {
+            'user': ObjectId(user_profile['_id'])
+        }}})
 
     time.sleep(2)
     return redirect(url_for('profile', username=username))
@@ -281,8 +289,8 @@ def profile_image(username):
     if request.method == 'POST':
         print(request.form.get('profile_photo'))
         mongo.db.users.update_one(
-                    {"username": session["user"]},
-                    {"$set": {"image_url": request.form.get('profile_photo')}})
+            {"username": session["user"]},
+            {"$set": {"image_url": request.form.get('profile_photo')}})
         return redirect(url_for('profile', username=username))
     return render_template("profile_image.html", username=username, user=user)
 
