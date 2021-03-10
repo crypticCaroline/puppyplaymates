@@ -2,14 +2,44 @@ html {
     color:red;
 }
 
-img {
+.profile_img {
     width: 100px;
     height: 100px;
     border-radius: 25px;
 }
 
-.images{
-    width: 100px;
-    height: 100px;
-    border-radius: 25px;
+/* Overlays hidden by default */
+#overlay_happy {
+    display: none; 
+}
+
+#overlay_angry {
+    display: none; 
+}
+
+.overlay {
+    width: min-content;  
+    top: 50%;
+    left: 50%;
+    background-color: rgba(223, 253, 250, 1);
+    z-index: 2; 
+    cursor: pointer; 
+    position: fixed; 
+}
+
+.text_overlay {
+    position: absolute;
+    font-size: 50px;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+
+.overlay_img {
+    width:60vh;
+    height:auto;
+    opacity: 100%;
+    
 }
