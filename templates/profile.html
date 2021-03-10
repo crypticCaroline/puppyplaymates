@@ -42,11 +42,38 @@
   <p>{{ user_profile.dog_dob}}</p>
   <p>{{ user_profile.puppy_love}}</p>
   <p>{{ user_profile.fertile}}</p>
-  {% for liker in user_profile.dog_liker %}
-  <p>{{ liker }}</p>
-  {% endfor %}
+  
+{% for liker in user_profile.dog_liker %}
+{% if liker.dog_name == "Puppy Playmates" %}
+{% else %}
+<div class="chip">
+    <img src="{{liker.image_url}}" alt="">
+    <a href="{{url_for('profile', username=liker.username)}}">{{liker.dog_name}}</a>
+</div>
+
+{% endif %}
+{% endfor %}
+
+
+{% if session.user != username %}
+{% if dog_like %}    
+    <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
+        <button type="submit" class="big-btn blue" value="unlike" id="unliker_btn" name="unliker_btn" onclick="overlay_angry()">Unlike</button>
+    </form>
+{% else %}
+    <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_like" >
+        <button type="submit" class="big-btn blue" value="like" id="liker_btn" name="liker_btn" onclick="overlay_happy()">Like</button>
+    </form>    
+{% endif %} 
+{% endif %}  
+
   {% for my_likes in user_profile.dogs_liked %}
-  <p>{{ my_likes }}</p>
+  <div class="chip">
+    <img src="{{my_likes.image_url}}" alt="">
+    <a href="{{url_for('profile', username=my_likes.username)}}">{{my_likes.dog_name}}</a>
+    
+</div>
+
   {% endfor %}
 
 
@@ -54,19 +81,7 @@
   <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="profile_img">
   {% endfor %}
   
-{% if session.user != username %}
-    <p>{{ dog_like }}</p>
-    {% if dog_like == True %}
-    <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
-        <button type="submit" class="big-btn blue" value="unlike" id="unliker_btn" name="unliker_btn" onclick="overlay_angry()">Unlike</button>
-    </form>
-    {% else %}
-    <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_like" >
-        <button type="submit" class="big-btn blue" value="like" id="liker_btn" name="liker_btn" onclick="overlay_happy()">Like</button>
-    </form>
  
-    {% endif %}  
-{% endif %}     
 
 {% include "includes/edit_profile.html" %} 
 
