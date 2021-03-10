@@ -20,10 +20,9 @@
                 </div>
             </div>
         </form>
-    </div>
-    
+    </div>    
         {% for user in users %}
-            <h5><img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}">
+            <h5><img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}" class="profile_img">
             <a href="{{url_for('profile', username=user.username)}}">{{ user.dog_name }}</a></h5>
             <li><a href="#">{{ user.username }}</a></li>
         {% endfor %}
