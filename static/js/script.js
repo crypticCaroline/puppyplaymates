@@ -24,12 +24,12 @@ function overlay_happy(){
   let form = document.getElementById('form_like')  
   console.log(form)
   like.style.display = "block";
-  setTimeout(function(){ form.submit('POST'); }, 3000)
+  setTimeout(function(){ form.submit( ); }, 3000)
 };
 
 function overlay_angry(){
   let form = document.getElementById('form_dislike')  
   console.log(form)  
   unlike.style.display = "block";
-  setTimeout(function(){ form.submit('POST'); }, 3000)
+  setTimeout(function(){ form.submit(); }, 3000)
 };
