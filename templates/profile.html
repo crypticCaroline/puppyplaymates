@@ -10,44 +10,63 @@
         <li><a href="{{ url_for('profile_image', username=session['user'])}}">Manage Images</a></li>
         <li><a href="#">Update Human</a></li>
     </ul>
-</div>
+</div> 
 {% endif %}
 
 {% endblock %}
            
 {% block content %}
+<div id="overlay_happy" class="overlay">
+    <div class="row">
+        <div class="text_overlay center-align">
+            <img src="{{ url_for('static', filename='images/happy-dog.gif') }}" class="overlay_img center-align" alt="gif of happy dog">
+            <h5 class="">You liked {{user_profile.username}} WOOF WOOF</h5>
+        </div>
+    </div>
+</div>
+<div id="overlay_angry" class="overlay">
+    <div class="text_overlay center-align">
+        <img src="{{ url_for('static', filename='images/sad-dog.gif') }}" class="overlay_img center-align" alt="gif of sad dog">
+        <h5 class="center-align">You disliked {{user_profile.username}}</h5>
+    </div>
+</div>
 
-  <h1>{{ user.username }}</h1>
-  <h2>{{ user.dog_name}} Profile Page <img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}"></h2>
-  <p>{{ user.dog_description}}</p>
-  <p>{{ user.dog_breed}}</p>
-  <p>{{ user.dog_gender}}</p>
-  <p>{{ user.dog_location}}</p>
-  <p>{{ user.dog_size}}</p>
-  <p>{{ user.dog_dob}}</p>
-  <p>{{ user.puppy_love}}</p>
-  <p>{{ user.fertile}}</p>
-  {% for liker in user.dog_liker %}
+  <h1>{{ user_profile.username }}</h1>
+  <h2>{{ user_profile.dog_name}} Profile Page <img src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}" class="profile_img"></h2>
+  <p>{{ user_profile.dog_description}}</p>
+  <p>{{ user_profile.dog_breed}}</p>
+  <p>{{ user_profile.dog_gender}}</p>
+  <p>{{ user_profile.dog_location}}</p>
+  <p>{{ user_profile.dog_size}}</p>
+  <p>{{ user_profile.dog_dob}}</p>
+  <p>{{ user_profile.puppy_love}}</p>
+  <p>{{ user_profile.fertile}}</p>
+  {% for liker in user_profile.dog_liker %}
   <p>{{ liker }}</p>
   {% endfor %}
+  {% for my_likes in user_profile.dogs_liked %}
+  <p>{{ my_likes }}</p>
+  {% endfor %}
 
-  {% for image in user.all_images  %}
-  <img src="{{image}}" alt="Image of {{ user.dog_name}}">
+
+  {% for image in user_profile.all_images  %}
+  <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="profile_img">
   {% endfor %}
   
 {% if session.user != username %}
     <p>{{ dog_like }}</p>
     {% if dog_like == True %}
-    <form method="POST" action="{{ url_for('profile', username=username) }}">
-        <button type="submit" class="big-btn blue" value="unlike" id="unliker_btn" name="unliker_btn">Unlike</button>
+    <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
+        <button type="submit" class="big-btn blue" value="unlike" id="unliker_btn" name="unliker_btn" onclick="overlay_angry()">Unlike</button>
     </form>
     {% else %}
-    <form method="POST" action="{{ url_for('profile', username=username) }}">
-        <button type="submit" class="big-btn blue" value="like" id="liker_btn" name="liker_btn">Like</button>
+    <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_like" >
+        <button type="submit" class="big-btn blue" value="like" id="liker_btn" name="liker_btn" onclick="overlay_happy()">Like</button>
     </form>
  
     {% endif %}  
 {% endif %}     
-  
+
+
 {% endblock %}
 
