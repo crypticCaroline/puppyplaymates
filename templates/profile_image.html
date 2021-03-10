@@ -9,7 +9,7 @@
     {% for image in user.all_images  %}
     <p>
         
-        <input type="radio" id="{{image}}" name="profile_photo" value="{{image}}" />
+        <input type="radio" id="{{image}}" name="profile_photo" value="{{image}}" class="images"/>
         <label for="{{image}}"><img src="{{image}}" alt="Image of {{ user.dog_name}}"></label>
     </p>
     {% endfor %}

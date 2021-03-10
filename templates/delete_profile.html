@@ -3,7 +3,7 @@
 
 {% block content %}
   <h1>Delete Profile</h1>
-  <form method="POST" action="{{ url_for('delete_profile')}}">
+  <form method="POST" action="{{ url_for('delete_profile', username=session['user'])}}">
   <p class="important">
     Are you sure you want to delete your profile this action can not be undone and all your information will be removed from our database
    </p>
