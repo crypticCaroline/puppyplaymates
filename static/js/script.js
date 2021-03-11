@@ -3,9 +3,10 @@ $(document).ready(function () {
     $('#textarea1').val('New Text');
     $('#textarea1').trigger('autoresize');
     $('select').material_select();
-     $('.chips').material_chip();
+    $('.chips').material_chip();
+    $('.collapsible').collapsible();
     $('.modal').modal({
-        inDuration: 500
+        // inDuration: 500
     });
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
