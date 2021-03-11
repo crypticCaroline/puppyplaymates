@@ -1,36 +1,54 @@
 <div id="edit_images" class="modal">
     <div class="modal-content">
+        <div class="row" id="upload_img">
+            <h3>Your Images</h3>
+            <div class="row">
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header">Upload New Image</div>
+                        <div class="collapsible-body">
+                            <div class="col s12"></div>
+                            <h3>Upload New Image</h3>
+                            <form action="{{ url_for('upload_image', username=username ) }}" method="POST"
+                                enctype="multipart/form-data">
+                                <input type="file" name="image_file" />
+                                <p>
+                                    <input type="checkbox" id="profile_check" name="profile_check" />
+                                    <label for="profile_check"> Make Profile Picture </label>
+                                </p>
+                                <button type="submit">Upload</button>
+                            </form>                            
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-{% if session.user == username %}
-<form action="{{ url_for('edit_images', username=username ) }}" method="POST" enctype="multipart/form-data">
-    
-    {% for image in user_profile.all_images  %}
-    <p>
-        
-        <input type="radio" id="{{image}}" name="profile_photo" value="{{image}}" class="images"/>
-        <label for="{{image}}"><img src="{{image}}" alt="Image of {{ user_profile.dog_name}}"></label>
-    </p>
-    {% endfor %}
-    <button type="submit">Save</button>
-</form>
+        {% if session.user == username %}
+        <form action="{{ url_for('edit_images', username=username ) }}" method="POST" enctype="multipart/form-data"
+            class="col s12 m10 offset-m1">
+            <div class="row">
 
-<h3>Upload New Image</h3>
-<form action="{{ url_for('upload_image', username=username ) }}" method="POST" enctype="multipart/form-data">
-    <input type="file" name="image_file" />
-    <p>
-        <input type="checkbox" id="profile_check" name="profile_check" />
-        <label for="profile_check"> Make Profile Picture </label>
-    </p>
-    <button type="submit">Upload</button>
-</form>
+            {% for image in user_profile.all_images  %}
+            <div class="col s3">
+                
+                <label for="{{image}}"><img src="{{image}}" alt="Image of {{ user_profile.dog_name}}"
+                        class="sm_img"><input type="radio" id="{{image}}" name="profile_photo" value="{{image}}" class="images" /></label>
+            </div>
+            {% endfor %}
+            </div>
+            <button type="submit">Save</button>
+        </form>
 
-{% else %}
-<p>Bad Dog you can't edit another Pups Profile</p>
-<p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
-{% endif %}
-
- </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        {% else %}
+        <div>
+        <p>Bad Dog you can't edit another Pups Profile</p>
+        <p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
+        {% endif %}
     </div>
+
+</div>
+<div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+</div>
 </div>
