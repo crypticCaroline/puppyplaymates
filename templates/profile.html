@@ -5,10 +5,10 @@
 
 {% if session.user == username %}
 <div class="nav-content">
-    <ul id="nav-sub" class="left hide-on-med-and-down red accent-2 s12">
-        <li><a data-target="edit_profile" class="modal-trigger" data-toggle="modal">Edit Puppy</a></li>
-        <li><a href="{{ url_for('profile_image', username=session['user'])}}">Manage Images</a></li>
-        <li><a href="#">Update Human</a></li>
+    <ul id="nav-sub" class="left  red accent-2 s12">
+        <li><a data-target="edit_profile" class="modal-trigger" data-toggle="modal" href="#edit_profile">Edit Puppy</a></li>
+        <li><a data-target="edit_human" data-toggle="modal" class="modal-trigger" href="#edit_images">Images</a></li>
+        <li><a data-target="edit_human" data-toggle="modal" class="modal-trigger" href="#edit_human">Update Human</a></li>
     </ul>
 </div> 
 
@@ -81,9 +81,11 @@
   <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="profile_img">
   {% endfor %}
   
- 
-
+  
+{% include "includes/edit_images.html" %} 
+{% include "includes/edit_human.html" %}
 {% include "includes/edit_profile.html" %} 
+
 
 {% endblock %}
 
