@@ -2,12 +2,22 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-  <h1>Delete Profile</h1>
-  <form method="POST" action="{{ url_for('delete_profile', username=session['user'])}}">
-  <p class="important">
-    Are you sure you want to delete your profile this action can not be undone and all your information will be removed from our database
-   </p>
-   <a href="{{ url_for('profile', username=session['user'])}}" class="btn blue">Take me back to my profile</a> 
-   <button class="red" type="submit">Delete my Profile</button>
+<div class="delete-page">
+    <h1>Delete Profile</h1>
+ <div class="row">
+  <div class="s8 col">
+  <h3 class="">
+    What ever your reason for needing to leave us we are sorry to see you go
+  </h3>
+   <form method="POST" action="{{ url_for('delete_profile', username=session['user'])}}">  
+   <a href="{{ url_for('profile', username=session['user'])}}" class="btn blue">Back to my profile</a> 
+   <a href="{{ url_for('build_profile', username=session['user'])}}" class="btn blue">Change Dog</a>
+   <p>This will remove the currents dogs profile and allow you to add a new dog</p>
+   <button  type="submit" class="btn">Delete my Profile</button>
+   <p>This can't be undone</p>
    </form>
+   </div>  
+   <img src="{{ url_for('static', filename='images/delete-dog.gif') }}" class="align-right s4 col">
+   </div>  
+</div>   
 {% endblock %}

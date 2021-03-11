@@ -33,7 +33,7 @@
 </div>
 
   <h1>{{ user_profile.username }}</h1>
-  <h2>{{ user_profile.dog_name}} Profile Page <img src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}" class="profile_img"></h2>
+  <h2>{{ user_profile.dog_name}} Profile Page <img src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}" class="sm_img"></h2>
   <p>{{ user_profile.dog_description}}</p>
   <p>{{ user_profile.dog_breed}}</p>
   <p>{{ user_profile.dog_gender}}</p>
@@ -78,7 +78,7 @@
 
 
   {% for image in user_profile.all_images  %}
-  <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="profile_img">
+  <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="sm_img">
   {% endfor %}
   
   
