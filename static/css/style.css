@@ -1,8 +1,8 @@
 
-.profile_img {
+.sm_img {
     width: 100px;
-    height: 100px;
-    border-radius: 25px;
+    height: auto;
+    border-radius: 3px;
 }
 
 /* Overlays hidden by default */
