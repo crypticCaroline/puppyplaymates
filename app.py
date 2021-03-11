@@ -98,7 +98,7 @@ def build_profile(username):
 def edit_profile(username):
     if session:
 
-        user = mongo.db.users.find_one({"username": username})
+        user_profile = mongo.db.users.find_one({"username": username})
 
         if request.method == "POST":
             mongo.db.users.update_one(
@@ -117,8 +117,75 @@ def edit_profile(username):
                 "user"]))
 
         return render_template("edit_profile.html", username=session[
-            "user"], user=user)
+            "user"], user_profile=user_profile)
     return render_template("homepage.html")
+
+
+@app.route("/edit_human/<username>", methods=["GET", "POST"])
+def edit_human(username):
+    if session:
+
+        user_profile = mongo.db.users.find_one({"username": username})
+
+        if request.method == "POST":
+            mongo.db.users.update_one(
+                {"username": session["user"]},
+                {"$set": {
+                    "human_name": request.form.get("human_name"),
+                    "human_description": request.form.get("human_description")
+                }}
+            )
+
+            flash("Task Successfully Updated")
+            return redirect(url_for("profile",  username=session[
+                "user"]))
+
+        return render_template("edit_human.html", username=session[
+            "user"], user_profile=user_profile)
+    return render_template("homepage.html")
+
+
+@app.route("/edit_images/<username>", methods=["GET", "POST"])
+def edit_images(username):
+    if session:
+        user_profile = mongo.db.users.find_one({"username": username})
+
+        if request.method == 'POST':
+            print(request.form.get('profile_photo'))
+            mongo.db.users.update_one(
+                {"username": session["user"]},
+                {"$set": {"image_url": request.form.get('profile_photo')}})
+            return redirect(url_for('profile', username=username))
+        return render_template("profile.html", username=session[
+            "user"], user_profile=user_profile)
+    return render_template("homepage.html")
+
+
+@app.route("/edit_images/<username>/upload/", methods=["GET", "POST"])
+def upload_image(username):
+
+    if request.method == 'POST':
+        for item in request.files.getlist("image_file"):
+            filename = secure_filename(item.filename)
+            filename, file_extension = os.path.splitext(filename)
+            public_id = (username + '/' + filename)
+            cloudinary.uploader.unsigned_upload(
+                item, "puppy_image", cloud_name='puppyplaymates',
+                folder='/user_images/', public_id=public_id)
+            image_url = (
+                "https://res.cloudinary.com/puppyplaymates/image/upload/user_images/"
+                + public_id + file_extension)
+            mongo.db.users.update_one(
+                {"username": session["user"]},
+                {"$addToSet": {"all_images": image_url}})
+
+            if request.form.get('profile_check'):
+                mongo.db.users.update_one(
+                    {"username": session["user"]},
+                    {"$set": {"image_url": image_url}})
+
+        return redirect(url_for('edit_images', username=username))
+    return render_template("edit_images.html", username=username)
 
 
 @ app.route("/profile/<username>", methods=["GET", "POST"])
@@ -255,44 +322,7 @@ def delete_profile():
     return render_template("delete_profile.html")
 
 
-@app.route("/profile/<username>/upload/", methods=["GET", "POST"])
-def upload_image(username):
 
-    if request.method == 'POST':
-        for item in request.files.getlist("image_file"):
-            filename = secure_filename(item.filename)
-            filename, file_extension = os.path.splitext(filename)
-            public_id = (username + '/' + filename)
-            cloudinary.uploader.unsigned_upload(
-                item, "puppy_image", cloud_name='puppyplaymates',
-                folder='/user_images/', public_id=public_id)
-            image_url = (
-                "https://res.cloudinary.com/puppyplaymates/image/upload/user_images/"
-                + public_id + file_extension)
-            mongo.db.users.update_one(
-                {"username": session["user"]},
-                {"$addToSet": {"all_images": image_url}})
-
-            if request.form.get('profile_check'):
-                mongo.db.users.update_one(
-                    {"username": session["user"]},
-                    {"$set": {"image_url": image_url}})
-
-        return redirect(url_for('profile_image', username=username))
-    return render_template("profile_image.html", username=username)
-
-
-@app.route("/profile/<username>/profile_image/", methods=["GET", "POST"])
-def profile_image(username):
-    user = mongo.db.users.find_one({"username": username})
-
-    if request.method == 'POST':
-        print(request.form.get('profile_photo'))
-        mongo.db.users.update_one(
-            {"username": session["user"]},
-            {"$set": {"image_url": request.form.get('profile_photo')}})
-        return redirect(url_for('profile', username=username))
-    return render_template("profile_image.html", username=username, user=user)
 
 
 @app.route('/woofchat', methods=["GET", "POST"])
