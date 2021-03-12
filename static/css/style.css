@@ -1,3 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,800&display=swap');
+
+
+html,
+body {
+ height: 100%;
+ position: relative;
+}
+
+body {
+  display: flex;
+  flex-direction: column; /* creates rows out of the elements main and footer */
+  height: 100vh; 
+  margin:0;
+  padding-top: 10%;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.075rem;
+}
+
+#content {
+  flex: 1 0 auto; /* allows the content to grow but not shrink */
+}
+
+nav{
+    top:0;
+}
+
+.nav-bar-col {
+    background-color: #ffe26d;
+    
+}
+
+.nav-bar-txt{
+    color:#ffffff;
+    position: absolute;
+    display: inline-block;
+    font-size: 2.5rem;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    padding-right: 0.40%;
+    padding-left: 0.60%;
+}
+
+.nav_item {
+    font-size: 1.4rem;
+}
+
+
 
 .sm_img {
     width: 100px;
@@ -43,3 +92,11 @@
 .delete-page {
     background-color: #4cbf9a;
 }
+
+#footer{
+-webkit-box-shadow: 0 -2px 2px 0 rgb(0 0 0 / 14%), 0 -1px 5px 0 rgb(0 0 0 / 12%), 0 -3px 1px -2px rgb(0 0 0 / 20%);
+-moz-box-shadow: 0 -2px 2px 0 rgb(0 0 0 / 14%), 0 -1px 5px 0 rgb(0 0 0 / 12%), 0 -3px 1px -2px rgb(0 0 0 / 20%);
+box-shadow: 0 -2px 2px 0 rgb(0 0 0 / 14%), 0 -1px 5px 0 rgb(0 0 0 / 12%), 0 -3px 1px -2px rgb(0 0 0 / 20%);
+margin-bottom: 0;
+}
+
