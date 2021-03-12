@@ -5,6 +5,7 @@ html,
 body {
  height: 100%;
  position: relative;
+ background-color: #fffefe;
 }
 
 body {
@@ -12,18 +13,21 @@ body {
   flex-direction: column; /* creates rows out of the elements main and footer */
   height: 100vh; 
   margin:0;
-  padding-top: 10%;
   font-family: 'Montserrat', sans-serif;
-  letter-spacing: 0.075rem;
+  letter-spacing: 0.020rem;
 }
 
 #content {
   flex: 1 0 auto; /* allows the content to grow but not shrink */
 }
 
-nav{
+#header{
     top:0;
+    position:sticky;
+    margin-bottom: 8%;
+    z-index: 2;
 }
+
 
 .nav-bar-col {
     background-color: #ffe26d;
@@ -46,13 +50,62 @@ nav{
     font-size: 1.4rem;
 }
 
+.btn-style {
+    background-color: #ffe26d;
+    position: absolute; 
+    bottom: 0px; 
+    width: 100%;
+    margin-right:0;
+    font-weight: 700;
+}
 
+.btn-style:hover {
+    background-color:  #333b5d;
+}
+
+form {
+    margin-bottom: 10%;
+}
+
+.row {
+  display: flex; 
+}
+
+.row.flush {
+    margin: 0px;
+}
+
+.heading {
+    font-weight: 600;
+    letter-spacing: 0.025rem;
+    color:#333b5d;
+}
 
 .sm_img {
     width: 100px;
     height: auto;
     border-radius: 3px;
 }
+
+.align-center {
+    text-align: center;
+}
+
+.form-popout {
+    -moz-box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
+    -webkit-box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
+    box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
+    overflow:hidden;
+    position: relative;
+    margin-bottom: 1.25%;
+    background-color: #ffffff;
+}
+
+.group-col {
+    background-color: #fec2b3;
+}
+
+
 
 /* Overlays hidden by default */
 #overlay_happy {
