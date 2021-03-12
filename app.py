@@ -170,10 +170,10 @@ def upload_image(username):
             filename, file_extension = os.path.splitext(filename)
             public_id = (username + '/' + filename)
             cloudinary.uploader.unsigned_upload(
-                item, "puppy_image", cloud_name='puppyplaymates',
+                item, "puppy_image", cloud_name='puppyplaymate',
                 folder='/user_images/', public_id=public_id)
             image_url = (
-                "https://res.cloudinary.com/puppyplaymates/image/upload/user_images/"
+                "https://res.cloudinary.com/puppyplaymate/image/upload/user_images/"
                 + public_id + file_extension)
             mongo.db.users.update_one(
                 {"username": session["user"]},
