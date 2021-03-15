@@ -4,88 +4,125 @@
 {% block nav %}
 
 {% if session.user == username %}
-<div class="nav-content">
-    <ul id="nav-sub" class="left  red accent-2 s12">
-        <li><a data-target="edit_profile" class="modal-trigger" data-toggle="modal" href="#edit_profile">Edit Puppy</a></li>
-        <li><a data-target="edit_human" data-toggle="modal" class="modal-trigger" href="#edit_images">Images</a></li>
-        <li><a data-target="edit_human" data-toggle="modal" class="modal-trigger" href="#edit_human">Update Human</a></li>
-    </ul>
-</div> 
+<div class="row flush dark-blue">
+    <div class="nav-content s12">
+        <ul id="nav-sub" class="left s12">
+            <li><a data-target="edit_profile" class="modal-trigger" data-toggle="modal" href="#edit_profile">Edit
+                    Puppy</a></li>
+            <li><a data-target="edit_human" data-toggle="modal" class="modal-trigger" href="#edit_images">Images</a>
+            </li>
+            <li><a data-target="edit_human" data-toggle="modal" class="modal-trigger" href="#edit_human">Update
+                    Human</a></li>
+        </ul>
+    </div>
+</div>
 
 {% endif %}
 
 {% endblock %}
-           
+
 {% block content %}
 <div id="overlay_happy" class="overlay">
     <div class="row">
         <div class="text_overlay center-align">
-            <img src="{{ url_for('static', filename='images/happy-dog.gif') }}" class="overlay_img center-align" alt="gif of happy dog">
+            <img src="{{ url_for('static', filename='images/happy-dog.gif') }}" class="overlay_img center-align"
+                alt="gif of happy dog">
             <h5 class="">You liked {{user_profile.username}} WOOF WOOF</h5>
         </div>
     </div>
 </div>
 <div id="overlay_angry" class="overlay">
     <div class="text_overlay center-align">
-        <img src="{{ url_for('static', filename='images/sad-dog.gif') }}" class="overlay_img center-align" alt="gif of sad dog">
+        <img src="{{ url_for('static', filename='images/sad-dog.gif') }}" class="overlay_img center-align"
+            alt="gif of sad dog">
         <h5 class="center-align">You disliked {{user_profile.username}}</h5>
     </div>
 </div>
+<section class="prints">
+    <div class="container">
+        <div class="row">
+            <div class="form-popout col s12 m5">
 
-  <h1>{{ user_profile.username }}</h1>
-  <h2>{{ user_profile.dog_name}} Profile Page <img src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}" class="sm_img"></h2>
-  <p>{{ user_profile.dog_description}}</p>
-  <p>{{ user_profile.dog_breed}}</p>
-  <p>{{ user_profile.dog_gender}}</p>
-  <p>{{ user_profile.dog_location}}</p>
-  <p>{{ user_profile.dog_size}}</p>
-  <p>{{ user_profile.dog_dob}}</p>
-  <p>{{ user_profile.puppy_love}}</p>
-  <p>{{ user_profile.fertile}}</p>
-  
-{% for liker in user_profile.dog_liker %}
-{% if liker.dog_name == "Puppy Playmates" %}
-{% else %}
-<div class="chip">
-    <img src="{{liker.image_url}}" alt="">
-    <a href="{{url_for('profile', username=liker.username)}}">{{liker.dog_name}}</a>
-</div>
+                <h2>{{ user_profile.dog_name}} </h2>
+                {% if session.user != username %}
+                {% if dog_like %}
+                <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
+                    <button type="submit" class="big-btn blue" value="unlike" id="unliker_btn" name="unliker_btn"
+                        onclick="overlay_angry()">Unlike</button>
+                </form>
+                {% else %}
+                <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_like">
+                    <button type="submit" class="big-btn blue" value="like" id="liker_btn" name="liker_btn"
+                        onclick="overlay_happy()">Like</button>
+                </form>
+                {% endif %}
+                {% endif %}
+                <div class="img-wrapper">
+                <img src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}" class="profile-image">
+                </div>
+                <p>{{ user_profile.dog_description}}</p>
+                <p>{{ user_profile.dog_breed}}</p>
+                <p>{{ user_profile.dog_gender}}</p>
+                <p>{{ user_profile.dog_location}}</p>
+                <p>{{ user_profile.dog_size}}</p>
+                <p>{{ user_profile.dog_dob}}</p>
+                <p>{{ user_profile.puppy_love}}</p>
+                <p>{{ user_profile.fertile}}</p>
 
-{% endif %}
-{% endfor %}
+            </div>
+            <div class="col s12 m6 offset m1">
+                <div class="row">
+                    <div class="form-popout col s12">
+                        <h4>Photos of {{ user_profile.dog_name}}</h4>
+                        {% for image in user_profile.all_images  %}
+                        <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="sm_img">
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-popout col s12">
+                        <h5>My admirers</h5>
+                        {% for liker in user_profile.dog_liker %}
+                        {% if liker.dog_name == "Puppy Playmates" %}
+                        {% else %}
+                        <div class="chip">
+                            <img src="{{liker.image_url}}" alt="">
+                            <a href="{{url_for('profile', username=liker.username)}}">{{liker.dog_name}}</a>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-popout col s12">
+                        <h5>Pups I like</h5>
+                        {% for my_likes in user_profile.dogs_liked %}
+                        <div class="chip">
+                            <img src="{{my_likes.image_url}}" alt="">
+                            <a href="{{url_for('profile', username=my_likes.username)}}">{{my_likes.dog_name}}</a>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
 
 
-{% if session.user != username %}
-{% if dog_like %}    
-    <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
-        <button type="submit" class="big-btn blue" value="unlike" id="unliker_btn" name="unliker_btn" onclick="overlay_angry()">Unlike</button>
-    </form>
-{% else %}
-    <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_like" >
-        <button type="submit" class="big-btn blue" value="like" id="liker_btn" name="liker_btn" onclick="overlay_happy()">Like</button>
-    </form>    
-{% endif %} 
-{% endif %}  
-
-  {% for my_likes in user_profile.dogs_liked %}
-  <div class="chip">
-    <img src="{{my_likes.image_url}}" alt="">
-    <a href="{{url_for('profile', username=my_likes.username)}}">{{my_likes.dog_name}}</a>
-    
-</div>
-
-  {% endfor %}
+        </div>
+            </div>
+        <div class="row">
+            <div class="form-popout col s12 ">
+                <h6>My Human</h6>
+                <p>{{ user_profile.human_name}}</p>
+                <p>{{ user_profile.human_description}}</p>
+            </div>
+        </div>
+    </div>
 
 
-  {% for image in user_profile.all_images  %}
-  <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="sm_img">
-  {% endfor %}
-  
-  
-{% include "includes/edit_images.html" %} 
-{% include "includes/edit_human.html" %}
-{% include "includes/edit_profile.html" %} 
+    {% include "includes/edit_images.html" %}
+    {% include "includes/edit_human.html" %}
+    {% include "includes/edit_profile.html" %}
 
-
+</section>
 {% endblock %}
-
