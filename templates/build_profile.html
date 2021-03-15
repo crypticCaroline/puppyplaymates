@@ -2,104 +2,127 @@
 {% block title %}Building Profile{% endblock %}
 
 {% block content %}
-{% if session.user == user.username %} 
+{% if session.user == user.username %}
 
-<h3>Profile Edit for {{ username }}</h3>
-<div class="row">
-    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('build_profile', username=session['user']) }}">
-        <div class="card-panel">
+
+<div class="container">
+    <div class=" form-popout">
+        <form class="col s12 m8 offset-m2" method="POST"
+            action="{{ url_for('build_profile', username=session['user']) }}">
             <div class="row">
+                <h3 class="align-center col s12 heading">Enter Dog Details</h3>
+            </div>
+            <div class="small-form">            
+            <div class="row flush">
                 <div class="input-field col s12">
-                    <i class="fas fa-user-plus prefix light-blue-text text-darken-4"></i>
-                    <input type="text" id="dog_name" name="dog_name" class="validate" min-length="2" maxlength="15"
-                        pattern="^[a-zA-Z0-9]{2,15}$" value="{{user.dog_name}}" required>
-                    <label for="dog_name">Puppy Name</label>
+                    <input type="text" id="dog_name" name="dog_name" class="validate form-indent" min-length="2"
+                        maxlength="15" pattern="^[a-zA-Z0-9]{2,15}$" value="{{user.dog_name}}" required>
+                    <label for="dog_name" class="form-indent">Puppy Name</label>
                 </div>
             </div>
-            <div class="row">
+
+            <div class="row flush">
                 <div class="input-field col s12">
-                    <i class="fas fa-user-lock prefix light-blue-text text-darken-4"></i>
-                    <textarea id="dog_description" type="text" name="dog_description"
-                        class="validate materialize-textarea" min-length="5" maxlength="100"  required>{{user.dog_description}}</textarea>
-                    <label for="dog_description">Description</label>
+                    <input id="dog_breed" type="text" name="dog_breed" class="validate form-indent"
+                        value="{{user.dog_breed}}" min-length="5" maxlength="30">
+                    <label for="dog_breed" class="form-indent">Breed</label>
                 </div>
             </div>
-            <div class="row">
-                <label for="dog_gender" class="col s12">Gender</label>
-                <div class="col s12">
-                    <div class="row">
-                        <p class="col s6">
-                            <input type="radio" id="dog_gender_f" name="dog_gender" class="with-gap" value="Female">
-                            <label for="dog_gender_f">Female</label>
-                        </p>
-                        <p class="col s6">
-                            <input type="radio" id="dog_gender_m" name="dog_gender" class="with-gap" value="Male">
-                            <label for="dog_gender_m">Male</label>
-                        </p>
+            <div class="row flush">
+                <div class="input-field col s12">
+                    <input type="text" id="dog_location" name="dog_location" class="validate form-indent"
+                        value="{{user.dog_location}}" min-length="2" maxlength="40" pattern="^[a-zA-Z0-9]{2,40}$">
+                    <label for="dog_location" class="form-indent">Home Town</label>
+                </div>
+            </div>
+            <div class="row flush">
+                <div class="col s12 ">
+                    <label for="dog_size" class="form-indent">Size of Dog</label>
+                    <select name="dog_size" class="form-indent">
+                        <option selected>Small</option>
+                        <option>Medium </option>
+                        <option>Large</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row flush">
+                <div class="form-indent col s12">
+                    <label for="dog_dob" class="form-indent">Date of Birth</label>
+                </div>
+            </div>
+            <div class="row flush">
+                <div class="form-indent col s12">
+                    <input id="due_dob" name="dog_dob" type="date" class="validate form-indent" value="{{user.dog_dob}}"
+                        required>
+                </div>
+            </div>
+            <div class="row flush">
+                <div class="form-indent col s12">
+                    <label for="dog_gender" class="form-indent">Gender</label>
+                </div>
+            </div>
+            <div class="row flush">
+                <p class="col s12 form-indent">
+                    <input type="radio" id="dog_gender_f" name="dog_gender" class="with-gap form-indent" value="Female">
+                    <label for="dog_gender_f" class="form-indent">Female</label>
+                </p>
+            </div>
+            <div class="row flush">
+                <p class="col s12 form-indent">
+                    <input type="radio" id="dog_gender_m" name="dog_gender" class="with-gap form-indent" value="Male">
+                    <label for="dog_gender_m" class="form-indent">Male</label>
+                </p>
+            </div>
+            <div class="row flush">
+                <div class="col s12 form-indent">
+                    <h6 class="form-indent">Is the pup Nutured/Spade</h6>
+                    <div class="switch form-indent">
+                        <label>
+                            No
+                            <input type="checkbox" name="fertile">
+                            <span class="lever"></span>
+                            Yes
+                        </label>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-user-lock prefix light-blue-text text-darken-4"></i>
-                    <input id="dog_breed" type="text" name="dog_breed" class="validate" value="{{user.dog_breed}}"  min-length="5" maxlength="30">
-                    <label for="dog_breed">Breed</label>
+            <div class="row flush">
+                <div class="col s12 form-indent">
+                    <h6 class="form-indent">Looking for Puppy Love</h6>
+                    <div class="switch form-indent">
+                        <label>
+                            No
+                            <input type="checkbox" name="puppy_love">
+                            <span class="lever"></span>
+                            WOOF WOOF
+                        </label>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-user-plus prefix light-blue-text text-darken-4"></i>
-                    <input type="text" id="dog_location" name="dog_location" class="validate" value="{{user.dog_location}}"  min-length="2" maxlength="40"
-                        pattern="^[a-zA-Z0-9]{2,40}$">
-                    <label for="dog_location">Home Town</label>
+            <div class="row flush">
+                <div class="col s12">
+                <label for="dog_description" class="form-indent">Bio</label>
                 </div>
             </div>
-            <div class="input-field col s12">
-                <select name="dog_size">
-                    <option value="{{user.dog_size}}"  selected>What is your Pup Size</option>
-                    <option >Small</option>
-                    <option >Medium </option>
-                    <option >Large</option>
-                </select>
-                <label>Pup Size</label>
+            <div class="row flush">
+                <div class=" col s12">
+                    <textarea id="dog_description" type="text" name="dog_description"
+                        class="validate materialize-textarea form-indent" min-length="5" maxlength="100"
+                        required>{{user.dog_description}}</textarea>                    
+                </div>                
             </div>
-            <div class="row">
-                <label for="dog_dob" class="col s12">Date of Birth</label>
-                <div class="input-field col s12">
-                    <i class="fas fa-calendar-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="due_dob" name="dog_dob" type="date" class="validate" value="{{user.dog_dob}}"  required>
-                </div>
             </div>
-            <div class="row">
-                <h6>Is the pup Nutured/Spade</h6>
-                <div class="switch">
-                    <label>
-                        No
-                        <input type="checkbox" name="fertile">
-                        <span class="lever"></span>
-                        Yes
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <h6>Looking for Puppy Love</h6>
-                <div class="switch">
-                    <label>
-                        No
-                        <input type="checkbox" name="puppy_love">
-                        <span class="lever"></span>
-                        WOOF WOOF
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <button type="submit" class="co s12 btn-large light-blue darken-4 text-shadow">
-                    Register <i class="fas fa-sign-in-alt"></i>
+            <div class="row flush">
+                <button type="submit" class=" btn-large btn-style align-center col s12">
+                    Submit
                 </button>
             </div>
-        </div>
     </form>
 </div>
+
+</div>
+
+
 {% else %}
 <p>Bad Dog you can't edit another Pups Profile</p>
 <p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
