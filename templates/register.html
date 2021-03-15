@@ -14,43 +14,46 @@
             </div>
             <div class="col s9 m7">
                 <h3 class="align-center heading">Create Account</h3>
-                <p><small>Please create a username and password for yourself, you will be able to add your dogs name in a moment</small></p> 
-            <form method="POST" action="{{ url_for('register')}}">                            
-                    <div class="row flush">
+                <p><small>Please create a username and password for yourself, you will be able to add your dogs name in
+                        a moment</small></p>
+                <form method="POST" action="{{ url_for('register')}}">
+                    <div class="row flush input-div">
                         <div class="input-field col s12">
                             <input type="text" id="username" name="username" class="validate" min-length="5"
                                 maxlength="15" pattern="^[a-zA-Z0-9 !?/]]{5,15}$" required>
                             <label for="username">Username</label>
                         </div>
                     </div>
-                    <div class="row flush ">
+                    <div class="row flush input-div">
                         <div class="input-field col s12 ">
                             <input type="email" id="email" name="email" class="validate" required>
                             <label for="username">Email</label>
                         </div>
                     </div>
-                    <div class="row flush ">  
+                    <div class="row flush input-div">
                         <div class="input-field col s12">
                             <input id="password" type="password" name="password" class="validate" min-length="5"
                                 pattern="^[a-zA-Z0-9]{5,15}$" maxlength="15" required>
                             <label for="password">Password</label>
-                            
+
                         </div>
                     </div>
                     <div class="row">
-                        <p class="col s12"><small>Passwords must be at least 5 characters long and include a mixture of numbers, letters and a special character</small></p>
+                        <p class="col s12"><small>Passwords must be at least 5 characters long and include a mixture of
+                                numbers, letters and a special character</small></p>
                     </div>
                     <div class="row">
                         <button type="submit" class=" btn-large btn-style align-center col s9 m7">
-                            Register 
+                            Register
                         </button>
-                    </div>                
-            </form>
-            </div>            
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <div class="row">
-        <p class="col s12 align-center "><a href="{{ url_for('login')}}" class="align-center">Already have an account?</a></p>
+        <p class="col s12 align-center "><a href="{{ url_for('login')}}" class="align-center">Already have an
+                account?</a></p>
     </div>
 </div>
 {% endblock %}
