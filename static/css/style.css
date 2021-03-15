@@ -144,15 +144,25 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
 
 }
 
-.prints {
+/* .prints {
     background-image:url('/static/images/prints.png');
     background-repeat: repeat;
     z-index: -1;
-}
+} */
 
 
 .select-wrapper span.caret {
     display: none;
+}
+
+.img-wrapper {
+    height: min-content;
+    border: #333b5d solid 3px;
+}
+.profile-image {
+    height: 50vh;
+    width: 100%;
+    object-fit: cover;
 }
 
 
@@ -164,6 +174,7 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
 #overlay_angry {
     display: none; 
 }
+
 
 .overlay {
     width: min-content;  
