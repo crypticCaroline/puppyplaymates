@@ -34,6 +34,10 @@ body {
     
 }
 
+.dark-blue {
+    background-color: #333b5d;
+}
+
 .nav-bar-txt{
     color:#ffffff;
     position: absolute;
@@ -75,10 +79,15 @@ form {
     margin: 0px;
 }
 
-.heading {
+.heading, .sub-heading {
     font-weight: 600;
     letter-spacing: 0.025rem;
     color:#333b5d;
+    padding-bottom: 5%;
+}
+
+.sub-heading {
+    padding-bottom: 0.5%;
 }
 
 .sm_img {
@@ -101,10 +110,50 @@ form {
     background-color: #ffffff;
 }
 
+.small-form {
+    
+    margin: 5rem 3rem 0rem 3rem;
+}
+
+.input-div:nth-last-child(2){
+    padding-bottom: 8%;
+}
+
 .group-col {
     background-color: #fec2b3;
 }
 
+.login-dog {
+    background-color:#e8e7dd;
+
+}
+
+.input-field, .form-indent, input[type=text]:not(.browser-default).form-indent, input[type=date]:not(.browser-default).form-indent, textarea.materialize-textarea {
+    margin-right: 3rem;
+    margin-left: 3rem;    
+    margin-bottom: 1rem;
+    width: 95%;
+}
+
+textarea.materialize-textarea {
+    border: dashed yellow 1px;
+}
+
+input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select-dropdown{
+    width: 30%;
+
+}
+
+.prints {
+    background-image:url('/static/images/prints.png');
+    background-repeat: repeat;
+    z-index: -1;
+}
+
+
+.select-wrapper span.caret {
+    display: none;
+}
 
 
 /* Overlays hidden by default */
@@ -151,5 +200,6 @@ form {
 -moz-box-shadow: 0 -2px 2px 0 rgb(0 0 0 / 14%), 0 -1px 5px 0 rgb(0 0 0 / 12%), 0 -3px 1px -2px rgb(0 0 0 / 20%);
 box-shadow: 0 -2px 2px 0 rgb(0 0 0 / 14%), 0 -1px 5px 0 rgb(0 0 0 / 12%), 0 -3px 1px -2px rgb(0 0 0 / 20%);
 margin-bottom: 0;
+margin-top: 5%;
 }
 
