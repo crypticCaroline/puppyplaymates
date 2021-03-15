@@ -2,30 +2,46 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-  <div class="row">
-    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('login')}}">
-        <div class="card-panel">
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-user-plus prefix light-blue-text text-darken-4"></i>
-                    <input type="text" id="username" name="username" class="validate" required >
-                    <label for="username">Username</label>
+<div class="container">
+    <h2 class="heading align-center">Welcome back!</h2>
+    <div class=" form-popout">
+        <div class="row flush">
+            <div class="col s3 m5 login-dog valign-wrapper">
+                <div class="row">
+                    <img src="{{ url_for('static', filename='images/waiting-dog.gif') }}"
+                        class="align-center col s12 m10 offset-m1">
                 </div>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-user-lock prefix light-blue-text text-darken-4"></i>
-                    <input id="password" type="password" name="password" class="validate" min-length="5"
-                    pattern="^[a-zA-Z0-9]{5,15}$" maxlength="15" required>
-                    <label for="password">Password</label>
-                </div>
+            <div class="col s9 m7">
+                <h3 class="align-center sub-heading">Login</h3>
+                <form method="POST" action="{{ url_for('login')}}">
+                    <div class="row flush input-div">
+                        <div class="input-field col s12">
+                            <input type="text" id="username" name="username" class="validate" min-length="5"
+                                maxlength="15" pattern="^[a-zA-Z0-9 !?/]]{5,15}$" required>
+                            <label for="username">Username</label>
+                        </div>
+                    </div>
+                    <div class="row flush input-div">
+                        <div class="input-field col s12">
+                            <input id="password" type="password" name="password" class="validate" min-length="5"
+                                pattern="^[a-zA-Z0-9]{5,15}$" maxlength="15" required>
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class=" btn-large btn-style align-center col s9 m7">
+                            Login
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="row">
-                <button type="submit" class="co s12 btn-large light-blue darken-4 text-shadow">
-                    Login <i class="fas fa-sign-in-alt"></i>
-                </button>
-            </div>            
         </div>
-    </form>
+    </div>
+    <div class="row">
+        <p class="col s12 align-center "><a href="{{ url_for('register')}}" class="align-center">Need to create an
+                account?</a></p>
+    </div>
 </div>
+
 {% endblock %}
