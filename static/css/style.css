@@ -161,7 +161,7 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
 }
 .profile-image {
     height: 50vh;
-    width: 100%;
+    width: 90%;
     object-fit: cover;
 }
 
@@ -212,5 +212,43 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
 box-shadow: 0 -2px 2px 0 rgb(0 0 0 / 14%), 0 -1px 5px 0 rgb(0 0 0 / 12%), 0 -3px 1px -2px rgb(0 0 0 / 20%);
 margin-bottom: 0;
 margin-top: 5%;
+}
+
+
+.scrolling-wrapper-img, .scrolling-wrapper  {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background-color: #e8e7dd;
+}
+
+.scrolling-wrapper-img {
+  background-color: #4cbf9a;
+  margin-bottom: 0.8rem;
+  padding: 1rem;
+}  
+
+.card-scroll {
+    object-fit: cover;
+    width: auto;
+    height:25vh;
+    margin: 0.4rem;
+    border-radius: 3%;
+}
+
+
+[type="radio"]:checked+label:after {
+    display:none;
+}
+
+.edit-img {
+    height: 15vh;
+    object-fit: cover;
+    width: auto;
+}
+
+.hidden {
+    display: none;
 }
 
