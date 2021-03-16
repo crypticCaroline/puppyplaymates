@@ -9,8 +9,6 @@
         <ul id="nav-sub" class="left s12">
             <li><a data-target="edit_profile" class="modal-trigger" data-toggle="modal" href="#edit_profile">Edit
                     Puppy</a></li>
-            <li><a data-target="edit_human" data-toggle="modal" class="modal-trigger" href="#edit_images">Images</a>
-            </li>
             <li><a data-target="edit_human" data-toggle="modal" class="modal-trigger" href="#edit_human">Update
                     Human</a></li>
         </ul>
@@ -38,91 +36,115 @@
         <h5 class="center-align">You disliked {{user_profile.username}}</h5>
     </div>
 </div>
-<section class="prints">
-    <div class="container">
-        <div class="row">
-            <div class="form-popout col s12 m5">
-
-                <h2>{{ user_profile.dog_name}} </h2>
-                {% if session.user != username %}
-                {% if dog_like %}
-                <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
-                    <button type="submit" class="big-btn blue" value="unlike" id="unliker_btn" name="unliker_btn"
-                        onclick="overlay_angry()">Unlike</button>
-                </form>
-                {% else %}
-                <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_like">
-                    <button type="submit" class="big-btn blue" value="like" id="liker_btn" name="liker_btn"
-                        onclick="overlay_happy()">Like</button>
-                </form>
-                {% endif %}
-                {% endif %}
-                <div class="img-wrapper">
-                <img src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}" class="profile-image">
-                </div>
-                <p>{{ user_profile.dog_description}}</p>
-                <p>{{ user_profile.dog_breed}}</p>
-                <p>{{ user_profile.dog_gender}}</p>
-                <p>{{ user_profile.dog_location}}</p>
-                <p>{{ user_profile.dog_size}}</p>
-                <p>{{ user_profile.dog_dob}}</p>
-                <p>{{ user_profile.puppy_love}}</p>
-                <p>{{ user_profile.fertile}}</p>
-
-            </div>
-            <div class="col s12 m6 offset m1">
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <div class="col s12 m5">
                 <div class="row">
                     <div class="form-popout col s12">
-                        <h4>Photos of {{ user_profile.dog_name}}</h4>
-                        {% for image in user_profile.all_images  %}
-                        <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="sm_img">
-                        {% endfor %}
+                        <h2>{{ user_profile.dog_name}} </h2>
+                        {% if session.user != username %}
+                        {% if dog_like %}
+                        <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
+                            <button type="submit" class="big-btn blue" value="unlike" id="unliker_btn"
+                                name="unliker_btn" onclick="overlay_angry()">Unlike</button>
+                        </form>
+                        {% else %}
+                        <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_like">
+                            <button type="submit" class="big-btn blue" value="like" id="liker_btn" name="liker_btn"
+                                onclick="overlay_happy()">Like</button>
+                        </form>
+                        {% endif %}
+                        {% endif %}
+                        <div class="img-wrapper">
+                            <img src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}"
+                                class="profile-image">
+                        </div>
+                        <p>{{ user_profile.dog_description}}</p>
+                        <p>Breed: {{ user_profile.dog_breed}}</p>
+                        <p>Gender: {{ user_profile.dog_gender}}</p>
+                        <p>Location: {{ user_profile.dog_location}}</p>
+                        <p>Size: {{ user_profile.dog_size}}</p>
+                        <p>Age: {{ user_profile.dog_dob}}</p>
+                        {% if not user_profile.puppy_love %}
+                        <p>I am seeking Platonic Playmates Only</p>
+                        {% else %}
+                        <p>I am looking for Love</p>
+                        {% endif %}
+                        {% if not user_profile.fertile %}
+                        <p>I have had the snip</p>
+                        {% else %}
+                        <p>I've still got all my puppy making parts</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 offset-m1">
+                <div class="row">
+                    <div class="form-popout col s12 ">
+                        <div class="row">
+                            <h4 class="col s8">Photos of {{ user_profile.dog_name}}</h4>
+                            {% if session.user == username %}
+                            <a data-target="edit_human" data-toggle="modal" class="modal-trigger col s4"
+                                href="#edit_images">Edit Images</a>
+                            {% endif %}    
+                        </div>
+                        <div class="scrolling-wrapper-img">
+                            {% for image in user_profile.all_images  %}
+                            <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="card-scroll">
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-popout col s12">
                         <h5>My admirers</h5>
-                        {% for liker in user_profile.dog_liker %}
-                        {% if liker.dog_name == "Puppy Playmates" %}
-                        {% else %}
-                        <div class="chip">
-                            <img src="{{liker.image_url}}" alt="">
-                            <a href="{{url_for('profile', username=liker.username)}}">{{liker.dog_name}}</a>
+                        <div class="scrolling-wrapper">
+                            {% for liker in user_profile.dog_liker %}
+                            {% if liker.dog_name == "Puppy Playmates" %}
+                            {% else %}
+                            <div class="chip">
+                                <img src="{{liker.image_url}}" alt="">
+                                <a href="{{url_for('profile', username=liker.username)}}">{{liker.dog_name}}</a>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
                         </div>
-                        {% endif %}
-                        {% endfor %}
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-popout col s12">
                         <h5>Pups I like</h5>
-                        {% for my_likes in user_profile.dogs_liked %}
-                        <div class="chip">
-                            <img src="{{my_likes.image_url}}" alt="">
-                            <a href="{{url_for('profile', username=my_likes.username)}}">{{my_likes.dog_name}}</a>
-
+                        <div class="scrolling-wrapper">
+                            {% for my_likes in user_profile.dogs_liked %}
+                            <div class="chip">
+                                <img src="{{my_likes.image_url}}" alt="">
+                                <a href="{{url_for('profile', username=my_likes.username)}}">{{my_likes.dog_name}}</a>
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
-
+            </div>
 
         </div>
-            </div>
-        <div class="row">
-            <div class="form-popout col s12 ">
-                <h6>My Human</h6>
-                <p>{{ user_profile.human_name}}</p>
-                <p>{{ user_profile.human_description}}</p>
-            </div>
+
+    </div>
+    <div class="row">
+        <div class="form-popout col s12 ">
+            <h6>My Human</h6>
+            <p>{{ user_profile.human_name}}</p>
+            <p>{{ user_profile.human_description}}</p>
         </div>
     </div>
 
+</div>
 
-    {% include "includes/edit_images.html" %}
-    {% include "includes/edit_human.html" %}
-    {% include "includes/edit_profile.html" %}
 
-</section>
+{% include "includes/edit_images.html" %}
+{% include "includes/edit_human.html" %}
+{% include "includes/edit_profile.html" %}
+
+
 {% endblock %}
