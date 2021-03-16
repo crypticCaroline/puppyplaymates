@@ -150,11 +150,35 @@ def edit_images(username):
     if session:
         user_profile = mongo.db.users.find_one({"username": username})
 
+        return render_template("profile.html", username=session[
+            "user"], user_profile=user_profile)
+    return render_template("homepage.html")
+
+
+@app.route("/edit_images/profile_photo/<username>", methods=["GET", "POST"])
+def profile_photo(username):
+    if session:
+        user_profile = mongo.db.users.find_one({"username": username})
+        image = request.form.get('submit')
         if request.method == 'POST':
-            print(request.form.get('profile_photo'))
+            print(image)
             mongo.db.users.update_one(
                 {"username": session["user"]},
-                {"$set": {"image_url": request.form.get('profile_photo')}})
+                {"$set": {"image_url": request.form.get('photo')}})
+            return redirect(url_for('profile', username=username))
+        return render_template("profile.html", username=session[
+            "user"], user_profile=user_profile)
+    return render_template("homepage.html")
+
+
+@app.route("/delete_images/<username>", methods=["GET", "POST"])
+def delete_images(username):
+    if session:
+        user_profile = mongo.db.users.find_one({"username": username})
+        if request.method == 'POST':
+            mongo.db.users.update_one(
+                {"username": session["user"]},
+                {"$pull": {"all_images": request.form.get('photo')}})
             return redirect(url_for('profile', username=username))
         return render_template("profile.html", username=session[
             "user"], user_profile=user_profile)
