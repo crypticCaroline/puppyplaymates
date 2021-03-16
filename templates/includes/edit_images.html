@@ -1,7 +1,9 @@
 <div id="edit_images" class="modal">
     <div class="modal-content">
-        <div class="row" id="upload_img">
-            <h3>Your Images</h3>
+        <div class="container container-wide" id="upload_img">
+            <div class="row">
+                <h3>Your Images</h3>
+            </div>
             <div class="row">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
@@ -17,7 +19,7 @@
                                     <label for="profile_check"> Make Profile Picture </label>
                                 </p>
                                 <button type="submit">Upload</button>
-                            </form>                            
+                            </form>
                         </div>
                     </li>
                 </ul>
@@ -25,30 +27,47 @@
         </div>
 
         {% if session.user == username %}
-        <form action="{{ url_for('edit_images', username=username ) }}" method="POST" enctype="multipart/form-data"
-            class="col s12 m10 offset-m1">
+        <div class="col s12 m10 offset-m1">
             <div class="row">
 
-            {% for image in user_profile.all_images  %}
-            <div class="col s3">
-                
-                <label for="{{image}}"><img src="{{image}}" alt="Image of {{ user_profile.dog_name}}"
-                        class="sm_img"><input type="radio" id="{{image}}" name="profile_photo" value="{{image}}" class="images" /></label>
-            </div>
-            {% endfor %}
-            </div>
-            <button type="submit">Save</button>
-        </form>
+                {% for image in user_profile.all_images  %}
+                <div class="col">
+                    <div class="row">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{{image}}">
+                                    <div class="card-action">
+                                        <form method="POST" action="{{ url_for('delete_images', username=username) }}">
+                                            <div class="row flush">
+                                                <input type="radio" id="{{image}}" name="photo" value="{{image}}"
+                                                    class="images hidden" checked />
+                                            </div>
+                                            <button type="submit" class="row">Delete Image</button>
+                                        </form>
+                                        <form method="POST" action="{{ url_for('profile_photo', username=username) }}">
+                                            <div class="row flush hidden">
+                                                <input type="radio" name="photo" value="{{image}}" class="images hidden"
+                                                    checked />
+                                            </div>
+                                            <button type="submit" class="row">Make Profile Photo</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        {% else %}
-        <div>
-        <p>Bad Dog you can't edit another Pups Profile</p>
-        <p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
-        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            {% else %}
+            <div>
+                <p>Bad Dog you can't edit another Pups Profile</p>
+                <p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
+                {% endif %}
+            </div>
+
+        </div>
     </div>
-
-</div>
-<div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-</div>
-</div>
