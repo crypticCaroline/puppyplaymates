@@ -36,12 +36,12 @@
         <h5 class="center-align">You disliked {{user_profile.username}}</h5>
     </div>
 </div>
-<div class="container">
+<div class="container pup-profile">
     <div class="row">
         <div class="col s12">
-            <div class="col s12 m5">
+            <div class="col s12 l6">
                 <div class="row">
-                    <div class="form-popout col s12">
+                    <div class="form-popout profile-form col s12">
                         <h2>{{ user_profile.dog_name}} </h2>
                         {% if session.user != username %}
                         {% if dog_like %}
@@ -76,75 +76,185 @@
                         {% else %}
                         <p>I've still got all my puppy making parts</p>
                         {% endif %}
+                        <hr>
+                        <h6>My Human</h6>
+                        <p>Hi my name is {{ user_profile.human_name}}</p>
+                        <p>{{ user_profile.human_description}}</p>
+                        <p>My username is <em>{{ user_profile.username}}</em></p>
                     </div>
                 </div>
             </div>
-            <div class="col s12 m6 offset-m1">
-                <div class="row">
-                    <div class="form-popout col s12 ">
-                        <div class="row">
-                            <h4 class="col s8">Photos of {{ user_profile.dog_name}}</h4>
+            <div class="col s12 l6 ">
+                <div class="form-popout profile-form col s12">
+                    <div class="row">
+                        <div class="col s12 ">
+                            <div class="row">
+                                <h4 class="col s8">Photos of {{ user_profile.dog_name}}</h4>
+                                {% if session.user == username %}
+                                <a data-target="edit_human" data-toggle="modal" class="modal-trigger col s4"
+                                    href="#edit_images">Edit Images</a>
+                                {% endif %}
+                            </div>
+                            <div class="scrolling-wrapper-img">
+
+                                {% for image in user_profile.all_images  %}
+                                <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="card-scroll">
+                                {% endfor %}
+
+                                <p>Looks like there are no photos uploaded just yet - click Edit Images to begin
+                                    uploading</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12">
+                            <h5>My Admirers</h5>
+                            <div class="scrolling-wrapper">
+                                {% for liker in user_profile.dog_liker %}
+                                {% if liker.dog_name == "Puppy Playmates" %}
+                                {% else %}
+                                <div class="chip">
+                                    <img src="{{liker.image_url}}" alt="">
+                                    <a href="{{url_for('profile', username=liker.username)}}">{{liker.dog_name}}</a>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col s12">
+                            <h5>Pups I Love</h5>
+                            <div class="scrolling-wrapper">
+                                {% for my_likes in user_profile.dogs_liked %}
+                                <div class="chip">
+                                    <img src="{{my_likes.image_url}}" alt="">
+                                    <a
+                                        href="{{url_for('profile', username=my_likes.username)}}">{{my_likes.dog_name}}</a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col s12">
+                            <h5>The Next Walk with {{user_profile.dog_name}}</h5>
                             {% if session.user == username %}
-                            <a data-target="edit_human" data-toggle="modal" class="modal-trigger col s4"
-                                href="#edit_images">Edit Images</a>
-                            {% endif %}    
-                        </div>
-                        <div class="scrolling-wrapper-img">
-                            {% for image in user_profile.all_images  %}
-                            <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="card-scroll">
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-popout col s12">
-                        <h5>My admirers</h5>
-                        <div class="scrolling-wrapper">
-                            {% for liker in user_profile.dog_liker %}
-                            {% if liker.dog_name == "Puppy Playmates" %}
+                            <p>Add a walk to let people know where you are next taking {{user_profile.dog_name}} out
+                                <small>When you add a new walk the previous walk and comments will be replaced</small>
+                            </p>
                             {% else %}
-                            <div class="chip">
-                                <img src="{{liker.image_url}}" alt="">
-                                <a href="{{url_for('profile', username=liker.username)}}">{{liker.dog_name}}</a>
-                            </div>
+                            <p>Like the look of this walk? Add a comment and let {{user_profile.dog_name}} know that
+                                {{user_session.dog_name}} will be joining</p>
                             {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-popout col s12">
-                        <h5>Pups I like</h5>
-                        <div class="scrolling-wrapper">
-                            {% for my_likes in user_profile.dogs_liked %}
-                            <div class="chip">
-                                <img src="{{my_likes.image_url}}" alt="">
-                                <a href="{{url_for('profile', username=my_likes.username)}}">{{my_likes.dog_name}}</a>
-                            </div>
-                            {% endfor %}
+                            {% if session.user == username%}
+                            <a data-target="add_walk" data-toggle="modal" class="modal-trigger" href="#add_walk">
+                                Add Walk</a>
+                            {% endif %}
+                            {% if user_profile.next_walk.place != "" %}
+                            <p>Date: {{user_profile.next_walk.date}}</p>
+                            <p>Time: {{user_profile.next_walk.time}}</p>
+                            <p>Place: {{user_profile.next_walk.place}}</p>
+                            <p>Description: {{user_profile.next_walk.walk_description}}</p>
+
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col s12">
+                <div class="row">
+                    <div class="form-popout comment-section profile-form col s12">
+                        <div class="row">
+                            <ul class="collapsible col s12" data-collapsible="accordion">
+                                <li>
+                                    <div class="collapsible-header" >Comments</div>
+                                    <div class="collapsible-body">
+                                        {% for comments in user_profile.comments %}
+                                        {% if comments.private %}
+                                        {% if comments.author == session['user'] or user_profile.username == session['user'] %}
+                                        <p>{{comments.text}}</p>
+                                        <p><small><a
+                                                    href="{{url_for('profile', username=comments.author)}}">{{comments.author}}({{comments.author_dog}})</a>
+                                                {{comments.date}}</small></p>
+                                        <p>This message is private only the author and {{user_profile.dog_name}}'s
+                                            owner can see it</p>
+                                        <hr>
+                                        {% endif %}
+                                        {% else %}
+                                        <p>{{comments.text}}</p>
+                                        <p><small><a
+                                                    href="{{url_for('profile', username=comments.author)}}">{{comments.author}}({{comments.author_dog}})</a>
+                                                {{comments.date}}</small></p>
+                                        <hr>
+                                        {% endif %}
+                                        {% if comments.author == session['user'] %}
+                                        <!-- Modal Trigger -->
+                                        <a class="waves-effect waves-light btn modal-trigger"
+                                            href="#modal{{comments}}">Edit</a>
 
+                                        <!-- Modal Structure -->
+                                        <div id="modal{{comments}}" class="modal">
+                                            <div class="modal-content">
+                                                <div class="card-panel">
+                                                    <form class="col s12 m8 offset-m2" method="POST"
+                                                        action="{{ url_for('edit_comment', username=username, comment_id=comments._id)}}">
+                                                        <h2>Edit Comment </h2>
+                                                        <div class="row">
+                                                            <div class="col s12 input-field">
+                                                                <input type="text" id="date" name="edit_comment"
+                                                                    class="validate" value="{{comments.text}}" required>
+                                                            </div>
+                                                        </div>
+                                                        <button type="submit"
+                                                            class="col s12 btn-large light-blue darken-4 text-shadow">
+                                                            Update<i class="fas fa-sign-in-alt"></i>
+                                                        </button>
+                                                    </form>
+                                                    <form method="POST"
+                                                        action="{{ url_for('delete_comment', username=username, comment_id=comments._id)}}">
+                                                        <button type="submit" class="">Delete</button></form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <form method="POST" action="{{ url_for('add_comment', username=username) }}">
+                                    <div class="input-field col s12">
+                                        <input type="text" id="add_comment" name="add_comment" class="validate"
+                                            min-length="2" maxlength="500" placeholder="Add Comment">
+                                    </div>
+                                    <input type="checkbox" id="private" name="private" />
+                                    <label for="private">Make Private</label>
+                                    <button type="submit" class="big-btn blue">Add</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
-    <div class="row">
-        <div class="form-popout col s12 ">
-            <h6>My Human</h6>
-            <p>{{ user_profile.human_name}}</p>
-            <p>{{ user_profile.human_description}}</p>
-        </div>
-    </div>
-
 </div>
 
 
+
+{% include "includes/add_walk.html" %}
 {% include "includes/edit_images.html" %}
 {% include "includes/edit_human.html" %}
 {% include "includes/edit_profile.html" %}
+
 
 
 {% endblock %}
