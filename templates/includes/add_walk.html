@@ -1,0 +1,41 @@
+<div id="add_walk" class="modal">
+    <div class="modal-content">
+        <form class="col s12 m8 offset-m2" method="POST"
+                action="{{ url_for('add_walk', username=username)}}">
+                <div class="card-panel">
+                    <h2>Add Walk</h2>
+                    <div class="row">
+                        <div class="col s12 input-field">
+                            <input type="date" id="date" name="date" class="validate" 
+                                required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="time" name="time" class="validate">
+                            <label for="human_description">Time</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="place" name="place" class="validate">
+                            <label for="human_description">Place</label>
+                        </div>
+                    </div>      
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="walk_description" name="walk_description" class="validate">
+                            <label for="walk_description">Description</label>
+                        </div>
+                    </div>                      
+                    <div class="modal-footer">
+                        <div class="row">
+                        <button type="submit" class="co s12 btn-large light-blue darken-4 text-shadow">
+                            Submit<i class="fas fa-sign-in-alt"></i>
+                        </button>
+                    </div>
+                    </div>
+                </div>
+            </form>  
+    </div>
+</div>
