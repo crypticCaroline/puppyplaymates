@@ -2,6 +2,7 @@
 <html>
 <head>
     {% block head %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>{% block title %}{% endblock %} </title>
@@ -14,12 +15,11 @@
         <nav class="nav-extended nav-bar-col nav-bar-txt">
             <div class="nav-wrapper">
                 <a href="{{ url_for('homepage')}}" class="nav-bar-txt">PuppyPlaymates</a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse "></a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse right">M</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     {% if session.user %}
                     <li><a href="{{ url_for('profile', username=session['user'])}}" class="nav_item">Profile</a></li>
-                    <li><a href="{{ url_for('all_users')}}" class="nav_item">Potential Playmates</a></li>
-                    <li><a href="{{ url_for('woof_chat')}}" class="nav_item">Woof Chat</a></li>
+                    <li><a href="{{ url_for('all_users')}}" class="nav_item">Playmates</a></li>
                     <li><a href="{{ url_for('logout')}}" class="nav_item">Sign Out</a></li>
                     {% else %}
                     <li><a href="{{ url_for('login')}}" class="nav_item">Login</a></li>
@@ -29,8 +29,7 @@
                 <ul class="side-nav right" id="mobile-demo">
                     {% if session.user %}
                     <li><a href="{{ url_for('profile', username=session['user'])}}">Profile</a></li>
-                    <li><a href="{{ url_for('all_users')}}">Potential Playmates</a></li>
-                    <li><a href="{{ url_for('woof_chat')}}">Woof Chat</a></li>
+                    <li><a href="{{ url_for('all_users')}}">Playmates</a></li>
                     <li><a href="{{ url_for('logout')}}">Sign Out</a></li>
                     {% else %}
                     <li><a href="{{ url_for('login')}}">Login</a></li>
@@ -61,7 +60,6 @@
                             <li><a class="grey-text text-lighten-3" href="#!">Report User</a></li>
                             {% if session.user %}
                             <li><a class="grey-text text-lighten-3" href="{{ url_for('logout')}}">Sign Out</a></li>
-                            <li><a class="grey-text text-lighten-3" href="{{ url_for('woof_chat')}}">WoofChat</a></li>
                             <li><a class="grey-text text-lighten-3" href="#!">Security</a></li>
                             <li><a class="grey-text text-lighten-3" href="{{ url_for('delete_profile')}}">Delete Account</a></li>
                             {% else%}
