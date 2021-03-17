@@ -10,6 +10,7 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 import time
+from datetime import datetime
 if os.path.exists("env.py"):
     import env
 
@@ -52,8 +53,15 @@ def register():
             "dog_liker": [{"dog_name": "Puppy Playmates"}],
             "image_url":
             "https://res.cloudinary.com/puppyplaymates/image/upload/dog_avatar_uskzh1.png",
-            "all_images": []
-        }
+            "all_images": [],
+            "comments": [],
+            "next_walk": {
+                'date': "",
+                'time': "",
+                'place': "",
+                'walk_description': ""
+            }}
+
         mongo.db.users.insert_one(register)
 
         # put the new user into 'session' cookie
@@ -334,6 +342,96 @@ def logout():
     return redirect(url_for("login"))
 
 
+@app.route("/profile/<username>/add_walk", methods=["GET", "POST"])
+def add_walk(username):
+
+    if session:
+        user_session = mongo.db.users.find_one({"username": session['user']})
+        user_profile = mongo.db.users.find_one({"username": username})
+
+        if request.method == "POST":
+            print(request.form.get('date'))
+
+            mongo.db.users.update_one(
+                {"username": username},
+                {"$set": {
+                    "comments": [],
+                 "next_walk": {
+                     'date': request.form.get('date'),
+                     'time': request.form.get('time'),
+                     'place': request.form.get('place'),
+                     'walk_description': request.form.get('walk_description')
+                    }}})
+            return redirect(url_for('profile', username=username))
+
+        return render_template("add_walk.html", username=session[
+            "user"], user_profile=user_profile)
+
+    return render_template("homepage.html")
+
+
+@app.route("/profile/<username>/comment", methods=["GET", "POST"])
+def add_comment(username):
+
+    if session:
+        user_session = mongo.db.users.find_one({"username": session['user']})
+
+        if request.method == "POST":
+            mongo.db.users.update_one(
+                {"username": username},
+                {"$addToSet": {"comments": {
+                    '_id': ObjectId(),
+                    'date': datetime.now().strftime("%m/%d/%Y, %H:%M"),
+                    'author': user_session['username'],
+                    'author_dog': user_session['dog_name'],
+                    'text': request.form.get('add_comment'),
+                    'private': request.form.get('private')
+                }}})
+            return redirect(url_for('profile', username=username))
+
+    return render_template("homepage.html")
+
+
+@app.route("/profile/<username>/edit_comment/<comment_id>", methods=["GET", "POST"])
+def edit_comment(username, comment_id):
+
+    if session:
+        user_session = mongo.db.users.find_one({"username": session['user']})
+        if request.method == "POST":
+            mongo.db.users.update_one(
+                {"username": username},
+                {"$pull": {"comments": {"_id": ObjectId(comment_id)}}})
+
+            mongo.db.users.update_one(
+                {"username": username},
+                {"$addToSet": {"comments": 
+                    {"_id": ObjectId(comment_id),
+                    'date': datetime.now().strftime("%m/%d/%Y, %H:%M:%S"),
+                    'author': user_session['username'],
+                    'author_dog': user_session['dog_name'],
+                    'text': request.form.get('edit_comment'),
+                    'private': request.form.get('private')
+                }}})
+
+        return redirect(url_for('profile', username=username))
+
+
+@app.route("/profile/<username>/delete_comment/<comment_id>", methods=["GET", "POST"])
+def delete_comment(username, comment_id):
+
+    if session:
+        print('sdfghjkjhgfdsdfghjklkjhgfdsdfghjklllllllllllllllllllllllllllll')
+
+        if request.method == "POST":
+            print('fghnjkjjj')
+            print(comment_id)
+            mongo.db.users.update_one(
+                {"username": username},
+                {"$pull": {"comments": {"_id": ObjectId(comment_id)}}})
+
+    return redirect(url_for('profile', username=username))
+
+
 @app.route("/delete_profile", methods=["GET", "POST"])
 def delete_profile():
 
@@ -345,13 +443,6 @@ def delete_profile():
         return redirect(url_for("homepage"))
     return render_template("delete_profile.html")
 
-
-
-
-
-@app.route('/woofchat', methods=["GET", "POST"])
-def woof_chat():
-    return render_template('woof_chat.html')
 
 
 if __name__ == "__main__":
