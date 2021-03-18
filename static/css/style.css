@@ -55,16 +55,19 @@ body {
     font-size: 1.4rem;
 }
 
-.btn-style {
+.btn-yellow {
     background-color: #ffe26d;
+    font-weight: 700;
+}
+
+.btn-style {
     position: absolute; 
     bottom: 0px; 
     width: 100%;
     margin-right:0;
-    font-weight: 700;
 }
 
-.btn-style:hover {
+.btn-yellow:hover {
     background-color:  #333b5d;
 }
 
@@ -214,6 +217,17 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
 
 .delete-page {
     background-color: #4cbf9a;
+}
+
+.error-page {
+    background-color: #89daf7;
+    padding: 3rem;
+    
+}
+
+h1.error, h3.error {
+    font-weight: 600;
+
 }
 
 #footer{
