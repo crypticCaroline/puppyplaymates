@@ -3,6 +3,25 @@
 
 
 {% block content %}
-<h1>Barking up the wrong tree mate</h1>
+<div class="error-page">
+    <div class="row">
+        <div class="s8 col">
+            <h1>404</h1>
+            <h3 class="error">
+                Looks like you are barking up the wrong tree
+            </h3>
+            {% if session['user'] %}
+            <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">Back to my profile</a>
+            {% else %}
+            <a href="{{ url_for('homepage')}}" class="btn btn-yellow">Back to the homepage</a>
+            {% endif %}
+        </div>
+        <img src="{{ url_for('static', filename='images/barking.jpg') }}" class="align-right s4 col">
+    </div>
+</div>
+
+
+
+
 
 {% endblock %}
