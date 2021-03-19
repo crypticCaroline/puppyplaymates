@@ -16,6 +16,15 @@
                 <h3 class="align-center heading">Create Account</h3>
                 <p><small>Please create a username and password for yourself, you will be able to add your dogs name in
                         a moment</small></p>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="row flashes">
+                                <p class="center-align">{{ message }}</p>
+                            </div>
+                        {% endfor %}
+                {% endif %}
+                {% endwith%}
                 <form method="POST" action="{{ url_for('register')}}">
                     <div class="row flush input-div">
                         <div class="input-field col s12">
@@ -38,10 +47,20 @@
 
                         </div>
                     </div>
+
+                    <div class="row flush input-div">
+                        <div class="input-field col s12">
+                            <input id="repeat-password" type="password" name="repeat-password" class="validate"
+                                min-length="5" pattern="^[a-zA-Z0-9]{5,15}$" maxlength="15" required>
+                            <label for="password">Repeat Password</label>
+
+                        </div>
+                    </div>
                     <div class="row">
                         <p class="col s12"><small>Passwords must be at least 5 characters long and include a mixture of
                                 numbers, letters and a special character</small></p>
                     </div>
+
                     <div class="row">
                         <button type="submit" class=" btn-large btn-style align-center col s9 m7">
                             Register
