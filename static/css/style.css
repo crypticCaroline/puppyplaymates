@@ -137,6 +137,10 @@ form {
 
 }
 
+.space-dog {
+    background-color: #091a28;
+}
+
 .input-field, .form-indent, input[type=text]:not(.browser-default).form-indent, input[type=date]:not(.browser-default).form-indent, textarea.materialize-textarea {
     margin-right: 3rem;
     margin-left: 3rem;    
@@ -243,8 +247,7 @@ margin-top: 5%;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  
+  -webkit-overflow-scrolling: touch;  
 }
 
 .scrolling-wrapper-img {

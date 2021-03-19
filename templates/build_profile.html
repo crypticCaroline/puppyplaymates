@@ -4,7 +4,6 @@
 {% block content %}
 {% if session.user == user.username %}
 
-
 <div class="container">
     <div class=" form-popout">
         <form class="col s12 m8 offset-m2" method="POST"
@@ -107,7 +106,7 @@
             <div class="row flush">
                 <div class=" col s12">
                     <textarea id="dog_description" type="text" name="dog_description"
-                        class="validate materialize-textarea form-indent" min-length="5" maxlength="100"
+                        class="validate materialize-textarea form-indent" min-length="5" maxlength="1000"
                         required>{{user.dog_description}}</textarea>                    
                 </div>                
             </div>
