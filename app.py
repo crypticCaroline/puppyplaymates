@@ -9,6 +9,10 @@ from werkzeug.utils import secure_filename
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import random
+import string
+from flask_mail import Mail
+from flask_mail import Message
 import time
 from datetime import datetime
 if os.path.exists("env.py"):
@@ -25,8 +29,15 @@ cloudinary.config(
     api_key=os.environ.get("CLOUDINARY_API_KEY"),
     api_secret=os.environ.get("CLOUDINARY_API_SECRET")
 )
+app.config['MAIL_SERVER'] = os.environ.get("MAIL_SERVER")
+app.config['MAIL_PORT'] = os.environ.get("MAIL_PORT")
+app.config['MAIL_USE_SSL'] = os.environ.get("MAIL_USE_SSL")
+app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USERNAME")
+app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASSWORD")
+app.config['MAIL_DEFAULT_SENDER']: os.environ.get("MAIL_DEFAULT_SENDER")
 
 mongo = PyMongo(app)
+mail = Mail(app)
 
 
 @app.route("/")
@@ -346,7 +357,7 @@ def logout():
 def add_walk(username):
 
     if session:
-        user_session = mongo.db.users.find_one({"username": session['user']})
+
         user_profile = mongo.db.users.find_one({"username": username})
 
         if request.method == "POST":
@@ -355,7 +366,6 @@ def add_walk(username):
             mongo.db.users.update_one(
                 {"username": username},
                 {"$set": {
-                    "comments": [],
                  "next_walk": {
                      'date': request.form.get('date'),
                      'time': request.form.get('time'),
@@ -404,7 +414,7 @@ def edit_comment(username, comment_id):
 
             mongo.db.users.update_one(
                 {"username": username},
-                {"$addToSet": {"comments": 
+                {"$addToSet": {"comments":
                     {"_id": ObjectId(comment_id),
                     'date': datetime.now().strftime("%m/%d/%Y, %H:%M:%S"),
                     'author': user_session['username'],
@@ -420,11 +430,8 @@ def edit_comment(username, comment_id):
 def delete_comment(username, comment_id):
 
     if session:
-        print('sdfghjkjhgfdsdfghjklkjhgfdsdfghjklllllllllllllllllllllllllllll')
 
         if request.method == "POST":
-            print('fghnjkjjj')
-            print(comment_id)
             mongo.db.users.update_one(
                 {"username": username},
                 {"$pull": {"comments": {"_id": ObjectId(comment_id)}}})
@@ -439,16 +446,104 @@ def delete_profile():
         user = mongo.db.users.find_one({"username": session["user"]})
         session.pop("user")
         mongo.db.users.remove(user)
-        flash("Category Successfully Removed")
+        flash("Profile Removed")
         return redirect(url_for("homepage"))
     return render_template("delete_profile.html")
 
+# mail
 
+
+@app.route("/reset_password", methods=["GET", "POST"])
+def reset_password():
+
+    if request.method == 'POST':
+        temp_password = get_random_string(14)
+        user = mongo.db.users.find_one(
+            {"email": request.form.get("email")})
+
+        if user:
+
+            mongo.db.users.update_one(
+                {"email": request.form.get('email')},
+                {"$set": {
+                    "temp_password": generate_password_hash(temp_password)}})
+
+            msg = Message("Reset Password",
+                          html="<p>You look like you need to reset your password</p><p>This is your <b>Temporary password:</b> %s </p><a href='https://8080-bronze-catfish-6qabji6o.ws-eu03.gitpod.io/change_password'>Reset Password Link</a><p>If you didn't request this email to be sent it might be work logging into your account and changing your password</p><p>The Team at PuppyPlaymates</p>" % temp_password,
+                          sender="thepuppyplaymates@gmail.com",
+                          recipients=[user.email])
+
+            mail.send(msg) 
+            return render_template("reset_sent.html")
+        else:
+            flash("Incorrect Username and/or Password, if you have forgotten your password you can reset it")
+
+    return render_template("reset_password.html")
+
+
+def get_random_string(length):
+    letters = string.printable
+    result_str = ''.join(random.choice(letters) for i in range(length))
+    return result_str
+
+
+  
+@app.route("/change_password", methods=["GET", "POST"])
+def change_password():
+
+    if request.method == 'POST':
+        if request.method == "POST":
+            existing_user = mongo.db.users.find_one(
+                {"username": request.form.get("username")})
+
+        if existing_user:
+            # ensure hash matches
+            if check_password_hash(
+                existing_user["password"], request.form.get("current-password")):
+                mongo.db.users.update_one(
+                    {"username": request.form.get('username')},
+                    {"$set": {
+                        "password": generate_password_hash(request.form.get('new-password')),
+                        "temp_password": get_random_string(14)}})
+                session["user"] = request.form.get("username")
+
+                return redirect(url_for(
+                    "profile", username=session["user"]))
+
+            elif check_password_hash(existing_user["temp_password"], request.form.get("current-password")):
+                mongo.db.users.update_one(
+                        {"username": request.form.get('username')},
+                        {"$set": {
+                            "password": generate_password_hash(request.form.get('new_password')),
+                            "temp_password": get_random_string(14)}})
+                session['user'] = request.form.get("username")
+
+                return redirect(url_for(
+                    "profile", username=session["user"]))
+            else:
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("change_password"))
+        else:
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("change_password"))
+ 
+    return render_template("change_password.html")
+
+
+
+
+
+# error handlers
+
+@ app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 if __name__ == "__main__":
-    app.run(host=os.environ.get("IP"),
+    app.run(host = os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
             debug=True)
+
 
 
 # @app.errorhandler(werkzeug.exceptions.BadRequest)
