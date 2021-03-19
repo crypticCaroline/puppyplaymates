@@ -14,6 +14,15 @@
             </div>
             <div class="col s9 m7">
                 <h3 class="align-center sub-heading">Login</h3>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="row flashes">
+                                <p class="center-align">{{ message }}</p>
+                            </div>
+                        {% endfor %}
+                {% endif %}
+                {% endwith%}
                 <form method="POST" action="{{ url_for('login')}}">
                     <div class="row flush input-div">
                         <div class="input-field col s12">
@@ -28,6 +37,9 @@
                                 pattern="^[a-zA-Z0-9]{5,15}$" maxlength="15" required>
                             <label for="password">Password</label>
                         </div>
+                    </div>
+                    <div class="row flush input-div">
+                        <a href="{{url_for('reset_password')}}" class="col s12">I've forgotten my password</a>
                     </div>
                     <div class="row">
                         <button type="submit" class=" btn-large btn-style align-center col s9 m7">
