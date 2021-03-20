@@ -44,6 +44,12 @@ mail = Mail(app)
 def homepage():
     return render_template("homepage.html")
 
+# displays all the users
+@app.route("/all_users")
+def all_users():
+    users = mongo.db.users.find()
+    return render_template("all_users.html", users=users)
+
 
 # registration pages 
 @app.route("/register", methods=["GET", "POST"])
@@ -297,10 +303,11 @@ def upload_image(username):
 
             return redirect(url_for('edit_images', username=username))
         return render_template("edit_images.html", username=username)
-    flash("You need to be sign in to view this page")
-    return render_template('homepage.html')
+    flash("You need to be logged in to view this page")
+    return render_template('login.html')
 
 
+# profile 
 @ app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
 
@@ -309,11 +316,13 @@ def profile(username):
         user_session = mongo.db.users.find_one({"username": session['user']})
         dog_like = False
 
+        # users a loop to find out if the visitor has liked the page to display correct button
         for dogs_like in user_profile["dog_liker"]:
             dog_name = dogs_like['dog_name']
             if user_session["dog_name"] == dog_name:
                 dog_like = True
 
+        # if button liked calls the correct function and adds/removes from arrays
         if request.method == "POST":
             liker_btn = request.form.get("liker_btn")
             unliker_btn = request.form.get("unliker_btn")
@@ -330,8 +339,8 @@ def profile(username):
             "profile.html",
             username=username, user_profile=user_profile,
             user_session=user_session, dog_like=dog_like)
-    flash("You need to signed in to view this page")
-    return redirect(url_for('homepage'))
+    flash("You need to logged in to view this page")
+    return redirect(url_for('login'))
 
 
 # liker function 
@@ -388,19 +397,6 @@ def dislikes(username):
     return redirect(url_for('profile', username=username))
 
 
-# displays all the users
-@app.route("/all_users")
-def all_users():
-    if session:
-        users = mongo.db.users.find()
-        return render_template("all_users.html", users=users)
-    flash("You need to signed in to view this page")
-    return redirect(url_for('homepage'))
-
-
-
-
-
 # lets the user add a walk to their profile
 @app.route("/profile/<username>/add_walk", methods=["GET", "POST"])
 def add_walk(username):
@@ -422,8 +418,8 @@ def add_walk(username):
             return redirect(url_for('profile', username=username))
         return render_template("add_walk.html", username=session[
             "user"], user_profile=user_profile)
-    flash("You need to signed in to view this page")
-    return redirect(url_for('homepage'))
+    flash("You need to logged in to view this page")
+    return redirect(url_for('login'))
 
 
 # Comments
@@ -448,8 +444,8 @@ def add_comment(username):
                 }}})
             return redirect(url_for('profile', username=username))
 
-    flash("You need to signed in to view this page")
-    return redirect(url_for('homepage'))
+    flash("You need to logged in to view this page")
+    return redirect(url_for('login'))
 
 
 # edits comment
@@ -476,8 +472,8 @@ def edit_comment(username, comment_id):
                     'private': request.form.get('private')
                 }}})
         return redirect(url_for('profile', username=username))
-    flash("You need to signed in to view this page")
-    return redirect(url_for('homepage'))
+    flash("You need to logged in to view this page")
+    return redirect(url_for('login'))
 
 
 # deletes comment
@@ -492,8 +488,8 @@ def delete_comment(username, comment_id):
                 {"$pull": {"comments": {"_id": ObjectId(comment_id)}}})
 
         return redirect(url_for('profile', username=username))
-    flash("You need to signed in to view this page")
-    return redirect(url_for('homepage')) 
+    flash("You need to logged in to view this page")
+    return redirect(url_for('login'))
 
 
 # deletes the users profile 
@@ -508,40 +504,38 @@ def delete_profile():
             flash("Profile Removed")
             return redirect(url_for("homepage"))
         return render_template("delete_profile.html")
-    flash("You need to signed in to view this page")
+    flash("You need logged in to view this page")
     return redirect(url_for('homepage'))
 
 
 # mail
 @app.route("/reset_password", methods=["GET", "POST"])
 def reset_password():
-    if session:
-        # creates a temporary password and sets it in the database
-        if request.method == 'POST':
-            temp_password = get_random_string(14)
-            user = mongo.db.users.find_one(
-                {"email": request.form.get("email")})
 
-            if user:
-                user_email = user['email']
-                mongo.db.users.update_one(
-                    {"email": request.form.get('email')},
-                    {"$set": {
-                        "temp_password": generate_password_hash(temp_password)}})
+    # creates a temporary password and sets it in the database
+    if request.method == 'POST':
+        temp_password = get_random_string(14)
+        user = mongo.db.users.find_one(
+            {"email": request.form.get("email")})
 
-                # emails the temp password to the user 
-                msg = Message("Reset Password",
-                            html="<p>You look like you need to reset your password</p><p>This is your <b>Temporary password:</b> %s </p><a href='https://8080-bronze-catfish-6qabji6o.ws-eu03.gitpod.io/change_password'>Reset Password Link</a><p>If you didn't request this email to be sent it might be work logging into your account and changing your password</p><p>The Team at PuppyPlaymates</p>" % temp_password,
-                            sender="thepuppyplaymates@gmail.com",
-                            recipients=[user_email])
+        if user:
+            user_email = user['email']
+            mongo.db.users.update_one(
+                {"email": request.form.get('email')},
+                {"$set": {
+                    "temp_password": generate_password_hash(temp_password)}})
 
-                mail.send(msg)
-                return render_template("reset_sent.html")
-            else:
-                flash("Incorrect Username and/or Password, if you have forgotten your password you can reset it")
-        return render_template("reset_password.html")
-    flash("You need to signed in to view this page")
-    return redirect(url_for('homepage'))
+            # emails the temp password to the user 
+            msg = Message("Reset Password",
+                        html="<p>You look like you need to reset your password</p><p>This is your <b>Temporary password:</b> %s </p><a href='https://8080-bronze-catfish-6qabji6o.ws-eu03.gitpod.io/change_password'>Reset Password Link</a><p>If you didn't request this email to be sent it might be work logging into your account and changing your password</p><p>The Team at PuppyPlaymates</p>" % temp_password,
+                        sender="thepuppyplaymates@gmail.com",
+                        recipients=[user_email])
+
+            mail.send(msg)
+            return render_template("reset_sent.html")
+        else:
+            flash("Incorrect Username and/or Password, if you have forgotten your password you can reset it")
+    return render_template("reset_password.html")
 
 
 # generates a random string for creating tempoary passwords 
@@ -555,51 +549,48 @@ def get_random_string(length):
 @app.route("/change_password", methods=["GET", "POST"])
 def change_password():
 
-    if session:
-        if request.method == "POST":
-        
-            existing_user = mongo.db.users.find_one(
-                {"username": request.form.get("username")})
+    if request.method == "POST":
+    
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username")})
 
-            # checks if the repeat password and new match
-            if request.form['new-password'] != request.form['repeat-password']:
-                flash("Passwords did not match. Please enter passwords again.")
-                return render_template("change_password.html")
+        # checks if the repeat password and new match
+        if request.form['new-password'] != request.form['repeat-password']:
+            flash("Passwords did not match. Please enter passwords again.")
+            return render_template("change_password.html")
 
-            if existing_user:
-                # ensure hash matches their current password
-                if check_password_hash(
-                    existing_user["password"], request.form.get("current-password")):
-                    # inserts new password in the database and assigns a new random temp password
-                    mongo.db.users.update_one(
+        if existing_user:
+            # ensure hash matches their current password
+            if check_password_hash(
+                existing_user["password"], request.form.get("current-password")):
+                # inserts new password in the database and assigns a new random temp password
+                mongo.db.users.update_one(
+                    {"username": request.form.get('username')},
+                    {"$set": {
+                        "password": generate_password_hash(request.form.get('new-password')),
+                        "temp_password": generate_password_hash(get_random_string(14))}})
+                session["user"] = request.form.get("username")
+                return redirect(url_for(
+                    "profile", username=session["user"]))
+
+            # ensures the hash matches if the user is using the temp password 
+            elif check_password_hash(existing_user["temp_password"], request.form.get("current-password")):
+                # inserts the new password and resets the random temp password 
+                mongo.db.users.update_one(
                         {"username": request.form.get('username')},
                         {"$set": {
                             "password": generate_password_hash(request.form.get('new-password')),
                             "temp_password": generate_password_hash(get_random_string(14))}})
-                    session["user"] = request.form.get("username")
-                    return redirect(url_for(
-                        "profile", username=session["user"]))
-
-                # ensures the hash matches if the user is using the temp password 
-                elif check_password_hash(existing_user["temp_password"], request.form.get("current-password")):
-                    # inserts the new password and resets the random temp password 
-                    mongo.db.users.update_one(
-                            {"username": request.form.get('username')},
-                            {"$set": {
-                                "password": generate_password_hash(request.form.get('new-password')),
-                                "temp_password": generate_password_hash(get_random_string(14))}})
-                    session['user'] = request.form.get("username")
-                    return redirect(url_for(
-                        "profile", username=session["user"]))
-                else:
-                    flash("Incorrect Username and/or Password")
-                    return redirect(url_for("change_password"))
+                session['user'] = request.form.get("username")
+                return redirect(url_for(
+                    "profile", username=session["user"]))
             else:
                 flash("Incorrect Username and/or Password")
                 return redirect(url_for("change_password"))
-        return render_template("change_password.html")
-    flash("You need to signed in to view this page")
-    return redirect(url_for('homepage'))
+        else:
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("change_password"))
+    return render_template("change_password.html")
 
 
 # reprt user 
@@ -632,8 +623,8 @@ def report_user():
             flash(
                 "Incorrect Username and/or Password, if you have forgotten your password you can reset it")
         return render_template("report_user.html")
-    flash("You need to signed in to view this page")
-    return redirect(url_for('homepage'))
+    flash("You need to logged in to view this page")
+    return redirect(url_for('login'))
 
 
 # contact form
@@ -670,9 +661,3 @@ if __name__ == "__main__":
     app.run(host = os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
             debug=True)
-
-
-
-# @app.errorhandler(werkzeug.exceptions.BadRequest)
-# def handle_bad_request(e):
-#     return 'bad request!', 400
