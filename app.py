@@ -11,8 +11,7 @@ import cloudinary.uploader
 import cloudinary.api
 import random
 import string
-from flask_mail import Mail
-from flask_mail import Message
+from flask_mail import Mail, Message
 import time
 from datetime import datetime
 if os.path.exists("env.py"):
@@ -32,7 +31,6 @@ cloudinary.config(
 app.config['MAIL_SERVER'] = os.environ.get("MAIL_SERVER")
 app.config['MAIL_PORT'] = os.environ.get("MAIL_PORT")
 app.config['MAIL_USE_SSL'] = os.environ.get("MAIL_USE_SSL")
-app.config["MAIL_USE_TLS"] = os.environ.get("MAIL_USE_TLS")
 app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USERNAME")
 app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASSWORD")
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("MAIL_DEFAULT_SENDER")
