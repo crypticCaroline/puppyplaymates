@@ -131,6 +131,49 @@ def build_profile(username):
     return render_template("homepage.html")
 
 
+# login
+@ app.route("/login", methods=["GET", "POST"])
+def login():
+
+    if request.method == "POST":
+        # checks to see if user exists
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username")})
+        existing_email = mongo.db.users.find_one(
+            {"username": request.form.get('username')})
+
+        if existing_user or existing_email:
+            # ensure hash matches then logs user in
+            if check_password_hash(
+                    existing_user["password"], request.form.get("password")):
+                session["user"] = request.form.get("username")
+                return redirect(url_for(
+                    "profile", username=session["user"]))
+            else:
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("login"))
+        else:
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("login"))
+    return render_template("login.html")
+
+
+# allows users to search for certain parameters
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    users = list(mongo.db.users.find({"$text": {"$search": query}}))
+    return render_template("all_users.html", users=users)
+
+
+# log the user out
+@ app.route("/logout")
+def logout():
+    session.pop("user")
+    flash("You have been logged out")
+    return redirect(url_for("login"))
+
+
 # edit pages
 # edit dog
 @app.route("/edit_profile/<username>", methods=["GET", "POST"])
@@ -345,7 +388,7 @@ def dislikes(username):
     return redirect(url_for('profile', username=username))
 
 
-# displays all the users 
+# displays all the users
 @app.route("/all_users")
 def all_users():
     if session:
@@ -355,49 +398,7 @@ def all_users():
     return redirect(url_for('homepage'))
 
 
-# allows users to search for certain parameters
-@app.route("/search", methods=["GET", "POST"])
-def search():
-    query = request.form.get("query")
-    users = list(mongo.db.users.find({"$text": {"$search": query}}))
-    return render_template("all_users.html", users=users)
 
-
-# login
-@ app.route("/login", methods=["GET", "POST"])
-def login():
-    if session:
-        if request.method == "POST":
-            # checks to see if user exists
-            existing_user = mongo.db.users.find_one(
-                {"username": request.form.get("username")})
-            existing_email = mongo.db.users.find_one(
-                {"username": request.form.get('username')})
-
-            if existing_user or existing_email:
-                # ensure hash matches then logs user in
-                if check_password_hash(
-                        existing_user["password"], request.form.get("password")):
-                    session["user"] = request.form.get("username")
-                    return redirect(url_for(
-                        "profile", username=session["user"]))
-                else:
-                    flash("Incorrect Username and/or Password")
-                    return redirect(url_for("login"))
-            else:
-                flash("Incorrect Username and/or Password")
-                return redirect(url_for("login"))
-        return render_template("login.html")
-    flash("You need to signed in to view this page")
-    return redirect(url_for('homepage'))
-
-
-# log the user out
-@ app.route("/logout")
-def logout():
-    session.pop("user")
-    flash("You have been logged out")
-    return redirect(url_for("login"))
 
 
 # lets the user add a walk to their profile
