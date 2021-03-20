@@ -2,6 +2,15 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-  <img src="{{ url_for('static', filename='images/login.gif') }}" class="align-right s4 col">
-      
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="row flashes">
+                <p class="center-align">{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith%}
+<img src="{{ url_for('static', filename='images/login.gif') }}" class="align-right s4 col">
+
 {% endblock %}
