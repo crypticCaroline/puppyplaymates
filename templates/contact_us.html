@@ -4,6 +4,15 @@
 {% block content %}
 <div class="container">
     <h2 class="heading align-center">Contact Us</h2>
+    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="row flashes">
+                                <p class="center-align">{{ message }}</p>
+                            </div>
+                        {% endfor %}
+                {% endif %}
+                {% endwith%}
     <div class=" form-popout">
         <div class="row flush">
             <div class="col s3 m5"></div>
