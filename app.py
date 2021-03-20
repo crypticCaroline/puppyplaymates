@@ -31,7 +31,7 @@ cloudinary.config(
 )
 app.config['MAIL_SERVER'] = os.environ.get("MAIL_SERVER")
 app.config['MAIL_PORT'] = os.environ.get("MAIL_PORT")
-app.config['MAIL_USE_SSL'] = os.environ.get("MAIL_USE_SSL")
+app.config['MAIL_USE_SSL'] = os.environ.get("MAIL_USE_SSL") 
 app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USERNAME")
 app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASSWORD")
 app.config['MAIL_DEFAULT_SENDER']: os.environ.get("MAIL_DEFAULT_SENDER")
@@ -53,9 +53,12 @@ def register():
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username")})
 
-        if existing_user:
+        if existing_user: 
             flash("Username already exists")
             return redirect(url_for("register"))
+
+        if request.form['new-password'] != request.form['repeat-password2']:
+            flash("Passwords did not match. Please enter passwords again.") 
 
         register = {
             "username": request.form.get("username"),
@@ -496,6 +499,10 @@ def change_password():
             existing_user = mongo.db.users.find_one(
                 {"username": request.form.get("username")})
 
+        if request.form['new-password'] != request.form['repeat-password']:
+            flash("Passwords did not match. Please enter passwords again.")
+            return render_template("change_password.html")
+
         if existing_user:
             # ensure hash matches
             if check_password_hash(
@@ -530,10 +537,66 @@ def change_password():
     return render_template("change_password.html")
 
 
+@app.route("/report_user", methods=["GET", "POST"])
+def report_user():
 
+    if session:
+
+        user_session = mongo.db.users.find_one(
+                {"username": session['user']})
+                
+
+        if request.method == 'POST':
+            
+            user_report = request.form.get('report-user')
+            user_text = request.form.get('report-text')
+            user_email = user_session['email']
+            print(user_email)
+
+            report = (user_report + " with the following message: " + user_text)
+
+            msg = Message("Report user",
+                          html="<p>You have reported %s We will take a look into the users activity and take the appropriate action. <p>The Team at PuppyPlaymates</p>" % report,
+                          sender="thepuppyplaymates@gmail.com",
+                          cc=[user_email],
+                          recipients=["thepuppyplaymates@gmail.com"])
+            mail.send(msg)
+            return render_template("report_user.html")
+
+        else:
+            flash(
+                "Incorrect Username and/or Password, if you have forgotten your password you can reset it")
+
+        return render_template("report_user.html")
+
+        flash("You need to be logged in to view this page")
+    return redirect(url_for('homepage'))
+
+
+@app.route("/contact_us", methods=["GET", "POST"])
+def contact_us():
+
+    if request.method == 'POST':
+        
+        user_email = request.form.get('email')
+        user_text = request.form.get('message-text')
+        
+
+        message = ("Thank you for sending us the following message:" +  user_text)
+
+        msg = Message("Thank you for contacting us",
+                        html="<p> %s </p><p>We will endevour to get back to you within 48hr</p> <p>The Team at PuppyPlaymates</p>" % message,
+                        sender="thepuppyplaymates@gmail.com",
+                        cc=[user_email],
+                        recipients=["thepuppyplaymates@gmail.com"])
+        mail.send(msg)
+        flash("Email sent successfully")
+        return render_template("contact_us.html")
+    return render_template("contact_us.html")
 
 
 # error handlers
+
 
 @ app.errorhandler(404)
 def page_not_found(e):
