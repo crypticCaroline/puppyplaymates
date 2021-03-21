@@ -119,8 +119,49 @@ form {
     margin: 3%;
 }
 
-.small-form {
-    
+.user-cards{
+    padding: 1%;
+    -moz-box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
+    -webkit-box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
+    box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
+    overflow:hidden;
+    display: flex;
+    margin: 0 0 20px 0;
+    width: calc(50% - 10px);
+}
+
+.user-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.user-cards__image {
+    width: 40%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.user-cards__image img {
+    visibility: hidden;
+    width: 100%;
+}
+.user-cards .content {
+    padding: 0 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+}
+.user-cards .content h5 {
+    margin: 1rem 0;
+}
+
+.user-cards .content p {
+    margin-top: 0;
+}
+
+.small-form {    
     margin: 5rem 3rem 0rem 3rem;
 }
 
@@ -134,7 +175,6 @@ form {
 
 .login-dog {
     background-color:#e8e7dd;
-
 }
 
 .space-dog {
@@ -154,15 +194,7 @@ textarea.materialize-textarea {
 
 input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select-dropdown{
     width: 30%;
-
 }
-
-/* .prints {
-    background-image:url('/static/images/prints.png');
-    background-repeat: repeat;
-    z-index: -1;
-} */
-
 
 .select-wrapper span.caret {
     display: none;
@@ -172,12 +204,12 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
     height: min-content;
     border: #333b5d solid 3px;
 }
+
 .profile-image {
     height: 50vh;
     width: 90%;
     object-fit: cover;
 }
-
 
 /* Overlays hidden by default */
 #overlay_happy {
@@ -187,7 +219,6 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
 #overlay_angry {
     display: none; 
 }
-
 
 .overlay {
     width: min-content;  
@@ -277,5 +308,16 @@ margin-top: 5%;
 
 .hidden {
     display: none;
+}
+
+#sidenav-overlay {
+    position: relative;
+}
+
+@media screen and (max-width: 770px) {
+    .user-cards {
+        width: 100%;
+        margin: 0 0 5px 0;
+  }
 }
 
