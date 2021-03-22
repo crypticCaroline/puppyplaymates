@@ -12,6 +12,7 @@ html,
 body {
  position: relative;
  background-color: #d4e6f4;
+ background-image: url('/static/images/prints2.png') ;
 
 }
 
@@ -89,6 +90,10 @@ form {
   display: flex; 
 }
 
+p {
+    font-size: 1.2rem;
+}
+
 .row.flush {
     margin: 0px;
 }
@@ -96,8 +101,10 @@ form {
 .heading, .sub-heading {
     font-weight: 600;
     letter-spacing: 0.025rem;
-    color:#333b5d;
+    color:var(--dark-font-color);
+    padding: 2%;
     padding-bottom: 5%;
+    
 }
 
 .sub-heading {
@@ -115,12 +122,13 @@ form {
 }
 
 .form-popout {
-    -moz-box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
-    -webkit-box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
-    box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
+    -moz-box-shadow: 0 0 3px 1px rgb(43, 38, 38, 0.5);
+    -webkit-box-shadow: 0 0 3px 1px rgb(43, 38, 38, 0.5);
+    box-shadow: 0 0 3px 1px rgb(43, 38, 38, 0.5);
     overflow:hidden;
     position: relative;
     margin-bottom: 1.25%;
+    margin-top: 7%;
     background-color: #ffffff;
 }
 
@@ -331,12 +339,18 @@ height: 60px;
     position: relative;
 }
 
+.homepage-wrapper {
+    margin-top: -21%;
+     background-color: #d4e6f4;
+     margin-bottom: 0;
+     padding-top: 21%
+
+}
 .homepage {
     background-image: url('/static/images/pups.jpg');
     height: 700px;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-top: 1%;
     margin-bottom: 0;
 }
 
@@ -355,8 +369,12 @@ height: 60px;
 
 .get-started {
     height: min-content;
+    background-color: #d4e6f4
 }
 
+ul.intro-list{
+    padding-bottom: 5%;
+}
 .intro-list li {
 	margin: 0;
 	padding: 25px 0 25px 60px;
@@ -368,7 +386,7 @@ height: 60px;
 }
 
 .btn-space {
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 @media screen and (max-width: 770px) {

@@ -2,8 +2,7 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="container prints">
-    <h2 class="heading align-center">Welcome back!</h2>
+<div class="container">
     <div class=" form-popout">
         <div class="row flush">
             <div class="col s3 m5 login-dog valign-wrapper">
@@ -18,7 +17,7 @@
                     {% if messages %}
                         {% for message in messages %}
                             <div class="row flashes">
-                                <p class="center-align">{{ message }}</p>
+                                <h5 class="center-align col s12">{{ message }}</h5>
                             </div>
                         {% endfor %}
                 {% endif %}
