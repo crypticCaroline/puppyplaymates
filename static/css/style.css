@@ -1,25 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,800&display=swap');
 
-
+:root {
+    --dark-font-color: #221c1c;
+    --sub-font-color: rgb(243, 240, 225);
+    --yellow-color:  #fdd006;
+}
+html{
+    height: 100%
+}
 html,
 body {
- height: 100%;
  position: relative;
- background-color: #e4e0e0;
- background-image: url('/static/images/prints.png');
+ background-color: #d4e6f4;
+
 }
 
 body {
-  display: flex;
-  flex-direction: column; /* creates rows out of the elements main and footer */
-  height: 100vh; 
-  margin:0;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: 0.020rem;
+    display: flex;
+    flex-direction: column; /* creates rows out of the elements main and footer */
+    margin:0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: var(--dark-font-color)
 }
 
 #content {
-  flex: 1 0 auto; /* allows the content to grow but not shrink */
+    flex: 1 0 auto; /* allows the content to grow but not shrink */
 }
 
 #header{
@@ -29,10 +38,8 @@ body {
     z-index: 2;
 }
 
-
 .nav-bar-col {
-    background-color: #ffe26d;
-    
+    background-color: var(--yellow-color);    
 }
 
 .dark-blue {
@@ -40,23 +47,25 @@ body {
 }
 
 .nav-bar-txt{
-    color:#ffffff;
+    color:var(--dark-font-color);
     position: absolute;
     display: inline-block;
     font-size: 2.5rem;
-    padding: 0;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    padding-right: 0.40%;
-    padding-left: 0.60%;
+    font-style: italic;
+    padding: 0 5px 0 8px;
+    letter-spacing: 0.25rem;
 }
 
 .nav_item {
     font-size: 1.4rem;
+    color:var(--dark-font-color);
+    font-style: normal;
+    font-weight: 700;
 }
 
 .btn-yellow {
-    background-color: #ffe26d;
+    background-color: var(--yellow-color);
+    color: var(--dark-font-color);
     font-weight: 700;
 }
 
@@ -67,8 +76,9 @@ body {
     margin-right:0;
 }
 
-.btn-yellow:hover {
-    background-color:  #333b5d;
+a.btn-yellow:hover {
+    background-color:  var(--dark-font-color);
+    color: var(--yellow-color)
 }
 
 form {
@@ -146,6 +156,7 @@ form {
     visibility: hidden;
     width: 100%;
 }
+
 .user-cards .content {
     padding: 0 4%;
     display: flex;
@@ -153,6 +164,7 @@ form {
     justify-content: center;
     width: 60%;
 }
+
 .user-cards .content h5 {
     margin: 1rem 0;
 }
@@ -271,6 +283,11 @@ h1.error, h3.error {
 box-shadow: 0 -2px 2px 0 rgb(0 0 0 / 14%), 0 -1px 5px 0 rgb(0 0 0 / 12%), 0 -3px 1px -2px rgb(0 0 0 / 20%);
 margin-bottom: 0;
 margin-top: 5%;
+height: 60px;
+}
+
+.footer-text {
+    color:var(--dark-font-color);
 }
 
 
@@ -314,10 +331,59 @@ margin-top: 5%;
     position: relative;
 }
 
+.homepage {
+    background-image: url('/static/images/pups.jpg');
+    height: 700px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 1%;
+    margin-bottom: 0;
+}
+
+.text-block {
+    padding: 5%;
+    margin: 0;
+
+}
+.about {
+    background-color: #ffffff;
+}
+
+.landing-card {
+    margin-top:3%;
+}
+
+.get-started {
+    height: min-content;
+}
+
+.intro-list li {
+	margin: 0;
+	padding: 25px 0 25px 60px;
+	list-style: none;
+	background-image: url("/static/images/paw.png");
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: 35px;
+}
+
+.btn-space {
+    margin-top: 20px;
+}
+
 @media screen and (max-width: 770px) {
     .user-cards {
         width: 100%;
         margin: 0 0 5px 0;
   }
+  .nav-bar-txt {
+      font-size: 1.5rem;
+  }
+  h2 {
+      font-size: 2.2rem;
+  }
+  .homepage {
+      margin-top:7%;
+      background-image: url('/static/images/pupssm.jpg');
+  }
 }
-
