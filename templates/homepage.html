@@ -2,16 +2,57 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-{% with messages = get_flashed_messages() %}
+<div class="homepage">
+    {% with messages = get_flashed_messages() %}
     {% if messages %}
-        {% for message in messages %}
-            <div class="row flashes">
-                <p class="center-align">{{ message }}</p>
-            </div>
-        {% endfor %}
+    {% for message in messages %}
+    <div class="row flashes">
+        <h4 class="center-align">{{ message }}</h4>
+    </div>
+    {% endfor %}
     {% endif %}
-{% endwith%}
-<img src="{{ url_for('static', filename='images/login.gif') }}" class="align-right s4 col">
-<button class="btn"><a href="{{ url_for('all_users')}}">Playmates</a></button>
+    {% endwith%}
 
+    <div class="row">
+        <div class="col s12 l6 offset-l6 landing-card">
+            <h2>Ready to find your Pup some playmates?</h2>
+            <p>Welcome to PuppyPlaymates, your dogs own playmate finding social</p>
+        </div>
+    </div>
+</div>
+<div class="about text-block">
+    <div class="container">
+        <h4 class="heading">What is PuppyPlaymates
+        </h4>
+        <h5>Here at PuppyPlaymates we wanted to create a way for dogs to find puppy love </h5>
+        <p>Forget your conventional forms of social media and dating websites. We have created a way for dogs of all ages
+            to meet online, to let other owners know when and where they are next walking their dog, to add photos and
+            to comment on each others profiles.</p>
+        <p>You can set your dogs profile to show whether you are looking for a plantonic playmates or if your looking
+            for a soulmate for your pup!</p>
+    </div>
+
+</div>
+<div class="get-started text-block">
+    <div class="container">
+        <h4 class="heading">Ready to get started?</h4>
+        <h5>Create an account and start your pups journey to a life full of playmates </h5>
+        <ul class="intro-list">
+            <li>Click the register button and set your username (<small>This is for you as the owner, you will be able to add your
+                    dogs name later</small>)</li>
+            <li>Build your dogs profile! Let other owners know if you are looking for Puppy Love or just Playmates. You
+                will be asked whether your dogs has been spade/neutered</li>
+            <li>Upload photos of your dog so other users know who to look out for in the park</li>
+            <li>Add your next walk details so if other users are in your area they can coincide their dogs playtime</li>
+            <li>Start looking for playmates and start liking profiles so they appear in the dogs you admire section of
+                your profile</li>
+            <li>Add comments to your own and other users profile. You can make these private so only you and the profile
+                you are on can see them</li>
+            <li>If you are ever worried about another user you can report them using the link at the bottom of the
+                webpage</li>
+        </ul>
+        <h6>Still not sure? Check out our current users</h6>
+        <a href="{{ url_for('all_users')}}" class="btn-yellow btn-large btn-space">Playmates</a>
+    </div>
+</div>
 {% endblock %}
