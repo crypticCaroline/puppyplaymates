@@ -49,8 +49,9 @@
 * A way to view other profiles 
 * A way to delete 
 * Links and functions work as expected
-* Users to find information about visual stress
-* Have a way to test for visual stress
+* maps? 
+* comments
+
 
 
 #### What a user may want 
@@ -145,12 +146,13 @@ Using app@route rendering templates
 
 ###### Email
 
-I have used [EmailJS](https://www.emailjs.com/) to send the email to the user.  This takes parameters defined in the contact.js file and the parameters set within the email template.  When the user clicks send email after they have submitted their details.  The email gets the data by using a loop to iterate through the results to create a string and pass the user all the results that they had.  
+
 
 
 ### Future Features 
 
-
+Maps - shows dogs by nearest location 
+multiple dogs
 ***
 
 ## Technologies Used 
@@ -164,7 +166,6 @@ I have used [EmailJS](https://www.emailjs.com/) to send the email to the user.  
 * Gitpod.io - for writing the code. Using the command line for committing and pushing to Git Hub
 * GitHub - hosting repositories
 * GIT - Pushing code to repositories
-* [EmailJS](https://www.emailjs.com/) - API sending emails to users
  
 Design 
 
@@ -172,7 +173,7 @@ Front End
 * [Google fonts](https://fonts.google.com/)  - for the font
 * [Balsamiq wireframe](https://balsamiq.com/)  - for creating the wireframes
 * [Beautifer](https://beautifier.io/) - for helping to keep code tidy
-* [Coolors](https://coolors.co/palettes/trending) - Colour Selection
+
 
 Backend 
 https://miro.com/app/board/o9J_lTewBto=/
