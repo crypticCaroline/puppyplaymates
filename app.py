@@ -583,7 +583,7 @@ def change_password():
                             "temp_password": generate_password_hash(get_random_string(14))}})
                 session['user'] = request.form.get("username")
                 return redirect(url_for(
-                    "profile", username=session["user"]))
+                    "profile", username=session["user"])) 
             else:
                 flash("Incorrect Username and/or Password")
                 return redirect(url_for("change_password"))
@@ -655,6 +655,10 @@ def contact_us():
 @ app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+
+# key error dog name 
+# build_profile
 
 
 if __name__ == "__main__":
