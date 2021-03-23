@@ -6,7 +6,6 @@
     <h2 class="heading align-center">Please Enter the username of the user you wish to report and a breif description of why.  Their username can be found on the dogs profile section</h2>
     <div class=" form-popout">
         <div class="row flush">
-            <div class="col s3 m5"></div>
         <form class="col s12 m8 offset-m2" method="POST"
                 action="{{ url_for('report_user')}}">
                 <div class="card-panel">
@@ -31,12 +30,14 @@
                     </div>                  
                     <div class="modal-footer">
                         <div class="row">
-                        <button type="submit" class="col s12 btn-yellow">
+                        <button type="submit" class="col s12 btn-yellow btn">
                             Submit
                         </button>
                     </div>
                     </div>
                 </div>
             </form>  
+            </div></div>
+            </div>
 {% endblock %}            
     

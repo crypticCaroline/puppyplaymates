@@ -10,10 +10,10 @@
     What ever your reason for needing to leave us we are sorry to see you go
   </h3>
    <form method="POST" action="{{ url_for('delete_profile', username=session['user'])}}">  
-   <a href="{{ url_for('profile', username=session['user'])}}" class="btn blue">Back to my profile</a> 
-   <a href="{{ url_for('build_profile', username=session['user'])}}" class="btn blue">Change Dog</a>
+   <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">Back to my profile</a> 
+   <a href="{{ url_for('build_profile', username=session['user'])}}" class="btn btn-yellow">Change Dog</a>
    <p>This will remove the currents dogs profile and allow you to add a new dog</p>
-   <button  type="submit" class="btn">Delete my Profile</button>
+   <button  type="submit" class="btn red">Delete my Profile</button>
    <p>This can't be undone</p>
    </form>
    </div>  

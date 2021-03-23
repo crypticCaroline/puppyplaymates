@@ -5,9 +5,9 @@
                 <h3>Your Images</h3>
             </div>
             <div class="row">
-                <ul class="collapsible" data-collapsible="accordion">
+                <ul class="collapsible col s12 flush" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header">Upload New Image</div>
+                        <div class="collapsible-header btn-yellow">Upload New Image</div>
                         <div class="collapsible-body">
                             
                             <h3>Upload New Image</h3>
@@ -18,7 +18,7 @@
                                     <input type="checkbox" id="profile_check" name="profile_check" />
                                     <label for="profile_check"> Make Profile Picture </label>
                                 </p>
-                                <button type="submit">Upload</button>
+                                <button type="submit" class="btn btn-large btn-style btn-yellow">Upload</button>
                             </form>
                         </div>
                     </li>
@@ -42,14 +42,14 @@
                                                 <input type="radio" id="{{image}}" name="photo" value="{{image}}"
                                                     class="images hidden" checked />
                                             </div>
-                                            <button type="submit" class="row">Delete Image</button>
+                                            <button type="submit" class="row btn red ">Delete Image</button>
                                         </form>
                                         <form method="POST" action="{{ url_for('profile_photo', username=username) }}">
                                             <div class="row flush hidden">
                                                 <input type="radio" name="photo" value="{{image}}" class="images hidden"
                                                     checked />
                                             </div>
-                                            <button type="submit" class="row">Make Profile Photo</button>
+                                            <button type="submit" class="row btn btn-yellow">Make Profile Photo</button>
                                         </form>
                                     </div>
                                 </div>

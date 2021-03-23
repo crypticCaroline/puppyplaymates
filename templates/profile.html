@@ -38,22 +38,22 @@
     </div>
 </div>
 <!-- profile section -->
-<div class="container pup-profile">
+<div class="container pup-profile form-popout">
     <div class="row">
         <div class="col s12">
             <div class="col s12 l6">
                 <div class="row">
-                    <div class="form-popout profile-form col s12">
+                    <div class=" col s12">
                         <h2>{{ user_profile.dog_name}} </h2>
                         {% if session.user != username %}
                         {% if dog_like %}
                         <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
-                            <button type="submit" class="big-btn blue" value="unlike" id="unliker_btn"
+                            <button type="submit" class="big-btn btn-yellow btn" value="unlike" id="unliker_btn"
                                 name="unliker_btn" onclick="overlay_angry()">Unlike</button>
                         </form>
                         {% else %}
                         <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_like">
-                            <button type="submit" class="big-btn blue" value="like" id="liker_btn" name="liker_btn"
+                            <button type="submit" class="big-btn btn-yellow btn" value="like" id="liker_btn" name="liker_btn"
                                 onclick="overlay_happy()">Like</button>
                         </form>
                         {% endif %}
@@ -87,13 +87,13 @@
                 </div>
             </div>
             <div class="col s12 l6 ">
-                <div class="form-popout profile-form col s12">
+                <div class="col s12">
                     <div class="row">
                         <div class="col s12 ">
                             <div class="row">
                                 <h4 class="col s8">Photos of {{ user_profile.dog_name}}</h4>
                                 {% if session.user == username %}
-                                <a data-target="edit_human" data-toggle="modal" class="modal-trigger col s4"
+                                <a data-target="edit_images" data-toggle="modal" class="modal-trigger col s4 btn btn-yellow"
                                     href="#edit_images">Edit Images</a>
                                 {% endif %}
                             </div>
@@ -149,7 +149,7 @@
                                 {{user_session.dog_name}} will be joining</p>
                             {% endif %}
                             {% if session.user == username%}
-                            <a data-target="add_walk" data-toggle="modal" class="modal-trigger" href="#add_walk">
+                            <a data-target="add_walk" data-toggle="modal" class="modal-trigger btn btn-yellow" href="#add_walk">
                                 Add Walk</a>
                             {% endif %}
                             {% if user_profile.next_walk.place != "" %}
@@ -165,7 +165,7 @@
             </div>
             <div class="col s12">
                 <div class="row">
-                    <div class="form-popout comment-section profile-form col s12">
+                    <div class=" comment-section col s12">
                         <div class="row">
                             <ul class="collapsible col s12" data-collapsible="accordion">
                                 <li>
@@ -191,7 +191,7 @@
                                         {% endif %}
                                         {% if comments.author == session['user'] %}
                                         <!-- Modal Trigger -->
-                                        <a class="waves-effect waves-light btn modal-trigger"
+                                        <a class="waves-effect waves-light btn btn-yellow modal-trigger"
                                             href="#modal{{comments}}">Edit</a>
 
                                         <!-- Modal Structure -->
@@ -208,13 +208,13 @@
                                                             </div>
                                                         </div>  
                                                         <button type="submit"
-                                                            class="col s12 btn-large light-blue darken-4 text-shadow">
-                                                            Update<i class="fas fa-sign-in-alt"></i>
+                                                            class="col s12 btn-yellow">
+                                                            Update
                                                         </button>
                                                     </form>
                                                     <form method="POST"
                                                         action="{{ url_for('delete_comment', username=username, comment_id=comments._id)}}">
-                                                        <button type="submit" class="">Delete</button></form>
+                                                        <button type="submit" class="red btn">Delete</button></form>
                                                 </div>
 
                                             </div>
@@ -234,7 +234,7 @@
                                     </div>
                                     <input type="checkbox" id="private" name="private" />
                                     <label for="private">Make Private</label>
-                                    <button type="submit" class="big-btn blue">Add</button>
+                                    <button type="submit" class="big-btn btn-yellow btn">Add</button>
                                 </form>
                             </div>
                         </div>
