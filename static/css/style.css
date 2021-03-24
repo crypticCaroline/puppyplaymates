@@ -268,6 +268,11 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
     -ms-animation: fadeInOut ease-in-out 3s;
 }
 
+hr {
+    width: 70%;
+    margin-bottom: 4%;
+}
+
 
 @keyframes fadeInOut {
     0% {opacity:0;}
@@ -384,7 +389,8 @@ height: 60px;
 ul.intro-list{
     padding-bottom: 5%;
 }
-.intro-list li {
+
+.intro-list li, .mob-nav {
 	margin: 0;
 	padding: 25px 0 25px 60px;
 	list-style: none;
@@ -392,6 +398,15 @@ ul.intro-list{
 	background-repeat: no-repeat;
 	background-position: left center;
 	background-size: 35px;
+}
+
+.mob-nav {
+    margin: 0;
+    padding: 20px;
+    background-image: url("/static/images/paw.png");
+    background-repeat: no-repeat;
+    background-size: 35px;
+
 }
 
 .btn-space {

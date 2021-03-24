@@ -41,23 +41,28 @@
 <div class="container pup-profile form-popout">
     <div class="row">
         <div class="col s12">
+            <div class="row">
+                <div class=" col s12">
+                    <h2 class="heading col s8 push-s2 center-align ">{{ user_profile.dog_name}}</h2>
+                    {% if session.user != username %}
+                    {% if dog_like %}
+                    <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
+                        <button type="submit" class="btn-yellow btn col s1 push-s1" value="unlike" id="unliker_btn"
+                            name="unliker_btn" onclick="overlay_angry()">Unlike</button>
+                    </form>
+                    {% else %}
+                    <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_like">
+                        <button type="submit" class="btn-yellow btn col s1 push-s1" value="like" id="liker_btn"
+                            name="liker_btn" onclick="overlay_happy()">Like</button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
             <div class="col s12 l6">
                 <div class="row">
-                    <div class=" col s12">
-                        <h2>{{ user_profile.dog_name}} </h2>
-                        {% if session.user != username %}
-                        {% if dog_like %}
-                        <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
-                            <button type="submit" class="big-btn btn-yellow btn" value="unlike" id="unliker_btn"
-                                name="unliker_btn" onclick="overlay_angry()">Unlike</button>
-                        </form>
-                        {% else %}
-                        <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_like">
-                            <button type="submit" class="big-btn btn-yellow btn" value="like" id="liker_btn" name="liker_btn"
-                                onclick="overlay_happy()">Like</button>
-                        </form>
-                        {% endif %}
-                        {% endif %}
+                    <div class="col s12">
                         <div class="img-wrapper">
                             <img src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}"
                                 class="profile-image">
@@ -91,18 +96,22 @@
                     <div class="row">
                         <div class="col s12 ">
                             <div class="row">
-                                <h4 class="col s8">Photos of {{ user_profile.dog_name}}</h4>
+                                <h4 class="col s12">Photos of {{ user_profile.dog_name}}</h4>
+                            </div>    
                                 {% if session.user == username %}
-                                <a data-target="edit_images" data-toggle="modal" class="modal-trigger col s4 btn btn-yellow"
-                                    href="#edit_images">Edit Images</a>
+                                <div class="row">
+                                <a data-target="edit_images" data-toggle="modal"
+                                    class="modal-trigger btn btn-yellow" href="#edit_images">Edit Images</a>
+                                </div>
                                 {% endif %}
-                            </div>
+                    
                             <div class="scrolling-wrapper-img">
+                                {% if not user_profile.all_images %}
+                                        <p>Looks like there are no photos uploaded just yet</p>
+                                    {% endif %}
                                 {% for image in user_profile.all_images  %}
                                 <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="card-scroll">
                                 {% endfor %}
-                                <p>Looks like there are no photos uploaded just yet - click Edit Images to begin
-                                    uploading</p>
                             </div>
                         </div>
                     </div>
@@ -149,7 +158,8 @@
                                 {{user_session.dog_name}} will be joining</p>
                             {% endif %}
                             {% if session.user == username%}
-                            <a data-target="add_walk" data-toggle="modal" class="modal-trigger btn btn-yellow" href="#add_walk">
+                            <a data-target="add_walk" data-toggle="modal" class="modal-trigger btn btn-yellow"
+                                href="#add_walk">
                                 Add Walk</a>
                             {% endif %}
                             {% if user_profile.next_walk.place != "" %}
@@ -169,7 +179,7 @@
                         <div class="row">
                             <ul class="collapsible col s12" data-collapsible="accordion">
                                 <li>
-                                    <div class="collapsible-header" >Comments</div>
+                                    <div class="collapsible-header">Comments</div>
                                     <div class="collapsible-body">
                                         {% for comments in user_profile.comments %}
                                         {% if comments.private %}
@@ -206,9 +216,8 @@
                                                                 <input type="text" id="date" name="edit_comment"
                                                                     class="validate" value="{{comments.text}}" required>
                                                             </div>
-                                                        </div>  
-                                                        <button type="submit"
-                                                            class="col s12 btn-yellow">
+                                                        </div>
+                                                        <button type="submit" class="col s12 btn-yellow">
                                                             Update
                                                         </button>
                                                     </form>
@@ -234,7 +243,7 @@
                                     </div>
                                     <input type="checkbox" id="private" name="private" />
                                     <label for="private">Make Private</label>
-                                    <button type="submit" class="big-btn btn-yellow btn">Add</button>
+                                    <button type="submit" class="big-btn btn-yellow">Add</button>
                                 </form>
                             </div>
                         </div>

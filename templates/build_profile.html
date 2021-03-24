@@ -11,6 +11,15 @@
             <div class="row">
                 <h3 class="align-center col s12 heading">Enter Dog Details</h3>
             </div>
+            {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="row flashes">
+                                <p class="center-align">{{ message }}</p>
+                            </div>
+                        {% endfor %}
+                {% endif %}
+                {% endwith%}
             <div class="small-form">            
             <div class="row flush">
                 <div class="input-field col s12">

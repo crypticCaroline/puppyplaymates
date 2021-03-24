@@ -39,6 +39,17 @@ mongo = PyMongo(app)
 mail = Mail(app)
 
 
+def profanity_check(input):
+    print(input)
+    curse_words = {"fuck", "shit", "cunt", "wanker", "fucker", "fucktard", "shitstick", "dickhead", "asshole", "dickwipe", 
+    "twat", "tit", "tits", "fucktits", "wankstain"}
+    for word in input.split():
+        print(word)
+        if word in curse_words:
+            return True
+
+
+
 @app.route("/")
 @app.route("/homepage")
 def homepage():
@@ -55,6 +66,12 @@ def all_users():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
+        profanity = profanity_check(request.form.get('username'))
+        if profanity:
+            flash(
+                "This username violates our safespaces policy, please refrain from using profanity")
+            return render_template("register.html")
+
         # check if username/ email already exists in db
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username")})
@@ -116,6 +133,20 @@ def build_profile(username):
         user = mongo.db.users.find_one({"username": session['user']})
         # updates the database with dog details
         if request.method == "POST":
+            profanity = profanity_check(request.form.get('dog_name'))
+            if profanity:
+                flash(
+                "Did you really call your dog that? That name violates our safespaces policy, please refrain from using profanity")
+                return render_template("build_profile.html", username=session[
+            "user"], user=user)
+
+            profanity2 = profanity_check(request.form.get('dog_description'))
+            print(profanity2)
+            if profanity2:
+                flash(
+                "This bio violates our safespaces policy, please refrain from using profanity")
+                return render_template("build_profile.html", username=session[
+            "user"], user=user)
             mongo.db.users.update_one(
                 {"username": session["user"]},
                 {"$set": {
@@ -215,6 +246,16 @@ def edit_human(username):
         user_profile = mongo.db.users.find_one({"username": username})
         # edits human details in database
         if request.method == "POST":
+            profanity = profanity_check(request.form.get('human_description'))
+            if profanity:
+                flash(
+                "This description violates our safespaces policy, please refrain from using profanity")
+                return render_template("edit_human.html")
+            profanity = profanity_check(request.form.get('human_name'))
+            if profanity:
+                flash(
+                "This name violates our safespaces policy, please refrain from using profanity")
+                return render_template("edit_human.html")
             mongo.db.users.update_one(
                 {"username": session["user"]},
                 {"$set": {
@@ -245,7 +286,6 @@ def profile_photo(username):
     if session:
         # finds instance in datebase to set the profile picture
         user_profile = mongo.db.users.find_one({"username": username})
-        image = request.form.get('submit')
 
         if request.method == 'POST':
             mongo.db.users.update_one(
@@ -405,6 +445,11 @@ def add_walk(username):
         user_profile = mongo.db.users.find_one({"username": username})
 
         if request.method == "POST":
+            profanity = profanity_check(request.form.get('walk_description'))
+            if profanity:
+                flash(
+                "This description violates our safespaces policy, please refrain from using profanity")
+                return render_template("edit_comment.html")
             # updates the users walk details in the database
             mongo.db.users.update_one(
                 {"username": username},
@@ -432,6 +477,11 @@ def add_comment(username):
 
         # Adds a comment to the users profile
         if request.method == "POST":
+            profanity = profanity_check(request.form.get('add_comment'))
+            if profanity:
+                flash(
+                "This comment violates our safespaces policy, please refrain from using profanity")
+                return render_template("add_comment.html")
             mongo.db.users.update_one(
                 {"username": username},
                 {"$addToSet": {"comments": {
@@ -457,6 +507,11 @@ def edit_comment(username, comment_id):
 
         # lets the user edit the comment
         if request.method == "POST":
+            profanity = profanity_check(request.form.get('edit_comment'))
+            if profanity:
+                flash(
+                "This comment violates our safespaces policy, please refrain from using profanity")
+                return render_template("edit_comment.html")
             mongo.db.users.update_one(
                 {"username": username},
                 {"$pull": {"comments": {"_id": ObjectId(comment_id)}}})
@@ -607,6 +662,7 @@ def report_user():
             user_text = request.form.get('report-text')
             user_email = user_session['email']
 
+
             # creates a report string 
             report = (user_report + " with the following message: " + user_text)
 
@@ -647,8 +703,6 @@ def contact_us():
         flash("Email sent successfully")
         return render_template("contact_us.html")
     return render_template("contact_us.html")
-
-
 
 # error handlers
 
