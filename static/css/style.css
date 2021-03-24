@@ -3,7 +3,8 @@
 :root {
     --dark-font-color: #221c1c;
     --sub-font-color: rgb(243, 240, 225);
-    --yellow-color:  #fdd006;
+    --yellow-color:  #ffdb39;
+    --light-blue: #d4e6f4be;
 }
 html{
     height: 100%
@@ -68,6 +69,7 @@ a {
     background-color: var(--yellow-color);
     color: var(--dark-font-color);
     font-weight: 700;
+    margin-top: 1%;
 }
 
 .btn-style {
@@ -128,8 +130,8 @@ p {
     overflow:hidden;
     position: relative;
     margin-bottom: 1.25%;
-    margin-top: 7%;
-    background-color: #ffffff;
+    margin-top: 3%;
+    background-color: #fefff4;
 }
 
 .user-cards{
@@ -215,17 +217,59 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
     display: none;
 }
 
-.img-wrapper {
-    height: min-content;
-    border: #333b5d solid 3px;
+.profile-wrapper {
+    background-color: rgba(249, 255, 193, 0.1);
+    border-radius: 1%;
+}
+
+.birthday {
+    font-size: 3rem;
+    margin-right: 15%;
 }
 
 .profile-image {
-    height: 50vh;
-    width: 90%;
+    height: 60vh;
+    width: 100%;
     object-fit: cover;
+    border: solid #091a28 2px;
+    background-color: #091a28;
+    padding:1px;
 }
 
+.profile-items-wrapper {
+    margin: 5%;
+    padding-bottom: 3%;
+    
+}
+
+.profile-heading.col {
+    border-bottom: solid silver;
+    padding: 4%;
+}
+
+.profile-items {
+    font-weight: 500;
+    
+}
+
+.bio {
+    padding-bottom: 10%;
+    border-bottom: solid silver ;
+    margin-bottom: 10%;
+}
+
+.profile-items-wrapper{
+    border-bottom: solid silver;
+    margin-top: 0;
+}
+
+.row .small-field.col {
+    margin-left:0;
+}
+
+.chip {
+    background-color: #ffdde29c
+}
 /* Overlays hidden by default */
 #overlay_happy {
     display: none; 
@@ -267,12 +311,6 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
     -o-animation: fadeInOut ease-in-out 3s;
     -ms-animation: fadeInOut ease-in-out 3s;
 }
-
-hr {
-    width: 70%;
-    margin-bottom: 4%;
-}
-
 
 @keyframes fadeInOut {
     0% {opacity:0;}
@@ -317,7 +355,8 @@ height: 60px;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;  
+  -webkit-overflow-scrolling: touch; 
+  margin: 2%; 
 }
 
 .scrolling-wrapper-img {
@@ -325,6 +364,14 @@ height: 60px;
   margin-bottom: 0.8rem;
   padding: 1rem;
 }  
+
+.admirers-section {
+    padding:1%;
+    margin-top:8%;
+    margin-bottom: 4%;
+    
+}
+
 
 .card-scroll {
     object-fit: cover;
@@ -337,6 +384,33 @@ height: 60px;
 .comment-section{
     padding: 4%;
     margin-top: 0;
+}
+
+.row .col ul.comment-area, .row .col.comment-area{
+    background-color: rgba(252, 249, 213, 0.1);
+    border-radius: 5%;
+    margin: 5%;
+    margin-top:0;
+}
+
+li.comments { 
+    background: rgba(120, 189, 180, 0.05); 
+}
+
+li.comments:nth-child(odd) { 
+    background: rgba(238, 125, 168, 0.05); 
+}
+
+.comments{
+    padding: 0.5%;
+    margin:5%;
+    margin-top:0;
+    border-radius: 5%;
+}
+
+.add-comment {
+    border-bottom: none;
+    margin-bottom: 0;
 }
 
 .edit-img {
