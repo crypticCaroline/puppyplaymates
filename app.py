@@ -13,7 +13,7 @@ import random
 import string
 from flask_mail import Mail, Message
 import time
-from datetime import datetime
+from datetime import datetime, date
 if os.path.exists("env.py"):
     import env
 
@@ -42,13 +42,25 @@ mail = Mail(app)
 def profanity_check(input):
     print(input)
     curse_words = {"fuck", "shit", "cunt", "wanker", "fucker", "fucktard", "shitstick", "dickhead", "asshole", "dickwipe", 
-    "twat", "tit", "tits", "fucktits", "wankstain"}
+    "twat", "tit", "tits", "fucktits", "wankstain", "dick"}
     for word in input.split():
         print(word)
         if word in curse_words:
             return True
 
 
+def check_age(dob):
+    today = date.today()
+    age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+    return age
+
+
+def check_birthday(dob):
+    today = date.today()
+    print(dob)
+    print(today)
+    if ((today.month, today.day) == (dob.month, dob.day)):
+        return True
 
 @app.route("/")
 @app.route("/homepage")
@@ -60,6 +72,50 @@ def homepage():
 def all_users():
     users = mongo.db.users.find()
     return render_template("all_users.html", users=users)
+
+# profile 
+@ app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+
+    if session:
+        user_profile = mongo.db.users.find_one({"username": username})
+        user_session = mongo.db.users.find_one({"username": session['user']})
+        dog_like = False
+
+        age = check_age(user_profile['dog_dob'])
+        birthday = check_birthday(user_profile['dog_dob'])
+        print(birthday)
+        mongo.db.users.update_one(
+                        {"username": username},
+                        {"$set": {"dog_age": age}})
+        
+
+
+        # users a loop to find out if the visitor has liked the page to display correct button
+        for dogs_like in user_profile["dog_liker"]:
+            dog_name = dogs_like['dog_name']
+            if user_session["dog_name"] == dog_name:
+                dog_like = True
+
+        # if button liked calls the correct function and adds/removes from arrays
+        if request.method == "POST":
+            liker_btn = request.form.get("liker_btn")
+            unliker_btn = request.form.get("unliker_btn")
+
+            if liker_btn:
+                return redirect(url_for(
+                    'likes', username=username))
+
+            if unliker_btn:
+                return redirect(url_for(
+                    'dislikes', username=username))
+
+        return render_template(
+            "profile.html",
+            username=username, user_profile=user_profile,
+            user_session=user_session, dog_like=dog_like, birthday=birthday)
+    flash("You need to logged in to view this page")
+    return redirect(url_for('login'))
 
 
 # registration pages 
@@ -141,12 +197,15 @@ def build_profile(username):
             "user"], user=user)
 
             profanity2 = profanity_check(request.form.get('dog_description'))
-            print(profanity2)
             if profanity2:
                 flash(
                 "This bio violates our safespaces policy, please refrain from using profanity")
                 return render_template("build_profile.html", username=session[
             "user"], user=user)
+
+            dob = datetime.strptime(request.form.get("dog_dob"), "%Y-%m-%d")
+            age = check_age(dob)
+
             mongo.db.users.update_one(
                 {"username": session["user"]},
                 {"$set": {
@@ -156,7 +215,8 @@ def build_profile(username):
                     "dog_gender": request.form.get("dog_gender"),
                     "dog_location": request.form.get("dog_location"),
                     "dog_size": request.form.get("dog_size"),
-                    "dog_dob": request.form.get("dog_dob"),
+                    "dog_dob": dob,
+                    "dog_age": age,
                     "puppy_love": request.form.get('puppy_love'),
                     "fertile": request.form.get('fertile')
                 }}
@@ -347,42 +407,6 @@ def upload_image(username):
     return render_template('login.html')
 
 
-# profile 
-@ app.route("/profile/<username>", methods=["GET", "POST"])
-def profile(username):
-
-    if session:
-        user_profile = mongo.db.users.find_one({"username": username})
-        user_session = mongo.db.users.find_one({"username": session['user']})
-        dog_like = False
-
-        # users a loop to find out if the visitor has liked the page to display correct button
-        for dogs_like in user_profile["dog_liker"]:
-            dog_name = dogs_like['dog_name']
-            if user_session["dog_name"] == dog_name:
-                dog_like = True
-
-        # if button liked calls the correct function and adds/removes from arrays
-        if request.method == "POST":
-            liker_btn = request.form.get("liker_btn")
-            unliker_btn = request.form.get("unliker_btn")
-
-            if liker_btn:
-                return redirect(url_for(
-                    'likes', username=username))
-
-            if unliker_btn:
-                return redirect(url_for(
-                    'dislikes', username=username))
-
-        return render_template(
-            "profile.html",
-            username=username, user_profile=user_profile,
-            user_session=user_session, dog_like=dog_like)
-    flash("You need to logged in to view this page")
-    return redirect(url_for('login'))
-
-
 # liker function 
 @app.route("/profile/<username>/liker")
 def likes(username):
@@ -451,11 +475,12 @@ def add_walk(username):
                 "This description violates our safespaces policy, please refrain from using profanity")
                 return render_template("edit_comment.html")
             # updates the users walk details in the database
+            
             mongo.db.users.update_one(
                 {"username": username},
                 {"$set": {
                  "next_walk": {
-                     'date': request.form.get('date'),
+                     'date': datetime.strptime(request.form.get("date"), "%Y-%m-%d"),
                      'time': request.form.get('time'),
                      'place': request.form.get('place'),
                      'walk_description': request.form.get('walk_description')
@@ -486,7 +511,7 @@ def add_comment(username):
                 {"username": username},
                 {"$addToSet": {"comments": {
                     '_id': ObjectId(),
-                    'date': datetime.now().strftime("%m/%d/%Y, %H:%M"),
+                    'date': datetime.now().strftime("%d/%m/%Y, %H:%M"),
                     'author': user_session['username'],
                     'author_dog': user_session['dog_name'],
                     'text': request.form.get('add_comment'),
