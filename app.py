@@ -728,10 +728,6 @@ def page_not_found(e):
 def internal_error(e):
     return render_template('500.html'), 500
 
-# key error dog name
-# build_profile
-
-
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

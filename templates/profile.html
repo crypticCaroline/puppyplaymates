@@ -263,16 +263,14 @@
                                     <!-- Modal Structure -->
                                     <div id="modal{{comments}}" class="modal">
                                         <div class="modal-content">
-                                            <div class="card-panel">
-                                                <form class="col s12 m8 offset-m2" method="POST"
+                                                <form  method="POST"
                                                     action="{{ url_for('edit_comment', username=username, comment_id=comments._id)}}">
                                                     <h2>Edit Comment </h2>
-                                                    <div class="row">
-                                                        <div class="col s12 input-field">
+                                                   
+                                                        <div class="input-field">
                                                             <input type="text" id="date" name="edit_comment"
                                                                 class="validate" value="{{comments.text}}" required>
                                                         </div>
-                                                    </div>
                                                     <button type="submit" class="col s12 btn-yellow">
                                                         Update
                                                     </button>
@@ -283,7 +281,6 @@
                                             </div>
 
                                         </div>
-                                    </div>
                                 </li>
                                 {% endfor %}
                             </ul>
