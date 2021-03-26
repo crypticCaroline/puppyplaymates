@@ -4,7 +4,8 @@
     --dark-font-color: #221c1c;
     --sub-font-color: rgb(243, 240, 225);
     --yellow-color:  #ffdb39;
-    --light-blue: #d4e6f4be;
+    --light-blue: #d4e6f4;
+    --silver-blue: #d6d6d6e0;
 }
 html{
     height: 100%
@@ -12,7 +13,7 @@ html{
 html,
 body {
  position: relative;
- background-color: #d4e6f4;
+ background-color: var(--light-blue);
  background-image: url('/static/images/prints.png') ;
 
 }
@@ -96,6 +97,10 @@ p {
     font-size: 1.2rem;
 }
 
+small {
+    font-size: 0.7rem; 
+}
+
 .row.flush {
     margin: 0px;
 }
@@ -106,7 +111,6 @@ p {
     color:var(--dark-font-color);
     padding: 2%;
     padding-bottom: 5%;
-    
 }
 
 .sub-heading {
@@ -157,12 +161,12 @@ p {
     background-repeat: no-repeat;
     background-size: cover;
 }
-.user-cards__image img {
+.user-cards__image img, .comment-image img {
     visibility: hidden;
     width: 100%;
 }
 
-.user-cards .content {
+.user-cards .content, .comments .content {
     padding: 0 4%;
     display: flex;
     flex-direction: column;
@@ -202,11 +206,15 @@ p {
     margin-right: 3rem;
     margin-left: 3rem;    
     margin-bottom: 1rem;
-    width: 95%;
 }
 
 textarea.materialize-textarea {
-    border: dashed yellow 1px;
+    background-color: rgb(221 219 189 / 8%);
+    border-radius: 5%;
+    margin: 0;
+    padding: 2%;
+    padding-top: 3%;
+    height: 80px;
 }
 
 input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select-dropdown{
@@ -243,7 +251,7 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
 }
 
 .profile-heading.col {
-    border-bottom: solid silver;
+    border-bottom: solid var(--silver-blue);
     padding: 4%;
 }
 
@@ -254,12 +262,12 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
 
 .bio {
     padding-bottom: 10%;
-    border-bottom: solid silver ;
+    border-bottom: solid var(--silver-blue);
     margin-bottom: 10%;
 }
 
-.profile-items-wrapper{
-    border-bottom: solid silver;
+.profile-items-wrapper {
+    border-bottom: solid var(--silver-blue);
     margin-top: 0;
 }
 
@@ -318,6 +326,8 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
     100%{opacity: 0;}
 }
 
+
+
 .pup-profile {
     padding: 0.5rem;
 }
@@ -372,7 +382,6 @@ height: 60px;
     
 }
 
-
 .card-scroll {
     object-fit: cover;
     width: auto;
@@ -381,24 +390,39 @@ height: 60px;
     border-radius: 3%;
 }
 
-.comment-section{
+.btn-add {
+    margin-left: 3.2%;
+    margin-top: 5%;
+}
+
+.row .col.comment-section{
     padding: 4%;
+    padding-top: 2%;
+    margin: 2%;
     margin-top: 0;
+    background-color: #e7e19a17;
+    border-radius: 5%;
+    border-bottom: solid var(--silver-blue);
+}
+
+.comment-section .heading {
+    padding-top: 0;
 }
 
 .row .col ul.comment-area, .row .col.comment-area{
-    background-color: rgba(252, 249, 213, 0.1);
     border-radius: 5%;
     margin: 5%;
     margin-top:0;
 }
 
 li.comments { 
-    background: rgba(120, 189, 180, 0.05); 
+    background: rgba(120, 189, 180, 0.03); 
+    overflow:auto; 
 }
 
 li.comments:nth-child(odd) { 
-    background: rgba(238, 125, 168, 0.05); 
+    background: rgba(238, 125, 168, 0.03); 
+    overflow:auto; 
 }
 
 .comments{
@@ -487,6 +511,48 @@ ul.intro-list{
     margin-top: 40px;
 }
 
+.comment-content {
+    float:right;
+    width:80%;
+    padding-left: 5%;
+}
+
+.comment-image{
+    float: left;
+    width: 20%;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    background-size: cover;
+    margin: -1px;
+    border-radius: 10%;
+}
+
+.comment-btn-wrapper {
+    float: right;
+    margin-right: 7%;
+    margin-top: 1.5%;
+}
+
+.btn-edit i {
+    color: inherit;
+    font-size: 1rem;
+    line-height: 20px;
+}
+
+.btn-edit {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+    border-radius: 30%;
+
+}
+
+.btn-edit hover{
+    color: var(--yellow-color);
+}
+
 @media screen and (max-width: 770px) {
     .user-cards {
         width: 100%;
@@ -502,4 +568,12 @@ ul.intro-list{
       margin-top:7%;
       background-image: url('/static/images/pupssm.jpg');
   }
+  .comment-image {
+      width: 100%;
+  }
+
+  .comment-content {
+      width:100%;
+  }
+  
 }
