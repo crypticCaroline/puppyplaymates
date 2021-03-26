@@ -1,15 +1,12 @@
 <div id="edit_images" class="modal">
     <div class="modal-content">
-        <div class="container container-wide" id="upload_img">
-            <div class="row">
-                <h3>Your Images</h3>
-            </div>
+        {% if session.user == username %}
+        <div id="upload_img">
             <div class="row">
                 <ul class="collapsible col s12 flush" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header btn-yellow">Upload New Image</div>
+                    <li class="col s12">
+                        <div class="collapsible-header">Upload New Image</div>
                         <div class="collapsible-body">
-                            
                             <h3>Upload New Image</h3>
                             <form action="{{ url_for('upload_image', username=username ) }}" method="POST"
                                 enctype="multipart/form-data">
@@ -18,7 +15,7 @@
                                     <input type="checkbox" id="profile_check" name="profile_check" />
                                     <label for="profile_check"> Make Profile Picture </label>
                                 </p>
-                                <button type="submit" class="btn btn-large btn-style btn-yellow">Upload</button>
+                                <button type="submit" class="btn btn-yellow">Upload</button>
                             </form>
                         </div>
                     </li>
@@ -26,48 +23,39 @@
             </div>
         </div>
 
-        {% if session.user == username %}
+        <h3>Your Images</h3>
         <div class="col s12 m10 offset-m1">
-            <div class="row">
 
                 {% for image in user_profile.all_images  %}
-                <div class="col">
-                    <div class="row">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="{{image}}">
-                                    <div class="card-action">
-                                        <form method="POST" action="{{ url_for('delete_images', username=username) }}">
-                                            <div class="row flush">
-                                                <input type="radio" id="{{image}}" name="photo" value="{{image}}"
-                                                    class="images hidden" checked />
-                                            </div>
-                                            <button type="submit" class="row btn red ">Delete Image</button>
-                                        </form>
-                                        <form method="POST" action="{{ url_for('profile_photo', username=username) }}">
-                                            <div class="row flush hidden">
-                                                <input type="radio" name="photo" value="{{image}}" class="images hidden"
-                                                    checked />
-                                            </div>
-                                            <button type="submit" class="row btn btn-yellow">Make Profile Photo</button>
-                                        </form>
-                                    </div>
+                <div class="card card__img">
+                    <div class="card-image">
+                        <img src="{{image}}">
+                        <div class="card-action">
+                            <form method="POST" action="{{ url_for('profile_photo', username=username) }}">
+                                <div class="row flush hidden">
+                                    <input type="radio" name="photo" value="{{image}}" class="images hidden" checked />
                                 </div>
-                            </div>
+                                <button type="submit" class="row btn btn-yellow btn-small">Make Profile Photo</button>
+                            </form>
+                            <form method="POST" action="{{ url_for('delete_images', username=username) }}">
+                                <div class="row flush">
+                                    <input type="radio" id="{{image}}" name="photo" value="{{image}}"
+                                        class="images hidden sm-img" checked />
+                                </div>
+                                <button type="submit" class="row btn red btn-small">Delete Image</button>
+                            </form>
                         </div>
-
                     </div>
-                    {% endfor %}
                 </div>
+                {% endfor %}
             </div>
-
-
-            {% else %}
-            <div>
-                <p>Bad Dog you can't edit another Pups Profile</p>
-                <p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
-                {% endif %}
-            </div>
-
         </div>
     </div>
+
+
+{% else %}
+<div>
+    <p>Bad Dog you can't edit another Pups Profile</p>
+    <p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
+    {% endif %}
+</div>

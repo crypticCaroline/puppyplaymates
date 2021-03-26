@@ -240,7 +240,7 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
     width: 100%;
     object-fit: cover;
     border: solid #091a28 2px;
-    background-color: #091a28;
+    background-color: var(--light-blue);
     padding:1px;
 }
 
@@ -273,6 +273,11 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
 
 .row .small-field.col {
     margin-left:0;
+}
+
+.card__img {
+    width:30%; 
+    display:inline-block;
 }
 
 .chip {
@@ -388,6 +393,11 @@ height: 60px;
     height:25vh;
     margin: 0.4rem;
     border-radius: 3%;
+}
+
+.btn-small {
+    font-size: 0.5rem;
+    height: min-content
 }
 
 .btn-add {
@@ -511,6 +521,21 @@ ul.intro-list{
     margin-top: 40px;
 }
 
+.form-right {
+    float:right;
+    width:30%;
+    padding: 3%;
+    
+}
+.form-left{
+    float:left;
+    width:70%;
+    padding: 1%;
+    }
+.form-bottom {
+    width:100%;
+    padding:1%;
+}    
 .comment-content {
     float:right;
     width:80%;
@@ -530,6 +555,7 @@ ul.intro-list{
 
 .comment-btn-wrapper {
     float: right;
+    margin:2%;
     margin-right: 7%;
     margin-top: 1.5%;
 }
@@ -553,6 +579,7 @@ ul.intro-list{
     color: var(--yellow-color);
 }
 
+
 @media screen and (max-width: 770px) {
     .user-cards {
         width: 100%;
@@ -561,8 +588,17 @@ ul.intro-list{
   .nav-bar-txt {
       font-size: 1.5rem;
   }
+  p {
+      font-size: 1rem;
+  }
   h2 {
       font-size: 2.2rem;
+  }
+  h3, h3.heading{
+      font-size: 1.6rem;
+  }
+  h4{
+      font-size: 1.2rem;
   }
   .homepage {
       margin-top:7%;

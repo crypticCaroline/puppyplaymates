@@ -3,38 +3,30 @@
         
         <div class="row">
             <form class="col s12 m10 offset-m1" method="POST" action="{{ url_for('edit_profile', username=username) }}">
-                <div class="card-panel">
                     <h3 class="heading">Edit {{ user_profile.dog_name }}'s Profile infomation</h3>
                     
-                    <div class="row flush">
-                        <div class="input-field col s12">
+                    <label for="dog_name"  >Puppy Name</label>
                             <input type="text" id="dog_name" name="dog_name" class="validate" min-length="2"
-                                maxlength="15" pattern="^[a-zA-Z0-9]{2,15}$" value="{{user_profile.dog_name}}" required>
-                            <label for="dog_name"  >Puppy Name</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
+                                maxlength="15" pattern="^[a-zA-Z0-9]{2,25}$" value="{{user_profile.dog_name}}" required>
+                            
+                        
+                    <label for="dog_location">Home Town</label>
                             <input type="text" id="dog_location" name="dog_location" class="validate"
                                 value="{{user_profile.dog_location}}" min-length="2" maxlength="40"
                                 pattern="^[a-zA-Z0-9]{2,40}$">
-                            <label for="dog_location">Home Town</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
+                            
+                      
+                   <label>Pup Size</label>
                             <select name="dog_size">
-                                <option value="{{user_profile.dog_size}}" selected>What is your Pup Size</option>
+                                <option value="{{user_profile.dog_size}}" selected>Size</option>
                                 <option>Small</option>
                                 <option>Medium </option>
                                 <option>Large</option>
                             </select>
-                            <label>Pup Size</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <h6>Is the pup Nutured/Spade</h6>
+                            
+                        
+                    
+                            <label for="fertile">Is the pup Nutured/Spade</label>
                             <div class="switch">
                                 <label>
                                     No
@@ -43,11 +35,8 @@
                                     Yes
                                 </label>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <h6>Looking for Puppy Love</h6>
+
+                            <label for="puppy_love">Looking for Puppy Love</label>
                             <div class="switch">
                                 <label>
                                     No
@@ -56,26 +45,22 @@
                                     WOOF WOOF
                                 </label>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <textarea id="dog_description" type="text" name="dog_description"
-                                class="validate materialize-textarea col s12" min-length="5" maxlength="100"
-                                required>{{user_profile.dog_description}}</textarea>
+
                             <label for="dog_description">Bio</label>
-                        </div>
-                    </div>
-                    <div class="row">
+                            <textarea id="dog_description" type="text" name="dog_description"
+                                class="validate materialize-textarea " min-length="5" maxlength="100"
+                                required>{{user_profile.dog_description}}</textarea>
+                            
+
+
                         <button type="submit" class="col s12 btn-large btn-yellow">
                             Update
                         </button>
-                    </div>
+
                     <div class="modal-footer">
                         <a href="{{ url_for('delete_profile')}}"
-                            class="modal-close waves-effect waves-green btn-flat">Do you need to remove this Pup?</a>
+                            class="modal-close waves-effect waves-green btn-flat">Remove Pup?</a>
                     </div>
-                </div>
             </form>
         </div>
     </div>

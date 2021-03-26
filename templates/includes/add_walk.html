@@ -1,40 +1,26 @@
 <div id="add_walk" class="modal">
     <div class="modal-content">
-        <form class="col s12 m8 offset-m2" method="POST"
-                action="{{ url_for('add_walk', username=username)}}">
-                <div class="card-panel">
-                    <h2>Add Walk</h2>
-                    <div class="row">
-                        <div class="col s7 m4 l3 input-field small-field">
-                            <input type="date" id="date" name="date" class="validate" 
-                                required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s7 m4 l3 small-field">
-                            <input type="time" id="time" name="time" class="validate">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" id="place" name="place" class="validate">
-                            <label for="human_description">Place</label>
-                        </div>
-                    </div>      
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" id="walk_description" name="walk_description" class="validate">
-                            <label for="walk_description">Description</label>
-                        </div>
-                    </div>                      
-                    <div class="modal-footer">
-                        <div class="row">
-                        <button type="submit" class="col s12 btn btn-yellow">
-                            Submit
-                        </button>
-                    </div>
-                    </div>
-                </div>
-            </form>  
+        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('add_walk', username=username)}}">
+            
+                <h2>Add Walk</h2>
+                <div class="form-left">
+                <input type="date" id="date" name="date" class="validate" required>
+                <input type="time" id="time" name="time" class="validate">
+            </div>
+            
+                <img src="{{ url_for('static', filename='images/dog-walk.gif') }}" alt="dog walking" class="form-right">
+            
+            <div class="form-bottom">
+            <label for="human_description">Place</label>
+            <input type="text" id="place" name="place" class="validate">
+            
+            <label for="walk_description">Description</label>
+            <input type="text" id="walk_description" name="walk_description" class="validate">
+            <button type="submit" class="col s12 btn btn-yellow">
+                Add Walk
+            </button>
+
+</div>
+        </form>
     </div>
 </div>

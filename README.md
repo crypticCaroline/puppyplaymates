@@ -141,6 +141,10 @@ Using app@route rendering templates
 
 *** 
 
+profanity 
+
+birthday 
+
 #### Features Specific to Pages
 
 
@@ -153,6 +157,7 @@ Using app@route rendering templates
 
 Maps - shows dogs by nearest location 
 multiple dogs
+use a database call to render up to date comment photos 
 ***
 
 ## Technologies Used 

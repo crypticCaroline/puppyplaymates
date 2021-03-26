@@ -147,7 +147,7 @@ def register():
             "password": generate_password_hash(request.form.get("password")),
             "dog_liker": [{"dog_name": "Puppy Playmates"}],
             "image_url":
-            "https://res.cloudinary.com/puppyplaymates/image/upload/dog_avatar_uskzh1.png",
+            "https://res.cloudinary.com/puppyplaymates/image/upload/q_auto:low/dog_avatar_uskzh1.png",
             "all_images": [],
             "comments": [],
             "next_walk": {
@@ -375,7 +375,7 @@ def upload_image(username):
                 # creates a string for the file name to upload to cloudinary
                 filename = secure_filename(item.filename)
                 filename, file_extension = os.path.splitext(filename)
-                public_id = (username + '/' + filename)
+                public_id = (username + '/q_auto:low/' + filename)
                 # uploads to cloudinary
                 cloudinary.uploader.unsigned_upload(
                     item, "puppy_image", cloud_name='puppyplaymate',
@@ -466,7 +466,7 @@ def add_walk(username):
             if profanity:
                 flash(
                 "This description violates our safespaces policy, please refrain from using profanity")
-                return render_template("edit_comment.html")
+                return render_template("profile.html")
             # updates the users walk details in the database
             
             mongo.db.users.update_one(
@@ -543,6 +543,7 @@ def edit_comment(username, comment_id):
                     'author': user_session['username'],
                     'author_dog': user_session['dog_name'],
                     'text': request.form.get('edit_comment'),
+                    "img_url": user_session['image_url'],
                     'private': request.form.get('private')
                 }}})
         return redirect(url_for('profile', username=username))

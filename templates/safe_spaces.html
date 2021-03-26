@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+<div class="homepage-wrapper">
+<div class="about text-block">
+    <div class="container">
+        <h4 class="heading">Safespaces
+        </h4>
+        <h5>Your safe space ----</h5>
+        <p>Forget your conventional forms of social media and dating websites. We have created a way for dogs of all ages
+            to meet online, to let other owners know when and where they are next walking their dog, to add photos and
+            to comment on each others profiles.</p>
+        <p>You can set your dogs profile to show whether you are looking for plantonic playmates or looking
+            for a soulmate for your pup!</p>
+    </div>
+
+        <h6>Need to report a user</h6>
+        <a href="{{ url_for('report_users')}}" class="btn-yellow btn-large btn-space">Playmates</a>
+    </div>
+</div>
+{% endblock %}

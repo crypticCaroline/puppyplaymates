@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}500{% endblock %}
+
+
+{% block content %}
+<div class="error-page">
+    <div class="row">
+        <div class="s8 col">
+            <h1>500</h1>
+            <h3 class="error">
+                This page doesn't seem to be here. 
+            </h3>
+            <h4>It may be that the account has been deactivated</h4>
+            {% if session['user'] %}
+            <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">Back to my profile</a>
+            <h5>If it is your own profile you can't reach it might be that something is missing, please head back to build your profile to ensure your profile is set up correctly</h5>
+            <a class="btn btn-yellow" href="{{ url_for('build_profile', username=session['user'])}}">Build Profile</a>
+            {% else %}
+            <a href="{{ url_for('homepage')}}" class="btn btn-yellow">Back to the homepage</a>
+            {% endif %}
+        </div>
+        <img src="{{ url_for('static', filename='images/barking.jpg') }}" class="align-right s4 col">
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
