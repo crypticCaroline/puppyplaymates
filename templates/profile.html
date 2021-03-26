@@ -1,24 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
 
-{% block nav %}
-
-{% if session.user == username %}
-<div class="row flush dark-blue">
-    <div class="nav-content s12">
-        <ul id="nav-sub" class="left s12">
-            <li><a data-target="edit_profile" class="modal-trigger" data-toggle="modal" href="#edit_profile">Edit
-                    Puppy</a></li>
-            <li><a data-target="edit_human" data-toggle="modal" class="modal-trigger" href="#edit_human">Update
-                    Human</a></li>
-        </ul>
-    </div>
-</div>
-
-{% endif %}
-
-{% endblock %}
-
 {% block content %}
 <!-- Hidden overlays for like/dislike function -->
 <div id="overlay_happy" class="overlay">
@@ -92,7 +74,7 @@
                                 {% if not user_profile.puppy_love %}
                                 <p><span class="profile-items">Seeking: </span> Platonic Playmates Only</p>
                                 {% else %}
-                                <p><span class="profile-items">Seeking: </span>For Puppy Love <i
+                                <p><span class="profile-items">Seeking: </span>Puppy Love <i
                                         class="far fa-heart "></i></p>
                                 {% endif %}
                                 {% if user_profile.fertile %}
@@ -102,6 +84,9 @@
                                 <p><span class="profile-items">Dog Bits: </span>I've still got all my puppy making parts
                                 </p>
                                 {% endif %}
+                                {% if session.user == username %}
+                                <a data-target="edit_profile" class="modal-trigger btn btn-yellow right-align" data-toggle="modal" href="#edit_profile">Edit Puppy</a>
+                                {% endif %}  
                             </div>
                             <!-- Human info -->
                             <div class="profile-items-wrapper">
@@ -109,6 +94,9 @@
                                 <p><span class="profile-items">Name: </span>{{ user_profile.human_name}}</p>
                                 <p><span class="profile-items">About: </span>{{ user_profile.human_description}}</p>
                                 <p><span class="profile-items">Username: </span><em>{{ user_profile.username}}</em></p>
+                                {% if session.user == username %}
+                                <a data-target="edit_human" data-toggle="modal" class="modal-trigger btn btn-yellow right-align" href="#edit_human">Update Human</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

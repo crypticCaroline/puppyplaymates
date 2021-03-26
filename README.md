@@ -158,6 +158,7 @@ birthday
 Maps - shows dogs by nearest location 
 multiple dogs
 use a database call to render up to date comment photos 
+preferences - multi search queries 
 ***
 
 ## Technologies Used 

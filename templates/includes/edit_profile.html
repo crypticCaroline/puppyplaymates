@@ -17,30 +17,26 @@
                             
                       
                    <label>Pup Size</label>
-                            <select name="dog_size">
-                                <option value="{{user_profile.dog_size}}" selected>Size</option>
+                            <select name="dog_size" required>
+                                <option value="{{user_profile.dog_size}}" selected>{{user_profile.dog_size}}</option>
                                 <option>Small</option>
                                 <option>Medium </option>
                                 <option>Large</option>
-                            </select>
-                            
-                        
-                    
-                            <label for="fertile">Is the pup Nutured/Spade</label>
+                            </select>               
+                            <p>Is the pup Nutured/Spade</p>
                             <div class="switch">
                                 <label>
                                     No
-                                    <input type="checkbox" name="fertile">
+                                    <input type="checkbox" name="fertile" value="{{user_profile.fertile}}">
                                     <span class="lever"></span>
                                     Yes
                                 </label>
                             </div>
-
-                            <label for="puppy_love">Looking for Puppy Love</label>
+                            <p>Looking for Puppy Love</p>
                             <div class="switch">
                                 <label>
                                     No
-                                    <input type="checkbox" name="puppy_love">
+                                    <input type="checkbox" name="puppy_love" value="{{user_profile.puppy_love}}">
                                     <span class="lever"></span>
                                     WOOF WOOF
                                 </label>

@@ -4,20 +4,21 @@
 {% block content %}
 <div class="delete-page">
     <h1>Delete Profile</h1>
- <div class="row">
-  <div class="s8 col">
-  <h3 class="">
-    What ever your reason for needing to leave us we are sorry to see you go
-  </h3>
-   <form method="POST" action="{{ url_for('delete_profile', username=session['user'])}}">  
-   <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">Back to my profile</a> 
-   <a href="{{ url_for('build_profile', username=session['user'])}}" class="btn btn-yellow">Change Dog</a>
-   <p>This will remove the currents dogs profile and allow you to add a new dog</p>
-   <button  type="submit" class="btn red">Delete my Profile</button>
-   <p>This can't be undone</p>
-   </form>
-   </div>  
-   <img src="{{ url_for('static', filename='images/delete-dog.gif') }}" class="align-right s4 col">
-   </div>  
-</div>   
+    <div class="row">
+        <div class="s8 col">
+            <h3 class="">
+                What ever your reason for needing to leave us we are sorry to see you go
+            </h3>
+            <form method="POST" action="{{ url_for('delete_profile', username=session['user'])}}">
+                <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">Back to my
+                    profile</a>
+                <a href="{{ url_for('build_profile', username=session['user'])}}" class="btn btn-yellow">Change Dog</a>
+                <p>This will remove the currents dogs profile and allow you to add a new dog</p>
+                <button type="submit" class=" btn btn-yellow btn-red">Delete my Profile</button>
+                <p>This can't be undone</p>
+            </form>
+        </div>
+        <img src="{{ url_for('static', filename='images/delete-dog.gif') }}" class="align-right s4 col">
+    </div>
+</div>
 {% endblock %}

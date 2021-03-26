@@ -5,14 +5,14 @@
 <div class="container">
     <div class=" form-popout">
         <div class="row flush">
-            <div class="col s3 m5 group-col valign-wrapper">
+            <div class="col hide-on-small-only m5 group-col valign-wrapper">
                 <div class="row">
                     <img src="{{ url_for('static', filename='images/group-dogs.gif') }}"
                         class="align-center col s12 m10 offset-m1">
 
                 </div>
             </div>
-            <div class="col s9 m7">
+            <div class="col s12 m7">
                 <h3 class="align-center heading">Create Account</h3>
                 <p><small>Please create a username and password for yourself, you will be able to add your dogs name in
                         a moment</small></p>
@@ -29,7 +29,7 @@
                     <div class="row flush input-div">
                         <div class="input-field col s12">
                             <input type="text" id="username" name="username" class="validate" min-length="5"
-                                maxlength="15" pattern="^[a-zA-Z0-9 !?/]]{5,15}$" required>
+                                maxlength="15" pattern="^[a-zA-Z0-9!?/]]{5,15}$" required>
                             <label for="username">Username</label>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                     <div class="row flush input-div">
                         <div class="input-field col s12">
                             <input id="password" type="password" name="password" class="validate" min-length="5"
-                                pattern="^[a-zA-Z0-9]{5,15}$" maxlength="15" required>
+                                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,})$" maxlength="15" required>
                             <label for="password">Password</label>
 
                         </div>
@@ -51,18 +51,18 @@
                     <div class="row flush input-div">
                         <div class="input-field col s12">
                             <input id="repeat-password" type="password" name="repeat-password" class="validate"
-                                min-length="5" pattern="^[a-zA-Z0-9]{5,15}$" maxlength="15" required>
+                                min-length="5" pattern="^^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" maxlength="15" required>
                             <label for="password">Repeat Password</label>
 
                         </div>
                     </div>
-                    <div class="row">
-                        <p class="col s12"><small>Passwords must be at least 5 characters long and include a mixture of
+                    <div class="row flush input-div">
+                        <p class="col s12"><small>Passwords must be at least 8 characters long and include a mixture of
                                 numbers, letters and a special character</small></p>
                     </div>
 
                     <div class="row">
-                        <button type="submit" class=" btn-large btn-style btn-yellow align-center col s9 m7">
+                        <button type="submit" class=" btn-large btn-style btn-yellow align-center col s12 m7">
                             Register
                         </button>
                     </div>

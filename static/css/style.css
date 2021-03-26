@@ -73,6 +73,11 @@ a {
     margin-top: 1%;
 }
 
+.btn-red {
+    background-color: rgb(179, 49, 49);
+    color: white
+}
+
 .btn-style {
     position: absolute; 
     bottom: 0px; 
@@ -84,6 +89,8 @@ a {
     background-color:  var(--dark-font-color);
     color: var(--yellow-color)
 }
+
+
 
 form {
     margin-bottom: 10%;
@@ -103,6 +110,12 @@ small {
 
 .row.flush {
     margin: 0px;
+}
+
+.flashes {
+    background-color: rgba(228, 86, 86, 0.1) ;
+    border-radius: 5%;
+    margin: 2%;
 }
 
 .heading, .sub-heading {
@@ -138,6 +151,10 @@ small {
     background-color: #fefff4;
 }
 
+.search-heading {    
+    margin: 10%;
+    margin-bottom:8%;
+}
 .user-cards{
     padding: 1%;
     -moz-box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
@@ -147,12 +164,15 @@ small {
     display: flex;
     margin: 0 0 20px 0;
     width: calc(50% - 10px);
+    background-color: rgb(255, 252, 248);
 }
 
 .user-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding: 2%;
+    padding-bottom: 5%;
 }
 
 .user-cards__image {
@@ -187,7 +207,7 @@ small {
 }
 
 .input-div:nth-last-child(2){
-    padding-bottom: 8%;
+    padding-bottom: 12%;
 }
 
 .group-col {
@@ -196,6 +216,10 @@ small {
 
 .login-dog {
     background-color:#e8e7dd;
+}
+
+.change-password {
+    background-color: #ffe26d;
 }
 
 .space-dog {
@@ -491,7 +515,8 @@ li.comments:nth-child(odd) {
 
 .get-started {
     height: min-content;
-    background-color: #d4e6f4
+    background-color: #d4e6f4;
+    margin-bottom: -6%;
 }
 
 ul.intro-list{
@@ -586,7 +611,7 @@ ul.intro-list{
         margin: 0 0 5px 0;
   }
   .nav-bar-txt {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
   }
   p {
       font-size: 1rem;
