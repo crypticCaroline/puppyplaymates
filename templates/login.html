@@ -33,7 +33,7 @@
                     <div class="row flush input-div">
                         <div class="input-field col s12">
                             <input id="password" type="password" name="password" class="validate" min-length="5"
-                                pattern="^[a-zA-Z0-9]{5,15}$" maxlength="15" required>
+                                pattern="^^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}" maxlength="15" required>
                             <label for="password">Password</label>
                         </div>
                     </div>
