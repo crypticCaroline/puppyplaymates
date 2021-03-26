@@ -57,8 +57,6 @@ def check_age(dob):
 
 def check_birthday(dob):
     today = date.today()
-    print(dob)
-    print(today)
     if ((today.month, today.day) == (dob.month, dob.day)):
         return True
 
@@ -83,12 +81,7 @@ def profile(username):
         dog_like = False
 
         age = check_age(user_profile['dog_dob'])
-        birthday = check_birthday(user_profile['dog_dob'])
-        print(birthday)
-        mongo.db.users.update_one(
-                        {"username": username},
-                        {"$set": {"dog_age": age}})
-        
+        birthday = check_birthday(user_profile['dog_dob'])       
 
 
         # users a loop to find out if the visitor has liked the page to display correct button
@@ -113,7 +106,7 @@ def profile(username):
         return render_template(
             "profile.html",
             username=username, user_profile=user_profile,
-            user_session=user_session, dog_like=dog_like, birthday=birthday)
+            user_session=user_session, dog_like=dog_like, birthday=birthday, age=age)
     flash("You need to logged in to view this page")
     return redirect(url_for('login'))
 
@@ -506,7 +499,7 @@ def add_comment(username):
             if profanity:
                 flash(
                 "This comment violates our safespaces policy, please refrain from using profanity")
-                return render_template("add_comment.html")
+                return redirect(url_for("profile", username=username))
             mongo.db.users.update_one(
                 {"username": username},
                 {"$addToSet": {"comments": {
@@ -515,8 +508,9 @@ def add_comment(username):
                     'author': user_session['username'],
                     'author_dog': user_session['dog_name'],
                     'text': request.form.get('add_comment'),
+                    "img_url": user_session['image_url'],
                     'private': request.form.get('private')
-                }}})
+                }}}) 
             return redirect(url_for('profile', username=username))
 
     flash("You need to logged in to view this page")
@@ -729,14 +723,16 @@ def contact_us():
         return render_template("contact_us.html")
     return render_template("contact_us.html")
 
-# error handlers
 
+# error handlers
 @ app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
 
-
+@app.errorhandler(500)
+def internal_error(e):
+    return render_template('500.html'), 500
 
 # key error dog name 
 # build_profile
