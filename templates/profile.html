@@ -26,7 +26,6 @@
         <div class="text_overlay center-align">
             <img src="{{ url_for('static', filename='images/happy-dog.gif') }}" class="overlay_img center-align"
                 alt="gif of happy dog">
-            <h5 class="">You liked {{user_profile.username}} WOOF WOOF</h5>
         </div>
     </div>
 </div>
@@ -34,7 +33,6 @@
     <div class="text_overlay center-align">
         <img src="{{ url_for('static', filename='images/sad-dog.gif') }}" class="overlay_img center-align"
             alt="gif of sad dog">
-        <h5 class="center-align">You disliked {{user_profile.username}}</h5>
     </div>
 </div>
 <!-- profile section -->
@@ -45,6 +43,14 @@
             <div class="row">
                 <!-- Name and like button -->
                 <div class=" col s12">
+                    <!-- Flash messages -->
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    <h5 class="center-align col s12">{{ message }}</h5>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith%}
                     <h2 class="  profile-heading heading col s8 push-s2 center-align ">{{ user_profile.dog_name}}</h2>
                     {% if session.user != username %}
                     {% if dog_like %}
@@ -82,7 +88,7 @@
                                 <p><span class="profile-items">Gender: </span>{{ user_profile.dog_gender}}</p>
                                 <p><span class="profile-items">Location: </span>{{ user_profile.dog_location}}</p>
                                 <p><span class="profile-items">Size: </span> {{ user_profile.dog_size}}</p>
-                                <p><span class="profile-items">Age: </span>{{ user_profile.dog_age}}</p>
+                                <p><span class="profile-items">Age: </span>{{ age }}</p>
                                 {% if not user_profile.puppy_love %}
                                 <p><span class="profile-items">Seeking: </span> Platonic Playmates Only</p>
                                 {% else %}
@@ -114,7 +120,6 @@
                 <div class="col s12">
                     <div class="row">
                         <div class="col s12 profile-wrapper profile-items-wrapper">
-
                             <h4>The Next Walk with {{user_profile.dog_name}}</h4>
                             {% if session.user == username %}
                             <p>Add a walk to let people know where you are next taking {{user_profile.dog_name}} out
@@ -148,12 +153,9 @@
                                 <h4 class="col">{{ user_profile.dog_name}}'s Photos</h4>
                             </div>
                             {% if session.user == username %}
-
                             <a data-target="edit_images" data-toggle="modal" class="modal-trigger btn btn-yellow "
                                 href="#edit_images">Edit Images</a>
-
                             {% endif %}
-
                             <div class="scrolling-wrapper-img">
                                 {% if not user_profile.all_images %}
                                 <p>Looks like there are no photos uploaded just yet</p>
@@ -201,51 +203,74 @@
             <div class="col s12">
                 <div class="row">
                     <div class=" col s12 comment-section">
-                        <h5 class="profile-items heading center-align">Comments</h5>
+                        <h4 class="profile-items heading center-align">Comments</h4>
+                        <p class="center-align">Add a comment to {{user_profile.dog_name}} profile</p>
+                        <!-- Add comments  -->
                         <div class="row">
                             <div class="col s12 comment-area">
-                                <form method="POST" action="{{ url_for('add_comment', username=username) }}" class="comments add-comment">
+                                <form method="POST" action="{{ url_for('add_comment', username=username) }}"
+                                    class="comments add-comment">
                                     <div class="input-field col s12">
-                                        <input type="text" id="add_comment" name="add_comment" class="validate"
-                                            min-length="2" maxlength="500" placeholder="Add Comment">
+                                        <textarea type="text" id="add_comment" name="add_comment"
+                                            class="materialize-textarea" min-length="2" maxlength="2500"
+                                            placeholder="Add Comment" required></textarea>
                                     </div>
+                                    <div class="add-comment col s12">
                                     <input type="checkbox" id="private" name="private" />
-                                    <label for="private">Make Private</label>
-                                    <button type="submit" class="big-btn btn-yellow">Add</button>
+                                    <label for="private">Make Private</label>    
+                                    </div>    
+                                    <button type="submit" class="btn btn-small btn-yellow btn-add" >Add</button>                   
                                 </form>
                             </div>
                         </div>
+                        <!-- All comments  -->
                         <div class="row">
                             <ul class="col s12 comment-area">
                                 {% for comments in user_profile.comments | reverse %}
                                 <li class="comments">
+                                    <div class="comment-image valign-wrapper" style="background-image: url('{{ comments.img_url }}')">
+                                        <a href="{{url_for('profile', username=comments.author)}}">
+                                        <img src="{{ comments.img_url }}" alt="Image of {{ comments.dog_name}}" >
+                                    </a>
+                                    </div>
+                                    <!-- build for private message -->
                                     {% if comments.private %}
                                     {% if comments.author == session['user'] or user_profile.username == session['user'] %}
-                                    <p style="display:inline;"><small><a
-                                                href="{{url_for('profile', username=comments.author)}}">{{comments.author}}({{comments.author_dog}})</a>
-                                            {{comments.date}}</small></p>
-                                            {% if comments.author == session['user'] %}
-                                    <!-- Modal Trigger -->
-                                    <a class="waves-effect waves-light btn btn-yellow btn-small modal-trigger" style="display:inline; margin-left:45%;"
-                                        href="#modal{{comments}}">Edit</a>
-                                            {% endif %}
-                                    <p>{{comments.text}}</p>        
-                                    <p><small>This message is private only the author and
-                                            {{user_profile.dog_name}}'s
-                                            owner can see it</small></p>
+                                    <div class="comment-content">
+                                        <!-- If the author of the post -->
+                                        {% if comments.author == session['user'] %}
+                                        <!-- Modal Trigger -->
+                                        <div class="comment-btn-wrapper">
+                                            <a class="waves-effect waves-light btn-yellow btn-edit modal-trigger"
+                                                href="#modal{{comments}}"><i class="fas fa-pencil-alt"></i></a>
+                                        </div>
+                                        {% endif %}                                        
+                                            <p>{{comments.text}}</p>
+                                            <p><small><a
+                                                        href="{{url_for('profile', username=comments.author)}}">{{comments.author}}({{comments.author_dog}})</a>
+                                                    {{comments.date}}</small></p>
+                                            <p><small>This message is private only the author and
+                                                    {{user_profile.dog_name}}'s
+                                                    owner can see it</small></p>
+                                    </div>
 
                                     {% endif %}
-
+                                    <!-- build for standard message -->
                                     {% else %}
-                                    {% if comments.author == session['user'] %}
-                                    <!-- Modal Trigger -->
-                                    <a class="waves-effect waves-light btn btn-yellow btn-small modal-trigger"
-                                        href="#modal{{comments}}">Edit</a>
-                                            {% endif %}
-                                    <p><small><a
-                                                href="{{url_for('profile', username=comments.author)}}">{{comments.author}}({{comments.author_dog}})</a>
-                                            {{comments.date}}</small></p>
-                                    <p>{{comments.text}}</p>        
+                                    <div class="comment-content">
+                                        <!-- if the author of the post -->
+                                        {% if comments.author == session['user'] %}
+                                        <!-- Modal Trigger -->
+                                        <div class="comment-btn-wrapper">
+                                            <a class="waves-effect waves-light btn btn-yellow btn-edit modal-trigger"
+                                                href="#modal{{comments}}"><i class="fas fa-pencil-alt"></i></a>
+                                        </div>
+                                        {% endif %}
+                                            <p>{{comments.text}}</p>
+                                            <p><small><a
+                                                        href="{{url_for('profile', username=comments.author)}}">{{comments.author}}({{comments.author_dog}})</a>
+                                                    {{comments.date}}</small></p>
+                                        </div> 
                                     {% endif %}
                                     <!-- Modal Structure -->
                                     <div id="modal{{comments}}" class="modal">
@@ -273,7 +298,6 @@
                                     </div>
                                 </li>
                                 {% endfor %}
-
                             </ul>
                         </div>
                     </div>
