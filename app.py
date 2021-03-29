@@ -40,11 +40,9 @@ mail = Mail(app)
 
 
 def profanity_check(input):
-    print(input)
     curse_words = {"fuck", "shit", "cunt", "wanker", "fucker", "fucktard", "shitstick", "dickhead", "asshole", "dickwipe",
                    "twat", "tit", "tits", "fucktits", "wankstain", "dick"}
     for word in input.split():
-        print(word)
         if word in curse_words:
             return True
 
@@ -210,6 +208,8 @@ def build_profile(username):
 
             dob = datetime.strptime(request.form.get("dog_dob"), "%Y-%m-%d")
             age = check_age(dob)
+            print("this is" + request.form.get("human_description"))
+            print("this is not" + request.form.get("human_name"))
 
             mongo.db.users.update_one(
                 {"username": session["user"]},
@@ -223,7 +223,9 @@ def build_profile(username):
                     "dog_dob": dob,
                     "dog_age": age,
                     "puppy_love": request.form.get('puppy_love'),
-                    "fertile": request.form.get('fertile')
+                    "fertile": request.form.get('fertile'),
+                    "human_name": request.form.get("human_name"),
+                    "human_description": request.form.get("human_description")
                 }}
             )
             return redirect(url_for("profile",  username=session[
@@ -638,9 +640,6 @@ def change_password():
 
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username")})
-        print("current:"+ request.form.get("current-password"))
-        print(existing_user)
-
         # checks if the repeat password and new match
         if request.form['new-password'] != request.form['repeat-password']:
             flash("Passwords did not match. Please enter passwords again.")
@@ -731,4 +730,4 @@ def internal_error(e):
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=False)
+            debug=True)

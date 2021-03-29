@@ -232,8 +232,11 @@ small {
     margin-bottom: 1rem;
 }
 
-textarea.materialize-textarea {
-    background-color: rgb(221 219 189 / 8%);
+textarea.materlize-textarea {
+    background-color: rgb(221 219 189 / 8%)
+}
+
+textarea.materialize-textarea.contact-form {
     border-radius: 5%;
     margin: 0;
     padding: 2%;
@@ -600,8 +603,12 @@ ul.intro-list{
 
 }
 
-.btn-edit hover{
+.btn-edit:hover{
     color: var(--yellow-color);
+}
+
+.row .human-name {
+    margin-top:5%;
 }
 
 
@@ -636,5 +643,13 @@ ul.intro-list{
   .comment-content {
       width:100%;
   }
+  .input-field, .form-indent, input[type=text]:not(.browser-default).form-indent, input[type=date]:not(.browser-default).form-indent, textarea.materialize-textarea {
+    margin-right: 0rem;
+    margin-left: 0rem;    
+    margin-bottom: 1rem;
+    }
+    input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select-dropdown {
+    width: 100%;
+    }
   
 }
