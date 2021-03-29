@@ -44,7 +44,7 @@
 
                             <label for="dog_description">Bio</label>
                             <textarea id="dog_description" type="text" name="dog_description"
-                                class="validate materialize-textarea " min-length="5" maxlength="100"
+                                class="validate materialize-textarea " min-length="5" maxlength="100" pattern="^(?=.*[A-Za-z])$"
                                 required>{{user_profile.dog_description}}</textarea>
                             
 
