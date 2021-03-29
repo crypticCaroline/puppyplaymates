@@ -4,48 +4,45 @@
 <div class="container">
     <div class=" form-popout">
         <div class="form-bottom">
-        <h2 class="heading align-center">Report User</h2>
-        <p class="align-center">Please Enter the username of the user you wish to report and a breif description of why.  Their username can be found on the dogs profile section</p>
-        <p class="align-center">This is annoymous and will allow us to investigate the user</p>
-        {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
-    <div class="flashes">
-        <p class="align-center">{{ message }}</p>
-    </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith%}
-    </div>
+            <h2 class="heading align-center">Report User</h2>
+            <p class="align-center">Please Enter the username of the user you wish to report and a breif description of
+                why. Their username can be found on the dogs profile section</p>
+            <p class="align-center">This is annoymous and will allow us to investigate the user</p>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="flashes">
+                <p class="align-center">{{ message }}</p>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith%}
+        </div>
         <div class="row flush">
-        <form class="col s12 m8 offset-m2" method="POST"
-                action="{{ url_for('report_user')}}">
-                    <div class="row">
-                        <div class="col s12 input-field">
-                            <input type="text" id="report-user" name="report-user" class="validate" min-length="2"
-                                maxlength="30" pattern="^[a-zA-Z0-9]{2,15}$"
-                                required>
-                            <label for="report-user">Username you wish to report</label>    
-                        </div>
+            <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('report_user')}}">
+                <div class="row">
+                    <div class="col s12 input-field">
+                        <input type="text" id="report-user" name="report-user" class="validate" min-length="2"
+                            maxlength="30" pattern="^[a-zA-Z0-9!?/]]{2,30}$" required>
+                        <label for="report-user">Username you wish to report</label>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="report-text" type="text" name="report-text" class="validate materialize-textarea"
+                            minlength="20" required></textarea>
+                        <label for="report-text">Reason for reporting</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
                     <div class="row">
-                        <div class="input-field col s12">
-                            <textarea id="report-text" type="text" name="report-text"
-                                class="validate materialize-textarea" min-length="5" maxlength="100" pattern="^(?=.*[A-Za-z])$"
-                                required></textarea>
-                            <label for="report-text">Reason for reporting</label>
-                        </div>
-                    </div>                  
-                    <div class="modal-footer">
-                        <div class="row">
                         <button type="submit" class="col s12 btn-yellow btn">
                             Submit
                         </button>
                     </div>
-                    </div>
                 </div>
-            </form>  
-            </div></div>
-            </div>
-{% endblock %}            
-    
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}
