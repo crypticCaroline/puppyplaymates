@@ -352,6 +352,16 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
     -ms-animation: fadeInOut ease-in-out 3s;
 }
 
+.bio-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; 
+    line-height: X;        
+    max-height: X*3;
+}
+
 @keyframes fadeInOut {
     0% {opacity:0;}
     50% {opacity:0.9;}
