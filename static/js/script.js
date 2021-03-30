@@ -20,6 +20,22 @@ $(document).ready(function () {
 
 })
 
+
+like = document.getElementById('overlay_happy')
+unlike = document.getElementById('overlay_angry')
+
+function overlayHappy() {
+    let form = document.getElementById('form_like')
+    like.style.display = "block";
+    setTimeout(function () { form.submit(); }, 3000) 
+};
+
+function overlayAngry() {
+    let form = document.getElementById('form_dislike')
+    unlike.style.display = "block";
+    setTimeout(function () { form.submit(); }, 3000)
+};
+
 let today = new Date();
 let dd = today.getDate();
 let mm = today.getMonth()+1;  
@@ -38,24 +54,17 @@ oldestDog = oldestYear+'-'+mm+'-'+dd;
 eventYear = yyyy+1;
 eventDate = eventYear+'-'+mm+'-'+dd;
 
-document.getElementById("dog_dob").setAttribute("max", today);
-document.getElementById("dog_dob").setAttribute("min", oldestDog);
-document.getElementById("date").setAttribute("min", today);
-document.getElementById("date").setAttribute("max", eventYear);
+const dog_dob = document.getElementById('dog_dob')
 
+if (dog_dob > 0)  {
+    document.getElementById("dog_dob").setAttribute("max", today);
+    document.getElementById("dog_dob").setAttribute("min", oldestDog);
 
-like = document.getElementById('overlay_happy')
-unlike = document.getElementById('overlay_angry')
+}
+ 
+function walkDate() {
+    document.getElementById("walk_date").setAttribute("min", today);
+    document.getElementById("walk_date").setAttribute("max", eventDate);
+}
 
-function overlay_happy() {
-    let form = document.getElementById('form_like')
-    like.style.display = "block";
-    setTimeout(function () { form.submit(); }, 3000)
-};
-
-function overlay_angry() {
-    let form = document.getElementById('form_dislike')
-    unlike.style.display = "block";
-    setTimeout(function () { form.submit(); }, 3000)
-};
 
