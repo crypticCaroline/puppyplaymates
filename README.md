@@ -308,7 +308,7 @@ Making a Local Clone
 * [HTML Online](https://html-online.com/articles/smart-404-error-page-redirect/) - Redirect page Inspiration
 * [Coolors](https://coolors.co/palettes/trending) - colour inspiration
 * [Internet Marketing Ninjas](https://www.internetmarketingninjas.com/online-spell-checker.php) - spell check
-* [EmailJS](https://www.emailjs.com/) - for use in sending emails
+* /* solution to truncate found here-  https://stackoverflow.com/questions/11989546/wrap-a-text-within-only-two-lines-inside-div */
 
 
 

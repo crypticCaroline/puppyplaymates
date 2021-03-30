@@ -28,8 +28,8 @@
                 <form method="POST" action="{{ url_for('register')}}">
                     <div class="row flush input-div">
                         <div class="input-field col s12">
-                            <input type="text" id="username" name="username" class="validate" min-length="5"
-                                maxlength="20" pattern="^(?=.*[A-Za-z])[a-zA-Z0-9!?/]]{5,20}$" required>
+                            <input type="text" id="username" name="username" class="validate" minlength="5"
+                                maxlength="20" pattern="^(?=.*[A-Za-z])[a-zA-Z0-9!?/][^\s*]{4,20}$" title="Your username can't include any blank spaces and must be at least 4 characters long" required>
                             <label for="username">Username</label>
                         </div>
                     </div>

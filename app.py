@@ -208,8 +208,7 @@ def build_profile(username):
 
             dob = datetime.strptime(request.form.get("dog_dob"), "%Y-%m-%d")
             age = check_age(dob)
-            print("this is" + request.form.get("human_description"))
-            print("this is not" + request.form.get("human_name"))
+        
 
             mongo.db.users.update_one(
                 {"username": session["user"]},
@@ -487,7 +486,7 @@ def add_walk(username):
                 {"username": username},
                 {"$set": {
                  "next_walk": {
-                     'date': datetime.strptime(request.form.get("date"), "%Y-%m-%d"),
+                     'date': datetime.strptime(request.form.get("walk_date"), "%Y-%m-%d"),
                      'time': request.form.get('time'),
                      'place': request.form.get('place'),
                      'walk_description': request.form.get('walk_description')
