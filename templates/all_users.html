@@ -22,25 +22,34 @@
         </form>
     </div>
 
-    <div class="user-list">
+    <div class="user-list" id="user-container">
         {% if users %}
-        {% for user in users %}
+        {% for user in users | reverse %}
+        <!-- stops are card being rendered if the dog has no name -->
+        {% if user.dog_name %}
         <div class="user-cards card">
             <!--Inline style for allocation of background-image for each card in loop -->
             <div class="valign-wrapper user-cards__image" style="background-image: url('{{ user.image_url }}')">
-                <img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}" class="sm_img">
+                <a href="{{url_for('profile', username=user.username)}}">
+                <img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}" href="{{url_for('profile', username=user.username)}}" class="sm_img">
+                </a>
             </div>
+
             <div class="content">
-                <h5><a href="{{url_for('profile', username=user.username)}}">{{ user.dog_name }}</a></h5>
-                <p>{{ user.dog_description }}</p>
-                {% if user.puppy_love %}
-                <p><i class="fas fa-heart "></i></p>
-                {% endif %}
-                {% if user.fertile %}
-                <p><i class="fas fa-cut "></i></p>
-                {% endif %}
+                <a href="{{url_for('profile', username=user.username)}}">
+                    <h5>{{ user.dog_name }}</h5>
+                    <p class="bio-overflow" >{{ user.dog_description }}</p>
+                    {% if user.puppy_love %}
+                    <p><i class="fas fa-heart "></i></p>
+                    {% endif %}
+                    {% if user.fertile %}
+                    <p><i class="fas fa-cut "></i></p>
+                    <p>{{user.dog_location}}</p>
+                    {% endif %}
+                 </a>   
             </div>
         </div>
+        {% endif %}
         {% endfor %}
         {% else %}
         <div class="form-bottom">
