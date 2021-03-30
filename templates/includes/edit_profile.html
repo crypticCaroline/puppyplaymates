@@ -1,62 +1,69 @@
 <div id="edit_profile" class="modal">
     <div class="modal-content">
-        
+
         <div class="row">
             <form class="col s12 m10 offset-m1" method="POST" action="{{ url_for('edit_profile', username=username) }}">
-                    <h3 class="heading">Edit {{ user_profile.dog_name }}'s Profile infomation</h3>
-                    
-                    <label for="dog_name"  >Puppy Name</label>
-                            <input type="text" id="dog_name" name="dog_name" class="validate" min-length="2"
-                                maxlength="15" pattern="^[a-zA-Z0-9]{2,25}$" value="{{user_profile.dog_name}}" required>
-                            
-                        
-                    <label for="dog_location">Home Town</label>
-                            <input type="text" id="dog_location" name="dog_location" class="validate"
-                                value="{{user_profile.dog_location}}" min-length="2" maxlength="40"
-                                pattern="^[a-zA-Z0-9]{2,40}$">
-                            
-                      
-                   <label>Pup Size</label>
-                            <select name="dog_size" required>
-                                <option value="{{user_profile.dog_size}}" selected>{{user_profile.dog_size}}</option>
-                                <option>Small</option>
-                                <option>Medium </option>
-                                <option>Large</option>
-                            </select>               
-                            <p>Is the pup Nutured/Spade</p>
-                            <div class="switch">
-                                <label>
-                                    No
-                                    <input type="checkbox" name="fertile" value="{{user_profile.fertile}}">
-                                    <span class="lever"></span>
-                                    Yes
-                                </label>
-                            </div>
-                            <p>Looking for Puppy Love</p>
-                            <div class="switch">
-                                <label>
-                                    No
-                                    <input type="checkbox" name="puppy_love" value="{{user_profile.puppy_love}}">
-                                    <span class="lever"></span>
-                                    WOOF WOOF
-                                </label>
-                            </div>
+                <h3 class="heading">Edit {{ user_profile.dog_name }}'s Profile infomation</h3>
 
-                            <label for="dog_description">Bio</label>
-                            <textarea id="dog_description" type="text" name="dog_description"
-                                class="validate materialize-textarea " min-length="5" maxlength="100" pattern="^(?=.*[A-Za-z])$"
-                                required>{{user_profile.dog_description}}</textarea>
-                            
+                <label for="dog_name">Puppy Name</label>
+                <input type="text" id="dog_name" name="dog_name" class="validate" min-length="2" maxlength="15"
+                    pattern="^[a-zA-Z0-9]{2,25}$" value="{{user_profile.dog_name}}" required>
 
 
-                        <button type="submit" class="col s12 btn-large btn-yellow">
-                            Update
-                        </button>
+                <label for="dog_location">Home Town</label>
+                <input type="text" id="dog_location" name="dog_location" class="validate"
+                    value="{{user_profile.dog_location}}" min-length="2" maxlength="40" pattern="^[a-zA-Z0-9]{2,40}$">
 
-                    <div class="modal-footer">
-                        <a href="{{ url_for('delete_profile')}}"
-                            class="modal-close waves-effect waves-green btn-flat">Remove Pup?</a>
-                    </div>
+
+                <label>Pup Size</label>
+                <select name="dog_size" required>
+                    <option value="{{user_profile.dog_size}}" selected>{{user_profile.dog_size}}</option>
+                    <option>Small</option>
+                    <option>Medium </option>
+                    <option>Large</option>
+                </select>
+                <p>Is the pup Nutured/Spade</p>
+                <div class="switch">
+                    <label>
+                        No
+                        {% if user_profile.fertile %}
+                        <input type="checkbox" name="fertile" checked>
+                        {% else %}
+                        <input type="checkbox" name="fertile">
+                        {% endif %}
+                        <span class="lever"></span>
+                        Yes
+                    </label>
+                </div>
+                <p>Looking for Puppy Love</p>
+                <div class="switch">
+                    <label>
+                        No
+                        {% if user_profile.puppy_love %}
+                        <input type="checkbox" name="puppy_love" checked>
+                        {% else %}
+                        <input type="checkbox" name="puppy_love">
+                        {% endif %}
+                        <span class="lever"></span>
+                        WOOF WOOF
+                    </label>
+                </div>
+
+                <label for="dog_description">Bio</label>
+                <textarea id="dog_description" type="text" name="dog_description" class="validate materialize-textarea "
+                    min-length="5" maxlength="100" pattern="^(?=.*[A-Za-z])$"
+                    required>{{user_profile.dog_description}}</textarea>
+
+
+
+                <button type="submit" class="col s12 btn-large btn-yellow">
+                    Update
+                </button>
+
+                <div class="modal-footer">
+                    <a href="{{ url_for('delete_profile')}}"
+                        class="modal-close waves-effect waves-green btn-flat">Remove Pup?</a>
+                </div>
             </form>
         </div>
     </div>
