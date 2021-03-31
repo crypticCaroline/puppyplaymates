@@ -7,11 +7,11 @@
                 <input type="date" id="walk_date" name="walk_date" class="validate" min="2021-03-29" onclick="walkDate()" required>
                 <input type="time" id="time" name="time" class="validate" required>
             </div>
-
+ 
             <img src="{{ url_for('static', filename='images/dog-walk.gif') }}" alt="dog walking" class="form-right">
 
             <div class="form-bottom">
-                <label for="human_description">Place</label>
+                <label for="place">Place</label>
                 <input type="text" id="place" name="place" class="validate">
 
                 <label for="walk_description">Description</label>

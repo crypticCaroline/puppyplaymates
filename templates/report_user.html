@@ -5,7 +5,7 @@
     <div class=" form-popout">
         <div class="form-bottom">
             <h2 class="heading align-center">Report User</h2>
-            <p class="align-center">Please Enter the username of the user you wish to report and a breif description of
+            <p class="align-center">Please enter the username of the user you wish to report and a breif description of
                 why. Their username can be found on the dogs profile section</p>
             <p class="align-center">This is annoymous and will allow us to investigate the user</p>
             {% with messages = get_flashed_messages() %}
@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <textarea id="report-text" type="text" name="report-text" class="validate materialize-textarea contact-form"
-                            minlength="20" required></textarea>
+                            minlength="10" required></textarea>
                         <label for="report-text">Reason for reporting</label>
                     </div>
                 </div>
