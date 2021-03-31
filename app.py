@@ -9,11 +9,10 @@ from werkzeug.utils import secure_filename
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-import random
-import string
-from flask_mail import Mail, Message
 import time
-from datetime import datetime, date
+from datetime import date, datetime
+from flask_mail import Mail, Message
+from utilities import *
 if os.path.exists("env.py"):
     import env
 
@@ -37,33 +36,6 @@ app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("MAIL_DEFAULT_SENDER")
 
 mongo = PyMongo(app)
 mail = Mail(app)
-
-
-def profanity_check(input):
-    curse_words = {"fuck", "shit", "cunt", "wanker", "fucker", "fucktard", "shitstick", "dickhead", "asshole", "dickwipe",
-                   "twat", "tit", "tits", "fucktits", "wankstain", "dick"}
-    for word in input.split():
-        if word in curse_words:
-            return True
-
-
-def check_age(dob):
-    today = date.today()
-    age = today.year - dob.year - \
-        ((today.month, today.day) < (dob.month, dob.day))
-    return age
-
-
-def check_birthday(dob):
-    today = date.today()
-    if ((today.month, today.day) == (dob.month, dob.day)):
-        return True
-
-
-def get_random_string(length):
-    items = string.ascii_letters
-    result_str = ''.join(random.choice(items) for i in range(length))
-    return result_str
 
 
 @app.route("/")
@@ -123,14 +95,12 @@ def profile(username):
 # registration pages
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method == "POST":
-        profanity = profanity_check(request.form.get('username'))
-        if profanity:
-            flash(
-                "This username violates our safespaces policy, please refrain from using profanity")
-            return render_template("register.html")
 
-        # check if username/ email already exists in db
+    if request.method == "POST":
+        if check_valid_registration():
+            return redirect(url_for("register"))
+
+        # check if username/ email already exists in db 
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username")})
         existing_email = mongo.db.users.find_one(
@@ -144,12 +114,8 @@ def register():
             flash("This email is already registered, please head to the login page")
             return redirect(url_for("register"))
 
-        # checks to see if both passwords match
-        if request.form['password'] != request.form['repeat-password']:
-            flash("Passwords did not match, please try again")
-            return redirect(url_for("register"))
 
-        # gets values from fields for registration
+        # gets values from fields for registration 
         register = {
             "username": request.form.get("username"),
             "email": request.form.get("email"),
@@ -192,23 +158,11 @@ def build_profile(username):
         user = mongo.db.users.find_one({"username": session['user']})
         # updates the database with dog details
         if request.method == "POST":
-            profanity = profanity_check(request.form.get('dog_name'))
-            if profanity:
-                flash(
-                    "Did you really call your dog that? That name violates our safespaces policy, please refrain from using profanity")
-                return render_template("build_profile.html", username=session[
-                    "user"], user=user)
-
-            profanity2 = profanity_check(request.form.get('dog_description'))
-            if profanity2:
-                flash(
-                    "This bio violates our safespaces policy, please refrain from using profanity")
+            if check_valid_build():
                 return render_template("build_profile.html", username=session[
                     "user"], user=user)
 
             dob = datetime.strptime(request.form.get("dog_dob"), "%Y-%m-%d")
-            age = check_age(dob)
-        
 
             mongo.db.users.update_one(
                 {"username": session["user"]},
@@ -220,7 +174,6 @@ def build_profile(username):
                     "dog_location": request.form.get("dog_location"),
                     "dog_size": request.form.get("dog_size"),
                     "dog_dob": dob,
-                    "dog_age": age,
                     "puppy_love": request.form.get('puppy_love'),
                     "fertile": request.form.get('fertile'),
                     "human_name": request.form.get("human_name"),
@@ -243,9 +196,10 @@ def login():
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username")})
         existing_email = mongo.db.users.find_one(
-            {"username": request.form.get('username')})
+            {"email": request.form.get('username')})
 
-        if existing_user or existing_email:
+
+        if existing_user:
             # ensure hash matches then logs user in
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
@@ -255,6 +209,13 @@ def login():
             else:
                 flash("Incorrect Username and/or Password")
                 return redirect(url_for("login"))
+
+        elif existing_email:
+            if check_password_hash(
+                    existing_email["password"], request.form.get("password")):
+                session["user"] = existing_email["username"]
+                return redirect(url_for(
+                    "profile", username=session["user"]))
         else:
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
@@ -287,6 +248,11 @@ def edit_profile(username):
 
         # lets users change some details of their dog
         if request.method == "POST":
+            
+            if check_valid_edit():
+                return redirect(url_for("profile", username=session[
+            "user"]))
+
             mongo.db.users.update_one(
                 {"username": session["user"]},
                 {"$set": {
@@ -310,18 +276,14 @@ def edit_human(username):
     if session:
 
         user_profile = mongo.db.users.find_one({"username": username})
+
         # edits human details in database
         if request.method == "POST":
-            profanity = profanity_check(request.form.get('human_description'))
-            if profanity:
-                flash(
-                    "This description violates our safespaces policy, please refrain from using profanity")
-                return render_template("edit_human.html")
-            profanity = profanity_check(request.form.get('human_name'))
-            if profanity:
-                flash(
-                    "This name violates our safespaces policy, please refrain from using profanity")
-                return render_template("edit_human.html")
+
+            if check_valid_edit_human():
+                return redirect(url_for("profile", username=session[
+            "user"]))
+
             mongo.db.users.update_one(
                 {"username": session["user"]},
                 {"$set": {
@@ -332,48 +294,6 @@ def edit_human(username):
             return redirect(url_for("profile",  username=session[
                 "user"]))
         return render_template("edit_human.html", username=session[
-            "user"], user_profile=user_profile)
-    return render_template("homepage.html")
-
-
-# edit images
-@app.route("/edit_images/<username>", methods=["GET", "POST"])
-def edit_images(username):
-    if session:
-        user_profile = mongo.db.users.find_one({"username": username})
-
-        return render_template("profile.html", username=session[
-            "user"], user_profile=user_profile)
-    return render_template("homepage.html")
-
-
-@app.route("/edit_images/profile_photo/<username>", methods=["GET", "POST"])
-def profile_photo(username):
-    if session:
-        # finds instance in datebase to set the profile picture
-        user_profile = mongo.db.users.find_one({"username": username})
-
-        if request.method == 'POST':
-            mongo.db.users.update_one(
-                {"username": session["user"]},
-                {"$set": {"image_url": request.form.get('photo')}})
-            return redirect(url_for('profile', username=username))
-        return render_template("profile.html", username=session[
-            "user"], user_profile=user_profile)
-    return render_template("homepage.html")
-
-
-# deletes images
-@app.route("/delete_images/<username>", methods=["GET", "POST"])
-def delete_images(username):
-    if session:
-        user_profile = mongo.db.users.find_one({"username": username})
-        if request.method == 'POST':
-            mongo.db.users.update_one(
-                {"username": session["user"]},
-                {"$pull": {"all_images": request.form.get('photo')}})
-            return redirect(url_for('profile', username=username))
-        return render_template("profile.html", username=session[
             "user"], user_profile=user_profile)
     return render_template("homepage.html")
 
@@ -411,6 +331,38 @@ def upload_image(username):
         return render_template("edit_images.html", username=username)
     flash("You need to be logged in to view this page")
     return render_template('login.html')
+
+
+# edit images
+@app.route("/edit_images/profile_photo/<username>", methods=["GET", "POST"])
+def profile_photo(username):
+    if session:
+        # finds instance in datebase to set the profile picture
+        user_profile = mongo.db.users.find_one({"username": username})
+
+        if request.method == 'POST':
+            mongo.db.users.update_one(
+                {"username": session["user"]},
+                {"$set": {"image_url": request.form.get('photo')}})
+            return redirect(url_for('profile', username=username))
+        return render_template("profile.html", username=session[
+            "user"], user_profile=user_profile)
+    return render_template("homepage.html")
+
+
+# deletes images
+@app.route("/delete_images/<username>", methods=["GET", "POST"])
+def delete_images(username):
+    if session:
+        user_profile = mongo.db.users.find_one({"username": username})
+        if request.method == 'POST':
+            mongo.db.users.update_one(
+                {"username": session["user"]},
+                {"$pull": {"all_images": request.form.get('photo')}})
+            return redirect(url_for('profile', username=username))
+        return render_template("profile.html", username=session[
+            "user"], user_profile=user_profile)
+    return render_template("homepage.html")
 
 
 # liker function
@@ -475,11 +427,8 @@ def add_walk(username):
         user_profile = mongo.db.users.find_one({"username": username})
 
         if request.method == "POST":
-            profanity = profanity_check(request.form.get('walk_description'))
-            if profanity:
-                flash(
-                    "This description violates our safespaces policy, please refrain from using profanity")
-                return render_template("profile.html")
+            if check_input(request.form.get('walk_description')) or check_input(request.form.get('place')):
+                return redirect(url_for("profile", username=username))
             # updates the users walk details in the database
 
             mongo.db.users.update_one(
@@ -508,11 +457,9 @@ def add_comment(username):
 
         # Adds a comment to the users profile
         if request.method == "POST":
-            profanity = profanity_check(request.form.get('add_comment'))
-            if profanity:
-                flash(
-                    "This comment violates our safespaces policy, please refrain from using profanity")
+            if check_input(request.form.get('add_comment')):
                 return redirect(url_for("profile", username=username))
+
             mongo.db.users.update_one(
                 {"username": username},
                 {"$addToSet": {"comments": {
@@ -539,11 +486,9 @@ def edit_comment(username, comment_id):
 
         # lets the user edit the comment
         if request.method == "POST":
-            profanity = profanity_check(request.form.get('edit_comment'))
-            if profanity:
-                flash(
-                    "This comment violates our safespaces policy, please refrain from using profanity")
-                return render_template("edit_comment.html")
+            if check_input(request.form.get('edit_comment')):
+                return redirect(url_for("profile", username=username))
+
             mongo.db.users.update_one(
                 {"username": username},
                 {"$pull": {"comments": {"_id": ObjectId(comment_id)}}})
@@ -626,11 +571,6 @@ def reset_password():
                 "Incorrect Username and/or Password, if you have forgotten your password you can reset it")
     return render_template("reset_password.html")
 
-
-# generates a random string for creating tempoary passwords
-
-
-
 # change password section
 @app.route("/change_password", methods=["GET", "POST"])
 def change_password():
@@ -679,6 +619,9 @@ def report_user():
         user_text = request.form.get('report-text')
         user_email = user_session['email']
 
+        if check_input(user_text) or check_input(user_report):
+            return redirect(url_for("report_user"))
+
         # creates a report string
         report = (user_report + " with the following message: " + user_text)
 
@@ -701,6 +644,9 @@ def contact_us():
     if request.method == 'POST':
         user_email = request.form.get('email')
         user_text = request.form.get('message-text')
+
+        if valid_email(user_email) or check_input(request.form.get('message-text')):
+            return redirect(url_for("contact_us"))
 
         message = ("Thank you for sending us the following message:" + user_text)
 
@@ -725,6 +671,7 @@ def page_not_found(e):
 @app.errorhandler(500)
 def internal_error(e):
     return render_template('500.html'), 500
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
