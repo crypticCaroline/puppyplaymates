@@ -38,12 +38,12 @@
                     {% if dog_like %}
                     <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
                         <button type="submit" class="btn-yellow btn col s3 l1 push-l1" value="unlike" id="unliker_btn"
-                            name="unliker_btn" onclick="overlay_angry()">Unlike</button>
+                            name="unliker_btn" onclick="overlayAngry()">Unlike</button>
                     </form>
                     {% else %}
                     <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_like">
                         <button type="submit" class="btn-yellow btn col s3 l1 push-l1" value="like" id="liker_btn"
-                            name="liker_btn" onclick="overlay_happy()">Like</button>
+                            name="liker_btn" onclick="overlayHappy()">Like</button>
                     </form>
                     {% endif %}
                     {% endif %}

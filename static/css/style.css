@@ -90,6 +90,11 @@ a {
     color: var(--yellow-color)
 }
 
+.btn-yellow:after {
+    background-color:  var(--dark-font-color);
+    color: var(--yellow-color)
+}
+
 
 
 form {
