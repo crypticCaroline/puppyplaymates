@@ -54,12 +54,9 @@ oldestDog = oldestYear+'-'+mm+'-'+dd;
 eventYear = yyyy+1;
 eventDate = eventYear+'-'+mm+'-'+dd;
 
-const dog_dob = document.getElementById('dog_dob')
-
-if (dog_dob > 0)  {
+function dogDob() {
     document.getElementById("dog_dob").setAttribute("max", today);
     document.getElementById("dog_dob").setAttribute("min", oldestDog);
-
 }
  
 function walkDate() {
