@@ -1,8 +1,11 @@
 
 
+
+##Currently still under development and in testing
+
 # Puppy Playmates 
 
-![Main Mockup]()
+![Main Mockup](readme_docs/playmates.png)
 
 [Link to Live Website](https://puppy-playmates.herokuapp.com/)
 
@@ -11,6 +14,13 @@
 *** 
 
 ## About  
+
+Welcome to Puppyplaymates, a webapp to help dogs find love! 
+This is a Python Flask app using MongoDB, cloudinary and Flask Mail to produce a social media style application.
+
+PuppyPlaymates currently brings users together and allows them to get in contact with the pups they love! The application lets the users create a profile that allows them to add their dogs details, add photos, let other users know when the next walk with their dog is happening, add comments both public and private and add likes on other profiles.  The site offers the additional functionality, reset passwords, change passwords, reporting other users, contact us, editing and deleting comments, backend validation, profanity checking and birthday checking. Please take a look at the [features](#features) section for a more detailed description. 
+
+The application has a lot of room for growth and a list of future features to implement. 
 
 
 ## Index – Table of Contents
@@ -49,8 +59,8 @@
 * A way to view other profiles 
 * A way to delete 
 * Links and functions work as expected
-* maps? 
 * comments
+* walks
 
 
 
@@ -159,6 +169,8 @@ Maps - shows dogs by nearest location
 multiple dogs
 use a database call to render up to date comment photos 
 preferences - multi search queries 
+all walk/events
+maps 
 ***
 
 ## Technologies Used 
@@ -168,7 +180,6 @@ preferences - multi search queries
 * JavaScript - Programming language.  
 * python
 * flask 
-* sockets.io
 * Gitpod.io - for writing the code. Using the command line for committing and pushing to Git Hub
 * GitHub - hosting repositories
 * GIT - Pushing code to repositories

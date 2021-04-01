@@ -1,0 +1,17 @@
+### User Testing 
+I put the site out to a small group of users to feedback on how they found the WebApp.  Please see the logs below to see what feedback was recieved and how this feedback was used in the testing process
+
+| Feedback  |Investigation |Investigation |   Decision |   
+|---|---|---|---|
+|  Can't remember if Name and About were options on signup, I feel like I put dummy data in here? |  Hadn’t included human in the profile set up, users expected it |  Added these fields in the build profile part of the site |  Implemented |   
+| The line remains yellow "as if indicating the password doesn’t match  | Goes green when you click somewhere else on the page but not key up  |  Could write a function to change the materlize class to work on key up | Could be used added in a future release  |   
+|  Special character for password: I would mention which ones are allowed as I think the - might not be working, I tried different passwords before I could be accepted |  Present, no way for users to know which character are accepted  |  Added helper text including the characters needed for password validation |  Implemented  |   
+| Instinctively I wanted to click on the image placeholder to add the image of my dog  |  Images were only unloadable from the edit images button |   |   |   
+|   |   |   |   |   
+|   |   |   |   |   
+|   |   |   |   |   
+|   |   |   |   |   
+|   |   |   |   |   
+|   |   |   |   |   
+|   |   |   |   |   
+|   |   |   |   |   
