@@ -2,6 +2,7 @@ import os
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
+from flask_mail import Mail, Message
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -11,7 +12,7 @@ import cloudinary.uploader
 import cloudinary.api
 import time
 from datetime import date, datetime
-from flask_mail import Mail, Message
+from mail import *
 from utilities import *
 if os.path.exists("env.py"):
     import env
@@ -27,6 +28,7 @@ cloudinary.config(
     api_key=os.environ.get("CLOUDINARY_API_KEY"),
     api_secret=os.environ.get("CLOUDINARY_API_SECRET")
 )
+
 app.config['MAIL_SERVER'] = os.environ.get("MAIL_SERVER")
 app.config['MAIL_PORT'] = os.environ.get("MAIL_PORT")
 app.config['MAIL_USE_SSL'] = os.environ.get("MAIL_USE_SSL")
@@ -139,13 +141,7 @@ def register():
         session["user"] = request.form.get("username")
 
         # sends user a welcome message
-        user_email = request.form.get('email')
-        msg = Message("Welcome to Puppyplaymates",
-                      html="<p>Hello  %s </p><p>Thank you for registering with us at PuppyPlaymates.</p><p>We are excited to have you join us and hope you have success finding a playmate for your Pup!</p> <p>The Team at PuppyPlaymates</p>" % session[
-                          'user'],
-                      sender="thepuppyplaymates@gmail.com",
-                      recipients=[user_email])
-        mail.send(msg)
+        welcome_email()
 
         return redirect(url_for("build_profile", username=session["user"]))
     return render_template("register.html")
@@ -327,7 +323,7 @@ def upload_image(username):
                         {"username": session["user"]},
                         {"$set": {"image_url": image_url}})
 
-            return redirect(url_for('edit_images', username=username))
+            return redirect(url_for('profile', username=username))
         return render_template("edit_images.html", username=username)
     flash("You need to be logged in to view this page")
     return render_template('login.html')
@@ -559,12 +555,8 @@ def reset_password():
                     "temp_password": generate_password_hash(temp_password)}})
 
             # emails the temp password to the user
-            msg = Message("Reset Password",
-                          html="<p>You look like you need to reset your password</p><p>This is your <b>Temporary password:</b> %s </p><a href='https://8080-bronze-catfish-6qabji6o.ws-eu03.gitpod.io/change_password'>Reset Password Link</a><p>If you didn't request this email to be sent it might be work logging into your account and changing your password</p><p>The Team at PuppyPlaymates</p>" % temp_password,
-                          sender="thepuppyplaymates@gmail.com",
-                          recipients=[user_email])
-
-            mail.send(msg)
+            reset_password_mail(temp_password, user_email)
+            
             return render_template("reset_sent.html")
         else:
             flash(
@@ -615,23 +607,14 @@ def report_user():
     if request.method == 'POST':
         # gets the users deatils and report
         user_session = mongo.db.users.find_one({"username": session['user']})
-        user_report = request.form.get('report-user')
-        user_text = request.form.get('report-text')
         user_email = user_session['email']
 
-        if check_input(user_text) or check_input(user_report):
+        if check_input(request.form.get('report-user')) or check_input(request.form.get('report-text')):
             return redirect(url_for("report_user"))
 
-        # creates a report string
-        report = (user_report + " with the following message: " + user_text)
-
         # sends email to company owners and ccs in reporter
-        msg = Message("Report user",
-                      html="<p>You have reported %s We will take a look into the users activity and take the appropriate action. <p>The Team at PuppyPlaymates</p>" % report,
-                      sender="thepuppyplaymates@gmail.com",
-                      cc=[user_email],
-                      recipients=["thepuppyplaymates@gmail.com"])
-        mail.send(msg)
+        report_user_mail(user_email)
+        
         flash("Message Sent")
         return render_template("report_user.html")
     return render_template("report_user.html")
@@ -643,21 +626,12 @@ def contact_us():
 
     if request.method == 'POST':
         user_email = request.form.get('email')
-        user_text = request.form.get('message-text')
-
         if valid_email(user_email) or check_input(request.form.get('message-text')):
             return redirect(url_for("contact_us"))
 
-        message = ("Thank you for sending us the following message:" + user_text)
+        contact_us_mail(user_email)
 
-        # sends email to user
-        msg = Message("Thank you for contacting us",
-                      html="<p> %s </p><p>We will endevour to get back to you within 48hr</p> <p>The Team at PuppyPlaymates</p>" % message,
-                      sender="thepuppyplaymates@gmail.com",
-                      cc=[user_email],
-                      recipients=["thepuppyplaymates@gmail.com"])
-        mail.send(msg)
-        flash("Email sent successfully")
+
         return render_template("contact_us.html")
     return render_template("contact_us.html")
 
