@@ -158,12 +158,11 @@
                             </div>
                             {% for image in user_profile.all_images %}
                             <div id="modal{{image}}" class="modal">
-                                    <div class="modal-content">
-                                        <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}">
-                                    </div>
-
+                                <div class="modal-content">
+                                    <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}">
                                 </div>
-                            {% endfor %}    
+                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <!-- Admire/Liked -->
@@ -239,20 +238,17 @@
                                     {% if comments.author == session['user'] or user_profile.username == session['user'] %}
                                     <div class="comment-content">
                                         <!-- If the author of the post -->
-                                        {% if comments.author == session['user'] %}
                                         <!-- Modal Trigger -->
                                         <div class="comment-btn-wrapper">
+                                            {% if comments.author == session['user'] %}
                                             <a class="waves-effect waves-light btn-yellow btn-edit modal-trigger"
                                                 href="#modal{{comments}}"><i class="fas fa-pencil-alt"></i></a>
-                                       
-                                        {% endif %}
-                                        <!-- If the profile owner -->
-                                        {% if username == session['user'] or comments.author == session['user'] %}
-                                        
-                                            <a class="waves-effect waves-light btn-red btn-edit modal-trigger"
+
+                                            {% endif %}
+                                            <!-- If the profile owner or author-->
+                                            <a class="waves-effect waves-light btn btn-yellow btn-red btn-edit modal-trigger"
                                                 href="#modal_delete{{comments}}"><i class="fas fa-trash"></i></a>
                                         </div>
-                                        {% endif %}
                                         <p>{{comments.text}}</p>
                                         <p><small><a
                                                     href="{{url_for('profile', username=comments.author)}}">{{comments.author}}({{comments.author_dog}})</a>
@@ -260,68 +256,77 @@
                                         <p><small>This message is private only the author and
                                                 {{user_profile.dog_name}}'s
                                                 owner can see it</small></p>
-                                    </div>
-
                                     {% endif %}
+                                </div>
+                                    
                                     <!-- build for standard message -->
                                     {% else %}
                                     <div class="comment-content">
                                         <!-- if the author of the post -->
-                                        {% if comments.author == session['user'] %}
                                         <!-- Modal Trigger -->
                                         <div class="comment-btn-wrapper">
+                                            {% if comments.author == session['user'] %}
                                             <a class="waves-effect waves-light btn btn-yellow btn-edit modal-trigger"
                                                 href="#modal{{comments}}"><i class="fas fa-pencil-alt"></i></a>
-                                      
-                                        {% endif %}
-                                        <!-- If the profile owner -->
-                                        {% if username == session['user'] or comments.author == session['user'] %}
-                                        
-                                            <a class="waves-effect waves-light btn-red btn-edit modal-trigger"
+
+                                            {% endif %}
+                                            <!-- If the profile owner -->
+                                            {% if username == session['user'] or comments.author == session['user'] %}
+
+                                            <a class="waves-effect waves-light btn btn-yellow btn-red btn-edit modal-trigger"
                                                 href="#modal_delete{{comments}}"><i class="fas fa-trash"></i></a>
+                                            {% endif %}
                                         </div>
-                                        {% endif %}
-                                        
+                           
                                         <p>{{comments.text}}</p>
-                                        <p><small><a
-                                                    href="{{url_for('profile', username=comments.author)}}">{{comments.author}}({{comments.author_dog}})</a>
-                                                {{comments.date}}</small></p>
+                                        <p><small>
+                                            <a href="{{url_for('profile', username=comments.author)}}">
+                                                {{comments.author}}({{comments.author_dog}})</a>
+                                            {{comments.date}}
+                                        </small></p>
                                     </div>
                                     {% endif %}
-                                    <!-- Modal Structure -->
-                                    <div id="modal{{comments}}" class="modal">
-                                        <div class="modal-content">
-                                            <form method="POST"
-                                                action="{{ url_for('edit_comment', username=username, comment_id=comments._id)}}">
-                                                <h2>Edit Comment </h2>
 
-                                                <div class="input-field">
-                                                    <input type="text" id="date" name="edit_comment" class="validate"
-                                                        value="{{comments.text}}" required>
-                                                </div>
-                                                <button type="submit" class="btn btn-yellow">
-                                                    Update
-                                                </button>
-                                            </form>
-                                            <form method="POST"
-                                                action="{{ url_for('delete_comment', username=username, comment_id=comments._id)}}">
-                                                <button type="submit" class="red btn">Delete</button></form>
-                                        </div>
-                                    </div>
-                                    <div id="modal_delete{{comments}}" class="modal">
-                                        <div class="modal-content">
-                                            {% if not comments.author == session['user']%}
-                                            <h4>Do you need to report this user?</h4>
-                                            <h5>If you feel uncomfortable or you believe this user has violated our safe spaces policy please head to our report page, if you just don't want the comment on your feed please click the delete button</h5>
-                                            <a href="{{ url_for('report_user')}}" class="btn btn-yellow">Report</a>
-                                            {% endif %}
-                                            <p>Click the delete button to remove this comment</p>
-                                            <form method="POST"
-                                                action="{{ url_for('delete_comment', username=username, comment_id=comments._id)}}">
-                                                <button type="submit" class="red btn">Delete</button></form>
-                                        </div>
-                                    </div>
                                 </li>
+                                {% if comments.author == session['user'] or user_profile.username == session['user'] %}
+                                <!-- Modal Structure -->
+                                <div id="modal{{comments}}" class="modal">
+                                    <div class="modal-content">
+                                        <form method="POST"
+                                            action="{{ url_for('edit_comment', username=username, comment_id=comments._id)}}">
+                                            <h2>Edit Comment </h2>
+
+                                            <div class="input-field">
+                                                <input type="text" id="date" name="edit_comment" class="validate"
+                                                    value="{{comments.text}}" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-yellow">
+                                                Update
+                                            </button>
+                                        </form>
+                                        <p>This will permentally delete this message</p>
+                                        <form method="POST"
+                                            action="{{ url_for('delete_comment', username=username, comment_id=comments._id)}}">
+                                            <button type="submit" class="btn btn-yellow btn-red">Delete</button></form>
+                                    </div>
+                                </div>
+
+                                <div id="modal_delete{{comments}}" class="modal">
+                                    <div class="modal-content">
+                                        {% if not comments.author == session['user']%}
+                                        <h4>Do you need to report this user?</h4>
+                                        <h5>If you feel uncomfortable or you believe this user has violated our safe
+                                            spaces policy please head to our report page, if you just don't want the
+                                            comment on your feed please click the delete button</h5>
+                                        <a href="{{ url_for('report_user')}}" class="btn btn-yellow">Report</a>
+                                        {% endif %}
+                                        <p>Click the delete button to permentally remove this comment</p>
+                                        <form method="POST"
+                                            action="{{ url_for('delete_comment', username=username, comment_id=comments._id)}}">
+                                            <button type="submit" class="btn btn-yellow btn-red">Delete</button></form>
+                                    </div>
+                                </div>
+                                {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>

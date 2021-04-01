@@ -3,10 +3,11 @@
 
 {% block content %}
 <div class="form-popout">
-  <h2 class="center-align">Email has been sent</h2>
-  <p class="center-align">You have been sent an email to reset your password, please note this can take up to 10 minutes to come through</p>
-  <div class="div input-div">
-  <a href="{{ url_for('homepage')}}" class="btn-yellow btn center-align">Homepage</a>
-  </div>
-      </div>
+    <h2 class="center-align">Email has been sent</h2>
+    <p class="center-align">You have been sent an email to reset your password, please note this can take up to 10
+        minutes to come through</p>
+    <div class="form-indent center-align">
+        <a href="{{ url_for('homepage')}}" class="btn-yellow btn center-align">Homepage</a>
+    </div>
+</div>
 {% endblock %}
