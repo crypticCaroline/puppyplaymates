@@ -41,12 +41,13 @@ def valid_password(password):
 
 
 def valid_username(username):
-    if not (re.search(r"^(?=.*[A-Za-z])([a-zA-Z0-9!?/][^\s*]){4,20}$", username)):
+    if not (re.search(r"^(?=.*[A-Za-z])([a-zA-Z0-9!?/^\s*]){4,20}$", username)):
         return True
  
 
 def valid_email(email):
     if not (re.search(r'[^@]+@[^@]+\.[^@]+', email)):
+        flash("This is not a valid email")
         return True
 
 
@@ -78,16 +79,15 @@ def check_valid_registration():
             "This username violates our safespaces policy, please refrain from using profanity")
         return True
     if valid_email(request.form.get("email")):
-        flash("This is not a valid email")
         return True
     if valid_password(request.form.get('password')):
         flash("This is not a valid password")
         return True
 
     # checks to see if both passwords match
-    if request.form.get('password') != request.form('repeat-password'):
+    if request.form['password'] != request.form['repeat-password']:
         flash("Passwords did not match, please try again")
-        return True
+        return redirect(url_for("register"))
 
 
 def check_valid_build():
