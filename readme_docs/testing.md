@@ -1,23 +1,21 @@
-### User Testing 
-I put the site out to a small group of users to feedback on how they found the WebApp.  Please see the logs below to see what feedback was recieved and how this feedback was used in the testing process
+*** 
 
-| Feedback  |Investigation |Investigation |   Decision |   
-|---|---|---|---|
-|  Can't remember if Name and About were options on signup, I feel like I put dummy data in here? |  Hadn’t included human in the profile set up, users expected it |  Added these fields in the build profile part of the site |  Implemented |   
-| The line remains yellow "as if indicating the password doesn’t match  | Goes green when you click somewhere else on the page but not key up  |  Could write a function to change the materlize class to work on key up | Could be used added in a future release  |   
-|  Special character for password: I would mention which ones are allowed as I think the - might not be working, I tried different passwords before I could be accepted |  Present, no way for users to know which character are accepted  |  Added helper text including the characters needed for password validation |  Implemented  |   
-| Instinctively I wanted to click on the image placeholder to add the image of my dog  |  Images were only unloadable from the edit images button | Changed so that containing image and content is an anchor  | Implemented  |   
-|  No safari just didn't work for me |  Tried passing through a safari test enviroment and could find the same bug | Asked user to try again to see if problem still persisting   |  Still ongoing |   
-|  If I go to edit my pup I had clicked he'd been neutered but it didn't bring back the original setting so when I clicked update it changed it so he had not been neutered |  Form wasn't inheriting values from the data base |  Added a switch statement in the template to toggle the switch accordingly |  Implemented |   
-| On the calendar for a date of birth I can added a future date, and as a result I got Age of -1  | Lack of defensive programming  |  Create a function to find todays date and set the min/max dates | Implemented  |   
-|  On mobile when the menu is open, there is a weird dark overlay at the bottom, that appears only if you click on the menu if you are at the bottom of the page(footer level) |   |   |   |   
-|  When I went to the list of playmates, it only allows me to click on a profile only if  hover on top of the dog's name. At the beginning, I was trying to click the image, I thought it was a bug |  Currently name was used as an anchor tag  | Change to make the whole card a clickable link  |  Implemented |   
-|  With the comments, what is the purpose of me putting a comment on my own dog? Is this intentional? | Comments are allowed for both guests and profile  |  Add helper text to also reassure profile owner that they can comment on own profile with updates |   |   
-|  Perhaps it would be nice to have a dropdown menu which takes the values from your database for the breeds etc | Currently the search is text based  |  Could add a database for different dog breeds allowing for a check list of breeds, however this is an extension of scope | May be implemented in future feature  |   
-|   |   |   |   |   
+## Testing Index 
+
+* [User Stories](#User) 
+* [Browser Compatibility](#browser-Compatibility)
+* [Validators](#Validators)
+* [OS Compatibility](#os-compatibility)
+* [Performance Testing](#performance-testing)
+* [Usability Testing](#usability-testing)
+* [User Testing](#testing-logs)
 
 
 
+### User Stories
+
+
+### Validators
     
 [HTML Validator](https://validator.w3.org/) 
 
@@ -26,7 +24,7 @@ I put the site out to a small group of users to feedback on how they found the W
 
 [JSHint](https://jshint.com/)- Testing and checking JS. 
 
-### Usability Testing
+
 
 
 ### Browser Compatibility
@@ -44,7 +42,28 @@ Tested on the Developer Tools Lighthouse.
 
 I used Lighthouse last in my testing to check for final things to improve and make sure everything was working well.  I had not added rel= noopeners to my resources page, Dev Tools highlighted this and I made the adjustment. 
 
- 
-*** 
+### Usability 
 
-### Testing User Stories
+### User Testing 
+I put the site out to a small group of users to feedback on how they found the WebApp.  Please see the logs below to see what feedback was recieved and how this feedback was used in the testing process
+
+## Testing Logs
+
+| Feedback  |Investigation | Fix |   Decision |   
+|---|---|---|---|
+|  Can't remember if Name and About were options on signup, I feel like I put dummy data in here? |  Hadn’t included human in the profile set up, users expected it |  Added these fields in the build profile part of the site |  Implemented |   
+| The line remains yellow "as if indicating the password doesn’t match  | Goes green when you click somewhere else on the page but not key up  |  Could write a function to change the materlize class to work on key up | Could be used added in a future release  |   
+|  Special character for password: I would mention which ones are allowed as I think the - might not be working, I tried different passwords before I could be accepted |  Present, no way for users to know which character are accepted  |  Added helper text including the characters needed for password validation |  Implemented  |   
+| Instinctively I wanted to click on the image placeholder to add the image of my dog  |  Images were only unloadable from the edit images button | Changed so that containing image and content is an anchor  | Implemented  |   
+|  No safari just didn't work for me |  Tried passing through a safari test enviroment and could find the same bug | Asked user to try again to see if problem still persisting   |  Still ongoing |   
+|  If I go to edit my pup I had clicked he'd been neutered but it didn't bring back the original setting so when I clicked update it changed it so he had not been neutered |  Form wasn't inheriting values from the data base |  Added a switch statement in the template to toggle the switch accordingly |  Implemented |   
+| On the calendar for a date of birth I can added a future date, and as a result I got Age of -1  | Lack of defensive programming  |  Create a function to find todays date and set the min/max dates | Implemented  |   
+|  On mobile when the menu is open, there is a weird dark overlay at the bottom, that appears only if you click on the menu if you are at the bottom of the page(footer level) |   |   |   |   
+|  When I went to the list of playmates, it only allows me to click on a profile only if  hover on top of the dog's name. At the beginning, I was trying to click the image, I thought it was a bug |  Currently name was used as an anchor tag  | Change to make the whole card a clickable link  |  Implemented |   
+|  With the comments, what is the purpose of me putting a comment on my own dog? Is this intentional? | Comments are allowed for both guests and profile  |  Add helper text to also reassure profile owner that they can comment on own profile with updates |   |   
+|  Perhaps it would be nice to have a dropdown menu which takes the values from your database for the breeds etc | Currently the search is text based  |  Could add a database for different dog breeds allowing for a check list of breeds, however this is an extension of scope | May be implemented in future feature  |   
+|   |   |   |   |   
+
+
+
+ 

@@ -1,7 +1,7 @@
 
 
 
-##Currently still under development and in testing
+## Currently still under development and in testing
 
 # Puppy Playmates 
 
@@ -37,44 +37,59 @@ The application has a lot of room for growth and a list of future features to im
 *** 
 
 ## User Experience (UX)
-
 ## Strategy
-### User Stories  
+
+With PuppyPlaymates I wanted to be able to give dog owners a way to communicate with other dog owners in a fun and safe way. By combining social media and data profile principles I have created a playmate finding service dedicated to mans best friend.
+
+### User Stories 
 
 #### Reasons a user may visit the website
-* 
+* A dog owner is looking for a playmate for their dog
+* A dog owner is looking to chat to other dog owners
+* A dog owner is looking to find puppy love for their dog
 
 
 #### Reasons for the website
-* 
+* A way to bring together dog owner for :
+    * Playmate finding
+    * Walk arranging 
+    * Talking
+    * Potential Breeding
 
   
 
-## Scope - CRUD 
-#### What a user may expect
+## Scope 
+#### A Playmates user may expect: 
 * Easy to navigate website
 * Good presentation and visually appealing
-* A way to add dog info
-* a way to edit dog info
-* A way to view other profiles 
-* A way to delete 
 * Links and functions work as expected
-* comments
-* walks
-
+* Can Add / Edit / Delete info on my profile
+* Can view other dog profiles
+* Can interact with other users 
+* Can delete profile 
+* Can get in contact with site owners 
 
 
 #### What a user may want 
-*
+*Can Add Edit/ Delete info to my profile
+    * Add/Edit Dog Infomation 
+    * Add/Edit/Delete Images
+    * Add/Edit/Delete Comments
+    * Add/Edit/Delete Walk Infomation
+* Can view other dog profiles
+    * Add/Edit/Delete Comments 
+    * Like other users profiles so I can find them again
+* Can report users who make me feel uncomfortable 
 
 
 #### As a developer / business I expect
 * To provide an easy to use website
-* 
+* To enable users to communicate
+* Add/Edit/Delete  Images, Comments, Walk information
 
 
 ## Structure
-![Site Structure](readme_docs/playmatesStructure.png)
+![Site Structure](readme_docs/structure.png)
 
 
 
