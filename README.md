@@ -74,6 +74,7 @@ The application has a lot of room for growth and a list of future features to im
 
 
 ## Structure
+![Site Structure](readme_docs/playmatesStructure.png)
 
 
 
@@ -208,36 +209,12 @@ Testing
 ***
 
 ## Testing 
-    
-[HTML Validator](https://validator.w3.org/) 
+
+[TESTING DOC ](readme_docs/testing.txt)
+
+Please see the testing document for Testing logs 
 
 
-[CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input)
-
-[JSHint](https://jshint.com/)- Testing and checking JS. 
-
-### Usability Testing
-
-
-### Browser Compatibility
-
-Tested on Chrome, Firefox, Brave, Internet Explorer, Microsoft Edge, Safari.
-
-When using Internet Explorer the test doesn't run, the buttons are not built and the colour scheme is not shown. This is because Internet Explorer is not compatible with some of the latest JavaScript and CSS releases.  I have added a message at the bottom of the instructions to let users know to use an alternative browser to run the test.  In  a future releases of the project given more time I would like to make the test compatible with Internet Explorer. 
-
-### OS Compatibility
- iOS, Android 10, and Windows 10. -
-Tested for responsiveness using Chrome DevTools. Runs well on both IOS and Android 10. 
-
-### Performance Testing
-Tested on the Developer Tools Lighthouse.  
-
-I used Lighthouse last in my testing to check for final things to improve and make sure everything was working well.  I had not added rel= noopeners to my resources page, Dev Tools highlighted this and I made the adjustment. 
-
- 
-*** 
-
-### Testing User Stories
 
 
 
