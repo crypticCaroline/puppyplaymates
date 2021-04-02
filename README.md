@@ -210,7 +210,7 @@ Testing
 
 ## Testing 
 
-[TESTING DOC ](readme_docs/testing.txt)
+[TESTING DOC ](readme_docs/testing.md)
 
 Please see the testing document for Testing logs 
 
