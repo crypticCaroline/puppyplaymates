@@ -631,7 +631,6 @@ def contact_us():
 
         contact_us_mail(user_email)
 
-
         return render_template("contact_us.html")
     return render_template("contact_us.html")
 

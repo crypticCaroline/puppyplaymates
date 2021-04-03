@@ -41,7 +41,7 @@ def valid_password(password):
 
 
 def valid_username(username):
-    if not (re.search(r"^(?=.*[A-Za-z])([a-zA-Z0-9!?/^\s*]){4,20}$", username)):
+    if not (re.search(r"^(?=.*[A-Za-z])([a-zA-Z0-9/^\s*]){4,20}$", username)):
         return True
  
 
