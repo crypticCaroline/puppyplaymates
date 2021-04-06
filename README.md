@@ -110,7 +110,7 @@ The diagram below is of the information architecture of the Web App.  This shows
 ***
 
 ## Skeleton 
-Please see the [Features](#features) section to for more information on what user actions are on each page 
+Please see the [Features](#features) section for more information on what user actions are on each page 
 Please refer back to the [structure](#structure) to see the navigation and user pathways 
 
 
@@ -152,79 +152,79 @@ The website is fully responsive between different screen resolutions.  I have do
 ### Base Templates 
 
 The base template is formed of the Meta Data, Navigation, and Footer.  The block content is rendered in between the navigation and footer.  The page description is also changed for each page. 
-    #### Nav
-    The Navigation Bar is at the top of the webpage. If the user is signed in, they have navigations to their Profile Page, Playmates and Sign Out. If a user is not logged in the user will view Login and Register. All change colour when they are hovered over. The active page is slightly lighter, so the user knows what page they are on.  The nav links direct the user to the correct page of the website. When the logo is clicked on it will take the user to the homepage. 
-    #### Footer
-    The footer consists of the company moto on the left-hand side and on the right the user can find more internal links.  If the user is logged in, they will see Contact Us, Report User, Change Password, Delete Account, Privacy Policy and Safe Spaces Policy and Sign Out. If the user is not logged in, they will be able to view Contact Us, Sign In, Register, Privacy Policy and Safe Spaces Policy.  
-    ##### Meta data
-    I have added keywords, author, and description to the meta data to make the website easier to find.  This increases traffic to the website.  I have also given each page a different name, so the user knows which tab they are on. 
+#### Nav
+The Navigation Bar is at the top of the webpage. If the user is signed in, they have navigations to their Profile Page, Playmates and Sign Out. If a user is not logged in the user will view Login and Register. All change colour when they are hovered over. The active page is slightly lighter, so the user knows what page they are on.  The nav links direct the user to the correct page of the website. When the logo is clicked on it will take the user to the homepage. 
+#### Footer
+The footer consists of the company moto on the left-hand side and on the right the user can find more internal links.  If the user is logged in, they will see Contact Us, Report User, Change Password, Delete Account, Privacy Policy and Safe Spaces Policy and Sign Out. If the user is not logged in, they will be able to view Contact Us, Sign In, Register, Privacy Policy and Safe Spaces Policy.  
+##### Meta data
+I have added keywords, author, and description to the meta data to make the website easier to find.  This increases traffic to the website.  I have also given each page a different name, so the user knows which tab they are on. 
 
 
 ### Error Pages 
-    #### 404 
-     * If the user is signed in, they will get a message that they are barking up the wrong tree and a button to take them back to their profile 
-     * If the user is not signed in the button will take them back to the homepage
+#### 404 
+* If the user is signed in, they will get a message that they are barking up the wrong tree and a button to take them back to their profile 
+* If the user is not signed in the button will take them back to the homepage
 
-    #### 500 
-    * If there is an internal server error the user will be shown a message to say the account may no longer be active (if the account has been deleted) or the profile is incomplete if it is their own profile and they didn't complete registration fully then they will be able to click the Build profile button to take them back to finish the set up. 
-    * They will also get button to take them back to their profile if they are a session user and back to the homepage if not. 
+#### 500 
+* If there is an internal server error the user will be shown a message to say the account may no longer be active (if the account has been deleted) or the profile is incomplete if it is their own profile and they didn't complete registration fully then they will be able to click the Build profile button to take them back to finish the set up. 
+* They will also get button to take them back to their profile if they are a session user and back to the homepage if not. 
 
-    #### Not Session 
-    * If the user does not have a session cookie then they will be redirected to the log in page with a flash message advising that they need to be logged in to view that page. 
+#### Not Session 
+* If the user does not have a session cookie then they will be redirected to the log in page with a flash message advising that they need to be logged in to view that page. 
 
-    #### Flash Messages
-    * Flash messages are displayed toward the top of the pages and includes a soft pink banner to alert users to the text they contain 
+#### Flash Messages
+* Flash messages are displayed toward the top of the pages and includes a soft pink banner to alert users to the text they contain 
 
 
 #### Features Specific to Pages
 
-Please refer to the [structure](#structure) to see the navigation and user pathways 
+Please refer to [structure](#structure) to see the navigation and user pathways 
 ### Profile 
-    #### Profile Content
-        * Like/ dislike overlay gif - adds to Admire/Pups I Admire when Session User not the Profile owner 
-        * Birthday Display - if it’s the profiles dog birthday a cake will appear in the top right of profile
-        * Profile Image - Displays users’ image - if profile owner when clicked toggles Edit Images Modal
-        * Profile Bio/ dog details 
-            * Displays user bio details - if profile owner when Edit Puppy button clicked toggles - Edit Profile Modal
-            * Age is worked out from the profile users DOB and todays date using the check_date() function.
-            * If the profile owner has specified, they are looking for a romantic match for their dog it will show in the profile as looking for Puppy Love and will have an Icon of a heart. Else it will render that they are looking for platonic playmates
-            * If the profile owner has had their dog neutered or spade then the template will render "I have had the snip" and a pair of scissors. Else the profile will read "I've still got all my puppy making parts"
-        * Profile Human - displays human info - when Edit Human button clicked toggles - Edit Human Modal
-        * Walks - Displays next walk - when update clicked toggles - Add Walk Modal 
-        * Images - user a loop to display all images in users image array
-            * Lets users horizontal scroll through other users’ photos.
-            * If profile owner when update images clicked toggles Edit Images Modal
-            * When image clicked upon triggers a large image view in a Modal  
-        * Admire - displays dogs that have liked the page, adds an object containing the likers - image, name and URL to the array and then adds the profile liked to the users Pups I love. 
-        * Comments - uses a loop to go through the comments array in the database and shows newest at the top and adds edit and delete buttons to each comment and create individual modals dynamically 
-            * Displays all comments on user profile 
-            * If private only the author and user of that profile can see the message. 
-            * The user of that profile can delete any message, and this will toggle delete comment Modal.  The author of the comment can edit their comments and when clicked the author can either edit or delete their own comment. The comments are displayed with the authors image, name, and a time stamp. 
-        * Add Comment - all users can add comments and select whether they make them a private message. 
+#### Profile Content
+* Like/ dislike overlay gif - adds to Admire/Pups I Admire when Session User not the Profile owner 
+* Birthday Display - if it’s the profiles dog birthday a cake will appear in the top right of profile
+* Profile Image - Displays users’ image - if profile owner when clicked toggles Edit Images Modal
+* Profile Bio/ dog details: 
+    * Displays user bio details - if profile owner when Edit Puppy button clicked toggles - Edit Profile Modal
+    * Age is worked out from the profile users DOB and todays date using the check_date() function.
+    * If the profile owner has specified, they are looking for a romantic match for their dog it will show in the profile as looking for Puppy Love and will have an Icon of a heart. Else it will render that they are looking for platonic playmates
+    * If the profile owner has had their dog neutered or spade then the template will render "I have had the snip" and a pair of scissors. Else the profile will read "I've still got all my puppy making parts"
+* Profile Human - displays human info - when Edit Human button clicked toggles - Edit Human Modal
+* Walks - Displays next walk - when update clicked toggles - Add Walk Modal 
+* Images - user a loop to display all images in users image array
+    * Lets users horizontal scroll through other users’ photos.
+    * If profile owner when update images clicked toggles Edit Images Modal
+    * When image clicked upon triggers a large image view in a Modal  
+* Admire - displays dogs that have liked the page, adds an object containing the likers - image, name and URL to the array and then adds the profile liked to the users Pups I love. 
+* Comments - uses a loop to go through the comments array in the database and shows newest at the top and adds edit and delete buttons to each comment and create individual modals dynamically 
+    * Displays all comments on user profile 
+    * If private only the author and user of that profile can see the message. 
+    * The user of that profile can delete any message, and this will toggle delete comment Modal.  The author of the comment can edit their comments and when clicked the author can either edit or delete their own comment. The comments are displayed with the authors image, name, and a time stamp. 
+* Add Comment - all users can add comments and select whether they make them a private message. 
 
-    #### Edit Modals 
+#### Edit Modals 
 
-        * Add Walk - brings up a form so the user can add a walk to their profile 
-        * Edit Profile - Brings up a form to allow the user to change some of the dog’s details 
-        * Edit Images –
+* Add Walk - brings up a form so the user can add a walk to their profile 
+* Edit Profile - Brings up a form to allow the user to change some of the dog’s details 
+* Edit Images –
 * Uses a loop to create a card for each image and builds a make profile picture and delete image button.
 * Enables user to upload a new image and give them the option to make it the profile image straight away – ( The image is uploaded to a cloudinary and a URL string is created and added to mongodb)
-        * Edit Human - brings a form up so users can enter the human name and bio 
-        * Image Modal - modal which displays a larger version of the image the user had added 
-        * Edit Comment - allows authors to edit comments also renders a button to delete the comment as well
-        * Delete Comment - allows authors or profile owners to delete comment. If the profile owner, it also brings up button to report user if comment makes them feel uncomfortable. 
+* Edit Human - brings a form up so users can enter the human name and bio 
+* Image Modal - modal which displays a larger version of the image the user had added 
+* Edit Comment - allows authors to edit comments also renders a button to delete the comment as well
+* Delete Comment - allows authors or profile owners to delete comment. If the profile owner, it also brings up button to report user if comment makes them feel uncomfortable. 
 
 ### Playmates 
-    #### Display - 
-    * Uses a loop to build individual cards for each user containing:
-        * Dog name
-        * Dog profile photos
-        * First 3 lines of dog description
-        * If looking for love displays a heart icon
-        * If neutered or spade displays a scissor icon 
-        * Each card is clickable and take the user to that full profile if logged in, else send them to log in page with a flash message
-    #### Search  
-    * Allows user to search for other dogs by breed, size, location, gender, and name.
+#### Display - 
+* Uses a loop to build individual cards for each user containing:
+    * Dog name
+    * Dog profile photos
+    * First 3 lines of dog description
+    * If looking for love displays a heart icon
+    * If neutered or spade displays a scissor icon 
+    * Each card is clickable and take the user to that full profile if logged in, else send them to log in page with a flash message
+#### Search  
+* Allows user to search for other dogs by breed, size, location, gender, and name.
 
 ### Homepage
 * Displays information about the company and the steps to create an account
