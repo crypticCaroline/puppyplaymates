@@ -1,8 +1,9 @@
 <div id="add_walk" class="modal">
     <div class="modal-content">
+        <h2>Add Walk</h2>
+        <h5>By adding a new walk it will delete your previous walk information</h5>
         <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('add_walk', username=username)}}">
 
-            <h2>Add Walk</h2>
             <div class="form-left">
                 <input type="date" id="walk_date" name="walk_date" class="validate" min="2021-03-29" onclick="walkDate()" required>
                 <input type="time" id="time" name="time" class="validate" required>

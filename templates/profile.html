@@ -167,7 +167,9 @@
                             {% for image in user_profile.all_images %}
                             <div id="modal{{image}}" class="modal">
                                 <div class="modal-content">
-                                    <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}">
+                                    <div class="container">
+                                        <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class ="modal-image">
+                                    </div>
                                 </div>
                             </div>
                             {% endfor %}

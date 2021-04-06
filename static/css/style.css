@@ -626,6 +626,10 @@ ul.intro-list{
     margin-top:5%;
 }
 
+.modal-image {
+    height: 60vh;
+}
+
 
 @media screen and (max-width: 770px) {
     .user-cards {
