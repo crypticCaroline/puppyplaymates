@@ -4,7 +4,7 @@
 ## Currently still under development and in testing
 
 # Puppy Playmates 
-![Main Mockup](readme_docs/playmates.png)
+![Main Mockup](docs/images/playmates.png)
 
 [Link to Live Website](https://puppy-playmates.herokuapp.com/)
 
@@ -22,8 +22,53 @@ The application has a lot of room for growth and a list of future features to im
 ## Index – Table of Contents
 
 * [User Experience (UX)](#user-experience) 
+    * [User Stories](#user-stories)
+    * [Scope](#scope)
+    * [Site Structure](#structure)
 * [Features](#features)
+    * [Universal Features Across the Site](universal-features-across-the-site)
+        * [Responsiveness](#responsiveness)
+        * [Accessibility](#accessibility)
+        * [Input fields](#input-fields)
+        * [Flash Messages](#flash-messages)
+    * [Base Templates](#base-templates)
+        * [Nav](#nav)
+        * [Footer](#footer)
+        * [Meta data](#meta-data)
+    * [Error Pages](#error-pages)
+        * [404](#404)
+        * [500](#500)
+        * [Not Session](#not-session)
+    * [Features Specific to Pages](#features-specific-to-pages)
+        * Profile 
+            * [Profile Content](#profile-content)    
+            * [Edit Modals](#edit-modals)
+        * [Playmates](#playmates)
+            * [Display](#display])
+            * [Search](#search) 
+        * [Homepage](#homepage)
+        * [Delete Account](#delete-account) 
+        * [Safespaces Policy](#safespaces-policy)
+        * [Privacy Policy](#privacy-policy)
+        * [Form Pages](#form-pages)
+            * [Login](#login)
+            * [Register](#register)
+            * [Build Profile](#build-profile)
+            * [Contact Us](#contact-us) 
+            * [Report User](#report-user)
+            * [Reset Password](#reset-password)
+            * [Change Password](#change-password)  
+* [Future Features](#future-features)
 * [Designs](#designs)
+    * [Wire Frames](#wireframes)
+    * [Mock Ups](#mockups)
+    * [Color](#color)
+    * [Typography](#typography)
+    * [Calls to action](#call-to-action)
+    * [Imagary](#imagary)
+* [Database](#database)
+    * [Database Documents](#database-documents)
+    * [MongoDB](#mongodb)    
 * [Technologies Used](#technologies-used)
 * [Testing](#testing)
 * [Known Bugs](#known-bugs)
@@ -38,17 +83,37 @@ With PuppyPlaymates I wanted to be able to give dog owners a way to communicate 
 
 ### User Stories 
 
-#### Reasons a user may visit the website
-* A dog owner is looking for a playmate for their dog
-* A dog owner is looking to chat to other dog owners
-* A dog owner is looking to find puppy love for their dog
+#### New User
+* I would like to find out what the site is about
+* I would like to see if the site is for me without registering 
+* I would like to easily register 
+* I would like to be able to add my dogs details
+
+
+#### Existing User
+* I want to be able to sign in and out easily
+* I would like to be able to delete my account
+* I would like to be able to add/edit/delete comments to my own and other profiles
+* I would like to be able to reset my password
+
+#### All Users 
+* I would like to get user feedback when I take actions on the site
+* I would like to be able to contact PuppyPlaymates
+* I would like to be able to add comments and details about my walks
+* I would like to be able to track what pages I have liked
+* I would like to be able to message or comment on other profiles
+* I would like to feel safe when using the platform
+* I would like to be able to seach for other users 
+* I would like to be able to add/edit/delete images and change my profile image
+* I would like to be able to add/edit/delete dog infomation
+* I would like to be able to add/edit/delete my infomation
 
 #### Reasons for the website
 A way to bring together dog owner for:
-    * Playmate finding
-    * Walk arranging 
-    * Promoting interactions between owners
-    *  Potential Breeding
+* Playmate finding
+* Walk arranging 
+* Promoting interactions between owners
+*  Potential Breeding
 
 ## Scope 
 #### A Playmates user may expect: 
@@ -63,7 +128,7 @@ A way to bring together dog owner for:
 
 
 #### What a user may want: 
-*Can Add Edit/ Delete info to my profile
+* Can Add Edit/ Delete info to my profile
     * Add/Edit Dog Information 
     * Add/Edit/Delete Images
     * Add/Edit/Delete Comments
@@ -73,61 +138,25 @@ A way to bring together dog owner for:
     * Like other users’ profiles so I can find them again
 * Can report users who make me feel uncomfortable 
 * Add/Edit/Delete Events (outside current scope)
-* Chat abilities (outside current scope)
+* Live Chat abilities (outside current scope)
 
 #### As a developer / business I expect:
 * To provide an easy-to-use website
 * To enable users to communicate
-* Add/Edit/Delete Images, Comments, Walk information
+* Add/Edit/Delete Images, Comments, Walk information, profile functionailty 
+* To make the website fun and enjoyable
+* To deliver an easy sign up and log in process
+* I want to allow users to be able to reset their passwords if they forget their details
+* To safeguard users content and only allow the author or profile owner to edit/delete content
+* To safeguard users by having a report pathway and to be able to remove inappropriate comments or accounts
 
 
 ## Structure
 The diagram below is of the information architecture of the Web App.  This shows the journeys the users can take throughout the website. Please see the [Features](#features) section to for more information on what user actions are on each page 
-![Site Structure](readme_docs/structure.png)
-
-
-
-
-## Designs
-
-## Surface
-
-#### Colour
-
-
-
-#### Typography 
-
-
-
-#### Call to Action
-
-
-### Imagery   
-
+![Site Structure](docs/images/structure.png)
 
 
 ***
-
-## Skeleton 
-Please see the [Features](#features) section for more information on what user actions are on each page 
-Please refer back to the [structure](#structure) to see the navigation and user pathways 
-
-
-### Layout 
-
-#### Homepage Wire Frame 
-
-
-***
-
-### Mockup
-#### Home Page
-#### form Pages
-#### profile page
-#### playmates 
-
-
 
 ## Features
 
@@ -138,6 +167,10 @@ Please refer back to the [structure](#structure) to see the navigation and user 
 The website is fully responsive between different screen resolutions.  I have done this by using media queries, containers, rows and columns. I have chosen to hide the GIF images on small devices.  
 
 ### Accessibility
+
+### Flash Messages
+* Flash messages are displayed toward the top of the pages and includes a soft pink banner to alert users to the text they contain 
+
 
 ### Input Fields 
 
@@ -159,7 +192,6 @@ The footer consists of the company moto on the left-hand side and on the right t
 ##### Meta data
 I have added keywords, author, and description to the meta data to make the website easier to find.  This increases traffic to the website.  I have also given each page a different name, so the user knows which tab they are on. 
 
-
 ### Error Pages 
 #### 404 
 * If the user is signed in, they will get a message that they are barking up the wrong tree and a button to take them back to their profile 
@@ -172,13 +204,9 @@ I have added keywords, author, and description to the meta data to make the webs
 #### Not Session 
 * If the user does not have a session cookie then they will be redirected to the log in page with a flash message advising that they need to be logged in to view that page. 
 
-#### Flash Messages
-* Flash messages are displayed toward the top of the pages and includes a soft pink banner to alert users to the text they contain 
-
-
 #### Features Specific to Pages
-
 Please refer to [structure](#structure) to see the navigation and user pathways 
+
 ### Profile 
 #### Profile Content
 * Like/ dislike overlay gif - adds to Admire/Pups I Admire when Session User not the Profile owner 
@@ -215,7 +243,7 @@ Please refer to [structure](#structure) to see the navigation and user pathways
 * Delete Comment - allows authors or profile owners to delete comment. If the profile owner, it also brings up button to report user if comment makes them feel uncomfortable. 
 
 ### Playmates 
-#### Display - 
+#### Display 
 * Uses a loop to build individual cards for each user containing:
     * Dog name
     * Dog profile photos
@@ -223,12 +251,31 @@ Please refer to [structure](#structure) to see the navigation and user pathways
     * If looking for love displays a heart icon
     * If neutered or spade displays a scissor icon 
     * Each card is clickable and take the user to that full profile if logged in, else send them to log in page with a flash message
+
 #### Search  
 * Allows user to search for other dogs by breed, size, location, gender, and name.
 
 ### Homepage
 * Displays information about the company and the steps to create an account
 * Shows a button so potential users can see the playmates section of the web app but when clicked on will prompt them to login
+
+### Delete Account 
+* Button to take user back to their profile
+* Button to ask if the user wants to change their dogs details - this will take them back to build profile and allows the user to change all the details. 
+* Button to delete their profile 
+
+### Safespaces Policy
+Shows the user the company Safespaces Policy 
+
+### Privacy Policy 
+Shows the user the company Privacy Policy 
+
+### Form Pages
+#### Contact Us - Report User - Reset Password - Change Password - Register - Login
+All of the form pages have the following features:
+* On a small device will show the form and fields
+* On Medium and larger devices the user will see a gif of a dog/dogs (apart from build profile this is form only)
+* Each field is passed through validations both on front and backend prior to being submitted to the database
 
 ### Login
 * The login page consists of the username/email and password fields
@@ -241,6 +288,7 @@ Please refer to [structure](#structure) to see the navigation and user pathways
 * Checks to see if username or email already exists and will render a flask message if they do.
 * Check to make sure passwords match 
 * Checks validity of fields
+* links and confirmation that the privacy and safegaurding policy have been agreed to
 * If all valid on submit will add the user to the database, add a session cookie using the username and direct them to build their profile.
 
 ### Build Profile 
@@ -255,11 +303,27 @@ Please refer to [structure](#structure) to see the navigation and user pathways
 * Allows the user to add their name and description
 * Input fields are put through a validator to check they are acceptable and text fields are put through the profanity filter     
 
-### Form Pages - Contact Us - Register - Reset Password - Change Password - Build Profile 
+### Contact Us
+* Has a field for the email address so either a signed in user or new user can contact us
+* Asks the user to enter a message.  When sent the user is sent a copy of the email to their inbox and the email is sent to Puppyplaymates 
 
-### Delete Account 
+### Report User 
+* Has a field for the user name they are reporting 
+* Asks the user to enter a message explaining what they are reporting. When sent the user is sent a copy of the email to their inbox and the email is sent to Puppyplaymates 
 
-### Future Features 
+### Reset Password
+* Asks user for email address and send a random generated string to the users emails address if they are a registered user. 
+* If they are not a registered user they will receieve a flash message informing them that the email address is not registered
+* The random string is saved into the users document with the key of temp_password 
+
+### Change Password
+* The change password page can be accessed either through the link sent to the users email address or internally if they are signed in
+* The current password field requires the user to use either the temp_password they were assigned when they reset their password or current password
+*  The repeat password and new password must match
+* On a successful password change the temp_password field is given an new ransom string so it can not be used again. 
+
+
+## Future Features 
 
 Below is a list of future features I would like to add into PuppyPlaymates 
 
@@ -274,7 +338,34 @@ Below is a list of future features I would like to add into PuppyPlaymates
 * Add a data store for all comments that are posted for safeguarding purposes.  If a user deletes or edits their comments, they will be stored on the database in a separate collection along with their username, time stamp, email address. This would be for the purpose of safeguarding so if the comments violate the safe spaces policy then action can be taken against the user. 
 * Add all deleted accounts/emails to a separate nonuser visible collection - this would give the ability to ban certain users/email addresses if policies were violated. 
 * Continue working on the profanity 
+
 ***
+
+## Design 
+
+## Skeleton 
+Please see the [Features](#features) section for more information on what user actions are on each page 
+Please refer back to the [structure](#structure) to see the navigation and user pathways 
+
+### Layout 
+Please see the [Wireframes](docs/wireframes) for the initial wireframes
+Please see [Site Images](docs/siteImages) for images of each page of the Site 
+
+***
+
+## Surface 
+
+#### Colour
+
+
+#### Typography 
+
+
+
+#### Call to Action
+
+
+### Imagery  
 
 ## Technologies Used 
 
@@ -287,19 +378,24 @@ Below is a list of future features I would like to add into PuppyPlaymates
 * GitHub - hosting repositories
 * GIT - Pushing code to repositories
  
-Design 
 
 Front End
 * [Google fonts](https://fonts.google.com/)  - for the font
-* [Balsamiq wireframe](https://balsamiq.com/)  - for creating the wireframes
+* [Font Awesome]
 * [Beautifer](https://beautifier.io/) - for helping to keep code tidy
 
 
-Backend 
-https://miro.com/app/board/o9J_lTewBto=/
+#### Backend 
 mongodb
 herouku 
-Testing 
+flask mail 
+cloudinary 
+
+#### Planning
+[Miro](https://miro.com/app/board/o9J_lTewBto=/) - for planning of site flow 
+[Balsamiq wireframe](https://balsamiq.com/)  - for creating the wireframes
+
+#### Testing Tools
 * [HTML Validator](https://validator.w3.org/) - checking the validity of code
 * [CSS Validator](https://validator.w3.org/) - checking the validity of code
 * [JSHint](https://jshint.com/)- Testing and checking JS.  - checking for errors in code
@@ -312,16 +408,15 @@ Testing
 
 ## Testing 
 
-[TESTING DOC ](readme_docs/testing.md)
+[TESTING DOC ](docs/testing.md)
 
-Please see the testing document for Testing logs 
-
-
-
+Please see the testing document for Testing
 
 
 
 ## Deployment 
+
+### Config 
 
 ### Adding and Committing files
 
@@ -336,7 +431,7 @@ To add all new files or modified file use " ."  - To add a single file use the p
 When committing make sure your comments are clear about what changes have been made. 
 Pushing will send your work to the repository
 
-### Deployment 
+### Deploying 
 
 The project was deployed with the following steps
 
@@ -344,7 +439,6 @@ The project was deployed with the following steps
 ### Forking
 
 Forking the GitHub Repository
-
 
 By forking the GitHub Repository, you can make a copy of the original repository in your own GitHub account.  This means we can view or make changes without making the changes affecting the original.
 
@@ -395,10 +489,8 @@ Making a Local Clone
 * [JSHint](https://jshint.com/)- Testing and checking JS. 
 * [Am I Responsive](http://ami.responsivedesign.is/#) - Checking the responsive nature.
 * [Beautifer](https://beautifier.io/) - Allowing me beautify my code.
-* [HTML Online](https://html-online.com/articles/smart-404-error-page-redirect/) - Redirect page Inspiration
-* [Coolors](https://coolors.co/palettes/trending) - colour inspiration
 * [Internet Marketing Ninjas](https://www.internetmarketingninjas.com/online-spell-checker.php) - spell check
-* /* solution to truncate found here-  https://stackoverflow.com/questions/11989546/wrap-a-text-within-only-two-lines-inside-div */
+* [solution to truncate found here](https://stackoverflow.com/questions/11989546/wrap-a-text-within-only-two-lines-inside-div) 
 
 
 
@@ -406,9 +498,6 @@ Making a Local Clone
 
 
 ### Code:
-
-
-
 
 ### Content:
 
