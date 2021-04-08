@@ -194,7 +194,6 @@ def login():
         existing_email = mongo.db.users.find_one(
             {"email": request.form.get('username')})
 
-
         if existing_user:
             # ensure hash matches then logs user in
             if check_password_hash(
@@ -212,9 +211,13 @@ def login():
                 session["user"] = existing_email["username"]
                 return redirect(url_for(
                     "profile", username=session["user"]))
+            else:
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("login"))
         else:
-            flash("Incorrect Username and/or Password")
-            return redirect(url_for("login"))
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("login"))
+
     return render_template("login.html")
 
 
@@ -244,7 +247,7 @@ def edit_profile(username):
 
         # lets users change some details of their dog
         if request.method == "POST":
-            
+
             if check_valid_edit():
                 return redirect(url_for("profile", username=session[
             "user"]))
@@ -252,6 +255,7 @@ def edit_profile(username):
             mongo.db.users.update_one(
                 {"username": session["user"]},
                 {"$set": {
+                    "dog_name": request.form.get("dog_name"),
                     "dog_description": request.form.get("dog_description"),
                     "dog_location": request.form.get("dog_location"),
                     "dog_size": request.form.get("dog_size"),
@@ -270,7 +274,6 @@ def edit_profile(username):
 @app.route("/edit_human/<username>", methods=["GET", "POST"])
 def edit_human(username):
     if session:
-
         user_profile = mongo.db.users.find_one({"username": username})
 
         # edits human details in database
@@ -563,14 +566,15 @@ def reset_password():
                 "Incorrect Username and/or Password, if you have forgotten your password you can reset it")
     return render_template("reset_password.html")
 
+
 # change password section
 @app.route("/change_password", methods=["GET", "POST"])
 def change_password():
 
     if request.method == "POST":
-
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username")})
+
         # checks if the repeat password and new match
         if request.form['new-password'] != request.form['repeat-password']:
             flash("Passwords did not match. Please enter passwords again.")

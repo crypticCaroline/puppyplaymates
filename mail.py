@@ -36,7 +36,7 @@ def welcome_email():
 
 def reset_password_mail(temp_password, user_email):
     msg = Message("Reset Password",
-                  html="<p>You look like you need to reset your password</p><p>This is your <b>Temporary password:</b> %s </p><a href='https://8080-bronze-catfish-6qabji6o.ws-eu03.gitpod.io/change_password'>Reset Password Link</a><p>If you didn't request this email to be sent it might be work logging into your account and changing your password</p><p>The Team at PuppyPlaymates</p>" % temp_password,
+                  html="<p>You look like you need to reset your password</p><p>This is your <b>Temporary password:</b> %s </p><a href='https://puppy-playmates.herokuapp.com/change_password'>Reset Password Link</a><p>If you didn't request this email to be sent it might be work logging into your account and changing your password</p><p>The Team at PuppyPlaymates</p>" % temp_password,
                   sender="thepuppyplaymates@gmail.com",
                   recipients=[user_email])
     mail.send(msg)
