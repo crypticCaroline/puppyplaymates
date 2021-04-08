@@ -138,7 +138,7 @@ A way to bring together dog owner for:
     * Like other users’ profiles so I can find them again
 * Can report users who make me feel uncomfortable 
 * Add/Edit/Delete Events (outside current scope)
-* Live Chat abilities (outside current scope)
+* Live Chat abilities WOOFCHAT (outside current scope)
 
 #### As a developer / business I expect:
 * To provide an easy-to-use website
@@ -154,7 +154,6 @@ A way to bring together dog owner for:
 ## Structure
 The diagram below is of the information architecture of the Web App.  This shows the journeys the users can take throughout the website. Please see the [Features](#features) section to for more information on what user actions are on each page 
 ![Site Structure](docs/images/structure.png)
-
 
 ***
 
@@ -328,6 +327,7 @@ All of the form pages have the following features:
 Below is a list of future features I would like to add into PuppyPlaymates 
 
 * Maps - shows dogs by nearest location on the playmates page 
+* WOOFCHAT - Live chat app using websockets, was in the original pans for playmates but outside the scope at this point
 * Pagination on the playmates page 
 * Preferences - multi search queries on playmates page 
 * Ability to add multiple dogs to one human profile 
@@ -348,8 +348,16 @@ Please see the [Features](#features) section for more information on what user a
 Please refer back to the [structure](#structure) to see the navigation and user pathways 
 
 ### Layout 
-Please see the [Wireframes](docs/wireframes) for the initial wireframes
-Please see [Site Images](docs/siteImages) for images of each page of the Site 
+
+Initial Wireframe - 
+![original](docs/wireframes/original.png)
+
+I started working on the wireframe for the profile page first as this is where the majority of the site funcitonality would be.  The original wireframe is slightly different from the final one due to changing the WOOFChat tab in the navigation to be comments on the users page instead.  This was because I decided to reduce the scope and include the live chat app functionailty in a future release. 
+The other difference is the size of the users image from spanning the entire width on desktop to taking half the width. 
+
+Please see the [Wireframes](docs/wireframes) for the final wireframes
+
+Please see [Site Images](docs/siteimages) for images of each page of the Site 
 
 ***
 
@@ -366,6 +374,19 @@ Please see [Site Images](docs/siteImages) for images of each page of the Site
 
 
 ### Imagery  
+
+### Database 
+
+#### Database Documents
+Datebase Collection 
+![Datebase Collection](docs/database/database.png)
+Input types that corrispond to the Database Collection
+![Database input](docs/database/inputTypes.png)
+
+I have used a non relational database which has meant that I have kept all of a users data stored within within one document and used Key Value pairs with nested arrays and objects to store and access the appropriate data.  
+
+#### MongoDB 
+
 
 ## Technologies Used 
 
