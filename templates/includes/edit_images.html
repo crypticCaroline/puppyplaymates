@@ -10,7 +10,7 @@
                             <h3>Upload New Image</h3>
                             <form action="{{ url_for('upload_image', username=username ) }}" method="POST"
                                 enctype="multipart/form-data">
-                                <input type="file" name="image_file" />
+                                <input type="file" name="image_file" required />
                                 <p>
                                     <input type="checkbox" id="profile_check" name="profile_check" />
                                     <label for="profile_check"> Make Profile Picture </label>
@@ -35,14 +35,14 @@
                                 <div class="row flush hidden">
                                     <input type="radio" name="photo" value="{{image}}" class="images hidden" checked />
                                 </div>
-                                <button type="submit" class="row btn btn-yellow btn-small">Make Profile Photo</button>
+                                <button type="submit" class="row btn btn-yellow btn-small">Make Profile</button>
                             </form>
                             <form method="POST" action="{{ url_for('delete_images', username=username) }}">
                                 <div class="row flush">
                                     <input type="radio" id="{{image}}" name="photo" value="{{image}}"
                                         class="images hidden sm-img" checked />
                                 </div>
-                                <button type="submit" class="row btn red btn-small">Delete Image</button>
+                                <button type="submit" class="row btn btn-yellow btn-red btn-small">Delete</button>
                             </form>
                         </div>
                     </div>

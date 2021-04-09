@@ -99,7 +99,7 @@ def profile(username):
 def register():
 
     if request.method == "POST":
-        if check_valid_registration():
+        if check_not_valid_registration():
             return redirect(url_for("register"))
 
         # check if username/ email already exists in db 
@@ -154,7 +154,7 @@ def build_profile(username):
         user = mongo.db.users.find_one({"username": session['user']})
         # updates the database with dog details
         if request.method == "POST":
-            if check_valid_build():
+            if check_not_valid_build():
                 return render_template("build_profile.html", username=session[
                     "user"], user=user)
 
@@ -248,7 +248,7 @@ def edit_profile(username):
         # lets users change some details of their dog
         if request.method == "POST":
 
-            if check_valid_edit():
+            if check_not_valid_edit():
                 return redirect(url_for("profile", username=session[
             "user"]))
 
@@ -279,7 +279,7 @@ def edit_human(username):
         # edits human details in database
         if request.method == "POST":
 
-            if check_valid_edit_human():
+            if check_not_valid_edit_human():
                 return redirect(url_for("profile", username=session[
             "user"]))
 
@@ -307,6 +307,12 @@ def upload_image(username):
                 # creates a string for the file name to upload to cloudinary
                 filename = secure_filename(item.filename)
                 filename, file_extension = os.path.splitext(filename)
+                # Checks to see if extention is allowed
+                if check_extention(file_extension):
+                    return redirect(url_for(
+                        'profile', username=session['user']))
+
+
                 public_id = (username + '/q_auto:low/' + filename)
                 # uploads to cloudinary
                 cloudinary.uploader.unsigned_upload(
@@ -426,7 +432,9 @@ def add_walk(username):
         user_profile = mongo.db.users.find_one({"username": username})
 
         if request.method == "POST":
-            if check_input(request.form.get('walk_description')) or check_input(request.form.get('place')):
+            if check_input(request.form.get(
+                'walk_description')) or check_input(
+                    request.form.get('place')):
                 return redirect(url_for("profile", username=username))
             # updates the users walk details in the database
 
@@ -434,10 +442,13 @@ def add_walk(username):
                 {"username": username},
                 {"$set": {
                  "next_walk": {
-                     'date': datetime.strptime(request.form.get("walk_date"), "%Y-%m-%d"),
+                     'date': datetime.strptime(
+                         request.form.get(
+                             "walk_date"), "%Y-%m-%d"),
                      'time': request.form.get('time'),
                      'place': request.form.get('place'),
-                     'walk_description': request.form.get('walk_description')
+                     'walk_description': request.form.get(
+                         'walk_description')
                  }}})
             return redirect(url_for('profile', username=username))
         return render_template("add_walk.html", username=session[
@@ -630,7 +641,7 @@ def contact_us():
 
     if request.method == 'POST':
         user_email = request.form.get('email')
-        if valid_email(user_email) or check_input(request.form.get('message-text')):
+        if not_valid_email(user_email) or check_input(request.form.get('message-text')):
             return redirect(url_for("contact_us"))
 
         contact_us_mail(user_email)

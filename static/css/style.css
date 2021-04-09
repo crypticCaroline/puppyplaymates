@@ -2,10 +2,11 @@
 
 :root {
     --dark-font-color: #221c1c;
-    --sub-font-color: rgb(243, 240, 225);
     --yellow-color:  #ffdb39;
     --light-blue: #d4e6f4;
     --silver-blue: #d6d6d6e0;
+    --card-color: rgb(255, 252, 248);
+    --form-color: #fefff4; 
 }
 html{
     height: 100%
@@ -25,6 +26,42 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Background Colors */
+
+.group-col {
+    background-color: #fec2b3;
+}
+
+.login-dog {
+    background-color:#e8e7dd;
+}
+
+.change-password {
+    background-color: #ffe26d;
+}
+
+.space-dog {
+    background-color: #091a28;
+}
+
+.nav-bar-col {
+    background-color: var(--yellow-color);    
+}
+
+.dark-blue {
+    background-color: var(--dark-font-color);
+}
+
+.delete-page {
+    background-color: #4cbf9a;
+}
+
+.error-page {
+    background-color: #89daf7;
+    padding: 3rem;
+    
+}
+
 a {
     text-decoration: none;
     color: var(--dark-font-color)
@@ -39,14 +76,6 @@ a {
     position:sticky;
     margin-bottom: 8%;
     z-index: 2;
-}
-
-.nav-bar-col {
-    background-color: var(--yellow-color);    
-}
-
-.dark-blue {
-    background-color: var(--dark-font-color);
 }
 
 .nav-bar-txt{
@@ -153,7 +182,7 @@ small {
     position: relative;
     margin-bottom: 1.25%;
     margin-top: 3%;
-    background-color: #fefff4;
+    background-color: var(--form-color);
 }
 
 .search-heading {    
@@ -169,7 +198,7 @@ small {
     display: flex;
     margin: 0 0 20px 0;
     width: calc(50% - 10px);
-    background-color: rgb(255, 252, 248);
+    background-color: var(--card-color);
 }
 
 .user-list {
@@ -215,21 +244,7 @@ small {
     padding-bottom: 12%;
 }
 
-.group-col {
-    background-color: #fec2b3;
-}
 
-.login-dog {
-    background-color:#e8e7dd;
-}
-
-.change-password {
-    background-color: #ffe26d;
-}
-
-.space-dog {
-    background-color: #091a28;
-}
 
 .input-field, .form-indent, input[type=text]:not(.browser-default).form-indent, input[type=date]:not(.browser-default).form-indent, textarea.materialize-textarea {
     margin-right: 3rem;
@@ -379,15 +394,6 @@ input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select
     padding: 0.5rem;
 }
 
-.delete-page {
-    background-color: #4cbf9a;
-}
-
-.error-page {
-    background-color: #89daf7;
-    padding: 3rem;
-    
-}
 
 h1.error, h3.error {
     font-weight: 600;
@@ -438,8 +444,9 @@ height: 60px;
 }
 
 .btn-small {
-    font-size: 0.5rem;
-    height: min-content
+    font-size: 0.7rem;
+    height: min-content;
+    line-height: 20px; 
 }
 
 .btn-add {
@@ -670,5 +677,8 @@ ul.intro-list{
     input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select-dropdown {
     width: 100%;
     }
-  
+
+    .card__img {
+    width:100%; 
+    }  
 }
