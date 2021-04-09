@@ -60,7 +60,7 @@
                 <div class="row flush">
                     <div class="form-indent col s12">
                         <input id="dog_dob" name="dog_dob" type="date" class="validate form-indent"
-                            value="{{user.dog_dob}}" onclick="dogDob()"  required>
+                            value="{{ user_dog_dob }}" onclick="dogDob()"  required>
                     </div>
                 </div>
                 <div class="row flush">
@@ -129,12 +129,8 @@
                     </div>
                 </div>
                 <div class="row flush">
-                    <div class="col s12">
-                        <label for="dog_description" class="form-indent">Dog Bio</label>
-                    </div>
-                </div>
-                <div class="row flush">
                     <div class=" col s12 form-indent">
+                        <label for="dog_description" class="form-indent">Dog Bio</label>
                         <textarea id="dog_description" type="text" name="dog_description"
                             class="validate materialize-textarea form-indent" minlength="5" maxlength="1000"
                             required>{{user.dog_description}}</textarea>
@@ -148,12 +144,8 @@
                     </div>
                 </div>
                 <div class="row flush">
-                    <div class="col s12">
-                        <label for="human_description" class="form-indent">Human Bio</label>
-                    </div>
-                </div>
-                <div class="row flush">
                     <div class=" col s12 form-indent">
+                        <label for="human_description" class="form-indent">Human Bio</label>
                         <textarea id="human_description" type="text" name="human_description"
                             class="validate materialize-textarea form-indent" minlength="5" maxlength="1000"
                             required>{{user.human_description}}</textarea>

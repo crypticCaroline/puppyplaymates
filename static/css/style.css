@@ -52,14 +52,13 @@ body {
     background-color: var(--dark-font-color);
 }
 
-.delete-page {
+.notfound-page {
     background-color: #4cbf9a;
 }
 
 .error-page {
     background-color: #89daf7;
-    padding: 3rem;
-    
+    padding: 3rem; 
 }
 
 a {
@@ -264,8 +263,20 @@ textarea.materialize-textarea.contact-form {
     height: 80px;
 }
 
+label.bio-label {
+    margin-top: 2rem;
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+}
+}
+
 input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select-dropdown{
     width: 30%;
+}
+
+textarea.materialize-textarea.form-no-indent {
+    margin-left: 0;
 }
 
 .select-wrapper span.caret {
@@ -514,9 +525,9 @@ li.comments:nth-child(odd) {
     margin-top: -21%;
      background-color: #d4e6f4;
      margin-bottom: 0;
-     padding-top: 21%
-
+     padding-top: 21%;
 }
+
 .homepage {
     background-image: url('/static/images/pups.jpg');
     height: 700px;
@@ -564,7 +575,6 @@ ul.intro-list{
     background-image: url("/static/images/paw.png");
     background-repeat: no-repeat;
     background-size: 35px;
-
 }
 
 .btn-space {
@@ -574,18 +584,20 @@ ul.intro-list{
 .form-right {
     float:right;
     width:30%;
-    padding: 3%;
-    
+    padding: 3%;  
 }
+
 .form-left{
     float:left;
     width:70%;
     padding: 1%;
-    }
+}
+
 .form-bottom {
     width:100%;
     padding:1%;
-}    
+}   
+
 .comment-content {
     float:right;
     width:80%;
@@ -622,7 +634,6 @@ ul.intro-list{
     line-height: 40px;
     padding: 0;
     border-radius: 30%;
-
 }
 
 .btn-edit:hover{

@@ -19,8 +19,10 @@
                 <p>Send us a message and we will endevour to get back to you within 2 working days</p>
                 <div class="row">
                     <div class="col s12 input-field">
+                        {% if not session %}
                         <input type="email" id="email" name="email" class="validate" required>
                         <label for="email">Email</label>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="row">

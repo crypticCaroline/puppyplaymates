@@ -61,6 +61,8 @@
                             <li><a class="footer-text" href="{{ url_for('contact_us')}}">Contact Us</a></li>
                             {% if session.user %}
                             <li><a class="footer-text" href="{{ url_for('report_user')}}">Report User</a></li>
+                            <li><a class="footer-text" href="
+                                {{ url_for('build_profile', username=session['user'])}}">Rebuild Profile</a></li>
                             <li><a class="footer-text" href="{{ url_for('change_password')}}">Change Password</a></li>
                             <li><a class="footer-text" href="{{ url_for('delete_profile')}}">Delete Account</a></li>
                             <li><a class="footer-text" href="{{ url_for('logout')}}">Sign Out</a></li>
