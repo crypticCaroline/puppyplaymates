@@ -9,6 +9,7 @@ from datetime import date
 extentions = {".jpg" , ".png", ".gif", ".jpeg"}
 curse_words = {"fuck", "shit", "cunt", "wanker", "fucker", "fucktard", "shitstick", "dickhead", "asshole", "dickwipe",
                    "twat", "tit", "tits", "fucktits", "wankstain", "dick"}
+                   
 
 def profanity_check(input):
     for word in input.split():
@@ -41,8 +42,10 @@ def check_extention(file):
         flash("Please only uploads images as png, jpg or gif")
         return True
 
+
 def not_valid_password(password):
-    if not (re.search(r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])([A-Za-z\d@$!%-_*#?&]{8,30})$", password)):
+    if not (re.search(
+        r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])([A-Za-z\d@$!%-_*#?&]{8,30})$", password)):
         return True
 
 
@@ -65,13 +68,14 @@ def not_valid_text(text):
 
 def check_input(input):
     if profanity_check(input):
-        flash("This text violates our safe spaces policy, please refrain from using profanity")
+        flash(
+            "This text violates our safe spaces policy, please refrain from using profanity")
         return True
     if not_valid_text(input):
         return True
 
 
-def check_valid_registration():
+def check_not_valid_registration():
     # checked to make sure valid before passing into the database
     if not_valid_username(request.form.get("username")):
         flash("This is not a valid username")
@@ -94,7 +98,7 @@ def check_valid_registration():
 
 def check_not_valid_build():
     # Checks for valid input and profanity
-    if valid_text(request.form.get('dog_description')):
+    if not_valid_text(request.form.get('dog_description')):
         return True
     if profanity_check(request.form.get('dog_description')):
         flash(
