@@ -17,6 +17,7 @@
             alt="gif of sad dog">
     </div>
 </div>
+
 <!-- profile section -->
 <div class="container pup-profile form-popout">
     <div class="row">
@@ -34,8 +35,16 @@
                     </div>
                     {% endfor %}
                     {% endif %}
-                    {% endwith%}
+                    {% endwith %}
+                    {% if user_profile.dog_name == "" and username == session['user'] %}
+                    <h3 class="  profile-heading heading col s12 center-align ">You haven't
+                        finished building your profile please do so now</h3>
+                        <a class="btn btn-yellow" href="{{ url_for('build_profile', username=session['user'])}}">Build
+                            Profile</a>
+                    <p>You won't appear in the search as a playmate until your profile is complete</p>
+                    {% else %}
                     <h2 class="  profile-heading heading col s8 push-s2 center-align ">{{ user_profile.dog_name}}</h2>
+                    {% endif %}
                     {% if session.user != username %}
                     {% if dog_like %}
                     <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
@@ -63,13 +72,14 @@
                     <div class="col s12">
                         <div class="profile-wrapper">
                             {% if username == session['user'] %}
-                                            <a data-target="edit_images" data-toggle="modal" class="modal-trigger"><img src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}"
-                                class="profile-image"></a>
+                            <a data-target="edit_images" data-toggle="modal" class="modal-trigger"><img
+                                    src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}"
+                                    class="profile-image"></a>
 
-                                            {% else %}
+                            {% else %}
                             <img src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}"
                                 class="profile-image">
-                                {% endif %}
+                            {% endif %}
                             <!-- Dog info -->
                             <div class="profile-items-wrapper">
                                 <h5 class="profile-items">Bio </h5>
@@ -77,7 +87,7 @@
                                 <p><span class="profile-items">Breed: </span>{{ user_profile.dog_breed}}</p>
                                 <p><span class="profile-items">Gender: </span>{{ user_profile.dog_gender}}</p>
                                 <p><span class="profile-items">Location: </span>{{ user_profile.dog_location}}</p>
-                                <p><span class="profile-items">Size: </span> {{ user_profile.dog_size}}</p>
+                                <p><span class="profile-items">Size: </span> {{ user_profile.dog_size }}</p>
                                 <p><span class="profile-items">Age: </span>{{ age }}</p>
                                 {% if not user_profile.puppy_love %}
                                 <p><span class="profile-items">Seeking: </span> Platonic Playmates Only</p>
@@ -100,8 +110,16 @@
                             <!-- Human info -->
                             <div class="profile-items-wrapper">
                                 <h5 class="profile-items">My Human</h5>
-                                <p><span class="profile-items">Name: </span>{{ user_profile.human_name}}</p>
-                                <p><span class="profile-items">About: </span>{{ user_profile.human_description}}</p>
+                                {% if user_profile.human_name %}
+                                <p><span class="profile-items">Name: </span>{{ user_profile.human_name }}</p>
+                                {% else %}
+                                <p><span class="profile-items">Name: </span></p>
+                                {% endif %}
+                                {% if user_profile.human_description  %}
+                                <p><span class="profile-items">About: </span>{{ user_profile.human_description }}</p>
+                                {% else %}
+                                <p><span class="profile-items">About: </span></p>
+                                {% endif %}
                                 <p><span class="profile-items">Username: </span><em>{{ user_profile.username}}</em></p>
                                 {% if session.user == username %}
                                 <a data-target="edit_human" data-toggle="modal"
@@ -168,7 +186,8 @@
                             <div id="modal{{image}}" class="modal">
                                 <div class="modal-content">
                                     <div class="container">
-                                        <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class ="modal-image">
+                                        <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}"
+                                            class="modal-image">
                                     </div>
                                 </div>
                             </div>
@@ -266,9 +285,9 @@
                                         <p><small>This message is private only the author and
                                                 {{user_profile.dog_name}}'s
                                                 owner can see it</small></p>
-                                        
+
                                     </div>
-{% endif %}
+                                    {% endif %}
                                     <!-- build for standard message -->
                                     {% else %}
                                     <div class="comment-content">
@@ -346,16 +365,10 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 {% include "includes/add_walk.html" %}
 {% include "includes/edit_images.html" %}
 {% include "includes/edit_human.html" %}
 {% include "includes/edit_profile.html" %}
-
 
 
 {% endblock %}

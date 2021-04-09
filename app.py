@@ -61,11 +61,20 @@ def profile(username):
 
     if session:
         user_profile = mongo.db.users.find_one({"username": username})
+
+        if not user_profile:
+            return render_template('profile_not_found.html')
+
         user_session = mongo.db.users.find_one({"username": session['user']})
+        dog_dob = user_profile['dog_dob']
         dog_like = False
 
-        age = check_age(user_profile['dog_dob'])
-        birthday = check_birthday(user_profile['dog_dob'])
+        if not dog_dob == "":
+            age = check_age(dog_dob)
+            birthday = check_birthday(dog_dob)
+        else:
+            age = 0
+            birthday = False
 
         # users a loop to find out if the visitor has liked the page to display correct button
         for dogs_like in user_profile["dog_liker"]:
@@ -122,9 +131,20 @@ def register():
             "username": request.form.get("username"),
             "email": request.form.get("email"),
             "password": generate_password_hash(request.form.get("password")),
-            "dog_liker": [{"dog_name": "Puppy Playmates"}],
             "image_url":
             "https://res.cloudinary.com/puppyplaymates/image/upload/q_auto:low/dog_avatar_uskzh1.png",
+            "dog_name": "",
+            "dog_description": "",
+            "dog_breed": "",
+            "dog_gender": "",
+            "dog_location": "",
+            "dog_size": "",
+            "dog_dob": "",
+            "puppy_love": "",
+            "fertile": "",
+            "human_name": "",
+            "human_description": "",
+            "dog_liker": [{"dog_name": "Puppy Playmates"}],
             "all_images": [],
             "comments": [],
             "next_walk": {
@@ -152,13 +172,20 @@ def build_profile(username):
     if session:
         # finds user
         user = mongo.db.users.find_one({"username": session['user']})
+        dog_dob = user['dog_dob']
+
+        if not (dog_dob == ""):
+            user_dog_dob = dog_dob.date()
+        else:
+            user_dog_dob = ""
+
         # updates the database with dog details
         if request.method == "POST":
             if check_not_valid_build():
                 return render_template("build_profile.html", username=session[
                     "user"], user=user)
 
-            dob = datetime.strptime(request.form.get("dog_dob"), "%Y-%m-%d")
+            dob = datetime.strptime(request.form.get("dog_dob"), "%Y/%m/%d")
 
             mongo.db.users.update_one(
                 {"username": session["user"]},
@@ -179,7 +206,7 @@ def build_profile(username):
             return redirect(url_for("profile",  username=session[
                 "user"]))
         return render_template("build_profile.html", username=session[
-            "user"], user=user)
+            "user"], user=user, user_dog_dob=user_dog_dob)
     return render_template("homepage.html")
 
 
@@ -311,7 +338,6 @@ def upload_image(username):
                 if check_extention(file_extension):
                     return redirect(url_for(
                         'profile', username=session['user']))
-
 
                 public_id = (username + '/q_auto:low/' + filename)
                 # uploads to cloudinary
@@ -640,14 +666,21 @@ def report_user():
 def contact_us():
 
     if request.method == 'POST':
-        user_email = request.form.get('email')
-        if not_valid_email(user_email) or check_input(request.form.get('message-text')):
+        if session:
+            user_email = mongo.db.users.find_one(
+                {"username": session['user']})['email']
+        else:
+            user_email = request.form.get('email')
+
+        if not_valid_email(user_email) or check_input(
+            request.form.get('message-text')):
             return redirect(url_for("contact_us"))
 
         contact_us_mail(user_email)
 
         return render_template("contact_us.html")
     return render_template("contact_us.html")
+
 
 
 # error handlers
