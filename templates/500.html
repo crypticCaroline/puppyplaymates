@@ -7,14 +7,16 @@
     <div class="row">
         <div class="s8 col">
             <h1>500</h1>
-            <h3>Profile incomplete or not here</h3>
-            <h4>Looks like this profile is either deactivated or incomplete. If this is your profile please head back to build profile to finish setting up your account. </h4>
-            <a class="btn btn-yellow" href="{{ url_for('build_profile', username=session['user'])}}">Build Profile</a>
+            <h3>Oh Dear</h3>
+            <h4>Something went wrong at our end, its not you it's us!</h4>
                 {% if session['user'] %}
                     <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">Back to my profile</a>
                 {% else %}
                     <a href="{{ url_for('homepage')}}" class="btn btn-yellow">Back to the homepage</a>
                 {% endif %}
+
+             <p>If this keeps happening please contact us and let us know what went wrong</p>
+             <a href="{{url_for('contact_us')}}" class="btn btn-yellow">Contact Us</a>   
         </div>
         <img src="{{ url_for('static', filename='images/barking.jpg') }}" class="align-right s4 col">
     </div>
