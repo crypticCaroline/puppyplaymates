@@ -46,7 +46,7 @@
                     <h2 class="  profile-heading heading col s8 push-s2 center-align ">{{ user_profile.dog_name}}</h2>
                     {% endif %}
                     {% if session.user != username %}
-                    {% if dog_like %}
+                    {% if dog_liked %}
                     <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
                         <button type="submit" class="btn-yellow btn col s3 l1 push-l1" value="unlike" id="unliker_btn"
                             name="unliker_btn" onclick="overlayAngry()">Unlike</button>

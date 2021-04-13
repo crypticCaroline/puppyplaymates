@@ -21,7 +21,7 @@
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     {% if session.user %}
                     <li><a href="{{ url_for('profile', username=session['user'])}}" class="nav_item">Profile</a></li>
-                    <li><a href="{{ url_for('all_users')}}" class="nav_item">Playmates</a></li>
+                    <li><a href="{{ url_for('playmates')}}" class="nav_item">Playmates</a></li>
                     <li><a href="{{ url_for('logout')}}" class="nav_item">Sign Out</a></li>
                     {% else %}
                     <li><a href="{{ url_for('login')}}" class="nav_item">Login</a></li>
@@ -31,7 +31,7 @@
                 <ul class="side-nav right" id="mobile-demo">
                     {% if session.user %}
                     <li><a href="{{ url_for('profile', username=session['user'])}}">Profile</a></li>
-                    <li><a href="{{ url_for('all_users')}}">Playmates</a></li>
+                    <li><a href="{{ url_for('playmates')}}">Playmates</a></li>
                     <li><a href="{{ url_for('logout')}}">Sign Out</a></li>
                     {% else %}
                     <li><a href="{{ url_for('login')}}">Login</a></li>
