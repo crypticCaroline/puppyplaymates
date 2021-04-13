@@ -2,7 +2,7 @@ import os
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
-from flask_mail import Mail, Message
+from flask_mail import Mail
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -12,8 +12,10 @@ import cloudinary.uploader
 import cloudinary.api
 import time
 from datetime import date, datetime
-from mail import *
-from utilities import *
+from main.mail import *
+from main.app_utils import *
+from main.validators import *
+from main.variables.variables import (cloudinary_url, default_image_url)
 if os.path.exists("env.py"):
     import env
 
@@ -45,94 +47,101 @@ mail = Mail(app)
 def homepage():
     return render_template("homepage.html")
 
-# displays all the users
 
-
-@app.route("/all_users")
-def all_users():
+@app.route("/playmates")
+def playmates():
+    """ Finds all users within the database
+    and returns them to be displayed on the playmates page
+    """
     users = mongo.db.users.find()
-    return render_template("all_users.html", users=users)
-
-# profile
+    return render_template("playmates.html", users=users)
 
 
 @ app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
+    """ Profile page
+    Finds the profile from the username returns - user_profile
+    If the profile is not found user is redirect to profile_not_found.html
+    Finds user from the session['user'] cookie - returns user_session
+    If user not in session directs to login.html
+    The age function is called and check dob - returns age
+    The birthday function is called checked from the dob - returns boolean
+    The session user is checked if a liker of profile - returns boolean
+    If the like/unlike button is pressed the like/unlike functions are called
+    """
 
     if session:
         user_profile = mongo.db.users.find_one({"username": username})
-
         if not user_profile:
             return render_template('profile_not_found.html')
 
         user_session = mongo.db.users.find_one({"username": session['user']})
         dog_dob = user_profile['dog_dob']
-        dog_like = False
+        dog_liked = False
 
-        if not dog_dob == "":
-            age = check_age(dog_dob)
-            birthday = check_birthday(dog_dob)
-        else:
-            age = 0
-            birthday = False
+        age = check_age(dog_dob)
+        birthday = check_birthday(dog_dob)
+        dog_liked = dog_liker(user_profile, user_session)
 
-        # users a loop to find out if the visitor has liked the page to display correct button
-        for dogs_like in user_profile["dog_liker"]:
-            dog_name = dogs_like['dog_name']
-            if user_session["dog_name"] == dog_name:
-                dog_like = True
-
-        # if button liked calls the correct function and adds/removes from arrays
         if request.method == "POST":
             liker_btn = request.form.get("liker_btn")
             unliker_btn = request.form.get("unliker_btn")
-
             if liker_btn:
                 return redirect(url_for(
-                    'likes', username=username))
+                    'likes',
+                    username=username))
 
             if unliker_btn:
                 return redirect(url_for(
-                    'dislikes', username=username))
+                    'dislikes',
+                    username=username))
 
         return render_template(
             "profile.html",
-            username=username, user_profile=user_profile,
-            user_session=user_session, dog_like=dog_like, birthday=birthday, age=age)
-    flash("You need to logged in to view this page")
+            username=username,
+            user_profile=user_profile,
+            user_session=user_session,
+            dog_liked=dog_liked,
+            birthday=birthday,
+            age=age)
+
+    flash(flash_login)
     return redirect(url_for('login'))
 
 
 # registration pages
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """ Checks to see if all fields are valid
+    Checkes to see if the username or email address are taken
+    If they are flash message to show already exists
+    Gets infomation from the user inputs and creates a document
+    Adds a session cookie so user is now logged in
+    User is sent a welcome email
+    Redirected to build profile at the end
+    """
 
     if request.method == "POST":
         if check_not_valid_registration():
             return redirect(url_for("register"))
 
-        # check if username/ email already exists in db 
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username")})
         existing_email = mongo.db.users.find_one(
             {"email": request.form.get("email")})
 
         if existing_user:
-            flash("Username already exists")
+            flash(flash_username_exists)
             return redirect(url_for("register"))
-
         if existing_email:
-            flash("This email is already registered, please head to the login page")
+            flash(flash_email_registered)
             return redirect(url_for("register"))
 
-
-        # gets values from fields for registration 
         register = {
             "username": request.form.get("username"),
             "email": request.form.get("email"),
             "password": generate_password_hash(request.form.get("password")),
-            "image_url":
-            "https://res.cloudinary.com/puppyplaymates/image/upload/q_auto:low/dog_avatar_uskzh1.png",
+            "image_url": default_image_url,
             "dog_name": "",
             "dog_description": "",
             "dog_breed": "",
@@ -140,11 +149,11 @@ def register():
             "dog_location": "",
             "dog_size": "",
             "dog_dob": "",
-            "puppy_love": "",
-            "fertile": "",
+            "puppy_love": False,
+            "fertile": False,
             "human_name": "",
             "human_description": "",
-            "dog_liker": [{"dog_name": "Puppy Playmates"}],
+            "dog_liker": [],
             "all_images": [],
             "comments": [],
             "next_walk": {
@@ -154,38 +163,52 @@ def register():
                 'walk_description': ""
             }}
 
-        # inserts new user into database
-        mongo.db.users.insert_one(register)
+        mongo.db.users.insert_one(register)  # inserts new user into database
+        session["user"] = request.form.get("username")  # adds 'session' cookie
+        welcome_email()  # sends user a welcome email
 
-        # put the new user into 'session' cookie
-        session["user"] = request.form.get("username")
-
-        # sends user a welcome message
-        welcome_email()
-
-        return redirect(url_for("build_profile", username=session["user"]))
+        return redirect(url_for("build_profile",
+                                username=session["user"]))
     return render_template("register.html")
 
 
 @app.route("/build_profile/<username>", methods=["GET", "POST"])
 def build_profile(username):
+    """ Finds the users details
+    will use the useres details to fill out the input fields if they exist
+    Users the dog_dob to set the current datepicker value
+    when posted get the details from the forms
+    configures the date to match the schema
+    checks to make sure valid input
+    if valid sends to database and sends user to their profile page
+    """
     if session:
-        # finds user
-        user = mongo.db.users.find_one({"username": session['user']})
-        dog_dob = user['dog_dob']
-
+        user = mongo.db.users.find_one(
+            {"username": session['user']})  # finds user
+        dog_dob = user['dog_dob']  # finds user dob for date picker
         if not (dog_dob == ""):
             user_dog_dob = dog_dob.date()
         else:
             user_dog_dob = ""
 
-        # updates the database with dog details
-        if request.method == "POST":
+        if request.method == "POST":  # updates the database with dog details
             if check_not_valid_build():
-                return render_template("build_profile.html", username=session[
-                    "user"], user=user)
+                return render_template("build_profile.html",
+                                       username=session[
+                                           "user"],
+                                       user=user)
 
-            dob = datetime.strptime(request.form.get("dog_dob"), "%Y/%m/%d")
+            dob = datetime.strptime(request.form.get("dog_dob"), "%Y-%m-%d")
+            fertile = request.form.get("fertile")
+            if fertile == "on":
+                fertile = True
+            else:
+                fertile = False
+            puppy_love = request.form.get("puppy_love")
+            if puppy_love == "on":
+                puppy_love = True
+            else:
+                puppy_love = False
 
             mongo.db.users.update_one(
                 {"username": session["user"]},
@@ -197,25 +220,31 @@ def build_profile(username):
                     "dog_location": request.form.get("dog_location"),
                     "dog_size": request.form.get("dog_size"),
                     "dog_dob": dob,
-                    "puppy_love": request.form.get('puppy_love'),
-                    "fertile": request.form.get('fertile'),
+                    "puppy_love": puppy_love,
+                    "fertile": fertile,
                     "human_name": request.form.get("human_name"),
                     "human_description": request.form.get("human_description")
                 }}
             )
-            return redirect(url_for("profile",  username=session[
-                "user"]))
-        return render_template("build_profile.html", username=session[
-            "user"], user=user, user_dog_dob=user_dog_dob)
-    return render_template("homepage.html")
+            return redirect(url_for("profile",
+                                    username=session["user"]))
+        return render_template("build_profile.html",
+                               username=session["user"],
+                               user=user,
+                               user_dog_dob=user_dog_dob)
+    flash(flash_login)
+    return render_template("login.html")
 
 
 # login
 @ app.route("/login", methods=["GET", "POST"])
 def login():
+    """ Checks if existing username or email
+    If the password matches username or email will assign session cookie
+    If it doesn't match user will get a flash message
+    """
 
     if request.method == "POST":
-        # checks to see if user exists
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username")})
         existing_email = mongo.db.users.find_one(
@@ -224,10 +253,11 @@ def login():
         if existing_user:
             # ensure hash matches then logs user in
             if check_password_hash(
-                    existing_user["password"], request.form.get("password")):
+                    existing_user["password"],
+                    request.form.get("password")):
                 session["user"] = request.form.get("username")
-                return redirect(url_for(
-                    "profile", username=session["user"]))
+                return redirect(url_for("profile",
+                                        username=session["user"]))
             else:
                 flash("Incorrect Username and/or Password")
                 return redirect(url_for("login"))
@@ -237,13 +267,14 @@ def login():
                     existing_email["password"], request.form.get("password")):
                 session["user"] = existing_email["username"]
                 return redirect(url_for(
-                    "profile", username=session["user"]))
+                    "profile",
+                    username=session["user"]))
             else:
                 flash("Incorrect Username and/or Password")
                 return redirect(url_for("login"))
         else:
-                flash("Incorrect Username and/or Password")
-                return redirect(url_for("login"))
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("login"))
 
     return render_template("login.html")
 
@@ -251,16 +282,21 @@ def login():
 # allows users to search for certain parameters
 @app.route("/search", methods=["GET", "POST"])
 def search():
+    """ Passes querys from form
+    searches the Database index for matching criteria
+    """
     query = request.form.get("query")
     users = list(mongo.db.users.find({"$text": {"$search": query}}))
-    return render_template("all_users.html", users=users)
+    return render_template("playmates.html", users=users)
 
 
 # log the user out
 @ app.route("/logout")
 def logout():
+    """ Removes session cookie and tells user they are logged out
+    """
     session.pop("user")
-    flash("You have been logged out")
+    flash(flash_logout)
     return redirect(url_for("login"))
 
 
@@ -268,16 +304,32 @@ def logout():
 # edit dog
 @app.route("/edit_profile/<username>", methods=["GET", "POST"])
 def edit_profile(username):
+    """ Finds users dog profile and add info to input fields
+    Users can only edit their own profiles
+    Checks to make sure userinputs are valid
+    formats data prior to being added to the datebase
+    Updates database accordingly and redirect user back to profile
+    """
     if session:
-
-        user_profile = mongo.db.users.find_one({"username": username})
+        user_profile = mongo.db.users.find_one({"username": session['user']})
 
         # lets users change some details of their dog
         if request.method == "POST":
-
             if check_not_valid_edit():
-                return redirect(url_for("profile", username=session[
-            "user"]))
+                return redirect(url_for("profile",
+                                        username=session["user"]))
+
+            fertile = request.form.get("fertile")
+            if fertile == "on":
+                fertile = True
+            else:
+                fertile = False
+
+            puppy_love = request.form.get("puppy_love")
+            if puppy_love == "on":
+                puppy_love = True
+            else:
+                puppy_love = False
 
             mongo.db.users.update_one(
                 {"username": session["user"]},
@@ -286,29 +338,35 @@ def edit_profile(username):
                     "dog_description": request.form.get("dog_description"),
                     "dog_location": request.form.get("dog_location"),
                     "dog_size": request.form.get("dog_size"),
-                    "puppy_love": request.form.get('puppy_love'),
-                    "fertile": request.form.get('fertile')
+                    "puppy_love": puppy_love,
+                    "fertile": fertile
                 }}
             )
-            return redirect(url_for("profile",  username=session[
-                "user"]))
-        return render_template("edit_profile.html", username=session[
-            "user"], user_profile=user_profile)
-    return render_template("homepage.html")
+            return redirect(url_for("profile",
+                                    username=session["user"]))
+        return render_template("edit_profile.html",
+                               username=session["user"],
+                               user_profile=user_profile)
+    flash(flash_login)                           
+    return render_template("login.html")
 
 
 # edit human
 @app.route("/edit_human/<username>", methods=["GET", "POST"])
 def edit_human(username):
+    """ Finds users human profile and add info to input fields
+    Users can only edit their own profiles
+    Checks to make sure userinputs are valid
+    Updates database accordingly and redirect user back to profile
+    """
     if session:
         user_profile = mongo.db.users.find_one({"username": username})
 
         # edits human details in database
         if request.method == "POST":
-
             if check_not_valid_edit_human():
-                return redirect(url_for("profile", username=session[
-            "user"]))
+                return redirect(url_for("profile",
+                                        username=session["user"]))
 
             mongo.db.users.update_one(
                 {"username": session["user"]},
@@ -317,16 +375,25 @@ def edit_human(username):
                     "human_description": request.form.get("human_description")
                 }}
             )
-            return redirect(url_for("profile",  username=session[
-                "user"]))
-        return render_template("edit_human.html", username=session[
-            "user"], user_profile=user_profile)
+            return redirect(url_for("profile",
+                                    username=session["user"]))
+        return render_template("edit_human.html",
+                               username=session["user"],
+                               user_profile=user_profile)
     return render_template("homepage.html")
 
 
 # uploads images to database
 @app.route("/edit_images/<username>/upload/", methods=["GET", "POST"])
 def upload_image(username):
+    """ Allows user to add an image
+    When the users submits the file it checks for allowed extentions
+    It then creates a string from the filename and extention
+    The image is uploaded to cloudinary
+    An image URL is created using the cludinary url + filename + extention
+    The image url is added to the database
+    If not session user is directed back to login page
+    """
     if session:
         if request.method == 'POST':
             # get file from form
@@ -334,32 +401,36 @@ def upload_image(username):
                 # creates a string for the file name to upload to cloudinary
                 filename = secure_filename(item.filename)
                 filename, file_extension = os.path.splitext(filename)
-                # Checks to see if extention is allowed
-                if check_extention(file_extension):
-                    return redirect(url_for(
-                        'profile', username=session['user']))
-
                 public_id = (username + '/q_auto:low/' + filename)
+                if check_extention(file_extension):
+                    return redirect(url_for('profile',
+                                            username=session['user']))
+
                 # uploads to cloudinary
                 cloudinary.uploader.unsigned_upload(
-                    item, "puppy_image", cloud_name='puppyplaymate',
-                    folder='/user_images/', public_id=public_id)
+                    item,
+                    "puppy_image",
+                    cloud_name='puppyplaymate',
+                    folder='/user_images/',
+                    public_id=public_id)
                 # sets a url for image to be saved to the database
                 image_url = (
-                    "https://res.cloudinary.com/puppyplaymate/image/upload/user_images/"
-                    + public_id + file_extension)
+                    cloudinary_url
+                    + public_id
+                    + file_extension)
                 # adds the url to the database
                 mongo.db.users.update_one(
                     {"username": session["user"]},
                     {"$addToSet": {"all_images": image_url}})
-                # if the user click the profile check it will set it as their profile image
+                # if the profile box is checked it will be set as the profile
                 if request.form.get('profile_check'):
                     mongo.db.users.update_one(
                         {"username": session["user"]},
                         {"$set": {"image_url": image_url}})
-
-            return redirect(url_for('profile', username=username))
-        return render_template("edit_images.html", username=username)
+            return redirect(url_for('profile',
+                                    username=username))
+        return render_template("edit_images.html",
+                               username=username)
     flash("You need to be logged in to view this page")
     return render_template('login.html')
 
@@ -367,23 +438,31 @@ def upload_image(username):
 # edit images
 @app.route("/edit_images/profile_photo/<username>", methods=["GET", "POST"])
 def profile_photo(username):
+    """ Allows user to set the profile picture from the selected photo
+    If not session redirects to login
+    """
     if session:
         # finds instance in datebase to set the profile picture
         user_profile = mongo.db.users.find_one({"username": username})
-
         if request.method == 'POST':
             mongo.db.users.update_one(
                 {"username": session["user"]},
                 {"$set": {"image_url": request.form.get('photo')}})
-            return redirect(url_for('profile', username=username))
-        return render_template("profile.html", username=session[
-            "user"], user_profile=user_profile)
-    return render_template("homepage.html")
+            return redirect(url_for('profile',
+                                    username=username))
+        return render_template("profile.html",
+                               username=session["user"],
+                               user_profile=user_profile)
+    flash("You need to be logged in to view this page")
+    return render_template("login.html")
 
 
 # deletes images
 @app.route("/delete_images/<username>", methods=["GET", "POST"])
 def delete_images(username):
+    """ Allows user to set the delete  picture from the selected photo
+    If not session redirects to login
+    """
     if session:
         user_profile = mongo.db.users.find_one({"username": username})
         if request.method == 'POST':
@@ -514,7 +593,8 @@ def add_comment(username):
 
 
 # edits comment
-@app.route("/profile/<username>/edit_comment/<comment_id>", methods=["GET", "POST"])
+@app.route("/profile/<username>/edit_comment/<comment_id>",
+           methods=["GET", "POST"])
 def edit_comment(username, comment_id):
 
     if session:
@@ -533,7 +613,8 @@ def edit_comment(username, comment_id):
                 {"username": username},
                 {"$addToSet": {"comments":
                                {"_id": ObjectId(comment_id),
-                                'date': datetime.now().strftime("%m/%d/%Y, %H:%M:%S"),
+                                'date':
+                                datetime.now().strftime("%m/%d/%Y, %H:%M:%S"),
                                 'author': user_session['username'],
                                 'author_dog': user_session['dog_name'],
                                 'text': request.form.get('edit_comment'),
@@ -546,7 +627,8 @@ def edit_comment(username, comment_id):
 
 
 # deletes comment
-@app.route("/profile/<username>/delete_comment/<comment_id>", methods=["GET", "POST"])
+@app.route("/profile/<username>/delete_comment/<comment_id>",
+           methods=["GET", "POST"])
 def delete_comment(username, comment_id):
 
     if session:
@@ -596,11 +678,12 @@ def reset_password():
 
             # emails the temp password to the user
             reset_password_mail(temp_password, user_email)
-            
+
             return render_template("reset_sent.html")
         else:
             flash(
-                "Incorrect Username and/or Password, if you have forgotten your password you can reset it")
+                'Incorrect Username and/or Password,'
+                'if you have forgotten your password you can reset it')
     return render_template("reset_password.html")
 
 
@@ -620,13 +703,18 @@ def change_password():
         if existing_user:
             # ensure hash matches their current password
             if check_password_hash(
-                    existing_user["password"], request.form.get("current-password")) or check_password_hash(existing_user["temp_password"], request.form.get("current-password")):
-                # inserts new password in the database and assigns a new random temp password
+                existing_user["password"], request.form.get(
+                    "current-password")) or check_password_hash(
+                existing_user["temp_password"],
+                    request.form.get("current-password")):
+                # inserts password to database and assigns a new temp password
                 mongo.db.users.update_one(
                     {"username": request.form.get('username')},
                     {"$set": {
-                        "password": generate_password_hash(request.form.get('new-password')),
-                        "temp_password": generate_password_hash(get_random_string(14))}})
+                        "password": generate_password_hash(
+                            request.form.get('new-password')),
+                        "temp_password": generate_password_hash(
+                            get_random_string(14))}})
                 session["user"] = request.form.get("username")
                 return redirect(url_for(
                     "profile", username=session["user"]))
@@ -650,12 +738,13 @@ def report_user():
         user_session = mongo.db.users.find_one({"username": session['user']})
         user_email = user_session['email']
 
-        if check_input(request.form.get('report-user')) or check_input(request.form.get('report-text')):
+        if check_input(request.form.get('report-user')) or check_input(
+            request.form.get('report-text')):
             return redirect(url_for("report_user"))
 
         # sends email to company owners and ccs in reporter
         report_user_mail(user_email)
-        
+
         flash("Message Sent")
         return render_template("report_user.html")
     return render_template("report_user.html")
@@ -673,14 +762,13 @@ def contact_us():
             user_email = request.form.get('email')
 
         if not_valid_email(user_email) or check_input(
-            request.form.get('message-text')):
+                request.form.get('message-text')):
             return redirect(url_for("contact_us"))
 
         contact_us_mail(user_email)
 
         return render_template("contact_us.html")
     return render_template("contact_us.html")
-
 
 
 # error handlers
