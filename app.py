@@ -14,8 +14,9 @@ import time
 from datetime import datetime
 from main.mail import *
 from main.app_utils import *
-from  main.validators import *
-from main.variables.variables import (cloudinary_url, default_image_url)
+from main.validators import *
+from main.variables.variables import (cloudinary_url,
+                                      default_image_url, default_dob)
 if os.path.exists("env.py"):
     import env
 
@@ -122,13 +123,16 @@ def register():
     """
 
     if request.method == "POST":
+
+        user_email = request.form.get("email")
+
         if check_not_valid_registration():
             return redirect(url_for("register"))
 
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username")})
         existing_email = mongo.db.users.find_one(
-            {"email": request.form.get("email")})
+            {"email": user_email})
 
         if existing_user:
             flash(flash_username_exists)
@@ -148,24 +152,17 @@ def register():
             "dog_gender": "",
             "dog_location": "",
             "dog_size": "",
-            "dog_dob": "",
-            "puppy_love": False,
-            "fertile": False,
+            "dog_dob": default_dob,
             "human_name": "",
             "human_description": "",
             "dog_liker": [],
             "all_images": [],
             "comments": [],
-            "next_walk": {
-                'date': "",
-                'time': "",
-                'place': "",
-                'walk_description': ""
-            }}
+        }
 
-        mongo.db.users.insert_one(register)  # inserts new user into database
-        session["user"] = request.form.get("username")  # adds 'session' cookie
-        welcome_email()  # sends user a welcome email
+        mongo.db.users.insert_one(register)
+        session["user"] = request.form.get("username")
+        welcome_email(user_email)
 
         return redirect(url_for("build_profile",
                                 username=session["user"]))
@@ -186,29 +183,26 @@ def build_profile(username):
         user = mongo.db.users.find_one(
             {"username": session['user']})  # finds user
         dog_dob = user['dog_dob']  # finds user dob for date picker
-        if not (dog_dob == ""):
+        if not (dog_dob == default_dob):
             user_dog_dob = dog_dob.date()
         else:
             user_dog_dob = ""
 
-        if request.method == "POST":  # updates the database with dog details
+        if request.method == "POST":
             if check_not_valid_build():
                 return render_template("build_profile.html",
                                        username=session[
                                            "user"],
                                        user=user)
-
             dob = datetime.strptime(request.form.get("dog_dob"), "%Y-%m-%d")
             fertile = request.form.get("fertile")
-            if fertile == "on":
-                fertile = True
-            else:
-                fertile = False
             puppy_love = request.form.get("puppy_love")
+            is_fertile = False
+            is_love = False
+            if fertile == "on":
+                is_fertile = True
             if puppy_love == "on":
-                puppy_love = True
-            else:
-                puppy_love = False
+                is_love = True
 
             mongo.db.users.update_one(
                 {"username": session["user"]},
@@ -220,8 +214,8 @@ def build_profile(username):
                     "dog_location": request.form.get("dog_location"),
                     "dog_size": request.form.get("dog_size"),
                     "dog_dob": dob,
-                    "puppy_love": puppy_love,
-                    "fertile": fertile,
+                    "puppy_love": is_love,
+                    "fertile": is_fertile,
                     "human_name": request.form.get("human_name"),
                     "human_description": request.form.get("human_description")
                 }}
@@ -550,7 +544,7 @@ def dislikes(username):
 @app.route("/profile/<username>/add_walk", methods=["GET", "POST"])
 def add_walk(username):
     """ Finds profile in the database
-    checks to make sure the input is valid 
+    checks to make sure the input is valid
     Adds/ replaces current walk details to the users document
     If not session redirects to login
     """
@@ -589,8 +583,24 @@ def add_walk(username):
     return render_template("login.html")
 
 
+@app.route("/profile/<username>/remove_walk", methods=["GET", "POST"])
+def remove_walk(username):
+    if session:
+        if request.method == "POST":
+            mongo.db.users.update_one(
+                {"username": session['user']},
+                {"$unset": {
+                    "next_walk": {}
+                }})
+            return redirect(url_for('profile',
+                                    username=username))
+    flash(flash_login)
+    return render_template("login.html")
+
 # Comments
 # Adds a comment to the users profile
+
+
 @app.route("/profile/<username>/comment", methods=["GET", "POST"])
 def add_comment(username):
     """ Finds session user profile in the database
@@ -878,7 +888,7 @@ def contact_us():
             return redirect(url_for("contact_us"))
 
         contact_us_mail(user_email, message_text)
-        flash(flash_message)
+        flash(flash_sent)
 
         return render_template("contact_us.html")
     return render_template("contact_us.html")

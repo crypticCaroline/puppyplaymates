@@ -6,9 +6,13 @@ from main.variables.variables import change_password_link
 
 
 def contact_us_mail(email, message_text):
-    message_text = request.form.get('message-text')
+    """  Gets the message text and email parameters
+    Constructions a message to send to the user and playmates
+    Sends a copy of message to user and to playmates
+    """
+
     msg = Message('Contacting us at PuppyPlaymates',
-                  html=('< p > Thank you for contacting us '
+                  html=('<p> Thank you for contacting us '
                         'with the following message:</p>'
                         '<p> %s </p>'
                         '<p>We will endevour to get back to you '
@@ -20,8 +24,11 @@ def contact_us_mail(email, message_text):
     mail.send(msg)
 
 
-def welcome_email():
-    user_email = request.form.get('email')
+def welcome_email(user_email):
+    """  Gets the email parameters
+    Constructions a message to send to the user and playmates
+    Sends a copy of message to user and to playmates to welcome them
+    """
     msg = Message('Welcome to Puppyplaymate',
                   html='<p>Hello  %s </p>'
                   '<p>Thank you for registering with us at PuppyPlaymates</p>'
@@ -35,6 +42,11 @@ def welcome_email():
 
 
 def reset_password_mail(temp_password, user_email):
+    """  Gets the temp_password and email parameters
+    Constructs email to be send with link and password
+    Constructions a message to send to the user with temp password
+    Sends email to user
+    """
     reset_message = ('<p>You look like you need to reset your password</p>'
                      '<p>This is your <b>Temporary password:</b>'
                      + temp_password
@@ -55,7 +67,10 @@ def reset_password_mail(temp_password, user_email):
 
 
 def report_user_mail(user_email, user_report, user_info):
-    # creates a report string
+    """  Gets the user_info the user_report and email parameters
+    Constructions a message to send to the user and playmates
+    Sends a copy of message to user and to playmates
+    """
     report = ('<p>You have reported'
               '<b>'
               + user_report

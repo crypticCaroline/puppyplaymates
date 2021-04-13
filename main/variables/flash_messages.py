@@ -1,6 +1,6 @@
 
 
-flash_login = 'You need to logged in to view this page'
+flash_login = 'You need to be logged in to view this page'
 
 flash_username_exists = 'Username already exists'
 
@@ -12,7 +12,7 @@ flash_incorrect = "Incorrect Username and/or Password"
 flash_incorrect_details = ('Incorrect Username and/or Password, if you'
                            ' have forgotten your password you can reset it')
 
-flash_logged_out = "You have been logged out"
+flash_logout = "You have been logged out"
 
 flash_profile_removed = "Profile Removed"
 
