@@ -1,24 +1,23 @@
 from app import mail
 from flask_mail import Message
 from flask import (
-    flash, request, session)
+    request, session)
 from main.variables.variables import change_password_link
 
 
-def contact_us_mail(email):
-    user_text = request.form.get('message-text')
+def contact_us_mail(email, message_text):
+    message_text = request.form.get('message-text')
     msg = Message('Contacting us at PuppyPlaymates',
                   html=('< p > Thank you for contacting us '
                         'with the following message:</p>'
                         '<p> %s </p>'
                         '<p>We will endevour to get back to you '
                         'within 48hr</p>'
-                        '<p>The Team at PuppyPlaymates</p>' % user_text),
+                        '<p>The Team at PuppyPlaymates</p>' % message_text),
                   sender="thepuppyplaymates@gmail.com",
                   cc=[email],
                   recipients=["thepuppyplaymates@gmail.com"])
     mail.send(msg)
-    flash("Message sent successfully")
 
 
 def welcome_email():
@@ -47,6 +46,7 @@ def reset_password_mail(temp_password, user_email):
                      'it might be worth logging into your account and '
                      'changing your password</p>'
                      '<p>The Team at PuppyPlaymates</p>')
+
     msg = Message("Reset Password",
                   html=reset_message,
                   sender="thepuppyplaymates@gmail.com",
@@ -54,10 +54,7 @@ def reset_password_mail(temp_password, user_email):
     mail.send(msg)
 
 
-def report_user_mail(user_email):
-    user_report = request.form.get('report-user')
-    user_text = request.form.get('report-text')
-
+def report_user_mail(user_email, user_report, user_info):
     # creates a report string
     report = ('<p>You have reported'
               '<b>'
@@ -65,7 +62,7 @@ def report_user_mail(user_email):
               + '</b></p>'
               "<p> For the following reasons: </p> "
               '<p>'
-              + user_text
+              + user_info
               + '</p>'
               'We will take a look into the users activity and'
               'take the appropriate action.</p>'
