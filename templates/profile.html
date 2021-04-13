@@ -39,8 +39,8 @@
                     {% if user_profile.dog_name == "" and username == session['user'] %}
                     <h3 class="  profile-heading heading col s12 center-align ">You haven't
                         finished building your profile please do so now</h3>
-                        <a class="btn btn-yellow" href="{{ url_for('build_profile', username=session['user'])}}">Build
-                            Profile</a>
+                    <a class="btn btn-yellow" href="{{ url_for('build_profile', username=session['user'])}}">Build
+                        Profile</a>
                     <p>You won't appear in the search as a playmate until your profile is complete</p>
                     {% else %}
                     <h2 class="  profile-heading heading col s8 push-s2 center-align ">{{ user_profile.dog_name}}</h2>
@@ -152,13 +152,15 @@
                                 Add Walk</a>
                             {% endif %}
 
-                            {% if user_profile.next_walk.place != "" %}
+                            {% if user_profile.next_walk %}
                             <p><span class="profile-items">Date:
                                 </span>{{user_profile.next_walk.date.strftime('%d-%m-%y')}}</p>
                             <p><span class="profile-items">Time: </span>{{user_profile.next_walk.time}}</p>
                             <p><span class="profile-items">Place: </span>{{user_profile.next_walk.place}}</p>
                             <p><span class="profile-items">Description:
                                 </span>{{user_profile.next_walk.walk_description}}</p>
+                            {% else %}
+                            <p>No upcoming walks planned</p>
                             {% endif %}
                         </div>
                     </div>
