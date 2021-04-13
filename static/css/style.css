@@ -269,7 +269,6 @@ label.bio-label {
     font-size: 1rem;
     font-weight: 500;
 }
-}
 
 input[type=date]:not(.browser-default).form-indent, .select-wrapper input.select-dropdown{
     width: 30%;
@@ -304,8 +303,7 @@ textarea.materialize-textarea.form-no-indent {
 
 .profile-items-wrapper {
     margin: 5%;
-    padding-bottom: 3%;
-    
+    padding-bottom: 3%;   
 }
 
 .profile-heading.col {
@@ -314,8 +312,7 @@ textarea.materialize-textarea.form-no-indent {
 }
 
 .profile-items {
-    font-weight: 500;
-    
+    font-weight: 500;  
 }
 
 .bio {

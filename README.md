@@ -25,6 +25,12 @@ The application has a lot of room for growth and a list of future features to im
     * [User Stories](#user-stories)
     * [Scope](#scope)
     * [Site Structure](#structure)
+* [Database](#database)
+    * [Database Schema](#database_schema)
+    * [Database Documents](#database-documents)
+    * [MongoDB](#mongodb)
+* [Validation](#validation)   
+* [Security](#security)
 * [Features](#features)
     * [Universal Features Across the Site](universal-features-across-the-site)
         * [Responsiveness](#responsiveness)
@@ -65,10 +71,7 @@ The application has a lot of room for growth and a list of future features to im
     * [Color](#color)
     * [Typography](#typography)
     * [Calls to action](#call-to-action)
-    * [Imagary](#imagary)
-* [Database](#database)
-    * [Database Documents](#database-documents)
-    * [MongoDB](#mongodb)    
+    * [Imagary](#imagary) 
 * [Technologies Used](#technologies-used)
 * [Testing](#testing)
 * [Known Bugs](#known-bugs)
@@ -152,10 +155,24 @@ A way to bring together dog owner for:
 
 
 ## Structure
-The diagram below is of the information architecture of the Web App.  This shows the journeys the users can take throughout the website. Please see the [Features](#features) section to for more information on what user actions are on each page 
+The diagram below is of the information architecture of the Web App.  This shows the journeys the users can take throughout the website. Please see the [Features](#features) section for more information on what user actions are on each page 
 ![Site Structure](docs/images/structure.png)
 
 ***
+
+## Database 
+#### Datebase Schema 
+![Datebase Collection](docs/database/database.png)
+Input types that corrispond to the Database Collection
+![Database input](docs/database/inputTypes.png)
+
+I have used a non relational database which has meant that I have kept all of a users data stored within within one document and used Key Value pairs with nested arrays and objects to store and access the appropriate data.  -  data type schema!
+
+
+## Validation
+
+##  Security
+
 
 ## Features
 
@@ -168,7 +185,7 @@ The website is fully responsive between different screen resolutions.  I have do
 ### Accessibility
 
 ### Flash Messages
-* Flash messages are displayed toward the top of the pages and includes a soft pink banner to alert users to the text they contain 
+* Flash messages are displayed toward the top of the pages and includes a soft pink banner to alert users to the text they contain when the  
 
 
 ### Input Fields 
@@ -231,11 +248,17 @@ Please refer to [structure](#structure) to see the navigation and user pathways
 
 #### Edit Modals 
 
-* Add Walk - brings up a form so the user can add a walk to their profile 
+* Add Walk - brings up a form so the user can add a walk to their profile:
+    * The date can only be set from today date onwards as past dates are not useful
+
 * Edit Profile - Brings up a form to allow the user to change some of the dog’s details 
-* Edit Images –
-* Uses a loop to create a card for each image and builds a make profile picture and delete image button.
-* Enables user to upload a new image and give them the option to make it the profile image straight away – ( The image is uploaded to a cloudinary and a URL string is created and added to mongodb)
+    * Not all details can be changed such as the Name, Gender and DOB as this shouldn't change for the dog.  The user can rebuild their whole profile using the rebuild profile navigation in the footer and can also be directed to the build_profile page from the delete page where they are offered the chance to add change all of the dog details.
+    *  The fields are prefilled out with the users details from accessed from the database
+* Edit Images :
+    * Uses a loop to create a card for each image and builds a make profile picture and delete image button.
+    * Enables user to upload a new image and give them the option to make it the profile image straight away – ( The image is uploaded to a cloudinary and a URL string is created and added to mongodb)
+    * The upload tab is held within a collapsible so it doesn't take up the entire space of the modal
+    * The file extention is checked prior to upload and only allow if jpg, png, gif and jpeg
 * Edit Human - brings a form up so users can enter the human name and bio 
 * Image Modal - modal which displays a larger version of the image the user had added 
 * Edit Comment - allows authors to edit comments also renders a button to delete the comment as well
@@ -291,21 +314,24 @@ All of the form pages have the following features:
 * If all valid on submit will add the user to the database, add a session cookie using the username and direct them to build their profile.
 
 ### Build Profile 
-* Allows users to fill out the rest of the following dogs’ details:
-    * Name 
+* Allows users to fill out the rest of the following dogs’ details and types:
+    * Name - text - input to database as string
     * DOB
     * Size 
     * Breed
     * Preferences for platonic or love
     * Spade of Neutered 
     * Description
-* Allows the user to add their name and description
-* Input fields are put through a validator to check they are acceptable and text fields are put through the profanity filter     
+* Allows the user to add their own name and description
+* Input fields are put through a validator to check they are acceptable and text fields are put through the profanity filter  
+* The date of birth field has a date range of today and up to 20 years.  This is to stop users giving their dog a future date or a date that doesn't exists
+* If the user has already buildt their profile these fields will be prefilled out so the user doesn't have to re enter them.    
 
 ### Contact Us
-* Has a field for the email address so either a signed in user or new user can contact us
+* Has a field for the email address if the user is not signed in so they can enter their email
+* If the user is signed in it find their email from the database and doesn't display the email field
 * Asks the user to enter a message.  When sent the user is sent a copy of the email to their inbox and the email is sent to Puppyplaymates 
-
+ 
 ### Report User 
 * Has a field for the user name they are reporting 
 * Asks the user to enter a message explaining what they are reporting. When sent the user is sent a copy of the email to their inbox and the email is sent to Puppyplaymates 
@@ -321,6 +347,7 @@ All of the form pages have the following features:
 *  The repeat password and new password must match
 * On a successful password change the temp_password field is given an new ransom string so it can not be used again. 
 
+## Security 
 
 ## Future Features 
 
@@ -337,7 +364,7 @@ Below is a list of future features I would like to add into PuppyPlaymates
 * Pagination for comments 
 * Add a data store for all comments that are posted for safeguarding purposes.  If a user deletes or edits their comments, they will be stored on the database in a separate collection along with their username, time stamp, email address. This would be for the purpose of safeguarding so if the comments violate the safe spaces policy then action can be taken against the user. 
 * Add all deleted accounts/emails to a separate nonuser visible collection - this would give the ability to ban certain users/email addresses if policies were violated. 
-* Continue working on the profanity 
+* Continue working on the profanity checker
 
 ***
 
@@ -365,7 +392,6 @@ Please see [Site Images](docs/siteimages) for images of each page of the Site
 
 #### Colour
 
-
 #### Typography 
 
 
@@ -374,16 +400,6 @@ Please see [Site Images](docs/siteimages) for images of each page of the Site
 
 
 ### Imagery  
-
-### Database 
-
-#### Database Documents
-Datebase Collection 
-![Datebase Collection](docs/database/database.png)
-Input types that corrispond to the Database Collection
-![Database input](docs/database/inputTypes.png)
-
-I have used a non relational database which has meant that I have kept all of a users data stored within within one document and used Key Value pairs with nested arrays and objects to store and access the appropriate data.  
 
 #### MongoDB 
 

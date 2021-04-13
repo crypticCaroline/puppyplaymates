@@ -12,9 +12,9 @@ import cloudinary.uploader
 import cloudinary.api
 import time
 from datetime import datetime
-import main.mail
-import main.app_utils
-import main.validators
+from main.mail import *
+from main.app_utils import *
+from  main.validators import *
 from main.variables.variables import (cloudinary_url, default_image_url)
 if os.path.exists("env.py"):
     import env

@@ -10,7 +10,7 @@
 * [Usability Testing](#usability-testing)
 * [User Testing](#testing-logs)
 
-
+assess functionality, usability, responsiveness and data management
 
 ### User Stories
 
