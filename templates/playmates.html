@@ -31,7 +31,7 @@
             <!--Inline style for allocation of background-image for each card in loop -->
             <div class="valign-wrapper user-cards__image" style="background-image: url('{{ user.image_url }}')">
                 <a href="{{url_for('profile', username=user.username)}}">
-                <img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}" href="{{url_for('profile', username=user.username)}}" class="sm_img">
+                <img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}" class="sm_img">
                 </a>
             </div>
 

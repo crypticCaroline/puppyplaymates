@@ -29,7 +29,7 @@
                 {% for image in user_profile.all_images  %}
                 <div class="card card__img">
                     <div class="card-image">
-                        <img src="{{image}}">
+                        <img src="{{image}}" alt="Image of your dog">
                         <div class="card-action">
                             <form method="POST" action="{{ url_for('profile_photo', username=username) }}">
                                 <div class="row flush hidden">

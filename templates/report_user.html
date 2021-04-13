@@ -22,14 +22,14 @@
             <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('report_user')}}">
                 <div class="row">
                     <div class="col s12 input-field">
-                        <input type="text" id="report-user" name="report-user" class="validate" min-length="2"
+                        <input type="text" id="report-user" name="report-user" class="validate" minlength="2"
                             maxlength="30" pattern="^[a-zA-Z0-9!?/]]{2,30}$" required>
                         <label for="report-user">Username you wish to report</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="report-text" type="text" name="report-text" class="validate materialize-textarea contact-form"
+                        <textarea id="report-text" name="report-text" class="validate materialize-textarea contact-form"
                             minlength="10" required></textarea>
                         <label for="report-text">Reason for reporting</label>
                     </div>

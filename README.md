@@ -528,6 +528,7 @@ Making a Local Clone
 * [Beautifer](https://beautifier.io/) - Allowing me beautify my code.
 * [Internet Marketing Ninjas](https://www.internetmarketingninjas.com/online-spell-checker.php) - spell check
 * [solution to truncate found here](https://stackoverflow.com/questions/11989546/wrap-a-text-within-only-two-lines-inside-div) 
+* [Help to build age check](https://www.geeksforgeeks.org/python-program-to-calculate-age-in-year/)
 
 
 

@@ -1,3 +1,5 @@
+// Initialise materlize features and a few functions to aid user experience
+
 $(document).ready(function () {
     $(".button-collapse").sideNav();
     $('#textarea1').val('New Text');
@@ -18,34 +20,34 @@ $(document).ready(function () {
         container: undefined, // ex. 'body' will append picker to body
     });
 
-})
+});
 
 
-like = document.getElementById('overlay_happy')
-unlike = document.getElementById('overlay_angry')
+like = document.getElementById('overlay_happy');
+unlike = document.getElementById('overlay_angry');
 
 function overlayHappy() {
-    let form = document.getElementById('form_like')
+    let form = document.getElementById('form_like');
     like.style.display = "block";
-    setTimeout(function () { form.submit(); }, 3000) 
+    setTimeout(function () { form.submit(); }, 3000);
 };
 
 function overlayAngry() {
-    let form = document.getElementById('form_dislike')
+    let form = document.getElementById('form_dislike');
     unlike.style.display = "block";
-    setTimeout(function () { form.submit(); }, 3000)
+    setTimeout(function () { form.submit(); }, 3000);
 };
 
 let today = new Date();
 let dd = today.getDate();
 let mm = today.getMonth()+1;  
 let yyyy = today.getFullYear();
-// checks if the date is less than 10 so adds a 0 infront 
+// checks if the date is less than 10 so adds a 0 in front 
  if(dd<10){
-        dd='0'+dd
+        dd='0'+dd;
     } 
     if(mm<10){
-        mm='0'+mm
+        mm='0'+mm;
     } 
 
 today = yyyy+'-'+mm+'-'+dd;

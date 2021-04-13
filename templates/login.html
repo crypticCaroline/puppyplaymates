@@ -8,6 +8,7 @@
             <div class="col hide-on-small-only m5 login-dog valign-wrapper">
                 <div class="row">
                     <img src="{{ url_for('static', filename='images/waiting-dog.gif') }}"
+                        alt="Gif of dog"
                         class="align-center col s12 m10 offset-m1">
                 </div>
             </div>
@@ -32,7 +33,7 @@
                     </div>
                     <div class="row flush input-div">
                         <div class="input-field col s12">
-                            <input id="password" type="password" name="password" class="validate" min-length="5"
+                            <input id="password" type="password" name="password" class="validate" minlength="5"
                                 pattern="^^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])[A-Za-z\d@$!%*_-#?&]{8,30}" maxlength="30" required>
                             <label for="password">Password</label>
                         </div>
