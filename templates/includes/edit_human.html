@@ -1,5 +1,6 @@
 <div id="edit_human" class="modal">
     <div class="modal-content">
+        {% if session.user == username %}
         <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('edit_human', username=username)}}">
             <h4>Edit Human Details</h4>
             <img src="{{ url_for('static', filename='images/human.gif') }}" alt="dog walking" class="form-right">
@@ -18,5 +19,12 @@
                 </button>
             </div>
         </form>
+        {% else %}
+        <div>
+            <p>Bad Dog you can't edit another Pups Profile</p>
+            <p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
+
+        </div>
+        {% endif %}
     </div>
 </div>

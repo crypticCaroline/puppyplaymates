@@ -1,14 +1,16 @@
 <div id="add_walk" class="modal">
     <div class="modal-content">
+        {% if session.user == username %}
         <h2>Add Walk</h2>
         <h5>By adding a new walk it will delete your previous walk information</h5>
         <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('add_walk', username=username)}}">
 
             <div class="form-left">
-                <input type="date" id="walk_date" name="walk_date" class="validate" min="2021-03-29" onclick="walkDate()" required>
+                <input type="date" id="walk_date" name="walk_date" class="validate" min="2021-03-29"
+                    onclick="walkDate()" required>
                 <input type="time" id="time" name="time" class="validate" required>
             </div>
- 
+
             <img src="{{ url_for('static', filename='images/dog-walk.gif') }}" alt="dog walking" class="form-right">
 
             <div class="form-bottom">
@@ -23,7 +25,14 @@
             </div>
         </form>
         <form method="POST" action="{{ url_for('remove_walk', username=username)}}">
-                                <button type="submit" class="btn btn-yellow btn-red">Remove Walk</button>
-                            </form>
+            <button type="submit" class="btn btn-yellow btn-red">Remove Walk</button>
+        </form>
+        {% else %}
+        <div>
+            <p>Bad Dog you can't edit another Pups Profile</p>
+            <p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
+
+        </div>
+        {% endif %}
     </div>
 </div>

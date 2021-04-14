@@ -1,6 +1,6 @@
 <div id="edit_profile" class="modal">
     <div class="modal-content">
-
+        {% if session.user == username %}
         <div class="row">
             <form class="col s12 m10 offset-m1" method="POST" action="{{ url_for('edit_profile', username=username) }}">
                 <h3 class="heading">Edit {{ user_profile.dog_name }}'s Profile infomation</h3>
@@ -11,7 +11,8 @@
 
                 <label for="dog_location">Home Town</label>
                 <input type="text" id="dog_location" name="dog_location" class="validate"
-                    value="{{user_profile.dog_location}}" minlength="2" maxlength="40" pattern="^[a-zA-Z0-9\s/g]{2,40}$">
+                    value="{{user_profile.dog_location}}" minlength="2" maxlength="40"
+                    pattern="^[a-zA-Z0-9\s/g]{2,40}$">
 
                 <label>Pup Size</label>
                 <select name="dog_size" size="4" required>
@@ -47,17 +48,24 @@
                     </label>
                 </div>
                 <label for="dog_description" class="bio-label">Bio</label>
-                <textarea id="dog_description" name="dog_description" class="validate materialize-textarea form-no-indent"
-                    minlength="5" maxlength="1000" >
+                <textarea id="dog_description" name="dog_description"
+                    class="validate materialize-textarea form-no-indent" minlength="5" maxlength="1000"
                     required>{{user_profile.dog_description}}</textarea>
                 <button type="submit" class="col s12 btn-large btn-yellow">
                     Update
                 </button>
                 <div class="modal-footer">
-                    <a href="{{ url_for('delete_profile')}}"
+                    <a href="{{ url_for('delete_profile', username=username)}}"
                         class="modal-close waves-effect waves-green btn-flat">Remove Pup?</a>
                 </div>
             </form>
         </div>
+        {% else %}
+        <div>
+            <p>Bad Dog you can't edit another Pups Profile</p>
+            <p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
+
+        </div>
+        {% endif %}
     </div>
 </div>

@@ -179,8 +179,9 @@ small {
     box-shadow: 0 0 3px 1px rgb(43, 38, 38, 0.1);
     overflow:hidden;
     position: relative;
-    margin-bottom: 1.25%;
+    margin-bottom: 2%;
     margin-top: 3%;
+    padding-bottom: 3%;
     background-color: var(--form-color);
 }
 
@@ -476,18 +477,18 @@ height: 60px;
     padding-top: 0;
 }
 
-.row .col ul.comment-area, .row .col.comment-area{
+.row .col div.comment-area, .row .col.comment-area{
     border-radius: 5%;
     margin: 5%;
     margin-top:0;
 }
 
-li.comments { 
+div.comments { 
     background: rgba(120, 189, 180, 0.03); 
     overflow:auto; 
 }
 
-li.comments:nth-child(odd) { 
+div.comments:nth-child(odd) { 
     background: rgba(238, 125, 168, 0.03); 
     overflow:auto; 
 }

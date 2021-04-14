@@ -460,15 +460,17 @@ def delete_images(username):
     """
     if session:
         user_profile = mongo.db.users.find_one({"username": username})
+
         if request.method == 'POST':
-            mongo.db.users.update_one(
-                {"username": session["user"]},
-                {"$pull": {"all_images": request.form.get('photo')}})
-            return redirect(url_for('profile',
-                                    username=username))
-        return render_template("profile.html",
-                               username=session["user"],
-                               user_profile=user_profile)
+            if session['user'] == username or session['user'] == "admin":
+                mongo.db.users.update_one(
+                    {"username": username},
+                    {"$pull": {"all_images": request.form.get('photo')}})
+                return redirect(url_for('profile',
+                                        username=username))
+            return render_template("profile.html",
+                                   username=username,
+                                   user_profile=user_profile)
     flash(flash_login)
     return render_template("login.html")
 
@@ -705,20 +707,21 @@ def delete_comment(username, comment_id):
     if session:
         # removes the comment from the database
         if request.method == "POST":
-            mongo.db.users.update_one(
-                {"username": username},
-                {"$pull": {"comments": {"_id": ObjectId(comment_id)}}})
+            if session['user'] == username or session['user'] == "admin":
+                mongo.db.users.update_one(
+                    {"username": username},
+                    {"$pull": {"comments": {"_id": ObjectId(comment_id)}}})
 
-        flash(flash_comment_removed)
-        return redirect(url_for('profile', username=username))
+            flash(flash_comment_removed)
+            return redirect(url_for('profile', username=username))
 
     flash(flash_login)
     return render_template("login.html")
 
 
 # deletes the users profile
-@app.route("/delete_profile", methods=["GET", "POST"])
-def delete_profile():
+@app.route("/<username>/delete_profile", methods=["GET", "POST"])
+def delete_profile(username):
     """ Finds session user profile in the database
     Removes session cookie
     Delivers a Flash message to advise removed
@@ -729,11 +732,13 @@ def delete_profile():
     if session:
         # removes the user from the database
         if request.method == "POST":
-            user = mongo.db.users.find_one({"username": session["user"]})
-            session.pop("user")
-            mongo.db.users.remove(user)
-            flash(flash_profile_removed)
-            return redirect(url_for("homepage"))
+            if session['user'] == username or session['user'] == "admin":
+                user = mongo.db.users.find_one({"username": username})
+                if session['user'] == username:
+                    session.pop("user")
+                mongo.db.users.remove(user)
+                flash(flash_profile_removed)
+                return redirect(url_for("homepage"))
         return render_template("delete_profile.html")
 
     flash(flash_login)
