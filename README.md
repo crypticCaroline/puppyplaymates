@@ -151,7 +151,7 @@ A way to bring together dog owner for:
 * To deliver an easy sign up and log in process
 * I want to allow users to be able to reset their passwords if they forget their details
 * To safeguard users content and only allow the author or profile owner to edit/delete content
-* To safeguard users by having a report pathway and to be able to remove inappropriate comments or accounts
+* To safeguard users by having a report pathway and to be able to remove inappropriate comments, images and accounts 
 
 
 ## Structure
@@ -245,6 +245,10 @@ Please refer to [structure](#structure) to see the navigation and user pathways
     * If private only the author and user of that profile can see the message. 
     * The user of that profile can delete any message, and this will toggle delete comment Modal.  The author of the comment can edit their comments and when clicked the author can either edit or delete their own comment. The comments are displayed with the authors image, name, and a time stamp. 
 * Add Comment - all users can add comments and select whether they make them a private message. 
+
+#### Admin
+* If the user is admin they will be able to delete any comment on the site, delete images and also delete profiles if they feel like there has been inappropriate behaviour.   
+* When visting the admin profile, instead of the above there are buttons that sends the user to contact us, report and back to profile 
 
 #### Edit Modals 
 

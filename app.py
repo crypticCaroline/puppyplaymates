@@ -456,16 +456,25 @@ def profile_photo(username):
 @app.route("/delete_images/<username>", methods=["GET", "POST"])
 def delete_images(username):
     """ Allows user to set the delete  picture from the selected photo
+    only allows the owner or admin to remove image
     If not session redirects to login
     """
     if session:
         user_profile = mongo.db.users.find_one({"username": username})
+        profile_image = user_profile['image_url']
+        remove_image = request.form.get('photo')
 
         if request.method == 'POST':
             if session['user'] == username or session['user'] == "admin":
                 mongo.db.users.update_one(
                     {"username": username},
-                    {"$pull": {"all_images": request.form.get('photo')}})
+                    {"$pull": {"all_images": remove_image}})
+
+                if remove_image == profile_image:
+                    mongo.db.users.update_one(
+                        {"username": username},
+                        {"$set": {"image_url": default_image_url}})
+
                 return redirect(url_for('profile',
                                         username=username))
             return render_template("profile.html",
@@ -707,10 +716,9 @@ def delete_comment(username, comment_id):
     if session:
         # removes the comment from the database
         if request.method == "POST":
-            if session['user'] == username or session['user'] == "admin":
-                mongo.db.users.update_one(
-                    {"username": username},
-                    {"$pull": {"comments": {"_id": ObjectId(comment_id)}}})
+            mongo.db.users.update_one(
+                {"username": username},
+                {"$pull": {"comments": {"_id": ObjectId(comment_id)}}})
 
             flash(flash_comment_removed)
             return redirect(url_for('profile', username=username))
@@ -722,7 +730,7 @@ def delete_comment(username, comment_id):
 # deletes the users profile
 @app.route("/<username>/delete_profile", methods=["GET", "POST"])
 def delete_profile(username):
-    """ Finds session user profile in the database
+    """ Finds profile in the database allows user & admin to delete
     Removes session cookie
     Delivers a Flash message to advise removed
     Directs back to Homepage
