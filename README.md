@@ -164,9 +164,11 @@ The diagram below is of the information architecture of the Web App.  This shows
 #### Datebase Schema 
 
 Schema I have used for the database 
-I have used a non relational database which has meant that I have kept all of a users data stored within within one document and used Key Value pairs with nested arrays and objects to store and access the appropriate data.
+I have used a non relational database which has meant that I have kept all of a users data stored within within one document and used Key Value pairs with nested arrays and objects to store and access the appropriate data.  Most the data I have stored as "strings" If they are text based, all of which will have to pass through [validation](#validation), "bools" for switches, dates for DOB and Walks and ObjectIds. I have chosen to set the time of the walk and the date/time of the comments as strings this is because this information is only for user info and will serve no function in sorting through the data/time as a searchable function, this removes the need to reformat the data on entry and retrival of the database. The nested arrays / objects are also passed through backend [validation](#validation) to ensure they fit the schema for the database. 
 
-![Datebase Scheme Check](docs/database/schema.png)
+
+
+![Datebase Schema](docs/database/schema.png)
 
 
 I have used backend validation to make sure the data is formatted correctly before being sent to the back end. Boolean's are set to a default False, Dates are formatted before insertions, string fields are checked to make sure they are strings.  I ran the database through [Studio 3T](https://studio3t.com/) To check to make sure all my data was conforming to my intended Schema.
@@ -192,10 +194,86 @@ I have used backend validation to make sure the data is formatted correctly befo
 
 ![Datebase Sample](docs/database/sample_data.png)
 
+#### MongoDB 
+
+
+
+
 
 ## Validation
 
+### Backend Validation 
+
+All users inputs are passed through the appropriate validators to ensure no bad data enters the datebase. The users is notified through a flash message if any of these checks fails.  
+
+
+Check Length - Makes sure in text fields there is a min/max length 
+
+
+Check Size - checks to make sure the users input is "Small", "Medium" or "Large"
+
+
+Check Gender - checks to make sure the users input is "Male" or "Female" 
+
+
+Date Format - Using stringfy, if the data can't be formated it will throw an error and won't be able to be input to the database
+
+
+Booleans - default set to False unless the switch is activated to == "on" the  bool will then be True    
+
+
+Check Extention - Checks the extention of the users upload to make sure it is allowed 
+
+
+Not Valid Password - Checks to make sure password matches Regular Expression 
+
+
+Not Valid Username - Checks to make sure username matches Regular Expression 
+
+
+Not Valid Email - Checks to make sure the email address matches an email Regular Expression
+
+
+Not Valid Text - Checks to make sure the text input is not just white spaces
+
+
+Profanity Checker - Looks at a predefined list of curse words to check if the user has used any 
+
+
+### Front End Validation 
+
+I have used the following attributes along with the Materlize class of validate to provide the user with front end validations
+* minlength
+* maxlength
+* min
+* max
+* pattern
+* type 
+If any of these fail the box will turn red to show that it hasn't met the requirements.  I have used helper text and titles on hover to help the user pass both validations. 
+
+
 ##  Security
+
+Username -  The username can only exist once in the database and at registration the username is checked against the current usernames
+
+
+Passwords - The password must contact a mixture of uppercase and lowercase letters, digits and a special character. It must be at least 8 characters long.  The password is salted and hashed using from [werkzeug.security](https://werkzeug.palletsprojects.com/en/1.0.x/utils/) when it is collected from the user.
+
+
+Login - At login the user must match their username/email to the correct password.  It will check to make sure that the password the user enters meets the check_password_hash.  If successful the user will be assigned a session cookie.  If the user is unsucessful then they will be notified that one of the fields is incorrect.  I have chosen not to notifiy the user which field is incorrect so that their details remain private and are harder to guess. 
+
+
+Session Cookie - The user is assigned a session cookie on successful login.  This allows the user to navigate navigate their own profile, add edit and delete information.  The user is not able to make any changes to pages that their session cookie doesn't match the username.  
+
+
+Reset Password - If the user tries to reset their password they are sent an email to the email address we have on file.  They are sent a random string tempoary password and a link to the reset password page.  Once they have clicked the link they will need to enter the username attached to the email address as an extra measure. 
+
+
+
+Data Input - In the app.py the session user is compared with the username to see if that user can make changes. 
+Most functions will find the details of the document to update using the session users cookie. This means even if the user manages to pass the front end security they will only end up updating their own document. 
+There are a couple of execptions for example, delete/edit comments, delete images and delete profile.  This checks to see if the user is an author of the post or admin which are allowed to remove if nessasary.  
+
 
 
 ## Features
@@ -244,6 +322,8 @@ I have added keywords, author, and description to the meta data to make the webs
 #### Not Session 
 * If the user does not have a session cookie then they will be redirected to the log in page with a flash message advising that they need to be logged in to view that page. 
 
+
+
 #### Features Specific to Pages
 Please refer to [structure](#structure) to see the navigation and user pathways 
 
@@ -271,9 +351,13 @@ Please refer to [structure](#structure) to see the navigation and user pathways
     * The user of that profile can delete any message, and this will toggle delete comment Modal.  The author of the comment can edit their comments and when clicked the author can either edit or delete their own comment. The comments are displayed with the authors image, name, and a time stamp. 
 * Add Comment - all users can add comments and select whether they make them a private message. 
 
+
+
 #### Admin
 * If the user is admin they will be able to delete any comment on the site, delete images and also delete profiles if they feel like there has been inappropriate behaviour.   
 * When visting the admin profile, instead of the above there are buttons that sends the user to contact us, report and back to profile 
+
+
 
 #### Edit Modals 
 
@@ -295,6 +379,9 @@ Please refer to [structure](#structure) to see the navigation and user pathways
 * Edit Comment - allows authors to edit comments also renders a button to delete the comment as well
 * Delete Comment - allows authors or profile owners to delete comment. If the profile owner, it also brings up button to report user if comment makes them feel uncomfortable. 
 
+
+
+
 ### Playmates 
 #### Display 
 * Uses a loop to build individual cards for each user containing:
@@ -308,20 +395,31 @@ Please refer to [structure](#structure) to see the navigation and user pathways
 #### Search  
 * Allows user to search for other dogs by breed, size, location, gender, and name.
 
+
+
+
 ### Homepage
 * Displays information about the company and the steps to create an account
 * Shows a button so potential users can see the playmates section of the web app but when clicked on will prompt them to login
+
+
 
 ### Delete Account 
 * Button to take user back to their profile
 * Button to ask if the user wants to change their dogs details - this will take them back to build profile and allows the user to change all the details. 
 * Button to delete their profile 
 
+
+
 ### Safespaces Policy
 Shows the user the company Safespaces Policy 
 
+
+
 ### Privacy Policy 
 Shows the user the company Privacy Policy 
+
+
 
 ### Form Pages
 #### Contact Us - Report User - Reset Password - Change Password - Register - Login
@@ -378,18 +476,6 @@ All of the form pages have the following features:
 *  The repeat password and new password must match
 * On a successful password change the temp_password field is given an new ransom string so it can not be used again. 
 
-## Security 
-#### Session Cookies
-
-#### Password
-
-#### Triggers / Modals
-
-#### Data Input 
-In the app.py the session user is compared with the username to see if that user can make changes. 
-Most functions will find the details of the document to update using the session users cookie. This means even if the user manages to pass the front end security they will only end up updating their own document. 
-There are a couple of execptions for example, delete/edit comments, delete images and delete profile.  This checks to see if the user is an author of the post or admin which are allowed to remove if nessasary.  
-
 
 ## Future Features 
 
@@ -430,20 +516,35 @@ Please see [Site Images](docs/siteimages) for images of each page of the Site
 
 ***
 
-## Surface 
+#### Surface 
 
-#### Colour
+The colours I have used in the closely resembles the colours used in the gifs/ images of the the webapp.  I have chosen to go with a bright and fun colour scheme of yellow, off whites, dark blue/black, light blue and soft pink.  The yellow and offwhite colour combination of the dark blue for contrast have been used to make the features standout. Notes of slightly varying shades and opacity of blue and pink are used through out the website to give subtle accents.  I have often used a slight difference in shade between cards and the profile containers to give a sense of depth.  
 
-#### Typography 
+I often used the same colour as the images/gif for the background colour of elements to create a more cohesive user experience. 
 
+[Colours](docs/images/colours.png)
+
+
+#### Typography
+I have chosen to use a font from Google fonts I have used Montserrat. This font is a sans serif font which means it does not have decoration at the end of the letter. This can cause issues with readability seen in serif fonts. The Montserrat font playful and offers nice spacing between the letters as standard.
+
+For headings I have increased the letter spacing, font weight and font size to make them stand outstand out.
+
+I imported using the following code at the top of my style.css file:
+
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,800&display=swap');
 
 
 #### Call to Action
+For the buttons and links (styled as buttons) I have changed the colour on hover. This is to show the user that the button can be clicked. For edit/add/login/register/navigation I have used yellow with dark writing, when hovered the colours switch.  For the delete/remove options the button starts red with light writing and then changes to black and yellow when hovered. 
+
+On other clickable links, cards, and images I have used a more subtle call to action where the mouse changes to a curors pointer to show the user the element can be clicked.
+
+For the nav bar I have used a shading on the tabs to indicate they can be clicked. 
 
 
 ### Imagery  
 
-#### MongoDB 
 
 
 ## Technologies Used 

@@ -14,6 +14,10 @@ assess functionality, usability, responsiveness and data management
 
 ### User Stories
 
+### Function Testing
+
+Every functions written was passed through individually through python checkers, assigned an input variable and the function stepped through to ensure expected outcomes 
+
 
 ### Validators
     
