@@ -162,8 +162,18 @@ The diagram below is of the information architecture of the Web App.  This shows
 
 ## Database 
 #### Datebase Schema 
+
+Schema I have used for the database 
+
+I have used backend validation to make sure the data is formatted correctly before being sent to the back end. Boolean's are set to a default False, Dates are formatted before insertions, string fields are checked to make sure they are strings. 
+
+Example of a filled in collection 
 ![Datebase Collection](docs/database/database.png)
-Input types that corrispond to the Database Collection
+
+
+These are the fields that are sent to the back end database through user interactions
+
+
 ![Database input](docs/database/inputTypes.png)
 
 I have used a non relational database which has meant that I have kept all of a users data stored within within one document and used Key Value pairs with nested arrays and objects to store and access the appropriate data.  -  data type schema!
@@ -239,6 +249,7 @@ Please refer to [structure](#structure) to see the navigation and user pathways
     * Lets users horizontal scroll through other users’ photos.
     * If profile owner when update images clicked toggles Edit Images Modal
     * When image clicked upon triggers a large image view in a Modal  
+    * The most recent images are shown first
 * Admire - displays dogs that have liked the page, adds an object containing the likers - image, name and URL to the array and then adds the profile liked to the users Pups I love. 
 * Comments - uses a loop to go through the comments array in the database and shows newest at the top and adds edit and delete buttons to each comment and create individual modals dynamically 
     * Displays all comments on user profile 
@@ -263,6 +274,8 @@ Please refer to [structure](#structure) to see the navigation and user pathways
     * Enables user to upload a new image and give them the option to make it the profile image straight away – ( The image is uploaded to a cloudinary and a URL string is created and added to mongodb)
     * The upload tab is held within a collapsible so it doesn't take up the entire space of the modal
     * The file extention is checked prior to upload and only allow if jpg, png, gif and jpeg
+    * If the image is set as the profile image when is it deleted the default avatar replaces the profile image
+    * If the image is not the profile image then a button will appear to make it the profile image
 * Edit Human - brings a form up so users can enter the human name and bio 
 * Image Modal - modal which displays a larger version of the image the user had added 
 * Edit Comment - allows authors to edit comments also renders a button to delete the comment as well
@@ -300,7 +313,7 @@ Shows the user the company Privacy Policy
 #### Contact Us - Report User - Reset Password - Change Password - Register - Login
 All of the form pages have the following features:
 * On a small device will show the form and fields
-* On Medium and larger devices the user will see a gif of a dog/dogs (apart from build profile this is form only)
+* On Medium and larger devices the user will see a gif of a dog/dogs (on reset, change password, register and login)
 * Each field is passed through validations both on front and backend prior to being submitted to the database
 
 ### Login
@@ -352,6 +365,17 @@ All of the form pages have the following features:
 * On a successful password change the temp_password field is given an new ransom string so it can not be used again. 
 
 ## Security 
+#### Session Cookies
+
+#### Password
+
+#### Triggers / Modals
+
+#### Data Input 
+In the app.py the session user is compared with the username to see if that user can make changes. 
+Most functions will find the details of the document to update using the session users cookie. This means even if the user manages to pass the front end security they will only end up updating their own document. 
+There are a couple of execptions for example, delete/edit comments, delete images and delete profile.  This checks to see if the user is an author of the post or admin which are allowed to remove if nessasary.  
+
 
 ## Future Features 
 
