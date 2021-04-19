@@ -185,7 +185,7 @@
 
                                 {% endfor %}
                             </div>
-                            {% for image in user_profile.all_images %}
+                            {% for image in user_profile.all_images | reverse %}
                             <div id="modal{{image}}" class="modal">
                                 <div class="modal-content">
                                     <div class="container">

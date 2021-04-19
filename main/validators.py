@@ -3,7 +3,7 @@ from flask import (
     redirect, request, url_for)
 import re
 from main.app_utils import profanity_check
-from main.variables.variables import extentions
+from main.variables.variables import extentions, sizes, genders
 from main.variables.flash_messages import *
 
 
@@ -11,6 +11,8 @@ password_pattern = (
     r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])([A-Za-z\d@$!%-_*#?&]{8,30})$")
 username_pattern = (r"^(?=.*[A-Za-z])([a-zA-Z0-9/^\s*]){4,20}$")
 email_pattern = (r'[^@]+@[^@]+\.[^@]+')
+length_pattern = (
+    r"^[a-zA-Z0-9~`!@#\$%\^&\*\(\)_\-\+={\[\}\]\|\\:;'<,>\.\?\/\" ]{1,1000}$")
 
 
 def check_extention(file):
@@ -57,13 +59,42 @@ def not_valid_text(text):
         return True
 
 
+def check_length(input):
+    if not (re.search(length_pattern, input)):
+        flash(flash_length)
+        return True
+
+
 def check_input(input):
-    """ Checks for profanity and is not white space
+    """ take the input and checks for profanity, spaces and length
+    Output is a boolean, if True wont allow data insert
     """
     if profanity_check(input):
         flash(flash_text)
         return True
+
     if not_valid_text(input):
+        return True
+
+    if check_length(input):
+        return True
+
+
+def check_size(input):
+    if input not in sizes:
+        return True
+
+
+def check_gender(input):
+    if input not in genders:
+        return True
+
+
+def check_text_input(input):
+    if not_valid_text(input):
+        return True
+
+    if check_length(input):
         return True
 
 
@@ -93,34 +124,50 @@ def check_not_valid_build():
     Checks for profanity and delievers appropriate flash messsage
     Checks to make sure password matches
     """
-    if not_valid_text(request.form.get('dog_description')):
+    dog_description = request.form.get('dog_description')
+    human_description = request.form.get('human_description')
+    dog_name = request.form.get('dog_name')
+    human_name = request.form.get('human_name')
+    dog_location = request.form.get('dog_location')
+    dog_size = request.form.get('dog_size')
+    dog_gender = request.form.get('dog_gender')
+
+    if check_text_input(dog_description):
         return True
-    if profanity_check(request.form.get('dog_description')):
+    if profanity_check(dog_description):
+        flash(flash_description)
+        return True
+    
+    if check_text_input(human_description):
+        return True
+    if profanity_check(human_description):
         flash(flash_description)
         return True
 
-    if not_valid_text(request.form.get('human_description')):
+    if check_text_input(dog_name):
         return True
-    if profanity_check(request.form.get('human_description')):
-        flash(flash_description)
-        return True
-
-    if not_valid_text(request.form.get('dog_name')):
-        return True
-    if profanity_check(request.form.get('dog_name')):
+    if profanity_check(dog_name):
         flash(flash_dogname)
         return True
 
-    if not_valid_text(request.form.get('human_name')):
+    if check_text_input(human_name):
         return True
-    if profanity_check(request.form.get('human_name')):
+    if profanity_check(human_name):
         flash(flash_human)
         return True
-
-    if not_valid_text(request.form.get('dog_location')):
+    if check_length(human_name):
         return True
-    if profanity_check(request.form.get('dog_location')):
+
+    if check_text_input(dog_location):
+        return True
+    if profanity_check(dog_location):
         flash(flash_location)
+        return True
+
+    if check_size(dog_size):
+        return True
+
+    if check_gender(dog_gender):
         return True
 
 
@@ -130,23 +177,31 @@ def check_not_valid_edit():
     Checks for profanity and delievers appropriate flash messsage
     Checks to make sure password matches
     """
-    # Checks for valid input and profanity
-    if not_valid_text(request.form.get('dog_description')):
+
+    dog_description = request.form.get('dog_description')
+    dog_name = request.form.get('dog_name')
+    dog_location = request.form.get('dog_location')
+    dog_size = request.form.get('dog_size')
+
+    if check_text_input(dog_description):
         return True
-    if profanity_check(request.form.get('dog_description')):
+    if profanity_check(dog_description):
         flash(flash_description)
         return True
 
-    if not_valid_text(request.form.get('dog_name')):
+    if check_text_input(dog_name):
         return True
-    if profanity_check(request.form.get('dog_name')):
+    if profanity_check(dog_name):
         flash(flash_dogname)
         return True
 
-    if not_valid_text(request.form.get('dog_location')):
+    if check_text_input(dog_location):
         return True
-    if profanity_check(request.form.get('dog_location')):
+    if profanity_check(dog_location):
         flash(flash_location)
+        return True
+
+    if check_size(dog_size):
         return True
 
 
@@ -155,15 +210,18 @@ def check_not_valid_edit_human():
     Passes the form details through the appropriate validators
     Checks for profanity and delievers appropriate flash messsage
     """
+    human_description = request.form.get('human_description')
+    human_name = request.form.get('human_name')
 
-    if not_valid_text(request.form.get('human_description')):
+    if check_text_input(human_description):
         return True
-    if profanity_check(request.form.get('human_description')):
+    if profanity_check(human_description):
         flash(flash_description)
         return True
 
-    if not_valid_text(request.form.get('human_name')):
+    if check_text_input(human_name):
         return True
-    if profanity_check(request.form.get('human_name')):
+    if profanity_check(human_name):
         flash(flash_name)
         return True
+

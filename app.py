@@ -298,7 +298,8 @@ def logout():
 # edit dog
 @app.route("/edit_profile/<username>", methods=["GET", "POST"])
 def edit_profile(username):
-    """ Finds users dog profile and add info to input fields
+    """ Finds users dog profile using the username which is a string
+     and add info to input fields 
     Users can only edit their own profiles
     Checks to make sure userinputs are valid
     formats data prior to being added to the datebase
@@ -314,16 +315,13 @@ def edit_profile(username):
                                         username=session["user"]))
 
             fertile = request.form.get("fertile")
-            if fertile == "on":
-                fertile = True
-            else:
-                fertile = False
-
             puppy_love = request.form.get("puppy_love")
+            is_fertile = False
+            is_love = False
+            if fertile == "on":
+                is_fertile = True
             if puppy_love == "on":
-                puppy_love = True
-            else:
-                puppy_love = False
+                is_love = True
 
             mongo.db.users.update_one(
                 {"username": session["user"]},
@@ -332,8 +330,8 @@ def edit_profile(username):
                     "dog_description": request.form.get("dog_description"),
                     "dog_location": request.form.get("dog_location"),
                     "dog_size": request.form.get("dog_size"),
-                    "puppy_love": puppy_love,
-                    "fertile": fertile
+                    "puppy_love": is_love,
+                    "fertile": is_fertile
                 }}
             )
             return redirect(url_for("profile",
@@ -457,6 +455,7 @@ def profile_photo(username):
 def delete_images(username):
     """ Allows user to set the delete  picture from the selected photo
     only allows the owner or admin to remove image
+    If the image is the profile the default avatar will replace the profile
     If not session redirects to login
     """
     if session:
@@ -616,7 +615,7 @@ def remove_walk(username):
 def add_comment(username):
     """ Finds session user profile in the database
     Checks to make sure the input is valid
-    Adds comments to the profiles document with session users details
+    Adds comments to the profiles document with session users details 
     If not session redirects to login
     """
 
@@ -624,7 +623,7 @@ def add_comment(username):
         user_session = mongo.db.users.find_one({"username": session['user']})
         # Adds a comment to the users profile
         if request.method == "POST":
-            comment_date = datetime.now().strftime("%d/%m/%Y, %H:%M")
+            comment_date = datetime.now().strftime("%d-%m-%y, %H:%M")
             private = request.form.get('private')
             is_private = False
             comment_input = request.form.get('add_comment')
@@ -671,7 +670,7 @@ def edit_comment(username, comment_id):
 
         # lets the user edit the comment
         if request.method == "POST":
-            edit_comment_date = datetime.now().strftime("%d/%m/%Y, %H:%M")
+            edit_comment_date = datetime.now().strftime("%d-%m-%Y, %H:%M")
             private = request.form.get('private')
             is_private = False
             comment_input = request.form.get('edit_comment')
@@ -880,7 +879,8 @@ def report_user():
 # contact form
 @app.route("/contact_us", methods=["GET", "POST"])
 def contact_us():
-    """ Gets session details and finds email or fetches email if not session
+    """ Gets session details and finds email profile using session user
+    Or fetches email from the input field if not session
     checks to make sure valid email address
     Gets the details of the user they are reporting and report info
     Passes this as a varible to the email function
@@ -921,4 +921,4 @@ def internal_error(e):
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=False)
+            debug=True)
