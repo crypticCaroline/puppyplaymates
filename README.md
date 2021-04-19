@@ -164,19 +164,33 @@ The diagram below is of the information architecture of the Web App.  This shows
 #### Datebase Schema 
 
 Schema I have used for the database 
+I have used a non relational database which has meant that I have kept all of a users data stored within within one document and used Key Value pairs with nested arrays and objects to store and access the appropriate data.
 
-I have used backend validation to make sure the data is formatted correctly before being sent to the back end. Boolean's are set to a default False, Dates are formatted before insertions, string fields are checked to make sure they are strings. 
-
-Example of a filled in collection 
-![Datebase Collection](docs/database/database.png)
+![Datebase Scheme Check](docs/database/schema.png)
 
 
-These are the fields that are sent to the back end database through user interactions
+I have used backend validation to make sure the data is formatted correctly before being sent to the back end. Boolean's are set to a default False, Dates are formatted before insertions, string fields are checked to make sure they are strings.  I ran the database through [Studio 3T](https://studio3t.com/) To check to make sure all my data was conforming to my intended Schema.
 
 
-![Database input](docs/database/inputTypes.png)
+![Datebase Scheme Check](docs/database/database_schema.png)
+ 
 
-I have used a non relational database which has meant that I have kept all of a users data stored within within one document and used Key Value pairs with nested arrays and objects to store and access the appropriate data.  -  data type schema!
+##### Object Instance in the Database
+
+
+![Datebase Object Instances](docs/database/object_instance.png)
+
+
+##### Below are the user input types that the user experiences in the front end
+
+
+![Database Input](docs/database/input_types.png)
+
+
+##### Sample of filled in Document
+
+
+![Datebase Sample](docs/database/sample_data.png)
 
 
 ## Validation
