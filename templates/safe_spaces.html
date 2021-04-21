@@ -2,21 +2,28 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-<div class="homepage-wrapper">
-<div class="about text-block">
+
+<div class="policy-background">
     <div class="container">
-        <h4 class="heading">Safespaces
-        </h4>
-        <h5>Your safe space ----</h5>
-        <p>Forget your conventional forms of social media and dating websites. We have created a way for dogs of all ages
-            to meet online, to let other owners know when and where they are next walking their dog, to add photos and
-            to comment on each others profiles.</p>
-        <p>You can set your dogs profile to show whether you are looking for plantonic playmates or looking
-            for a soulmate for your pup!</p>
+        <h3 class="heading">Safespaces </h3>
+        <p>It is important to us at PuppyPlaymates that all of our users feel safe.  By setting up a profile you agree to abide to our safe spaces policy and code of conduct.  Failure to comply may result in your account being removed</p>
+
+        <ul class="intro-list">
+            <li>Behave in a friendly, cooperative, polite and responsible manner towards everyone</li>
+            <li>Do not give out any personal information of other memembers. We recommend to refrain from sharing your own personal infomation.  If the need does arise you can set these comments to private </li>
+            <li>Use of swear or curse words are not permitted on any part of the site</li>
+            <li>Do not spam other users with messages</li>
+            <li>Racial slurs, harrasment, and abuse of any kind will not be tolerated</li>
+        </ul>
+    
+        {% if session.user %}
+        <h6>Need to report a user</h6>
+        <a href="{{ url_for('report_user')}}" class="btn-yellow btn-large btn-space">Report User</a>
+        {% else %}
+        <h6>Need to contact us</h6>
+        <a href="{{ url_for('contact_us')}}" class="btn-yellow btn-large btn-space">Contact Us</a>
+        {% endif %}
+    </div>
     </div>
 
-        <h6>Need to report a user</h6>
-        <a href="{{ url_for('report_users')}}" class="btn-yellow btn-large btn-space">Playmates</a>
-    </div>
-</div>
 {% endblock %}

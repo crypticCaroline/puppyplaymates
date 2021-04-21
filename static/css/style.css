@@ -5,7 +5,7 @@
     --yellow-color:  #ffdb39;
     --light-blue: #d4e6f4;
     --silver-blue: #d6d6d6e0;
-    --card-color: rgb(255, 252, 248);
+    --card-color: #fffcf8;
     --form-color: #fefff4; 
 }
 html{
@@ -103,7 +103,7 @@ a {
 
 .btn-red {
     background-color: rgb(179, 49, 49);
-    color: white
+    color: var(--card-color);
 }
 
 .btn-style {
@@ -122,8 +122,6 @@ a {
     background-color:  var(--dark-font-color);
     color: var(--yellow-color)
 }
-
-
 
 form {
     margin-bottom: 10%;
@@ -156,11 +154,16 @@ small {
     letter-spacing: 0.025rem;
     color:var(--dark-font-color);
     padding: 2%;
+    padding-left: 0;
     padding-bottom: 5%;
 }
 
 .sub-heading {
     padding-bottom: 0.5%;
+}
+
+.heading-indent {
+    padding-left: 2%;
 }
 
 .sm_img {
@@ -181,8 +184,11 @@ small {
     position: relative;
     margin-bottom: 2%;
     margin-top: 3%;
-    padding-bottom: 3%;
     background-color: var(--form-color);
+} 
+
+.padding-bottom {
+    padding-bottom: 3%;
 }
 
 .search-heading {    
@@ -253,7 +259,7 @@ small {
 }
 
 textarea.materlize-textarea {
-    background-color: rgb(221 219 189 / 8%)
+    background-color: #dddbbd;
 }
 
 textarea.materialize-textarea.contact-form {
@@ -352,7 +358,7 @@ textarea.materialize-textarea.form-no-indent {
     width: min-content;  
     top: 50%;
     left: 50%;
-    background-color: rgba(223, 253, 250, 1);
+    background-color: #dffdfa;
     z-index: 2; 
     cursor: pointer; 
     position: fixed; 
@@ -361,7 +367,6 @@ textarea.materialize-textarea.form-no-indent {
 .text_overlay {
     position: absolute;
     font-size: 50px;
-    color: white;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -407,6 +412,14 @@ textarea.materialize-textarea.form-no-indent {
 h1.error, h3.error {
     font-weight: 600;
 
+}
+
+.links{
+    color: #1c7ba0;
+}
+
+.links:hover {
+    color: #3997bd;
 }
 
 #footer{
@@ -557,7 +570,7 @@ ul.intro-list{
     padding-bottom: 5%;
 }
 
-.intro-list li, .mob-nav {
+.intro-list li, .mob-nav, .policy-list li{
 	margin: 0;
 	padding: 25px 0 25px 60px;
 	list-style: none;
@@ -565,6 +578,11 @@ ul.intro-list{
 	background-repeat: no-repeat;
 	background-position: left center;
 	background-size: 35px;
+}
+
+.policy-list li {
+    background-size: 20px;
+        padding: 10px 0 10px 30px;
 }
 
 .mob-nav {
@@ -644,6 +662,20 @@ ul.intro-list{
 
 .modal-image {
     height: 60vh;
+}
+
+.policy-background {
+    padding: 12%;
+    margin-top: -8%;
+    margin-bottom: -8%;
+    background-color: #ffffff;
+}
+
+h5.policy-spacing {
+    margin-top: 8%;
+    margin-bottom:1%;
+    font-size: 2rem;
+    font-weight: 500;
 }
 
 
