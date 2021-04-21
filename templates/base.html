@@ -6,6 +6,9 @@
         integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA==" crossorigin="anonymous" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" 
+      type="image/png" 
+      href="{{ url_for('static', filename='images/avatar_icon.png')}}">
     <title>{% block title %}{% endblock %} </title>
 </head>
 
@@ -26,7 +29,7 @@
                     <li><a href="{{ url_for('register')}}" class="nav_item">Register</a></li>
                     {% endif %}
                 </ul>
-                <ul class="side-nav right" id="mobile-demo">
+                <ul class="side-nav" id="mobile-demo">
                     {% if session.user %}
                     <li><a href="{{ url_for('profile', username=session['user'])}}">Profile</a></li>
                     <li><a href="{{ url_for('playmates')}}">Playmates</a></li>
@@ -49,27 +52,27 @@
         <footer class="page-footer nav-bar-col">
             <div class="container">
                 <div class="row">
-                    <div class="col l6 s12">
+                    <div class="col s12 l6 ">
                         <h5 class="footer-text" >PuppyPlaymates</h5>
-                        <p class="footer-text">Company moto here </p>
+                        <p class="footer-text">Helping you to find the perfect Playmates for your Pup</p>
                     </div>
-                    <div class="col l4 offset-l2 s12">
+                    <div class="col s12 l4 offset-l2 ">
                         <h5 class="footer-text">Links</h5>
                         <ul>
-                            <li><a class="footer-text" href="{{ url_for('contact_us')}}">Contact Us</a></li>
-                            <li><a class="footer-text" href="{{ url_for('safe_spaces')}}">Safe Spaces Policy</a></li>
-                            <li><a class="footer-text" href="{{ url_for('privacy_policy')}}">Privacy Policy</a></li>
                             {% if session.user %}
-                            <li><a class="footer-text" href="{{ url_for('report_user')}}">Report User</a></li>
+                            <li><a class="footer-text" href="{{ url_for('logout')}}">Sign Out</a></li>                            
                             <li><a class="footer-text" href="
                                 {{ url_for('build_profile', username=session['user'])}}">Rebuild Profile</a></li>
                             <li><a class="footer-text" href="{{ url_for('change_password')}}">Change Password</a></li>
                             <li><a class="footer-text" href="{{ url_for('delete_profile', username=username)}}">Delete Account</a></li>
-                            <li><a class="footer-text" href="{{ url_for('logout')}}">Sign Out</a></li>
+                            <li><a class="footer-text" href="{{ url_for('report_user')}}">Report User</a></li>
                             {% else%}
                             <li><a class="footer-text" href="{{ url_for('login')}}">Sign In</a></li>
                             <li><a class="footer-text" href="{{ url_for('register')}}">Register</a></li>
                             {% endif %}
+                            <li><a class="footer-text" href="{{ url_for('safe_spaces')}}">Safe Spaces Policy</a></li>
+                            <li><a class="footer-text" href="{{ url_for('privacy_policy')}}">Privacy Policy</a></li>
+                            <li><a class="footer-text" href="{{ url_for('contact_us')}}">Contact Us</a></li>
                         </ul>
                     </div>
                 </div>

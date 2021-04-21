@@ -13,8 +13,8 @@
             </div>
             <div class="col s12 m7">
                 <h3 class="align-center heading">Create Account</h3>
-                <p><small>Please create a username and password for yourself, you will be able to add your dogs name in
-                        a moment</small></p>
+                <p>Please create a username for yourself, you will be able to add your dogs name in
+                        a moment</p>
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
                 {% for message in messages %}
@@ -29,14 +29,14 @@
                         <div class="input-field col s12">
                             <input type="text" id="username" name="username" class="validate" minlength="4"
                                 maxlength="20" pattern="^(?=.*[A-Za-z])[a-zA-Z0-9/][^\s*]{4,20}$"
-                                title="Your username can't include any blank spaces and must be between 4-20 characters, it must contain letters and numbers"
+                                title="Your username can't include any blank spaces and must be between 4-20 characters, it may only contain letters and numbers"
                                 required>
                             <label for="username">Username</label>
                         </div>
                     </div>
                     <div class="row flush input-div">
                         <div class="input-field col s12 ">
-                            <input type="email" id="email" name="email" class="validate" required>
+                            <input type="email" id="email" name="email" class="validate" title="Please fill in a valid email" required>
                             <label for="username">Email</label>
                         </div>
                     </div>
@@ -73,10 +73,8 @@
                         </p>
                     </div>
                     <div class="row flush input-div">
-                        <div class="col s12 input-field">
-                            <input type="checkbox" id="policy" name="policy" class="col s12 input-field" required />
-                            <label for="policy" class="row">I agree to the Privacy and Safe Spaces Policy</label>
-                        </div>
+                            <input type="checkbox" id="policy" name="policy" required />
+                            <label for="policy" class="check-box">I agree to the Privacy and Safe Spaces Policy</label>
                     </div>
                     <div class="row">
                         <button type="submit" class=" btn-large btn-style btn-yellow align-center col s12 m7">

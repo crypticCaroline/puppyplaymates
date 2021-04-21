@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Index{% endblock %}
+{% block title %}Playmates{% endblock %}
 
 {% block content %}
 <div class="container form-popout">
@@ -8,10 +8,8 @@
         <p class="center-align">Take a look at all the different pups looking for playmates</p>
     </div>
     <div class="profile-items profile-items-wrapper">
-        <h5>Search for you playmates</h5>
-        <h6>You can search for any dog by breed, size, location, gender and name</h6>
         <form action="{{ url_for('search') }}" method="post">
-            <div class="form-left">
+            <div class="form-left" id="search-bar">
                 <label for="query">Search Puppys</label>
                 <input type="text" name="query" id="query" minlength="3" class="validate" required>
             </div>
@@ -20,6 +18,7 @@
             </button>
             <a href="{{ url_for('playmates') }}" class="btn btn-yellow btn-red ">Reset</a>
         </form>
+        <h6>You can search for any dog by breed, size, location, gender and name</h6>
     </div>
 
     <div class="user-list" id="user-container">
