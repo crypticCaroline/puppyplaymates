@@ -1,7 +1,6 @@
 from app import mail
 from flask_mail import Message
-from flask import (
-    request, session)
+from flask import (session)
 from main.variables.variables import change_password_link
 
 

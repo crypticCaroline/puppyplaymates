@@ -194,9 +194,11 @@ I have used backend validation to make sure the data is formatted correctly befo
 
 ![Datebase Sample](docs/database/sample_data.png)
 
+
+
 #### MongoDB 
 
-
+TLS/SSL (Transport Encryption)
 
 
 
@@ -392,9 +394,9 @@ Please refer to [structure](#structure) to see the navigation and user pathways
     * If neutered or spade displays a scissor icon 
     * Each card is clickable and take the user to that full profile if logged in, else send them to log in page with a flash message
 
+
 #### Search  
 * Allows user to search for other dogs by breed, size, location, gender, and name.
-
 
 
 
@@ -522,7 +524,7 @@ The colours I have used in the closely resembles the colours used in the gifs/ i
 
 I often used the same colour as the images/gif for the background colour of elements to create a more cohesive user experience. 
 
-[Colours](docs/images/colours.png)
+![Colours](docs/images/colours.png)
 
 
 #### Typography

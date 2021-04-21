@@ -137,7 +137,7 @@ def check_not_valid_build():
     if profanity_check(dog_description):
         flash(flash_description)
         return True
-    
+
     if check_text_input(human_description):
         return True
     if profanity_check(human_description):

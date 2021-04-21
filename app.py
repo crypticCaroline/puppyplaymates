@@ -907,6 +907,16 @@ def contact_us():
     return render_template("contact_us.html")
 
 
+@app.route("/safe_spaces")
+def safe_spaces():
+    return render_template('safe_spaces.html')
+
+
+@app.route("/privacy_policy")
+def privacy_policy():
+    return render_template('privacy_policy.html')
+
+
 # error handlers
 @ app.errorhandler(404)
 def page_not_found(e):

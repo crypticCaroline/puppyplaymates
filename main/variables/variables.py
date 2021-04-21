@@ -14,7 +14,7 @@ extentions = {".jpg", ".png", ".gif", ".jpeg"}
 
 sizes = {"Small", "Medium", "Large"}
 
-genders  = {"Male", "Female"}
+genders = {"Male", "Female"}
 
 
 curse_words = {"fuck",
