@@ -7,18 +7,18 @@
         <h3 class="heading center-align ">Playmates</h3>
         <p class="center-align">Take a look at all the different pups looking for playmates</p>
     </div>
-    <div class="profile-items profile-items-wrapper">
+    <div class="profile-items search-wrapper">
         <form action="{{ url_for('search') }}" method="post">
-            <div class="form-left" id="search-bar">
+            <div id="search-bar" class="input-field no-indent">
                 <label for="query">Search Puppys</label>
                 <input type="text" name="query" id="query" minlength="3" class="validate" required>
             </div>
-            <button type="submit" class="btn-yellow btn">
+            <h6>You can search for any dog by breed, size, location, gender and name</h6>
+            <button type="submit" class="btn-yellow btn btn-med">
                 Search
             </button>
-            <a href="{{ url_for('playmates') }}" class="btn btn-yellow btn-red ">Reset</a>
+            <a href="{{ url_for('playmates') }}" class="btn btn-yellow btn-red btn-med">Reset</a>
         </form>
-        <h6>You can search for any dog by breed, size, location, gender and name</h6>
     </div>
 
     <div class="user-list" id="user-container">

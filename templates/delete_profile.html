@@ -12,7 +12,8 @@
                         class="align-center col s12 m10 offset-m1">
                 </div>
             </div>
-            <div class="s12 l8 col form-indent">
+            {% if session.user == username and session.user != "admin" %}
+            <div class="s12 l8 col form-indent"> 
                 <h3 class="heading align-center">Delete Profile</h3>
                 <h5>
                     What ever your reason for needing to leave us we are sorry to see you go
@@ -26,6 +27,37 @@
                     <button type="submit" class=" btn btn-yellow btn-red">Delete my Profile</button>
                 </form>
             </div>
+            {% endif %}
+            {% if session.user == "admin" %}
+            <div class="s12 l8 col form-indent"> 
+            <!-- Flash messages -->
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="row flashes">
+                        <h5 class="center-align col s12">{{ message }}</h5>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+            <h3>Remove User</h3>
+            <p>{{username}}</p>
+            <p>If you delete this profile it can not be undone</p>
+            <form method="POST" action="{{ url_for('delete_profile', username=username)}}">
+                    <button type="submit" class=" btn btn-yellow btn-red">Delete Profile</button>
+                </form>   
+            <p>Alternatively send them an email to discuss the reason for removal<p>
+
+            <form method="POST" action="{{ url_for('contact_user', username=username)}}">
+            <label for="contact-message">Reason for Reporting</label>                    
+                        <textarea id="contact-message" name="contact-message" class="validate materialize-textarea contact-form"
+                            minlength="10" required></textarea>
+                        
+            <button type="submit" class=" btn btn-yellow btn-red">Contact User</button>
+                </form>        
+            </div>    
+            {% endif %}
+
         </div>
     </div>
 </div>

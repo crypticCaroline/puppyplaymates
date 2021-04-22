@@ -46,7 +46,7 @@
                     {% else %}
                     <h2 class="  profile-heading heading col s8 push-s2 center-align ">{{ user_profile.dog_name}}</h2>
                     {% endif %}
-                    {% if session.user != username %}
+                    {% if session.user != username and session.user != "admin" %}
                     {% if dog_liked %}
                     <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
                         <button type="submit" class="btn-yellow btn col s3 l1 push-l1" value="unlike" id="unliker_btn"
@@ -59,6 +59,10 @@
                     </form>
                     {% endif %}
                     {% endif %}
+                    {% if session.user == "admin" %}
+                        <a href="{{ url_for('delete_profile', username=user_profile.username)}}" class="btn btn-yellow btn-red">Contact User or Remove</a>
+                    {% endif %}
+                    
                 </div>
                 <!-- checks if its the dogs birthday -->
                 {% if birthday %}
@@ -187,11 +191,9 @@
                             </div>
                             {% for image in user_profile.all_images | reverse %}
                             <div id="modal{{image}}" class="modal">
-                                <div class="modal-content">
-                                    <div class="container">
+                                <div class="modal-content modal-image-content">
                                         <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}"
-                                            class="modal-image">
-                                    </div>
+                                            class="modal-image">                                    
                                 </div>
                             </div>
                             {% endfor %}
@@ -369,7 +371,17 @@
 {% include "includes/edit_human.html" %}
 {% include "includes/edit_profile.html" %}
 {% else %}
-<div class="form-popout container">
+<div class="form-popout container padding-bottom">
+<!-- Flash messages -->
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="row flashes">
+                        <h5 class="center-align col s12">{{ message }}</h5>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
     <h3 class="center-align heading">Do you need to get in touch?</h3>
     <div class="center-align input-div">
         <a href="{{ url_for('report_user')}}" class="btn btn-yellow center-align">Report User</a>

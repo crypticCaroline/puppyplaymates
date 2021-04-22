@@ -88,3 +88,19 @@ def report_user_mail(user_email, user_report, user_info):
                   cc=[user_email],
                   recipients=["thepuppyplaymates@gmail.com"])
     mail.send(msg)
+
+
+def contact_user_mail(email, message_text):
+    """  Gets the message text and email parameters
+    Constructions a message to send to the user and playmates
+    Sends a copy of message to user and to playmates
+    """
+
+    msg = Message('Important Contact',
+                  html=('<p> %s </p>'
+
+                        '<p>The Team at PuppyPlaymates</p>' % message_text),
+                  sender="thepuppyplaymates@gmail.com",
+                  cc=["thepuppyplaymates@gmail.com"],
+                  recipients=[email])
+    mail.send(msg)

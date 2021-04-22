@@ -735,18 +735,22 @@ def delete_profile(username):
     Directs back to Homepage
     If not session redirects to login
     """
-
     if session:
         # removes the user from the database
         if request.method == "POST":
-            if session['user'] == username or session['user'] == "admin":
-                user = mongo.db.users.find_one({"username": username})
+            if session['user'] == username or session['user'] == 'admin':
+                remove_user = mongo.db.users.find_one(
+                    {"username": username})['_id']
                 if session['user'] == username:
                     session.pop("user")
-                mongo.db.users.remove(user)
-                flash(flash_profile_removed)
-                return redirect(url_for("homepage"))
-        return render_template("delete_profile.html")
+                    mongo.db.users.remove(remove_user)
+                    flash(flash_profile_removed)
+                    return redirect(url_for("homepage"))
+                else:
+                    mongo.db.users.remove(remove_user)
+                    flash(flash_profile_removed)
+                    return redirect(url_for('profile', username=session['user']))
+        return render_template("delete_profile.html", username=username)
 
     flash(flash_login)
     return render_template("login.html")
@@ -905,6 +909,37 @@ def contact_us():
 
         return render_template("contact_us.html")
     return render_template("contact_us.html")
+
+
+@app.route("/<username>/contact_user", methods=["GET", "POST"])
+def contact_user(username):
+    """ Gets session details and finds email
+    checks if existing user
+    Gets the details of the user they are reporting and report info
+    Passes this as a varible to the email function
+    Lets user know the email has been sent
+    """
+    if session['user'] == "admin":
+        # gets the users deatils and report
+        user_profile = mongo.db.users.find_one({"username": username})
+        user_email = user_profile['email']
+
+        if request.method == 'POST':
+            contact_message = request.form.get('contact-message')
+
+            if check_input(contact_message) or check_input(
+                    contact_message):
+                return redirect(url_for("delete_profile"))
+
+            # sends email to user and ccs in company
+            contact_user_mail(user_email, contact_message)
+
+            flash(flash_sent)
+            return redirect(url_for("delete_profile", username=username))
+        return render_template("delete_profile.html")
+
+    flash(flash_login)
+    return render_template("login.html")
 
 
 @app.route("/safe_spaces")
