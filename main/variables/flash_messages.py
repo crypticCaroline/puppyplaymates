@@ -7,18 +7,18 @@ flash_username_exists = 'Username already exists'
 flash_email_registered = ('This email already registered, '
                           'please head to the login page')
 
-flash_incorrect = "Incorrect Username and/or Password"
+flash_incorrect = 'Incorrect Username and/or Password'
 
 flash_incorrect_details = ('Incorrect Username and/or Password, if you'
                            ' have forgotten your password you can reset it')
 
-flash_logout = "You have been logged out"
+flash_logout = 'You have been logged out'
 
-flash_profile_removed = "Profile Removed"
+flash_profile_removed = 'Profile Removed'
 
-flash_comment_removed = "This comment has been removed"
+flash_comment_removed = 'This comment has been removed'
 
-flash_sent = "Message Sent"
+flash_sent = 'Message Sent'
 
 flash_extention = 'Please only uploads images as png, jpg or gif'
 
@@ -48,4 +48,4 @@ flash_human = ('Are you really called that? '
 
 flash_location = 'Please refrain from using profanity and use a real location'
 
-flash_length = "Your input is either too long or too short"
+flash_length = 'Your input is a little too long '

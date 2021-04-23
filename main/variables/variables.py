@@ -10,12 +10,13 @@ default_dob = datetime.strptime("1900-01-01", "%Y-%m-%d")
 
 change_password_link = "https://puppy-playmates.herokuapp.com/change_password"
 
+our_email = 'thepuppyplaymates@gmail.com'
+
 extentions = {".jpg", ".png", ".gif", ".jpeg"}
 
 sizes = {"Small", "Medium", "Large"}
 
 genders = {"Male", "Female"}
-
 
 curse_words = {"fuck",
                "shit",

@@ -11,13 +11,12 @@ password_pattern = (
     r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])([A-Za-z\d@$!%-_*#?&]{8,30})$")
 username_pattern = (r"^(?=.*[A-Za-z])([a-zA-Z0-9/^\s*]){4,20}$")
 email_pattern = (r'[^@]+@[^@]+\.[^@]+')
-length_pattern = (
-    r"^[a-zA-Z0-9~`!@#\$%\^&\*\(\)_\-\+={\[\}\]\|\\:;'<,>\.\?\/\" ]{1,1000}$")
 
 
 def check_extention(file):
-    """
+    """ Input is a string of the file extention
     Checks if extention is an allowed image extention
+    Returns boolean true if not in extention
     """
     if file not in extentions:
         flash(flash_extention)
@@ -25,8 +24,10 @@ def check_extention(file):
 
 
 def not_valid_password(password):
-    """ Checks to see if password matches pattern
+    """ Input is a string
+    Checks to see if password matches pattern
     Delivers flash message if none match
+    Output is a boolean of True is doesn't match
     """
     if not (re.search(password_pattern, password)):
         flash(flash_password)
@@ -34,7 +35,9 @@ def not_valid_password(password):
 
 
 def not_valid_username(username):
-    """ Checks to see if username matches pattern
+    """ Input is a string
+    Checks to see if username matches pattern
+    Output is a boolean of True is doesn't match
     """
     if not (re.search(username_pattern, username)):
         flash(flash_username)
@@ -42,8 +45,10 @@ def not_valid_username(username):
 
 
 def not_valid_email(email):
-    """ Checks to see if email matches pattern
-    delivers flash message
+    """ Input is a string
+    Checks to see if email matches pattern
+    if doesnt match delivers flash message
+    Output is a boolean of True is doesn't match
     """
     if not (re.search(email_pattern, email)):
         flash(flash_email)
@@ -51,22 +56,35 @@ def not_valid_email(email):
 
 
 def not_valid_text(text):
-    """ To see if the user is only using spaces
-    Delivers flash message if so
+    """ Input is a string
+    To see if the user is only using spaces
+    If doesn't match delivers flash message
+    Output is a boolean of True is doesn't match
     """
     if text.isspace():
         flash(flash_spaces)
         return True
 
 
-def check_length(input):
+def check_length(input, length):
+    """ Takes input as string and length as interger
+    Converts the length into a string and concencrates is with the pattern
+    Checks to see if the input matches the pattern
+    Returns a boolean of True is is doesn't match
+    """
+    max = str(length)
+    length_pattern = (
+        r"^.{1," +
+        max +
+        "}$")
     if not (re.search(length_pattern, input)):
         flash(flash_length)
         return True
 
 
-def check_input(input):
-    """ take the input and checks for profanity, spaces and length
+def check_input(input, length):
+    """ Take the input and checks for profanity, input and length
+    Input is a string and length is an interger
     Output is a boolean, if True wont allow data insert
     """
     if profanity_check(input):
@@ -76,25 +94,36 @@ def check_input(input):
     if not_valid_text(input):
         return True
 
-    if check_length(input):
+    if check_length(input, length):
         return True
 
 
 def check_size(input):
+    """ Takes input as a string
+        Checks to see if the string is in sizes
+        Output is a boolean of True is doesn't match
+    """
     if input not in sizes:
         return True
 
 
 def check_gender(input):
+    """ Takes input as a string
+        Checks to see if the string is in gender
+        Output is a boolean of True is doesn't match
+    """
     if input not in genders:
         return True
 
 
-def check_text_input(input):
+def check_text_input(input, length):
+    """ Takes input string and length as interger
+    passes these to the appropriate functions
+    """
     if not_valid_text(input):
         return True
 
-    if check_length(input):
+    if check_length(input, length):
         return True
 
 
@@ -132,33 +161,31 @@ def check_not_valid_build():
     dog_size = request.form.get('dog_size')
     dog_gender = request.form.get('dog_gender')
 
-    if check_text_input(dog_description):
+    if check_text_input(dog_description, 1500):
         return True
     if profanity_check(dog_description):
         flash(flash_description)
         return True
 
-    if check_text_input(human_description):
+    if check_text_input(human_description, 1500):
         return True
     if profanity_check(human_description):
         flash(flash_description)
         return True
 
-    if check_text_input(dog_name):
+    if check_text_input(dog_name, 30):
         return True
     if profanity_check(dog_name):
         flash(flash_dogname)
         return True
 
-    if check_text_input(human_name):
+    if check_text_input(human_name, 30):
         return True
     if profanity_check(human_name):
         flash(flash_human)
         return True
-    if check_length(human_name):
-        return True
 
-    if check_text_input(dog_location):
+    if check_text_input(dog_location, 30):
         return True
     if profanity_check(dog_location):
         flash(flash_location)
@@ -183,19 +210,19 @@ def check_not_valid_edit():
     dog_location = request.form.get('dog_location')
     dog_size = request.form.get('dog_size')
 
-    if check_text_input(dog_description):
+    if check_text_input(dog_description, 1500):
         return True
     if profanity_check(dog_description):
         flash(flash_description)
         return True
 
-    if check_text_input(dog_name):
+    if check_text_input(dog_name, 30):
         return True
     if profanity_check(dog_name):
         flash(flash_dogname)
         return True
 
-    if check_text_input(dog_location):
+    if check_text_input(dog_location, 30):
         return True
     if profanity_check(dog_location):
         flash(flash_location)
@@ -213,15 +240,14 @@ def check_not_valid_edit_human():
     human_description = request.form.get('human_description')
     human_name = request.form.get('human_name')
 
-    if check_text_input(human_description):
+    if check_text_input(human_description, 1500):
         return True
     if profanity_check(human_description):
         flash(flash_description)
         return True
 
-    if check_text_input(human_name):
+    if check_text_input(human_name, 30):
         return True
     if profanity_check(human_name):
         flash(flash_name)
         return True
-
