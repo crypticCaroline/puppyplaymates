@@ -49,6 +49,16 @@ def homepage():
     return render_template('homepage.html')
 
 
+@app.route('/safe_spaces')
+def safe_spaces():
+    return render_template('safe_spaces.html')
+
+
+@app.route('/privacy_policy')
+def privacy_policy():
+    return render_template('privacy_policy.html')
+
+
 @app.route('/playmates')
 def playmates():
     """Finds all users within the database
@@ -593,6 +603,10 @@ def add_walk(username):
 
 @app.route('/profile/<username>/remove_walk', methods=['GET', 'POST'])
 def remove_walk(username):
+    """ Finds profile in the database
+    removes the walk from the database
+    If not session redirects to login
+    """
     if session:
         if request.method == 'POST':
             mongo.db.users.update_one(
@@ -605,13 +619,10 @@ def remove_walk(username):
     flash(flash_login)
     return render_template('login.html')
 
-# Comments
-# Adds a comment to the users profile
-
 
 @app.route('/profile/<username>/comment', methods=['GET', 'POST'])
 def add_comment(username):
-    """ Finds session user profile in the database
+    """ Finds user profile using the username in the database
     Checks to make sure the input is valid
     Adds comments to the profiles document with session users details
     If not session redirects to login
@@ -619,14 +630,13 @@ def add_comment(username):
 
     if session:
         user_session = mongo.db.users.find_one({'username': session['user']})
-        # Adds a comment to the users profile
         if request.method == 'POST':
             comment_date = datetime.now().strftime('%d-%m-%y, %H:%M')
             private = request.form.get('private')
             is_private = False
             comment_input = request.form.get('add_comment')
 
-            if check_input(comment_input, 3000):
+            if check_input(comment_input, 5000):
                 return redirect(url_for('profile', username=username))
 
             if private:
@@ -673,7 +683,7 @@ def edit_comment(username, comment_id):
             is_private = False
             comment_input = request.form.get('edit_comment')
 
-            if check_input(comment_input, 3000):
+            if check_input(comment_input, 5000):
                 return redirect(url_for('profile', username=username))
 
             if private:
@@ -941,16 +951,6 @@ def contact_user(username):
     return render_template('login.html')
 
 
-@app.route('/safe_spaces')
-def safe_spaces():
-    return render_template('safe_spaces.html')
-
-
-@app.route('/privacy_policy')
-def privacy_policy():
-    return render_template('privacy_policy.html')
-
-
 # error handlers
 @ app.errorhandler(404)
 def page_not_found(e):
@@ -965,4 +965,4 @@ def internal_error(e):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)

@@ -271,7 +271,6 @@ Session Cookie - The user is assigned a session cookie on successful login.  Thi
 Reset Password - If the user tries to reset their password they are sent an email to the email address we have on file.  They are sent a random string tempoary password and a link to the reset password page.  Once they have clicked the link they will need to enter the username attached to the email address as an extra measure. 
 
 
-
 Data Input - In the app.py the session user is compared with the username to see if that user can make changes. 
 Most functions will find the details of the document to update using the session users cookie. This means even if the user manages to pass the front end security they will only end up updating their own document. 
 There are a couple of execptions for example, delete/edit comments, delete images and delete profile.  This checks to see if the user is an author of the post or admin which are allowed to remove if nessasary.  
@@ -287,6 +286,8 @@ There are a couple of execptions for example, delete/edit comments, delete image
 The website is fully responsive between different screen resolutions.  I have done this by using media queries, containers, rows and columns. I have chosen to hide the GIF images on small devices.  
 
 ### Accessibility
+
+
 
 ### Flash Messages
 * Flash messages are displayed toward the top of the pages and includes a soft pink banner to alert users to the text they contain when the  

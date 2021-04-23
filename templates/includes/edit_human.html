@@ -2,7 +2,7 @@
     <div class="modal-content">
         {% if session.user == username %}
         <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('edit_human', username=username)}}">
-            <h4>Edit Human Details</h4>
+            <h3 class="heading">Edit Human Details</h3>
             <img src="{{ url_for('static', filename='images/human.gif') }}" alt="dog walking" class="form-right">
             <div class="form-left">
                 <label for="human_name">Name</label>

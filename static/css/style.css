@@ -37,6 +37,7 @@ body {
     display:flex;
     flex-wrap: nowrap;
 }
+
 .row.wrap {
 	display: flex;
 	flex-wrap: wrap;
@@ -162,7 +163,6 @@ a {
     justify-content: center;
 }
 
-
 /* Buttons */
 .btn-yellow {
 	background-color: var(--yellow-color);
@@ -266,6 +266,7 @@ a {
 form {
 	margin-bottom: 14%;
 }
+
 .form-popout {
 	-moz-box-shadow: 0 0 3px 1px rgb(43, 38, 38, 0.1);
 	-webkit-box-shadow: 0 0 3px 1px rgb(43, 38, 38, 0.1);
@@ -322,6 +323,7 @@ input[type=date]:not(.browser-default).form-indent,
 textarea.materialize-textarea.form-no-indent, .input-field.no-indent {
 	margin-left: 0;
 }
+
 .select-wrapper span.caret {
 	display: none;
 }
@@ -547,8 +549,6 @@ h5.policy-spacing {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 3;
-	line-height: X;
-	max-height: X*3;
 }
 
 /*  Profile and modals */
@@ -802,6 +802,10 @@ h3.error {
     
     h3, h3.heading {
         font-size: 2.92rem;
+    }
+
+    h4 {
+    font-size: 2.28rem;
     }
     form {
 	    margin-bottom: 4%;
