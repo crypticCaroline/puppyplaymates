@@ -1,7 +1,10 @@
 <!doctype html>
-<html lang="">
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A perfect way for you to find love or playmates for your dog">
+    <meta name="author" content="Rebecca Kelsall">
+    <meta name="keywords" content="dogs, puppys, puppy love, find dogs, breeding dogs, dogs in my area, puppyplaymates">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
         integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA==" crossorigin="anonymous" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
@@ -11,14 +14,13 @@
       href="{{ url_for('static', filename='images/avatar_icon.png')}}">
     <title>{% block title %}{% endblock %} </title>
 </head>
-
 <body>
     <!-- Nav -->
     <header id="header">
         <nav class="nav-extended nav-bar-col nav-bar-txt">
             <div class="nav-wrapper">
                 <a href="{{ url_for('homepage')}}" class="nav-bar-txt">PuppyPlaymates</a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse right mob-nav"></a>
+                <a href="#" data-activates="mobile-demo" aria-label="Menu" class="button-collapse right mob-nav"></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     {% if session.user %}
                     <li><a href="{{ url_for('profile', username=session['user'])}}" class="nav_item">Profile</a></li>
@@ -53,18 +55,18 @@
             <div class="container">
                 <div class="row wrap">
                     <div class="col s12 l6 ">
-                        <h5 class="footer-text" >PuppyPlaymates</h5>
+                        <p class="footer-header" >PuppyPlaymates</p>
                         <p class="footer-text">Helping you to find the perfect Playmates for your Pup</p>
                     </div>
                     <div class="col s12 l4 offset-l2 ">
-                        <h5 class="footer-text">Links</h5>
+                        <p class="footer-header">Links</p>
                         <ul>
                             {% if session.user %}
                             <li><a class="footer-text" href="{{ url_for('logout')}}">Sign Out</a></li>                            
                             <li><a class="footer-text" href="
                                 {{ url_for('build_profile', username=session['user'])}}">Rebuild Profile</a></li>
                             <li><a class="footer-text" href="{{ url_for('change_password')}}">Change Password</a></li>
-                            <li><a class="footer-text" href="{{ url_for('delete_profile', username=username)}}">Delete Account</a></li>
+                            <li><a class="footer-text" href="{{ url_for('delete_profile', username=session['user'])}}">Delete Account</a></li>
                             <li><a class="footer-text" href="{{ url_for('report_user')}}">Report User</a></li>
                             {% else%}
                             <li><a class="footer-text" href="{{ url_for('login')}}">Sign In</a></li>
@@ -80,7 +82,7 @@
             <div class="footer-copyright">
                 <div class="container footer-text">
                     <p>Copyright 2021 <a
-                            href="https://github.com/crypticCaroline" target="_blank" class="footer-text">Rebecca Kelsall</a></p>
+                            href="https://github.com/crypticCaroline" target="_blank" rel="noopener" class="footer-text">Rebecca Kelsall</a></p>
                 </div>
             </div>
         </footer>

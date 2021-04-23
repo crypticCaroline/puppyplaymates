@@ -13,7 +13,7 @@
                 <label for="query">Search Puppys</label>
                 <input type="text" name="query" id="query" minlength="3" class="validate" required>
             </div>
-            <h6>You can search for any dog by breed, size, location, gender and name</h6>
+            <p>You can search for any dog by breed, size, location, gender and name</p>
             <button type="submit" class="btn-yellow btn btn-med">
                 Search
             </button>
@@ -29,7 +29,7 @@
         <div class="user-cards card">
             <!--Inline style for allocation of background-image for each card in loop -->
             <div class="valign-wrapper user-cards__image" style="background-image: url('{{ user.image_url }}')">
-                <a href="{{url_for('profile', username=user.username)}}">
+                <a href="{{url_for('profile', username=user.username)}}" aria-label="Link to {{user.dog_name}} profile">
                 <img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}" class="sm_img">
                 </a>
             </div>
@@ -44,6 +44,7 @@
                     {% if user.fertile %}
                     <p><i class="fas fa-cut "></i></p>
                     {% endif %}
+                    <p>{{user.dog_gender}}</p>
                     <p>{{user.dog_location}}</p>
                  </a>   
             </div>

@@ -7,17 +7,16 @@
         <div class="row form-indent">
             <div class="col hide-on-small-only m5 notfound-page valign-wrapper">
                 <div class="row">
-                    <img src="{{ url_for('static', filename='images/delete-dog.gif') }}"
-                        alt="Gif of dog"
+                    <img src="{{ url_for('static', filename='images/delete-dog.gif') }}" alt="Gif of dog"
                         class="align-center col s12 m10 offset-m1">
                 </div>
             </div>
             {% if session.user == username and session.user != "admin" %}
-            <div class="s12 l8 col form-indent"> 
+            <div class="s12 l8 col form-indent">
                 <h3 class="heading align-center">Delete Profile</h3>
-                <h5>
+                <p class="footer-header">
                     What ever your reason for needing to leave us we are sorry to see you go
-                </h5>
+                </p>
                 <p>You can change your dog if you need to. It will replace all infomation about your current dog</p>
                 <a href="{{ url_for('build_profile', username=session['user'])}}" class="btn btn-yellow">Change Dog</a>
                 <p>If you delete your profile this can not be undone</p>
@@ -29,33 +28,34 @@
             </div>
             {% endif %}
             {% if session.user == "admin" %}
-            <div class="s12 l8 col form-indent"> 
-            <!-- Flash messages -->
-                    {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                    {% for message in messages %}
-                    <div class="row flashes">
-                        <h5 class="center-align col s12">{{ message }}</h5>
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-                    {% endwith %}
-            <h3>Remove User</h3>
-            <p>{{username}}</p>
-            <p>If you delete this profile it can not be undone</p>
-            <form method="POST" action="{{ url_for('delete_profile', username=username)}}">
+            <div class="s12 l8 col form-indent">
+                <!-- Flash messages -->
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                <div class="row flashes">
+                    <h5 class="center-align col s12">{{ message }}</h5>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <h3>Remove User</h3>
+                <p>{{username}}</p>
+                <p>If you delete this profile it can not be undone</p>
+                <form method="POST" action="{{ url_for('delete_profile', username=username)}}">
                     <button type="submit" class=" btn btn-yellow btn-red">Delete Profile</button>
-                </form>   
-            <p>Alternatively send them an email to discuss the reason for removal<p>
+                </form>
+                <p>Alternatively send them an email to discuss the reason for removal
+                </p>
 
-            <form method="POST" action="{{ url_for('contact_user', username=username)}}">
-            <label for="contact-message">Reason for Reporting</label>                    
-                        <textarea id="contact-message" name="contact-message" class="validate materialize-textarea contact-form"
-                            minlength="10" required></textarea>
-                        
-            <button type="submit" class=" btn btn-yellow btn-red">Contact User</button>
-                </form>        
-            </div>    
+                <form method="POST" action="{{ url_for('contact_user', username=username)}}">
+                    <label for="contact-message">Reason for Reporting</label>
+                    <textarea id="contact-message" name="contact-message"
+                        class="validate materialize-textarea contact-form" minlength="10" required></textarea>
+
+                    <button type="submit" class=" btn btn-yellow btn-red">Send Message</button>
+                </form>
+            </div>
             {% endif %}
 
         </div>

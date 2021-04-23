@@ -17,7 +17,7 @@
         </ul>
     
         {% if session.user %}
-        <h6>Need to report a user</h6>
+        <p>Need to report a user</p>
         <a href="{{ url_for('report_user')}}" class="btn-yellow btn-large btn-space">Report User</a>
         {% else %}
         <h6>Need to contact us</h6>
