@@ -14,6 +14,33 @@ assess functionality, usability, responsiveness and data management
 
 ### User Stories
 
+For full test of user stories please see the video  [![User Testing](static/images/userstories.png)](https://www.youtube.com/watch?v=_W5o8BDtzcg)
+
+* I would like to find out what the site is about - About Section on Homepage &#9745;
+* I would like to see if the site is for me without registering - Playmates Link at the bottom of the homepage &#9745;
+* I would like to easily register - Registration page &#9745;
+* I would like to be able to add my dogs details - Build Profile Page &#9745;
+
+
+#### Existing User
+* I want to be able to sign in and out easily - Login Page &#9745;
+* I would like to be able to delete my account - Delete Page &#9745;
+* I would like to be able to add/edit/delete comments to my own and other profiles - Add comments on profiles pages with options to edit and delete &#9745;
+* I would like to be able to reset my password - Reset password page &#9745;
+
+#### All Users 
+* I would like to get user feedback when I take actions on the site - all pages &#9745;
+* I would like to be able to contact PuppyPlaymates - contact and report pages &#9745;
+* I would like to be able to add comments and details about my walks - Walks modal on profile page &#9745;
+* I would like to be able to track what pages I have liked or that like me - Pups I love and Admirers section &#9745;
+* I would like to be able to message or comment on other profiles - Add Comments on profiles pages with options to edit or delete &#9745;;
+* I would like to feel safe when using the platform - report pages and admin &#9745;
+* I would like to be able to search for other users - Search option in playmates pages  &#9745;
+* I would like to be able to add/edit/delete images and change my profile image - Add images modal, with options to change profile picture or delete image &#9745;
+* I would like to be able to add/edit/delete dog infomation - Buildprofile page, edit info and delete profile &#9745;
+* I would like to be able to add/edit/delete my infomation - Build profile page, edit human and delete profile  &#9745;
+
+
 ### Function Testing
 
 Every function written was passed individually through a [Python Tutor](http://pythontutor.com/), I assigned input variables stepped through each line of code to ensure expected outcomes.  

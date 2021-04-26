@@ -103,10 +103,10 @@ With PuppyPlaymates I wanted to be able to give dog owners a way to communicate 
 * I would like to get user feedback when I take actions on the site
 * I would like to be able to contact PuppyPlaymates
 * I would like to be able to add comments and details about my walks
-* I would like to be able to track what pages I have liked
+* I would like to be able to track what pages I have liked and that like me
 * I would like to be able to message or comment on other profiles
 * I would like to feel safe when using the platform
-* I would like to be able to seach for other users 
+* I would like to be able to search for other users 
 * I would like to be able to add/edit/delete images and change my profile image
 * I would like to be able to add/edit/delete dog infomation
 * I would like to be able to add/edit/delete my infomation
