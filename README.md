@@ -676,6 +676,8 @@ Making a Local Clone
 * [Internet Marketing Ninjas](https://www.internetmarketingninjas.com/online-spell-checker.php) - spell check
 * [solution to truncate found here](https://stackoverflow.com/questions/11989546/wrap-a-text-within-only-two-lines-inside-div) 
 * [Help to build age check](https://www.geeksforgeeks.org/python-program-to-calculate-age-in-year/)
+* [Github Emoji for Markdown](https://gist.github.com/rxaviers/7360908)
+* [PowerMapper](https://www.powermapper.com/) to check for browser compatibility
 
 
 

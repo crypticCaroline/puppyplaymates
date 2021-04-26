@@ -2,7 +2,8 @@
 
 ## Testing Index 
 
-* [User Stories](#User) 
+* [User Stories](#user) 
+* [Email Testing](#email-testing-:email:)
 * [Browser Compatibility](#browser-Compatibility)
 * [Validators](#Validators)
 * [OS Compatibility](#os-compatibility)
@@ -10,79 +11,80 @@
 * [Usability Testing](#usability-testing)
 * [User Testing](#testing-logs)
 
-assess functionality, usability, responsiveness and data management
 
-### User Stories
+## User Stories
 
-For full test of user stories please see the video  [![User Testing](static/images/userstories.png)](https://www.youtube.com/watch?v=_W5o8BDtzcg)
+For full test of user stories please see the video  :arrow_forward: [![User Testing](images/user-stories.png)](https://www.youtube.com/watch?v=_W5o8BDtzcg)
 
-* I would like to find out what the site is about - About Section on Homepage &#9745;
-* I would like to see if the site is for me without registering - Playmates Link at the bottom of the homepage &#9745;
-* I would like to easily register - Registration page &#9745;
-* I would like to be able to add my dogs details - Build Profile Page &#9745;
 
+#### New User
+* I would like to find out what the site is about - About Section on Homepage :heavy_check_mark:
+* I would like to see if the site is for me without registering - Playmates Link at the bottom of the homepage :heavy_check_mark:
+* I would like to easily register - Registration page :heavy_check_mark:
+* I would like to be able to add my dogs details - Build Profile Page :heavy_check_mark:
 
 #### Existing User
-* I want to be able to sign in and out easily - Login Page &#9745;
-* I would like to be able to delete my account - Delete Page &#9745;
-* I would like to be able to add/edit/delete comments to my own and other profiles - Add comments on profiles pages with options to edit and delete &#9745;
-* I would like to be able to reset my password - Reset password page &#9745;
+* I want to be able to sign in and out easily - Login Page :heavy_check_mark:
+* I would like to be able to delete my account - Delete Page :heavy_check_mark:
+* I would like to be able to add/edit/delete comments to my own and other profiles - Add comments on profiles pages with options to edit and delete :heavy_check_mark:
+* I would like to be able to reset my password - Reset password page :heavy_check_mark:
 
 #### All Users 
-* I would like to get user feedback when I take actions on the site - all pages &#9745;
-* I would like to be able to contact PuppyPlaymates - contact and report pages &#9745;
-* I would like to be able to add comments and details about my walks - Walks modal on profile page &#9745;
-* I would like to be able to track what pages I have liked or that like me - Pups I love and Admirers section &#9745;
-* I would like to be able to message or comment on other profiles - Add Comments on profiles pages with options to edit or delete &#9745;;
-* I would like to feel safe when using the platform - report pages and admin &#9745;
-* I would like to be able to search for other users - Search option in playmates pages  &#9745;
-* I would like to be able to add/edit/delete images and change my profile image - Add images modal, with options to change profile picture or delete image &#9745;
-* I would like to be able to add/edit/delete dog infomation - Buildprofile page, edit info and delete profile &#9745;
-* I would like to be able to add/edit/delete my infomation - Build profile page, edit human and delete profile  &#9745;
+* I would like to get user feedback when I take actions on the site - all pages :heavy_check_mark:
+* I would like to be able to contact PuppyPlaymates - contact and report pages :heavy_check_mark:
+* I would like to be able to add comments and details about my walks - Walks modal on profile page :heavy_check_mark:
+* I would like to be able to track what pages I have liked or that like me - Pups I love and Admirers section :heavy_check_mark:
+* I would like to be able to message or comment on other profiles - Add Comments on profiles pages with options to edit or delete :heavy_check_mark:
+* I would like to feel safe when using the platform - report pages and admin :heavy_check_mark:
+* I would like to be able to search for other users - Search option in playmates pages  :heavy_check_mark:
+* I would like to be able to add/edit/delete images and change my profile image - Add images modal, with options to change profile picture or delete image :heavy_check_mark:
+* I would like to be able to add/edit/delete dog infomation - Buildprofile page, edit info and delete profile :heavy_check_mark:
+* I would like to be able to add/edit/delete my infomation - Build profile page, edit human and delete profile  :heavy_check_mark:
+
+## Email Testing :email:
+
+I have used [Temp Mail](https://temp-mail.org/en/) for part of my user testing so I could create multiple profiles at a time to test the interactions between the accounts.  This also meant I was able to check that each email was being sent correctly. 
+![Emails testing](images/user-stories.png)
 
 
-### Function Testing
+## Function Testing
 
 Every function written was passed individually through a [Python Tutor](http://pythontutor.com/), I assigned input variables stepped through each line of code to ensure expected outcomes.  
 
-### Temp Mail
 
 
-### Validators
-    
+## Validators
 
 Every page of the website was run through [HTML Validator](https://validator.w3.org/) because of flask being a templating language the code wouldn't show as valid html. I copied the code from within DEV Tools and pasted it into the validators to check the validaty at render. - All pages PASSED
 
 
-I passed the css file through [CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) - PASSED
+I passed the css file through [CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) - :heavy_check_mark:
 
 
-Every Python file has been run through to check for Pep8 compliances and to test the validiaty of the code. [Pep8 Online](http://pep8online.com/) - PASSED
+Every Python file has been run through to check for Pep8 compliances and to test the validiaty of the code. [Pep8 Online](http://pep8online.com/) - :heavy_check_mark:
 
 
-The JavaScript file has been run through a JavaScript to test the validiaty of the code. [JSHint](https://jshint.com/) - PASSED
+The JavaScript file has been run through a JavaScript to test the validiaty of the code. [JSHint](https://jshint.com/) - :heavy_check_mark:
 
 
-### Performance Testing
+## Performance Testing
 I passed every page through Dev Tools Lighthouse to check to see how well the website was functioning. Please see the below screen shots of the homepage, playmates and profile.  
 
-### Browser Compatibility
 
-Tested on Chrome, Firefox, Brave, Internet Explorer, Microsoft Edge, Safari.
+## Browser & OS Compatibility
 
-When using Internet Explorer the test doesn't run, the buttons are not built and the colour scheme is not shown. This is because Internet Explorer is not compatible with some of the latest JavaScript and CSS releases.  I have added a message at the bottom of the instructions to let users know to use an alternative browser to run the test.  In  a future releases of the project given more time I would like to make the test compatible with Internet Explorer. 
+Tested on Chrome, Firefox, Brave, Internet Explorer, Microsoft Edge, Safari.  iOS, Android 10, and Windows 10.  I used a combination of manual browser checks and used [PowerMapper](https://www.powermapper.com/) to check for browser compatibility
 
-### OS Compatibility
- iOS, Android 10, and Windows 10. -
-Tested for responsiveness using Chrome DevTools. Runs well on both IOS and Android 10. 
+![Browser testing](images/browser-testing.png)
 
 
-### Usability 
+
+## Usability 
 
 ### User Testing 
 I put the site out to a small group of users to feedback on how they found the WebApp.  Please see the logs below to see what feedback was recieved and how this feedback was used in the testing process
 
-## Testing Logs
+## Testing Logs from user feedback
 
 | Feedback  |Investigation | Fix |   Decision |   
 |---|---|---|---|
