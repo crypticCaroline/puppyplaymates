@@ -12,7 +12,7 @@ def contact_us_mail(email, message_text):
 
     msg = Message('Contacting us at PuppyPlaymates',
                   html=('<p> Thank you for contacting us '
-                        'with the following message:</p>'
+                        'with the following message: </p>'
                         '<p> %s </p>'
                         '<p>We will endevour to get back to you '
                         'within 48hr</p>'
@@ -30,9 +30,11 @@ def welcome_email(user_email):
     """
     msg = Message('Welcome to Puppyplaymate',
                   html='<p>Hello  %s </p>'
+                  '<br>'
                   '<p>Thank you for registering with us at PuppyPlaymates</p>'
                   '<p> We are excited to have you join us and hope you have'
                   ' success finding a playmate for your Pup!</p>'
+                  '<br>'
                   ' <p>The Team at PuppyPlaymates</p>' % session[
                       'user'],
                   sender=our_email,
@@ -47,15 +49,18 @@ def reset_password_mail(temp_password, user_email):
     Sends email to user
     """
     reset_message = ('<p>You look like you need to reset your password</p>'
-                     '<p>This is your <b>Temporary password:</b>' +
+                     '<p>This is your <b>Temporary password:</b> ' +
                      temp_password +
                      ' </p>'
+                     '<br>'
                      '<a href=' +
                      change_password_link +
                      '>Reset Password Link</a>'
+                     '<br>'
                      '<p>If you didn\'t request this email to be sent '
                      'it might be worth logging into your account and '
                      'changing your password</p>'
+                     '<br>'
                      '<p>The Team at PuppyPlaymates</p>')
 
     msg = Message('Reset Password',
@@ -74,12 +79,14 @@ def report_user_mail(user_email, user_report, user_info):
               '<b>' +
               user_report +
               '</b></p>'
+              '<br>'
               '<p> For the following reasons: </p> '
               '<p>' +
               user_info +
               '</p>'
               'We will take a look into the users activity and'
               'take the appropriate action.</p>'
+              '<br>'
               '<p>The Team at PuppyPlaymates</p>')
 
     msg = Message('Report user',
@@ -99,7 +106,9 @@ def contact_user_mail(email, message_text):
     msg = Message('Important Contact',
                   html=('<p> A member of our Team is getting in'
                         'contact with you with the following message:</p>'
+                        '<br>'
                         '<p> %s </p>'
+                        '<br>'
                         '<p>The Team at PuppyPlaymates</p>' % message_text),
                   sender=our_email,
                   cc=[our_email],

@@ -353,6 +353,12 @@ textarea.materialize-textarea.form-no-indent, .input-field.no-indent {
 }
 
 /* Images */
+
+img {
+    max-width: 100%;
+    height:auto;
+}
+
 .sm_img {
 	width: 100px;
 	height: auto;
