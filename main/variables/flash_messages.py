@@ -2,7 +2,7 @@
 
 flash_login = 'You need to be logged in to view this page'
 
-flash_username_exists = 'Username already exists'
+flash_username_exists = 'This username is not unqiue please choose another'
 
 flash_email_registered = ('This email already registered, '
                           'please head to the login page')

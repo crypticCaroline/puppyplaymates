@@ -136,13 +136,15 @@ def register():
         user_email = request.form.get('email')
         existing_user = mongo.db.users.find_one(
             {'username': request.form.get('username')})
+        old_account = mongo.db.archives.find_one(
+            {'username': request.form.get('username')})
         existing_email = mongo.db.users.find_one(
             {'email': user_email})
 
         if check_not_valid_registration():
             return redirect(url_for('register'))
 
-        if existing_user:
+        if existing_user or old_account:
             flash(flash_username_exists)
             return redirect(url_for('register'))
         if existing_email:
