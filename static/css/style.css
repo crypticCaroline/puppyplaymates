@@ -140,6 +140,12 @@ a {
 	padding-bottom: 0.5%;
 }
 
+.small-header {
+    font-size: 1.64rem;
+    line-height: 110%;
+    margin: .82rem 0 .656rem 0;
+}
+
 .heading-indent {
 	padding-left: 2%;
 }
@@ -780,12 +786,6 @@ h3.error {
 	height: 60px;
 }
 
-.footer-header {
-    color: var(--dark-font-color);
-    font-size: 1.64rem;
-    line-height: 110%;
-    margin: .82rem 0 .656rem 0;
-}
 .footer-text {
 	color: var(--dark-font-color);
 }

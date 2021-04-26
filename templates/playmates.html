@@ -36,7 +36,7 @@
 
             <div class="content">
                 <a href="{{url_for('profile', username=user.username)}}">
-                    <h5>{{ user.dog_name }}</h5>
+                    <p class="small-header">{{ user.dog_name }}</p>
                     <p class="bio-overflow" >{{ user.dog_description }}</p>
                     {% if user.puppy_love %}
                     <p><i class="fas fa-heart "></i></p>
