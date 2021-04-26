@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}500{% endblock %}
+
+
+{% block content %}
+<div class="error-page">
+    <div class="row">
+        <div class="s8 col">
+            <h2>403</h2>
+            <h3>Access Forbidden</h3>
+            <h4>It's looks like you can't access this page</h4>
+                {% if session['user'] %}
+                    <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">Back to my profile</a>
+                {% else %}
+                    <a href="{{ url_for('homepage')}}" class="btn btn-yellow">Back to the homepage</a>
+                {% endif %}
+
+             <p>If you think this is wrong you can contact us here </p>
+             <a href="{{url_for('contact_us')}}" class="btn btn-yellow">Contact Us</a>   
+        </div>
+        <img src="{{ url_for('static', filename='images/barking.jpg') }}" alt="Gif of dog" class="align-right s4 col">
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

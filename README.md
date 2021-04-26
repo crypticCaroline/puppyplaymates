@@ -194,6 +194,9 @@ I have used backend validation to make sure the data is formatted correctly befo
 
 ![Datebase Sample](docs/database/sample_data.png)
 
+##### Archives
+
+When a user is deleted I have chosen to add them into an archive.  This means that if a user is accidentally deleted, we have the means to access the data.  The schema is identical to above and directly transfered over before the user is removed from the users collection.
 
 
 #### MongoDB 
@@ -383,8 +386,6 @@ Please refer to [structure](#structure) to see the navigation and user pathways
 * Delete Comment - allows authors or profile owners to delete comment. If the profile owner, it also brings up button to report user if comment makes them feel uncomfortable. 
 
 
-
-
 ### Playmates 
 #### Display 
 * Uses a loop to build individual cards for each user containing:
@@ -411,7 +412,7 @@ Please refer to [structure](#structure) to see the navigation and user pathways
 * Button to take user back to their profile
 * Button to ask if the user wants to change their dogs details - this will take them back to build profile and allows the user to change all the details. 
 * Button to delete their profile 
-
+*  The entire document will be added to the archives incase of accidental removal.
 
 
 ### Safespaces Policy

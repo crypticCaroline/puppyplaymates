@@ -708,6 +708,8 @@ def delete_comment(username, comment_id):
 def delete_profile(username):
     """ Finds profile in the database allows user & admin to delete
     Removes session cookie
+    Adds the entire document to the archive in case of accidental removal
+    Removes the document from the users collection and adds it to archives
     Delivers a Flash message to advise removed
     Directs back to Homepage
     If not session redirects to login
@@ -717,12 +719,17 @@ def delete_profile(username):
             if session['user'] == username or session['user'] == 'admin':
                 remove_user = mongo.db.users.find_one(
                     {'username': username})['_id']
+                archive_user = mongo.db.users.find_one(
+                    {'_id': ObjectId(remove_user)})
                 if session['user'] == username:
+                    print(remove_user)
                     session.pop('user')
+                    mongo.db.archives.insert_one(archive_user)
                     mongo.db.users.remove(remove_user)
                     flash(flash_profile_removed)
                     return redirect(url_for('homepage'))
                 else:
+                    mongo.db.archives.insert_one(archive_user)
                     mongo.db.users.remove(remove_user)
                     flash(flash_profile_removed)
                     return redirect(url_for('profile',
@@ -907,6 +914,11 @@ def contact_user(username):
 
     flash(flash_login)
     return render_template('login.html')
+
+
+@ app.errorhandler(403)
+def access_forbidden(e):
+    return render_template('403.html'), 403
 
 
 @ app.errorhandler(404)

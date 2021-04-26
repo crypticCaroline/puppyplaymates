@@ -16,20 +16,28 @@ assess functionality, usability, responsiveness and data management
 
 ### Function Testing
 
-Every functions written was passed through individually through python checkers, assigned an input variable and the function stepped through to ensure expected outcomes 
+Every function written was passed individually through a [Python Tutor](http://pythontutor.com/), I assigned input variables stepped through each line of code to ensure expected outcomes.  
+
+### Temp Mail
 
 
 ### Validators
     
-[HTML Validator](https://validator.w3.org/) 
+
+Every page of the website was run through [HTML Validator](https://validator.w3.org/) because of flask being a templating language the code wouldn't show as valid html. I copied the code from within DEV Tools and pasted it into the validators to check the validaty at render. - All pages PASSED
 
 
-[CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input)
-
-[JSHint](https://jshint.com/)- Testing and checking JS. 
+I passed the css file through [CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) - PASSED
 
 
+Every Python file has been run through to check for Pep8 compliances and to test the validiaty of the code. [Pep8 Online](http://pep8online.com/) - PASSED
 
+
+The JavaScript file has been run through a JavaScript to test the validiaty of the code. [JSHint](https://jshint.com/) - PASSED
+
+
+### Performance Testing
+I passed every page through Dev Tools Lighthouse to check to see how well the website was functioning. Please see the below screen shots of the homepage, playmates and profile.  
 
 ### Browser Compatibility
 
@@ -41,10 +49,6 @@ When using Internet Explorer the test doesn't run, the buttons are not built and
  iOS, Android 10, and Windows 10. -
 Tested for responsiveness using Chrome DevTools. Runs well on both IOS and Android 10. 
 
-### Performance Testing
-Tested on the Developer Tools Lighthouse.  
-
-I used Lighthouse last in my testing to check for final things to improve and make sure everything was working well.  I had not added rel= noopeners to my resources page, Dev Tools highlighted this and I made the adjustment. 
 
 ### Usability 
 
