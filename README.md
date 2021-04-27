@@ -21,62 +21,102 @@ The application has a lot of room for growth and a list of future features to im
 
 ## Index – Table of Contents
 
-* [User Experience (UX)](#user-experience) 
-    * [User Stories](#user-stories)
-    * [Scope](#scope)
-    * [Site Structure](#structure)
-* [Database](#database)
-    * [Database Schema](#database_schema)
-    * [Database Documents](#database-documents)
-    * [MongoDB](#mongodb)
-* [Validation](#validation)   
-* [Security](#security)
-* [Features](#features)
-    * [Universal Features Across the Site](universal-features-across-the-site)
-        * [Responsiveness](#responsiveness)
-        * [Accessibility](#accessibility)
-        * [Input fields](#input-fields)
-        * [Flash Messages](#flash-messages)
-    * [Base Templates](#base-templates)
-        * [Nav](#nav)
-        * [Footer](#footer)
-        * [Meta data](#meta-data)
-    * [Error Pages](#error-pages)
-        * [404](#404)
-        * [500](#500)
-        * [Not Session](#not-session)
-    * [Features Specific to Pages](#features-specific-to-pages)
-        * Profile 
-            * [Profile Content](#profile-content)    
-            * [Edit Modals](#edit-modals)
-        * [Playmates](#playmates)
-            * [Display](#display])
-            * [Search](#search) 
-        * [Homepage](#homepage)
-        * [Delete Account](#delete-account) 
-        * [Safespaces Policy](#safespaces-policy)
-        * [Privacy Policy](#privacy-policy)
-        * [Form Pages](#form-pages)
-            * [Login](#login)
-            * [Register](#register)
-            * [Build Profile](#build-profile)
-            * [Contact Us](#contact-us) 
-            * [Report User](#report-user)
-            * [Reset Password](#reset-password)
-            * [Change Password](#change-password)  
-* [Future Features](#future-features)
-* [Designs](#designs)
-    * [Wire Frames](#wireframes)
-    * [Mock Ups](#mockups)
-    * [Color](#color)
-    * [Typography](#typography)
-    * [Calls to action](#call-to-action)
-    * [Imagary](#imagary) 
-* [Technologies Used](#technologies-used)
-* [Testing](#testing)
-* [Known Bugs](#known-bugs)
-* [Deployment](#deployment)
-* [Acknowledgements](#credit)
+- [User Experience (UX)](#user-experience--ux-)
+- [Strategy](#strategy)
+  * [User Stories](#user-stories)
+    + [New User](#new-user)
+    + [Existing User](#existing-user)
+    + [All Users](#all-users)
+    + [Reasons for the website](#reasons-for-the-website)
+- [Scope](#scope)
+    + [A Playmates user may expect:](#a-playmates-user-may-expect-)
+    + [What a user may want:](#what-a-user-may-want-)
+    + [As a developer / business I expect:](#as-a-developer---business-i-expect-)
+- [Structure](#structure)
+- [Database](#database)
+    + [Datebase Schema](#datebase-schema)
+      - [Object Instance in the Database](#object-instance-in-the-database)
+      - [Below are the user input types that the user experiences in the front end](#below-are-the-user-input-types-that-the-user-experiences-in-the-front-end)
+      - [Sample of filled in Document](#sample-of-filled-in-document)
+      - [Archives](#archives)
+- [Validation](#validation)
+  * [Backend Validation](#backend-validation)
+  * [Front End Validation](#front-end-validation)
+- [Security](#security)
+- [Features](#features)
+    + [Universal Features Across the Site](#universal-features-across-the-site)
+  * [Responsiveness](#responsiveness)
+  * [Accessibility](#accessibility)
+  * [Flash Messages](#flash-messages)
+  * [Input Fields](#input-fields)
+  * [Base Templates](#base-templates)
+    + [Nav](#nav)
+    + [Footer](#footer)
+      - [Meta data](#meta-data)
+  * [Error Pages](#error-pages)
+    + [404](#404)
+    + [500](#500)
+    + [403](#403)
+    + [Not Session](#not-session)
+    + [Features Specific to Pages](#features-specific-to-pages)
+  * [Profile](#profile)
+    + [Profile Content](#profile-content)
+    + [Admin](#admin)
+    + [Edit Modals](#edit-modals)
+  * [Playmates](#playmates)
+    + [Display](#display)
+    + [Search](#search)
+  * [Homepage](#homepage)
+  * [Delete Account](#delete-account)
+  * [Safespaces Policy](#safespaces-policy)
+  * [Privacy Policy](#privacy-policy)
+  * [Form Pages](#form-pages)
+  * [Login](#login)
+  * [Register](#register)
+  * [Build Profile](#build-profile)
+  * [Contact Us](#contact-us)
+  * [Report User](#report-user)
+  * [Reset Password](#reset-password)
+  * [Change Password](#change-password)
+- [Future Features](#future-features)
+- [Design](#design)
+- [Skeleton](#skeleton)
+  * [Layout](#layout)
+    + [Surface](#surface)
+    + [Typography](#typography)
+    + [Call to Action](#call-to-action)
+  * [Imagery](#imagery)
+- [Technologies](#technologies)
+    + [Lanaguages & Frameworks](#lanaguages---frameworks)
+    + [Front End](#front-end)
+    + [Backend](#backend)
+    + [Helpers](#helpers)
+    + [Planning](#planning)
+  * [Flask](#flask)
+    + [Testing Tools](#testing-tools)
+    + [Technology Configeration](#technology-configeration)
+    + [MongoDB](#mongodb)
+  * [Cloudinary](#cloudinary)
+  * [Flask Mail](#flask-mail)
+- [Testing](#testing)
+- [Deployment](#deployment)
+  * [Configeration](#configeration)
+    + [Local Enviroment](#local-enviroment)
+  * [Adding and Committing files](#adding-and-committing-files)
+  * [Deploying](#deploying)
+  * [Forking](#forking)
+  * [Cloning](#cloning)
+- [Known Bugs](#known-bugs)
+- [Acknowledgements](#acknowledgements)
+  * [Credit](#credit)
+      - [People](#people)
+      - [Additional Testers](#additional-testers)
+      - [Tools and Docs](#tools-and-docs)
+  * [Code:](#code-)
+  * [Content:](#content-)
+  * [Inspiration & Research:](#inspiration---research-)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 *** 
 
@@ -198,13 +238,6 @@ I have used backend validation to make sure the data is formatted correctly befo
 
 When a user is deleted I have chosen to add them into an archive.  This means that if a user is accidentally deleted, we have the means to access the data.  The schema is identical to above and directly transfered over before the user is removed from the users collection.
 
-
-#### MongoDB 
-
-TLS/SSL (Transport Encryption)
-
-
-
 ## Validation
 
 ### Backend Validation 
@@ -242,12 +275,12 @@ Not Valid Email - Checks to make sure the email address matches an email Regular
 Not Valid Text - Checks to make sure the text input is not just white spaces
 
 
-Profanity Checker - Looks at a predefined list of curse words to check if the user has used any 
+Profanity Checker - Looks at a predefined list of curse words to check if the user has used any. The cursewords can be added to at any time. They are within the varibles.py file in the varibles folder in the main folder.  
 
 
 ### Front End Validation 
 
-I have used the following attributes along with the Materlize class of validate to provide the user with front end validations
+I have used the following attributes along with the [Materlize](https://materializecss.com/) class of validate to provide the user with front end validations
 * minlength
 * maxlength
 * min
@@ -260,7 +293,6 @@ If any of these fail the box will turn red to show that it hasn't met the requir
 ##  Security
 
 Username -  The username can only exist once in the database and at registration the username is checked against the current usernames
-
 
 Passwords - The password must contact a mixture of uppercase and lowercase letters, digits and a special character. It must be at least 8 characters long.  The password is salted and hashed using from [werkzeug.security](https://werkzeug.palletsprojects.com/en/1.0.x/utils/) when it is collected from the user.
 
@@ -279,7 +311,6 @@ Most functions will find the details of the document to update using the session
 There are a couple of execptions for example, delete/edit comments, delete images and delete profile.  This checks to see if the user is an author of the post or admin which are allowed to remove if nessasary.  
 
 
-
 ## Features
 
 #### Universal Features Across the Site
@@ -290,10 +321,14 @@ The website is fully responsive between different screen resolutions.  I have do
 
 ### Accessibility
 
-
+* Used bright colours with high contrast throughout the website.  
+* Used meaningful aria-labels where appropriate to ensure ease of use with a screen reader. 
+* Used auto-completes for new-password and current-password to help screen readers navigate and prompt users.  
+* Used headings in order to help users navigate the website.  
+* Ensured that the logo has an aria-label of 'Home' to make navigation easier. 
 
 ### Flash Messages
-* Flash messages are displayed toward the top of the pages and includes a soft pink banner to alert users to the text they contain when the  
+Flash messages are displayed toward the top of the pages and includes a soft pink banner to alert users to the text they contain when the  
 
 
 ### Input Fields 
@@ -325,9 +360,15 @@ I have added keywords, author, and description to the meta data to make the webs
 * If there is an internal server error the user will be shown a message to say the account may no longer be active (if the account has been deleted) or the profile is incomplete if it is their own profile and they didn't complete registration fully then they will be able to click the Build profile button to take them back to finish the set up. 
 * They will also get button to take them back to their profile if they are a session user and back to the homepage if not. 
 
+#### 403
+
+* Access forbidden with a note to advised the user they can not see the page
+* If the user is signed in they will get a button to take them back to their profile 
+* If the user is not signed in the button will take them back to the homepage
+
+
 #### Not Session 
 * If the user does not have a session cookie then they will be redirected to the log in page with a flash message advising that they need to be logged in to view that page. 
-
 
 
 #### Features Specific to Pages
@@ -364,7 +405,6 @@ Please refer to [structure](#structure) to see the navigation and user pathways
 * When visting the admin profile, instead of the above there are buttons that sends the user to contact us, report and back to profile 
 
 
-
 #### Edit Modals 
 
 * Add Walk - brings up a form so the user can add a walk to their profile:
@@ -396,17 +436,12 @@ Please refer to [structure](#structure) to see the navigation and user pathways
     * If neutered or spade displays a scissor icon 
     * Each card is clickable and take the user to that full profile if logged in, else send them to log in page with a flash message
 
-
 #### Search  
 * Allows user to search for other dogs by breed, size, location, gender, and name.
-
-
 
 ### Homepage
 * Displays information about the company and the steps to create an account
 * Shows a button so potential users can see the playmates section of the web app but when clicked on will prompt them to login
-
-
 
 ### Delete Account 
 * Button to take user back to their profile
@@ -414,16 +449,11 @@ Please refer to [structure](#structure) to see the navigation and user pathways
 * Button to delete their profile 
 *  The entire document will be added to the archives incase of accidental removal.
 
-
 ### Safespaces Policy
 Shows the user the company Safespaces Policy 
 
-
-
 ### Privacy Policy 
 Shows the user the company Privacy Policy 
-
-
 
 ### Form Pages
 #### Contact Us - Report User - Reset Password - Change Password - Register - Login
@@ -516,7 +546,7 @@ The other difference is the size of the users image from spanning the entire wid
 
 Please see the [Wireframes](docs/wireframes) for the final wireframes
 
-Please see [Site Images](docs/siteimages) for images of each page of the Site 
+Please see [Site Images](docs/siteimages) for images of each page of the application
 
 ***
 
@@ -549,46 +579,159 @@ For the nav bar I have used a shading on the tabs to indicate they can be clicke
 
 ### Imagery  
 
+#### Background 
+I designed the background image in [Canva](https://www.canva.com/) using a pawprint Icon. I have repeated this across the page and alternated the colour between a simialr yellow to the navbar, blue and pink on a light coloured background. 
+![Paw Print](static/images/prints.png)
+
+#### Profile image 
+I designed the default profile image using [Canva](https://www.canva.com/) I gave the cartoon a transparent background and enclosed the image within a circle. 
+![Profile Image](static/images/dog_avatar.png)
+
+##### Icon
+I created the Icon image in [Canva](https://www.canva.com/) using the same colours that have been used throughout the website, using the same image as the default profile image.  
+![Icon](static/images/avatar_icon.png)
+
+##### Bullet Points
+For bullet Points I have used a paw print found on [Canva](https://www.canva.com/) with a transparent background.
+![Paw](static/images/paw.png)
+
+#### Homepage
+[Homepage Image](https://www.freepik.com/free-photo/group-portrait-adorable-puppies_3532149.htm#page=1&query=puppy%20love&position=2)
+For smaller devices I have croped the image to include the first 3 dogs. 
 
 
-## Technologies Used 
+#### Gifs
+[Waiting Dog](https://dribbble.com/shots/6335402-Dog)
+[Happy and Angry Dogs ](https://dribbble.com/imargarita)
+[Delete Dog](https://dribbble.com/shots/4842912-Old-Dog)
+[Reset Dog](https://dribbble.com/shots/3011370-This-is-my-dog-Meshi)
+[Break Dancer(Human)](https://dribbble.com/shots/13996136-Breakdance)
+[Dog Walk](https://dribbble.com/shots/7189098-Walking-dog)
+[Group Dogs](https://dribbble.com/shots/6539601-)
+[Space Puppy](https://dribbble.com/shots/4382758-Puppy-Day)
 
+#### Error Pages
+[Dog Barking](https://dribbble.com/shots/2652719-barking-up-the-wrong-tree)
+
+
+## Technologies
+#### Lanaguages & Frameworks 
 * HTML5 - Mark-up language using semantic structure.
 * CCS3 - Cascading style sheet used to style.
 * JavaScript - Programming language.  
-* Python
-* Flask 
+* Python - Programming language
+* [Flask](#flask) - Frame work + Extentions
+* [Materlize](https://materializecss.com/) - CSS Framework for structure, buttons and some styling
+* [JQuery](https://jquery.com/) - Materlize initlising
 * Gitpod.io - for writing the code. Using the command line for committing and pushing to Git Hub
 * GitHub - hosting repositories
 * GIT - Pushing code to repositories
- 
 
-Front End
+#### Front End
 * [Google fonts](https://fonts.google.com/)  - for the font
-* [Font Awesome]
-* [Beautifer](https://beautifier.io/) - for helping to keep code tidy
-
+* [Font Awesome](https://fontawesome.com/) - for icons used
+* [Canva](https://www.canva.com/)-Designing the background, default image and Icon
 
 #### Backend 
-mongodb
-herouku 
-flask mail 
-cloudinary 
+* [MongoDB](https://www.mongodb.com/)
+* [Heroku](https://dashboard.heroku.com/)
+* [Cloudinary](https://cloudinary.com/)
+
+#### Helpers
+* [Beautifer](https://beautifier.io/) - for helping to keep code tidy 
+* [Random Key Gen](https://randomkeygen.com/)
+* [PowerMapper](https://www.powermapper.com/) to check for browser compatibility
+* [Temp Mail](https://temp-mail.org/en/)
 
 #### Planning
-[Miro](https://miro.com/app/board/o9J_lTewBto=/) - for planning of site flow 
-[Balsamiq wireframe](https://balsamiq.com/)  - for creating the wireframes
+[Miro](https://miro.com/app/dashboard/) - for planning of site flow, creating wire frames and general mindmapping
+
+### Flask
+The appplication was built using the [Flask](https://flask.palletsprojects.com/en/1.1.x/) Framework which is reliant on the [Jinja](https://www.palletsprojects.com/p/jinja/) templating language. The application was written in python. 
+
+I used the following Extentions:
+* [Flask Mail](https://pythonhosted.org/Flask-Mail/) - For emailing users
+* [Flask-PyMongo](https://flask-pymongo.readthedocs.io/en/latest/) - For interacting with the MongoDB database
+* [Werkzeug](https://werkzeug.palletsprojects.com/en/1.0.x/utils/) - For providing securitys, password_hash, check_password_hash
+
 
 #### Testing Tools
 * [HTML Validator](https://validator.w3.org/) - checking the validity of code
 * [CSS Validator](https://validator.w3.org/) - checking the validity of code
 * [JSHint](https://jshint.com/)- Testing and checking JS.  - checking for errors in code
+* [Pep8 Online](http://pep8online.com/) - Testing and checing PEP8 compliance 
 * [Am I Responsive](http://ami.responsivedesign.is/#) - checking whether the site is responsive. 
-* [Wave](https://wave.webaim.org/) - accessibility testing
 * [Internet Marketing Ninjas](https://www.internetmarketingninjas.com/online-spell-checker.php) - spell check
+* [Python Tutor](http://pythontutor.com/) - For function testing 
+* [Studio 3T](https://studio3t.com/) - Testing Database Schema 
+* [Regrex101](https://regex101.com/r/OnE0BG/1/) - Testing Regrex Patterns
 * DEV Tools - Lighthouse
 
 ***
+#### Technology Configeration
+
+#### MongoDB 
+
+[MongoDB](https://www.mongodb.com/) was used as the database to store the users details to set up MongoDB follow the steps below
+
+* Sign up to Mongodb 
+* Create a new shared Cluster
+*  Select a Cloud proivder and region (I used AWS and Ireland)
+* For free use  m0 cluster tier
+* Give your cluster a name
+* Go to collections and add a database
+* Go to database access and add a username and password
+
+Connecting - via application
+* Go back to the cluster overview
+* Click the CONNECT button.
+* Select 'connect your application'
+* Select your lanaguage/ driver (I used Python 3.6 or later)
+* Copy the connection string and change the details. 
+* Set the cluster name, collection name, URI connection string and password as environmental - see [Configeration](#Configeration) to set up your application configerations
+
+
+### Cloudinary 
+[Cloudinary](https://cloudinary.com/) is an Upload API and image store
+I added cloudinary to my application using the following steps:
+* Create a Cloudinary Account, I called mine puppyplaymate
+* Congifure your env.py file with the Cloud name, API Key and API Secret - see [Configeration](#Configeration) to set up your application configerations
+![Cloudinary config](docs/images/cloudinary.png)
+* Set up a folder to store your images, I called mine user_images
+* Go to settings in the top right 
+* Click the upload section in settings:
+    * Create an upload preset with a name of your choice
+    * Set it as unsigned
+    * Use filename or externally defined public ID : true 
+    * Unique filename: false 
+    * Delivery type: 
+    * Upload Access mode: public
+ ![Preset Image](docs/images/upload-preset.png)   
+
+When a user uploads I used the following code to create the correct path and upload to cloudinary. I have chosen to transform all the files to a low quality image to reduce the rendering time. 
+        
+        filename = secure_filename(item.filename)
+        filename, file_extension = os.path.splitext(filename) 
+        public_id = (<username> + '/q_auto:low/' + <filename>)
+
+        cloudinary.uploader.unsigned_upload(
+                            item,
+                            <upload_preset>,
+                            cloud_name=<cloud_name>,
+                            folder='/user_images/',
+                            public_id=public_id)
+
+I then saved the full url for that image into the MongoDB database.  I saved the base cloudinary URL in my variables folder and added the public_id to the end. The base url is in the dashboard of your cloudinary account. I specified the folder in my ur string 
+
+        cloudinary_url = ('https://res.cloudinary.com/puppyplaymate/image/upload/user_images/')
+
+### Flask Mail 
+I have chosen to use gmail as my mail provider along side [Flask Mail](https://pythonhosted.org/Flask-Mail/) to send mail to users from within the app. 
+You will need to ensure you set your email provider up  to Allow less secure apps otherwise gmail will block you being able to send/recieve emails through the application.  
+You will also need to enable IMAP as well.  You can find some helpful tips [Flask Mail Help](https://www.twilio.com/blog/2018/03/send-email-programmatically-with-gmail-python-and-flask.html)
+I have used gmails smtp server.  -  see [Configeration](#Configeration) to set up your application configerations
+
+
 
 ## Testing 
 
@@ -597,10 +740,86 @@ cloudinary
 Please see the testing document for Testing
 
 
-
 ## Deployment 
 
-### Config 
+### Configeration 
+Beneath your imports you will need to configure your app.py file.  You will need to import your local env.py for local enviroments.  For [configuration for Heroku](#deploying-to-heroku). 
+
+Congifure as follows:
+
+        if os.path.exists('env.py'):
+            import env
+
+
+        app = Flask(__name__)
+
+        app.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
+        app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
+        app.secret_key = os.environ.get('SECRET_KEY')
+        cloudinary.config(
+            cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME'),
+            api_key=os.environ.get('CLOUDINARY_API_KEY'),
+            api_secret=os.environ.get('CLOUDINARY_API_SECRET')
+        )
+
+        app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
+        app.config['MAIL_PORT'] = os.environ.get('MAIL_PORT')
+        app.config['MAIL_USE_SSL'] = os.environ.get('MAIL_USE_SSL')
+        app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+        app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+        app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
+
+        mongo = PyMongo(app)
+        mail = Mail(app)
+
+To start your application you will need to user the following at the bottom of your app.py file. You will need to ensure that debug=False prior to deployment.
+
+        if __name__ == '__main__':
+            app.run(host=os.environ.get('IP'),
+                    port=int(os.environ.get('PORT')),
+                    debug=False)
+
+You will need to add a Procfile and ensure your requirements.txt are up to date. 
+In your root folder in the terminal type - touch Profile -  this will create a Procfile
+Add the following with the following 
+    web: python app.py
+
+To install the requirements.txt use the following command in the terminal command line
+    pip3 install -r requirements.txt
+
+
+
+#### Local Enviroment
+Create env.py file in the same file system.  In your route folder type - touch env.py - to create the file. 
+Your virtual configerations should look similar to this. You will need to create a SECRET_KEY and input the IP and PORT settings. I used [Random Key Gen](https://randomkeygen.com/).
+
+        import os
+
+        # App config
+        os.environ.setdefault("IP", "0.0.0.0")
+        os.environ.setdefault("PORT", "5000")
+        os.environ.setdefault("SECRET_KEY", "<Your secret key>")
+
+        # MongoDB config
+        os.environ.setdefault(
+            "MONGO_URI", "mongodb+srv://<user>:<password>@<project>.af8bz.mongodb.net/<database>?retryWrites=true&w=majority")
+        os.environ.setdefault("MONGO_DBNAME", "<database>")
+
+        # Cloudinary config
+        os.environ.setdefault("CLOUDINARY_CLOUD_NAME", "<Your cloud name>")
+        os.environ.setdefault("CLOUDINARY_API_KEY", "<Your API Key>")
+        os.environ.setdefault("CLOUDINARY_API_SECRET", "<Your Secret Key>")
+
+        # Mail config
+        os.environ.setdefault('MAIL_SERVER', 'smtp.gmail.com')
+        os.environ.setdefault("MAIL_PORT", "465")
+        os.environ.setdefault("MAIL_USE_SSL", "True")
+        os.environ.setdefault("MAIL_USE_TLS", "False")
+        os.environ.setdefault("MAIL_USERNAME", "<Your email>")
+        os.environ.setdefault("MAIL_PASSWORD", "<Your email password>")
+        os.environ.setdefault("MAIL_DEFAULT_SENDER", "<Your email>")
+
+
 
 ### Adding and Committing files
 
@@ -615,9 +834,30 @@ To add all new files or modified file use " ."  - To add a single file use the p
 When committing make sure your comments are clear about what changes have been made. 
 Pushing will send your work to the repository
 
-### Deploying 
 
-The project was deployed with the following steps
+### Deploying 
+Requirements for deploying:
+* Cloudinary Account
+* MongoDB Account
+* Heroku Account
+* Email account
+
+Deploying to [Heroku](https://dashboard.heroku.com/)
+
+* You will need to sign up to [Heroku](https://dashboard.heroku.com/)
+* Once logged in click the create new app button
+* Select the region closest to you and give the APP a name
+* Set your deployment method to 'Github'
+* Connect up to Github and login
+* Search for the repository you wish to deploy from
+* You will need to head to settings and click 'Config Vars'
+    * You will now need to set up your Configeration Vars the same way as you did for your env.py
+    ![Config Vars](docs/images/config.png)    
+* Make sure you have set up your Procfile and you have updated the requirements.txt prior to deploying    
+* Click the deploy tab and go to manual deploy
+* Select the branch you wish to deploy and deploy the application
+* Once it is deployed you will be able to view the app
+* You can set it to automatically deploy every time you push to the repository by enabling the Automatic deploys
 
 
 ### Forking
@@ -629,6 +869,9 @@ By forking the GitHub Repository, you can make a copy of the original repository
 * Log into GitHub and locate the GitHub Repository.
 * At the top of the Repository there is a "Fork" button about the "Settings" button on the menu.
 * You should now have a new copy of the original repository in your own GitHub account.
+* You will need to install the requirements.txt using the following command the command line
+        pip3 install -r requirements.txt
+* You will need to set up your local enviroments and key value pairs for deployment
 
 ### Cloning 
 
@@ -650,45 +893,78 @@ Making a Local Clone
                 > remove: Total 10 (delta 1), reused 10 (delta 1)
                 > Unpacking objects: 100% (10/10), done.
 [Click Here](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for more info on cloning. 
+You will need to install the requirements.txt using the following command the command line
+        pip3 install -r requirements.txt
+* You will need to set up your local enviroments and key value pairs for deployment and running the application in your local enviroment. 
 
 ## Known Bugs 
 
+Using the [Materlize](https://materializecss.com/) validate class it validates the field on focus out rather than on change.  With more time I would write my own validation class to work on change or keyup so the fields would validate quickers for the user. 
 
 ***
 
 ## Acknowledgements
-
-
 ### Credit
 
+##### People 
 * Brian Macharia- Mentor support, guidance, tips, and key things to look out for throughout the project. Helping me to check for errors and looking at my code. 
 * Matt Rudge - Template for gitpod.io 
+* Anthony Lomax - Code Review, Testing and support
+* Callum Hewit - Testing website, review, inspiration and discussions
+* Rob Beaney - Front End recommendations and discussions 
+
+##### Additional Testers
+* William Hone
+* Harry Smith
+* David Savage
+* Ciaran Concannon
+* Coding Novas Team 
+* Double Shamrock Team
+
+
+##### Tools and Docs
 * [Code Institute SampleREADME](https://github.com/Code-Institute-Solutions/SampleREADME)
 * [Code Institute README Template](https://github.com/Code-Institute-Solutions/readme-template)
 * [W3schools](https://www.w3schools.com/) - for various code information and trouble shooting.
-* [Google fonts](https://fonts.google.com/) - CDN for the fonts were used in the project.
-* [Balsamiq wireframe](https://balsamiq.com/) - To build wireframes in the design phase. 
-* [HTML Validator](https://validator.w3.org/) - Testing validity of HTML.
-* [CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) -Testing validity of CSS.
-* [JSHint](https://jshint.com/)- Testing and checking JS. 
-* [Am I Responsive](http://ami.responsivedesign.is/#) - Checking the responsive nature.
-* [Beautifer](https://beautifier.io/) - Allowing me beautify my code.
-* [Internet Marketing Ninjas](https://www.internetmarketingninjas.com/online-spell-checker.php) - spell check
 * [solution to truncate found here](https://stackoverflow.com/questions/11989546/wrap-a-text-within-only-two-lines-inside-div) 
 * [Help to build age check](https://www.geeksforgeeks.org/python-program-to-calculate-age-in-year/)
 * [Github Emoji for Markdown](https://gist.github.com/rxaviers/7360908)
-* [PowerMapper](https://www.powermapper.com/) to check for browser compatibility
+* [Flask Mail Help](https://www.twilio.com/blog/2018/03/send-email-programmatically-with-gmail-python-and-flask.html)
 
-
+For all technologies used head see [Technologies](#technolgies)
 
 *** 
 
 
-### Code:
+### Code: 
+I have used Materlize for some of my front end styling and JavaScript. 
+Please see the code below it initlise the materlize functions using JQuery altered 
+
+    $(document).ready(function () {
+        $(".button-collapse").sideNav();
+        $('select').material_select();
+        $('.chips').material_chip();
+        $('.collapsible').collapsible();
+        $('.modal').modal({
+            // inDuration: 500
+        });
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Today',
+            clear: 'Clear',
+            close: 'Ok',
+            closeOnSelect: false, // Close upon selecting a date,
+            container: undefined, // ex. 'body' will append picker to body
+        });
+
+    });
 
 ### Content:
+I asked users to create profile, most of the profiles have been created by test users, friends and family. The images they have used are of their own dogs or from the internet. 
 
 Code & Content (not already attributed): Rebecca Kelsall
 
 ### Inspiration & Research: 
+
 
