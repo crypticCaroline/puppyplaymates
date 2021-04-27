@@ -81,7 +81,7 @@ def profile(username):
     If the like/unlike button is pressed the like/unlike functions are called
     """
 
-    if session:
+    if 'user' in session:
         user_profile = mongo.db.users.find_one({'username': username})
         if not user_profile:
             return render_template('profile_not_found.html')
@@ -189,7 +189,7 @@ def build_profile(username):
     checks to make sure valid input
     if valid sends to database and sends user to their profile page
     """
-    if session:
+    if 'user' in session:
         user = mongo.db.users.find_one(
             {'username': session['user']})  
         dog_dob = user['dog_dob']  
@@ -310,7 +310,7 @@ def edit_profile(username):
     formats data prior to being added to the datebase
     Updates database accordingly and redirect user back to profile
     """
-    if session:
+    if 'user' in session:
         user_profile = mongo.db.users.find_one({'username': session['user']})
 
         if request.method == 'POST':
@@ -354,7 +354,7 @@ def edit_human(username):
     Checks to make sure userinputs are valid
     Updates database accordingly and redirect user back to profile
     """
-    if session:
+    if 'user' in session:
         user_profile = mongo.db.users.find_one({'username': username})
 
         if request.method == 'POST':
@@ -388,7 +388,7 @@ def upload_image(username):
     The image url is added to the database
     If not session user is directed back to login page
     """
-    if session:
+    if 'user' in session:
         if request.method == 'POST':
             for item in request.files.getlist('image_file'):
                 filename = secure_filename(item.filename)
@@ -431,7 +431,7 @@ def profile_photo(username):
     """ Allows user to set the profile picture from the selected photo
     If not session redirects to login
     """
-    if session:
+    if 'user' in session:
         user_profile = mongo.db.users.find_one({'username': username})
         if request.method == 'POST':
             mongo.db.users.update_one(
@@ -453,7 +453,7 @@ def delete_images(username):
     If the image is the profile the default avatar will replace the profile
     If not session redirects to login
     """
-    if session:
+    if 'user' in session:
         user_profile = mongo.db.users.find_one({'username': username})
         profile_image = user_profile['image_url']
         remove_image = request.form.get('photo')
@@ -543,7 +543,7 @@ def add_walk(username):
     Adds/ replaces current walk details to the users document
     If not session redirects to login
     """
-    if session:
+    if 'user' in session:
         user_profile = mongo.db.users.find_one({'username': username})
 
         if request.method == 'POST':
@@ -583,7 +583,7 @@ def remove_walk(username):
     removes the walk from the database
     If not session redirects to login
     """
-    if session:
+    if 'user' in session:
         if request.method == 'POST':
             mongo.db.users.update_one(
                 {'username': session['user']},
@@ -603,7 +603,7 @@ def add_comment(username):
     Adds comments to the profiles document with session users details
     If not session redirects to login
     """
-    if session:
+    if 'user' in session:
         user_session = mongo.db.users.find_one({'username': session['user']})
         if request.method == 'POST':
             comment_date = datetime.now().strftime('%d-%m-%y, %H:%M')
@@ -647,7 +647,7 @@ def edit_comment(username, comment_id):
     If not session redirects to login
     """
 
-    if session:
+    if 'user' in session:
         user_session = mongo.db.users.find_one({'username': session['user']})
 
         if request.method == 'POST':
@@ -693,7 +693,7 @@ def delete_comment(username, comment_id):
     If not session redirects to login
     """
 
-    if session:
+    if 'user' in session:
         if request.method == 'POST':
             mongo.db.users.update_one(
                 {'username': username},
@@ -716,7 +716,7 @@ def delete_profile(username):
     Directs back to Homepage
     If not session redirects to login
     """
-    if session:
+    if 'user' in session:
         if request.method == 'POST':
             if session['user'] == username or session['user'] == 'admin':
                 remove_user = mongo.db.users.find_one(
@@ -788,7 +788,7 @@ def change_password():
     """
 
     if request.method == 'POST':
-        if session:
+        if 'user' in session:
             existing_user = mongo.db.users.find_one(
                 {'username': session['user']})
         else:
@@ -838,7 +838,7 @@ def report_user():
     Passes this as a varible to the email function
     Lets user know the email has been sent
     """
-    if session:
+    if 'user' in session:
         user_session = mongo.db.users.find_one({'username': session['user']})
         user_email = user_session['email']
 
@@ -873,7 +873,7 @@ def contact_us():
     if request.method == 'POST':
         message_text = request.form.get('message-text')
 
-        if session:
+        if 'user' in session:
             user_email = mongo.db.users.find_one(
                 {'username': session['user']})['email']
         else:
