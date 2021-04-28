@@ -23,7 +23,7 @@ For full test of user stories please see the video  :arrow_forward: :link:
 * I would like to find out what the site is about - About Section on Homepage :heavy_check_mark:
 * I would like to see if the site is for me without registering - Playmates Link at the bottom of the homepage :heavy_check_mark:
 * I would like to easily register - Registration page :heavy_check_mark:
-* I would like to be able to add my dogs details - Build Profile Page :heavy_check_mark:
+* I would like to be able to add my dog’s details - Build Profile Page :heavy_check_mark:
 
 #### Existing User
 * I want to be able to sign in and out easily - Login Page :heavy_check_mark:
@@ -40,13 +40,13 @@ For full test of user stories please see the video  :arrow_forward: :link:
 * I would like to feel safe when using the platform - report pages and admin :heavy_check_mark:
 * I would like to be able to search for other users - Search option in playmates pages  :heavy_check_mark:
 * I would like to be able to add/edit/delete images and change my profile image - Add images modal, with options to change profile picture or delete image :heavy_check_mark:
-* I would like to be able to add/edit/delete dog infomation - Buildprofile page, edit info and delete profile :heavy_check_mark:
-* I would like to be able to add/edit/delete my infomation - Build profile page, edit human and delete profile  :heavy_check_mark:
+* I would like to be able to add/edit/delete dog information - Build profile page, edit info and delete profile :heavy_check_mark:
+* I would like to be able to add/edit/delete my information - Build profile page, edit human and delete profile  :heavy_check_mark:
 
 ## Email Testing
 
 I have used [Temp Mail](https://temp-mail.org/en/) for part of my user testing so I could create multiple profiles at a time to test the interactions between the accounts.  This also meant I was able to check that each email was being sent correctly. 
-![Emails testing](images/email-testing.png)
+![Email’s testing](images/email-testing.png)
 
 
 ## Function Testing
@@ -57,40 +57,40 @@ I paid particular attention to the backend validation when testing my functions 
 
 ## Regrex Testing
 
-I checked the intergretiy of my Regrex pattern on my backend by passing each pattern into [Regrex101](https://regex101.com/r/OnE0BG/1/) and running a series of random checks through it. 
+I checked the integrity of my Regrex pattern on my backend by passing each pattern into [Regrex101](https://regex101.com/r/OnE0BG/1/) and running a series of random checks through it. 
 
 
 ## Code Validators
 
-Every page of the website was run through [HTML Validator](https://validator.w3.org/) because of flask being a templating language the code wouldn't show as valid html. I copied the code from within DEV Tools and pasted it into the validators to check the validaty at render. - All pages :heavy_check_mark:
+Every page of the website was run through [HTML Validator](https://validator.w3.org/) because of flask being a templating language the code would not show as valid html. I copied the code from within DEV Tools and pasted it into the validators to check the validity at render. - All pages :heavy_check_mark:
 
 
-I passed the css file through [CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) - :heavy_check_mark:
+I passed the CSS file through [CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) - :heavy_check_mark:
 
 
-Every Python file has been run through to check for Pep8 compliances and to test the validiaty of the code. [Pep8 Online](http://pep8online.com/) - :heavy_check_mark:
+Every Python file has been run through to check for Pep8 compliances and to test the validity of the code. [Pep8 Online](http://pep8online.com/) - :heavy_check_mark:
 
 
-The JavaScript file has been run through a JavaScript to test the validiaty of the code. [JSHint](https://jshint.com/) - :heavy_check_mark:
+The JavaScript file has been run through a JavaScript to test the validity of the code. [JSHint](https://jshint.com/) - :heavy_check_mark:
 
-:heavy_exclamation_mark: Exception to testing above -  The select feature doesn't pass the HTML validation. This is a materlize class and not my own code that is causing this issue.  I have done thorough testing manually on the select feature to ensure it does not impact user experience. 
+:heavy_exclamation_mark: Exception to testing above -  The select feature does not pass the HTML validation. This is a Materialize class and not my own code that is causing this issue.  I have done thorough testing manually on the select feature to ensure it does not impact user experience. 
 
 ## Schema Testing 
 I used [Studio 3T](https://studio3t.com/) to run an analysis on my database to ensure that the data was of the correct type. 
-![Datebase Scheme Check](database/database_schema.png)
+![Database Scheme Check](database/database_schema.png)
 
 ## Performance Testing
-I passed every page through Dev Tools Lighthouse to check to see how well the website was functioning. Please see the below screen shots of the homepage, playmates and profile.  
+I passed every page through Dev Tools Lighthouse to check to see how well the website was functioning. Please see the below screen shots of the homepage, playmates, and profile.  
 
 
 ## Browser & OS Compatibility
 
-Tested on Chrome, Firefox, Opera, Brave, Internet Explorer, Microsoft Edge, Safari.  iOS, Android 10, and Windows 10.  I used a combination of manual browser checks and used [PowerMapper](https://www.powermapper.com/) to check for browser compatibility.  Internet Explorer is the only browser that has shown issues with compatibility. As internet explorer is a much older browser with limited support I have chosen not make changes for this release.
+Tested on Chrome, Firefox, Opera, Brave, Internet Explorer, Microsoft Edge, Safari.  iOS, Android 10, and Windows 10.  I used a combination of manual browser checks and used [PowerMapper](https://www.powermapper.com/) to check for browser compatibility.  Internet Explorer is the only browser that has shown issues with compatibility. As internet explorer is a much older browser with limited support, I have chosen not make changes for this release.
 
 ![Browser testing](images/browser-testing.png)
 
-#### Testing for Responsivenss 
-I manually tested the responsivness of the app by testing every page on my Andoid.  I asked a friend with an Iphone to check the site on their IOS  :heavy_check_mark:
+#### Testing for Responsiveness 
+I manually tested the responsiveness of the app by testing every page on my Android.  I asked a friend with an iPhone to check the site on their IOS  :heavy_check_mark:
 
 ## Usability 
 
@@ -103,7 +103,7 @@ I manually tested all the following calls to action:
 * Privacy and Safe Spaces Policy opens in a new tab :heavy_check_mark:
 * Validation for inputs :heavy_check_mark: 
 * Submitting Forms :heavy_check_mark:
-* Side ways scroll on images :heavy_check_mark:
+* Sideways scroll on images :heavy_check_mark:
 * Modal Triggers :heavy_check_mark:
 * Liking and Unlikely Dogs :heavy_check_mark:
 * Adding/Editing/Deleting Images/Comments/Walks/Info :heavy_check_mark:
@@ -114,18 +114,18 @@ I manually tested all the following calls to action:
 
 
 ## Testing Logs from user feedback
-I put the site out to a small group of users to feedback on how they found the application.  Please see the logs below to see what feedback was recieved and how this feedback was used in the testing process
+I put the site out to a small group of users to feedback on how they found the application.  Please see the logs below to see what feedback was received and how this feedback was used in the testing process
 
 | Feedback  |Investigation | Fix |   Decision |   
 |---|---|---|---|
 |  Can't remember if Name and About were options on signup, I feel like I put dummy data in here? |  Hadn’t included human in the profile set up, users expected it |  Added these fields in the build profile part of the site |  :heavy_check_mark: |   
-| The line remains yellow "as if indicating the password doesn’t match  | Goes green when you click somewhere else on the page but not key up  |  Could write a function to change the materlize class to work on key up | Could be used added in a future release  |   
+| The line remains yellow "as if indicating the password doesn’t match  | Goes green when you click somewhere else on the page but not key up  |  Could write a function to change the Materialize class to work on key up | Could be used added in a future release  |   
 |  Special character for password: I would mention which ones are allowed as I think the - might not be working, I tried different passwords before I could be accepted |  Present, no way for users to know which character are accepted  |  Added helper text including the characters needed for password validation |  :heavy_check_mark:  |   
 | Instinctively I wanted to click on the image placeholder to add the image of my dog  |  Images were only unloadable from the edit images button | Changed so that containing image and content is an anchor  | :heavy_check_mark: |   
-|  No safari just didn't work for me |  Tried passing through a safari test enviroment and could find the same bug | Asked user to try again to see if problem still persisting   |  :question: Still ongoing |   
-|  If I go to edit my pup I had clicked he'd been neutered but it didn't bring back the original setting so when I clicked update it changed it so he had not been neutered |  Form wasn't inheriting values from the data base |  Added a switch statement in the template to toggle the switch accordingly |  :heavy_check_mark:|   
+|  No safari just did not work for me |  Tried passing through a safari test environment and could find the same bug | Asked user to try again to see if problem persisting   |  :question: Still ongoing |   
+|  If I go to edit my pup, I had clicked he had been neutered but it did not bring back the original setting so when I clicked update it changed it, so he had not been neutered |  Form was not inheriting values from the data base |  Added a switch statement in the template to toggle the switch accordingly |  :heavy_check_mark:|   
 | On the calendar for a date of birth I can added a future date, and as a result I got Age of -1  | Lack of defensive programming  |  Create a function to find todays date and set the min/max dates | :heavy_check_mark: |   
-|  On mobile when the menu is open, there is a weird dark overlay at the bottom, that appears only if you click on the menu if you are at the bottom of the page(footer level) | Was showing on some displays  | Hidden the overlay so that it doesn't interfer with the UI  | :heavy_check_mark: |   
+|  On mobile when the menu is open, there is a weird dark overlay at the bottom, that appears only if you click on the menu if you are at the bottom of the page(footer level) | Was showing on some displays  | Hidden the overlay so that it does not interfere with the UI  | :heavy_check_mark: |   
 |  When I went to the list of playmates, it only allows me to click on a profile only if  hover on top of the dog's name. At the beginning, I was trying to click the image, I thought it was a bug |  Currently name was used as an anchor tag  | Change to make the whole card a clickable link  |  :heavy_check_mark: |   
 |  With the comments, what is the purpose of me putting a comment on my own dog? Is this intentional? | Comments are allowed for both guests and profile  |  Add helper text to also reassure profile owner that they can comment on own profile with updates |   |   
 |  Perhaps it would be nice to have a dropdown menu which takes the values from your database for the breeds etc | Currently the search is text based  |  Could add a database for different dog breeds allowing for a check list of breeds, however this is an extension of scope | May be implemented in future feature  |   
@@ -133,4 +133,4 @@ I put the site out to a small group of users to feedback on how they found the a
 
 
 
- 
+
