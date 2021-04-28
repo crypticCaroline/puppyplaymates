@@ -210,8 +210,8 @@
                                     {% if liker.dog_name == "Puppy Playmates" %}
                                     {% else %}
                                     <div class="chip">
-                                        <img src="{{liker.image_url}}" alt="">
-                                        <a href="{{url_for('profile', username=liker.username)}}">{{liker.dog_name}}</a>
+                                        <img src="{{liker.image_url}}" alt="Image of {{liker.dog_name}}">
+                                        <a href="{{url_for('profile', username=liker.username)}}" aria-label="Link to {{liker.dog_name}} profile">{{liker.dog_name}}</a>
                                     </div>
                                     {% endif %}
                                     {% endfor %}
@@ -222,9 +222,9 @@
                                 <div class="admirers-section">
                                     {% for my_likes in user_profile.dogs_liked %}
                                     <div class="chip">
-                                        <img src="{{my_likes.image_url}}" alt="">
+                                        <img src="{{my_likes.image_url}}" alt="Image of {{my_likes.dog_name}}">
                                         <a
-                                            href="{{url_for('profile', username=my_likes.username)}}">{{my_likes.dog_name}}</a>
+                                            href="{{url_for('profile', username=my_likes.username)}}" aria-label="Link to {{my_likes.dog_name}} profile">{{my_likes.dog_name}}</a>
                                     </div>
                                     {% endfor %}
                                 </div>

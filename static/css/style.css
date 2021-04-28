@@ -61,6 +61,11 @@ body {
 
 .row .col.s12.delete-container {
     margin: 0.5rem;
+    padding-bottom: 4rem;
+}
+.delete-btn-wrapper{
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
 /* Background Colors */
@@ -242,6 +247,11 @@ a {
 
 .btn-edit:hover {
 	color: var(--yellow-color);
+}
+
+.delete-btn-wrapper .btn {
+    margin: 10px 0;
+    display:block;
 }
 
 /* Header  */
@@ -860,5 +870,9 @@ h3.error {
 	}
 	.card__img {
 		width: 30%;
-	}
+    }
+    .delete-btn-wrapper{
+    padding-left: 0;
+    padding-right: 50%;
+}
 }
