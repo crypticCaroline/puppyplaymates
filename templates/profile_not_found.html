@@ -11,9 +11,9 @@
                 This profile doesn't exist with this username, it may be that the profile has been deactivated
             </h3>
             {% if session['user'] %}
-            <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">Back to my profile</a>
+            <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">Profile</a>
             {% else %}
-            <a href="{{ url_for('homepage')}}" class="btn btn-yellow">Back to the homepage</a>
+            <a href="{{ url_for('homepage')}}" class="btn btn-yellow">Homepage</a>
             {% endif %}
         </div>
         <img src="{{ url_for('static', filename='images/delete-dog.gif') }}" class="align-right s4 col" 

@@ -657,7 +657,8 @@ h5.policy-spacing {
 	width: auto;
 	height: 25vh;
 	margin: 0.4rem;
-	border-radius: 3%;
+    border-radius: 3%;
+    max-width: unset;
 }
 
 .row .col.comment-section {

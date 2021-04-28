@@ -60,9 +60,10 @@
                     {% endif %}
                     {% endif %}
                     {% if session.user == "admin" %}
-                        <a href="{{ url_for('delete_profile', username=user_profile.username)}}" class="btn btn-yellow btn-red">Contact User or Remove</a>
+                    <a href="{{ url_for('delete_profile', username=user_profile.username)}}"
+                        class="btn btn-yellow btn-red">Contact User or Remove</a>
                     {% endif %}
-                    
+
                 </div>
                 <!-- checks if its the dogs birthday -->
                 {% if birthday %}
@@ -77,9 +78,9 @@
                     <div class="col s12">
                         <div class="profile-wrapper">
                             {% if username == session['user'] %}
-                            <a href="#edit_images" data-target="edit_images" data-toggle="modal" class="modal-trigger"><img
-                                    src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}"
-                                    class="profile-image"
+                            <a href="#edit_images" data-target="edit_images" data-toggle="modal"
+                                class="modal-trigger"><img src="{{ user_profile.image_url }}"
+                                    alt="Image of {{ user_profile.dog_name}}" class="profile-image"
                                     aria-label="Edit Images Link"></a>
 
                             {% else %}
@@ -193,8 +194,7 @@
                             {% for image in user_profile.all_images | reverse %}
                             <div id="modal{{image}}" class="modal">
                                 <div class="modal-content modal-image-content">
-                                        <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}"
-                                            class="modal-image">                                    
+                                    <img src="{{image}}" alt="Image of {{ user_profile.dog_name}}" class="modal-image">
                                 </div>
                             </div>
                             {% endfor %}
@@ -211,7 +211,8 @@
                                     {% else %}
                                     <div class="chip">
                                         <img src="{{liker.image_url}}" alt="Image of {{liker.dog_name}}">
-                                        <a href="{{url_for('profile', username=liker.username)}}" aria-label="Link to {{liker.dog_name}} profile">{{liker.dog_name}}</a>
+                                        <a href="{{url_for('profile', username=liker.username)}}"
+                                            aria-label="Link to {{liker.dog_name}} profile">{{liker.dog_name}}</a>
                                     </div>
                                     {% endif %}
                                     {% endfor %}
@@ -223,8 +224,8 @@
                                     {% for my_likes in user_profile.dogs_liked %}
                                     <div class="chip">
                                         <img src="{{my_likes.image_url}}" alt="Image of {{my_likes.dog_name}}">
-                                        <a
-                                            href="{{url_for('profile', username=my_likes.username)}}" aria-label="Link to {{my_likes.dog_name}} profile">{{my_likes.dog_name}}</a>
+                                        <a href="{{url_for('profile', username=my_likes.username)}}"
+                                            aria-label="Link to {{my_likes.dog_name}} profile">{{my_likes.dog_name}}</a>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -237,7 +238,7 @@
             <div class="col s12">
                 <div class="row">
                     <div class=" col s12 comment-section">
-                        <h5 class= "heading center-align">Comments</h5>
+                        <h5 class="heading center-align">Comments</h5>
                         <p class="center-align">Add a comment to {{user_profile.dog_name}} profile</p>
                         <!-- Add comments  -->
                         <div class="row">
@@ -262,56 +263,72 @@
                             <div class="col s12 comment-area">
                                 {% for comments in user_profile.comments | reverse %}
                                 <div class="comments">
+                                    {% if comments.private %}
+                                    {% if comments.author == session['user'] or user_profile.username == session['user'] or session.user == "admin" %}
+
+                                    <!-- build for private message -->
                                     <div class="comment-image valign-wrapper"
                                         style="background-image: url('{{ comments.img_url }}')">
-                                        <a href="{{url_for('profile', username=comments.author)}}" aria-label="Link to {{ comments.dog_name}} profile page">
+                                        <a href="{{url_for('profile', username=comments.author)}}"
+                                            aria-label="Link to {{ comments.dog_name}} profile page">
                                             <img src="{{ comments.img_url }}" alt="Image of {{ comments.dog_name}}">
                                         </a>
                                     </div>
-                                    <!-- build for private message -->
-                                    {% if comments.private %}
-                                    {% if comments.author == session['user'] or user_profile.username == session['user'] or session.user == "admin" %}
                                     <div class="comment-content">
                                         <!-- If the author of the post -->
                                         <!-- Modal Trigger -->
                                         <div class="comment-btn-wrapper">
                                             {% if comments.author == session['user'] %}
                                             <a class="waves-effect waves-light btn btn-yellow btn-edit modal-trigger"
-                                                href="#modal{{comments._id}}" aria-label="Link to edit comment"><i class="fas fa-pencil-alt"></i></a>
+                                                href="#modal{{comments._id}}" aria-label="Link to edit comment"><i
+                                                    class="fas fa-pencil-alt"></i></a>
 
                                             {% endif %}
                                             <!-- If the profile owner or author-->
                                             <a class="waves-effect waves-light btn btn-yellow btn-red btn-edit modal-trigger"
-                                                href="#modal_delete{{comments._id}}" aria-label="Link to delete comment"><i class="fas fa-trash"></i></a>
+                                                href="#modal_delete{{comments._id}}"
+                                                aria-label="Link to delete comment"><i class="fas fa-trash"></i></a>
                                         </div>
                                         <p>{{comments.text}}</p>
-                                        <p><small><a
-                                                    href="{{url_for('profile', username=comments.author)}}" aria-label="Link to {{ comments.dog_name}} profile page">{{comments.author}}({{comments.author_dog}})</a>
+                                        <p><small><a href="{{url_for('profile', username=comments.author)}}"
+                                                    aria-label="Link to {{ comments.dog_name}} profile page">{{comments.author}}({{comments.author_dog}})</a>
                                                 {{comments.date}}</small></p>
                                         <p><small>This message is private only the author and
                                                 {{user_profile.dog_name}}'s
                                                 owner can see it</small></p>
                                     </div>
+
                                     {% endif %}
-                                    <!-- build for standard message -->
                                     {% else %}
+
+                                    <!-- build for standard message -->
+                                    <div class="comment-image valign-wrapper"
+                                        style="background-image: url('{{ comments.img_url }}')">
+                                        <a href="{{url_for('profile', username=comments.author)}}"
+                                            aria-label="Link to {{ comments.dog_name}} profile page">
+                                            <img src="{{ comments.img_url }}" alt="Image of {{ comments.dog_name}}">
+                                        </a>
+                                    </div>
                                     <div class="comment-content">
                                         <!-- if the author of the post -->
                                         <!-- Modal Trigger -->
                                         <div class="comment-btn-wrapper">
                                             {% if comments.author == session['user'] %}
                                             <a class="waves-effect waves-light btn btn-yellow btn-edit modal-trigger"
-                                                href="#modal{{comments._id}}" aria-label="Link to edit comment"><i class="fas fa-pencil-alt"></i></a>
+                                                href="#modal{{comments._id}}" aria-label="Link to edit comment"><i
+                                                    class="fas fa-pencil-alt"></i></a>
                                             {% endif %}
                                             <!-- If the profile owner -->
                                             {% if username == session['user'] or comments.author == session['user'] or session.user == "admin" %}
                                             <a class="waves-effect waves-light btn btn-yellow btn-red btn-edit modal-trigger"
-                                                href="#modal_delete{{comments._id}}" aria-label="Link to delete comment"><i class="fas fa-trash"></i></a>
+                                                href="#modal_delete{{comments._id}}"
+                                                aria-label="Link to delete comment"><i class="fas fa-trash"></i></a>
                                             {% endif %}
                                         </div>
                                         <p>{{comments.text}}</p>
                                         <p><small>
-                                                <a href="{{url_for('profile', username=comments.author)}}" aria-label="Link to {{ comments.dog_name}} profile page">
+                                                <a href="{{url_for('profile', username=comments.author)}}"
+                                                    aria-label="Link to {{ comments.dog_name}} profile page">
                                                     {{comments.author}}({{comments.author_dog}})</a>
                                                 {{comments.date}}
                                             </small></p>
@@ -325,8 +342,8 @@
                                                 action="{{ url_for('edit_comment', username=username, comment_id=comments._id)}}">
                                                 <h2>Edit Comment </h2>
                                                 <div class="input-field">
-                                                    <input type="text" id="{{comments._id}}" name="edit_comment" class="validate"
-                                                        value="{{comments.text}}" required>
+                                                    <input type="text" id="{{comments._id}}" name="edit_comment"
+                                                        class="validate" value="{{comments.text}}" required>
                                                 </div>
                                                 <button type="submit" class="btn btn-yellow">
                                                     Update
@@ -344,10 +361,11 @@
                                         <div class="modal-content">
                                             {% if not comments.author == session['user']%}
                                             <h4>Do you need to report this user?</h4>
-                                            <h5>If you feel uncomfortable or you believe this user has violated our safe
+                                            <p>If you feel uncomfortable or you believe this user has violated our safe
                                                 spaces policy please head to our report page, if you just don't want the
-                                                comment on your feed please click the delete button</h5>
-                                            <a href="{{ url_for('report_user', report=comments.author)}}" class="btn btn-yellow">Report</a>
+                                                comment on your feed please click the delete button</p>
+                                            <a href="{{ url_for('report_user', report=comments.author)}}"
+                                                class="btn btn-yellow">Report</a>
                                             {% endif %}
                                             <p>Click the delete button to permentally remove this comment</p>
                                             <form method="POST"
@@ -373,16 +391,16 @@
 {% include "includes/edit_profile.html" %}
 {% else %}
 <div class="form-popout container padding-bottom">
-<!-- Flash messages -->
-                    {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                    {% for message in messages %}
-                    <div class="row flashes">
-                        <h5 class="center-align col s12">{{ message }}</h5>
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-                    {% endwith %}
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="row flashes">
+        <h5 class="center-align col s12">{{ message }}</h5>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <h3 class="center-align heading">Do you need to get in touch?</h3>
     <div class="center-align input-div">
         <a href="{{ url_for('report_user', report='report')}}" class="btn btn-yellow center-align">Report User</a>
