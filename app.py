@@ -130,53 +130,55 @@ def register():
     User is sent a welcome email
     Redirected to build profile at the end
     """
+    if 'user' not in session:
+        if request.method == 'POST':
 
-    if request.method == 'POST':
+            user_email = request.form.get('email')
+            existing_user = mongo.db.users.find_one(
+                {'username': request.form.get('username')})
+            old_account = mongo.db.archives.find_one(
+                {'username': request.form.get('username')})
+            existing_email = mongo.db.users.find_one(
+                {'email': user_email})
 
-        user_email = request.form.get('email')
-        existing_user = mongo.db.users.find_one(
-            {'username': request.form.get('username')})
-        old_account = mongo.db.archives.find_one(
-            {'username': request.form.get('username')})
-        existing_email = mongo.db.users.find_one(
-            {'email': user_email})
+            if check_not_valid_registration():
+                return redirect(url_for('register'))
 
-        if check_not_valid_registration():
-            return redirect(url_for('register'))
+            if existing_user or old_account:
+                flash(flash_username_exists)
+                return redirect(url_for('register'))
+            if existing_email:
+                flash(flash_email_registered)
+                return redirect(url_for('register'))
 
-        if existing_user or old_account:
-            flash(flash_username_exists)
-            return redirect(url_for('register'))
-        if existing_email:
-            flash(flash_email_registered)
-            return redirect(url_for('register'))
+            register = {
+                'username': request.form.get('username'),
+                'email': request.form.get('email'),
+                'password': generate_password_hash(request.form.get('password')),
+                'image_url': default_image_url,
+                'dog_name': '',
+                'dog_description': '',
+                'dog_breed': '',
+                'dog_gender': '',
+                'dog_location': '',
+                'dog_size': '',
+                'dog_dob': default_dob,
+                'human_name': '',
+                'human_description': '',
+                'dog_liker': [],
+                'all_images': [],
+                'comments': [],
+            }
 
-        register = {
-            'username': request.form.get('username'),
-            'email': request.form.get('email'),
-            'password': generate_password_hash(request.form.get('password')),
-            'image_url': default_image_url,
-            'dog_name': '',
-            'dog_description': '',
-            'dog_breed': '',
-            'dog_gender': '',
-            'dog_location': '',
-            'dog_size': '',
-            'dog_dob': default_dob,
-            'human_name': '',
-            'human_description': '',
-            'dog_liker': [],
-            'all_images': [],
-            'comments': [],
-        }
+            mongo.db.users.insert_one(register)
+            session['user'] = request.form.get('username')
+            welcome_email(user_email)
 
-        mongo.db.users.insert_one(register)
-        session['user'] = request.form.get('username')
-        welcome_email(user_email)
-
-        return redirect(url_for('build_profile',
-                                username=session['user']))
-    return render_template('register.html')
+            return redirect(url_for('build_profile',
+                                    username=session['user']))
+        return render_template('register.html')
+    return redirect(url_for('profile',
+                            username=session['user']))
 
 
 @app.route('/build_profile/<username>', methods=['GET', 'POST'])
@@ -191,8 +193,8 @@ def build_profile(username):
     """
     if 'user' in session:
         user = mongo.db.users.find_one(
-            {'username': session['user']})  
-        dog_dob = user['dog_dob']  
+            {'username': session['user']})
+        dog_dob = user['dog_dob']
         if not (dog_dob == default_dob):
             user_dog_dob = dog_dob.date()
         else:
@@ -247,39 +249,41 @@ def login():
     If the password matches username or email will assign session cookie
     If it doesn't match user will get a flash message
     """
+    if 'user' not in session:
+        if request.method == 'POST':
+            existing_user = mongo.db.users.find_one(
+                {'username': request.form.get('username')})
+            existing_email = mongo.db.users.find_one(
+                {'email': request.form.get('username')})
 
-    if request.method == 'POST':
-        existing_user = mongo.db.users.find_one(
-            {'username': request.form.get('username')})
-        existing_email = mongo.db.users.find_one(
-            {'email': request.form.get('username')})
+            if existing_user:
+                if check_password_hash(
+                        existing_user['password'],
+                        request.form.get('password')):
+                    session['user'] = request.form.get('username')
+                    return redirect(url_for('profile',
+                                            username=session['user']))
+                else:
+                    flash(flash_incorrect)
+                    return redirect(url_for('login'))
 
-        if existing_user:
-            if check_password_hash(
-                    existing_user['password'],
-                    request.form.get('password')):
-                session['user'] = request.form.get('username')
-                return redirect(url_for('profile',
-                                        username=session['user']))
+            elif existing_email:
+                if check_password_hash(
+                        existing_email['password'], request.form.get('password')):
+                    session['user'] = existing_email['username']
+                    return redirect(url_for(
+                        'profile',
+                        username=session['user']))
+                else:
+                    flash(flash_incorrect)
+                    return redirect(url_for('login'))
             else:
                 flash(flash_incorrect)
                 return redirect(url_for('login'))
 
-        elif existing_email:
-            if check_password_hash(
-                    existing_email['password'], request.form.get('password')):
-                session['user'] = existing_email['username']
-                return redirect(url_for(
-                    'profile',
-                    username=session['user']))
-            else:
-                flash(flash_incorrect)
-                return redirect(url_for('login'))
-        else:
-            flash(flash_incorrect)
-            return redirect(url_for('login'))
-
-    return render_template('login.html')
+        return render_template('login.html')
+    return redirect(url_for('profile',
+                            username=session['user']))
 
 
 @app.route('/search', methods=['GET', 'POST'])
@@ -751,7 +755,7 @@ def reset_password():
     Directs user to reset_sent.html
     If session redirects to change_password.html
     """
-    if not session:
+    if 'user' not in session:
         if request.method == 'POST':
             user = mongo.db.users.find_one(
                 {'email': request.form.get('email')})
@@ -830,8 +834,8 @@ def change_password():
     return render_template('change_password.html')
 
 
-@app.route('/report_user', methods=['GET', 'POST'])
-def report_user():
+@app.route('/report_user/<report>', methods=['GET', 'POST'])
+def report_user(report):
     """ Gets session details and finds email
     checks if existing user
     Gets the details of the user they are reporting and report info
@@ -853,8 +857,8 @@ def report_user():
             report_user_mail(user_email, report_user, report_info)
 
             flash(flash_sent)
-            return render_template('report_user.html')
-        return render_template('report_user.html')
+            return render_template('report_user.html', report=report)
+        return render_template('report_user.html', report=report)
 
     flash(flash_login)
     return render_template('login.html')

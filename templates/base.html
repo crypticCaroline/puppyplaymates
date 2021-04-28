@@ -67,7 +67,7 @@
                                 {{ url_for('build_profile', username=session['user'])}}">Rebuild Profile</a></li>
                             <li><a class="footer-text" href="{{ url_for('change_password')}}">Change Password</a></li>
                             <li><a class="footer-text" href="{{ url_for('delete_profile', username=session['user'])}}">Delete Account</a></li>
-                            <li><a class="footer-text" href="{{ url_for('report_user')}}">Report User</a></li>
+                            <li><a class="footer-text" href="{{ url_for('report_user', report='report')}}">Report User</a></li>
                             {% else%}
                             <li><a class="footer-text" href="{{ url_for('login')}}">Sign In</a></li>
                             <li><a class="footer-text" href="{{ url_for('register')}}">Register</a></li>

@@ -347,7 +347,7 @@
                                             <h5>If you feel uncomfortable or you believe this user has violated our safe
                                                 spaces policy please head to our report page, if you just don't want the
                                                 comment on your feed please click the delete button</h5>
-                                            <a href="{{ url_for('report_user')}}" class="btn btn-yellow">Report</a>
+                                            <a href="{{ url_for('report_user', report=comments.author)}}" class="btn btn-yellow">Report</a>
                                             {% endif %}
                                             <p>Click the delete button to permentally remove this comment</p>
                                             <form method="POST"
