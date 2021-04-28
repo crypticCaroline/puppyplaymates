@@ -581,18 +581,26 @@ For the nav bar I have used a shading on the tabs to indicate they can be clicke
 
 #### Background 
 I designed the background image in [Canva](https://www.canva.com/) using a pawprint Icon. I have repeated this across the page and alternated the colour between a simialr yellow to the navbar, blue and pink on a light coloured background. 
+
+
 ![Paw Print](static/images/prints.png)
 
 #### Profile image 
 I designed the default profile image using [Canva](https://www.canva.com/) I gave the cartoon a transparent background and enclosed the image within a circle. 
+
+
 ![Profile Image](static/images/dog_avatar.png)
 
 ##### Icon
 I created the Icon image in [Canva](https://www.canva.com/) using the same colours that have been used throughout the website, using the same image as the default profile image.  
+
+
 ![Icon](static/images/avatar_icon.png)
 
 ##### Bullet Points
 For bullet Points I have used a paw print found on [Canva](https://www.canva.com/) with a transparent background.
+
+
 ![Paw](static/images/paw.png)
 
 #### Homepage
@@ -602,12 +610,19 @@ For smaller devices I have croped the image to include the first 3 dogs.
 
 #### Gifs
 [Waiting Dog](https://dribbble.com/shots/6335402-Dog)
+
 [Happy and Angry Dogs ](https://dribbble.com/imargarita)
+
 [Delete Dog](https://dribbble.com/shots/4842912-Old-Dog)
+
 [Reset Dog](https://dribbble.com/shots/3011370-This-is-my-dog-Meshi)
+
 [Break Dancer(Human)](https://dribbble.com/shots/13996136-Breakdance)
+
 [Dog Walk](https://dribbble.com/shots/7189098-Walking-dog)
+
 [Group Dogs](https://dribbble.com/shots/6539601-)
+
 [Space Puppy](https://dribbble.com/shots/4382758-Puppy-Day)
 
 #### Error Pages
@@ -706,6 +721,7 @@ I added cloudinary to my application using the following steps:
     * Unique filename: false 
     * Delivery type: 
     * Upload Access mode: public
+
  ![Preset Image](docs/images/upload-preset.png)   
 
 When a user uploads I used the following code to create the correct path and upload to cloudinary. I have chosen to transform all the files to a low quality image to reduce the rendering time. 
@@ -780,7 +796,7 @@ To start your application you will need to user the following at the bottom of y
                     debug=False)
 
 You will need to add a Procfile and ensure your requirements.txt are up to date. 
-In your root folder in the terminal type - touch Profile -  this will create a Procfile
+In your root folder in the terminal type - touch Procfile -  this will create a Procfile
 Add the following with the following 
     web: python app.py
 
@@ -852,7 +868,7 @@ Deploying to [Heroku](https://dashboard.heroku.com/)
 * Search for the repository you wish to deploy from
 * You will need to head to settings and click 'Config Vars'
     * You will now need to set up your Configeration Vars the same way as you did for your env.py
-    ![Config Vars](docs/images/config.png)    
+![Config Vars](docs/images/config.png)    
 * Make sure you have set up your Procfile and you have updated the requirements.txt prior to deploying    
 * Click the deploy tab and go to manual deploy
 * Select the branch you wish to deploy and deploy the application
@@ -893,6 +909,7 @@ Making a Local Clone
                 > remove: Total 10 (delta 1), reused 10 (delta 1)
                 > Unpacking objects: 100% (10/10), done.
 [Click Here](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for more info on cloning. 
+
 You will need to install the requirements.txt using the following command the command line
         pip3 install -r requirements.txt
 * You will need to set up your local enviroments and key value pairs for deployment and running the application in your local enviroment. 
@@ -931,7 +948,7 @@ Using the [Materlize](https://materializecss.com/) validate class it validates t
 * [Github Emoji for Markdown](https://gist.github.com/rxaviers/7360908)
 * [Flask Mail Help](https://www.twilio.com/blog/2018/03/send-email-programmatically-with-gmail-python-and-flask.html)
 
-For all technologies used head see [Technologies](#technolgies)
+For all technologies used head to [Technologies](#technolgies)
 
 *** 
 

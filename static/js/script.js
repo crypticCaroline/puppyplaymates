@@ -27,11 +27,13 @@ unlike = document.getElementById('overlay_angry');
 function overlayHappy() {
     let form = document.getElementById('form_like');
     like.style.display = "block";
+    console.log("TESTING")
     setTimeout(function () { form.submit(); }, 3000);
 };
 
 function overlayAngry() {
     let form = document.getElementById('form_dislike');
+    console.log("TESTING")
     unlike.style.display = "block";
     setTimeout(function () { form.submit(); }, 3000);
 };

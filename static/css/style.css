@@ -169,6 +169,9 @@ a {
     justify-content: center;
 }
 
+#liker_btn, #unliker_btn{
+    padding: 0 .1rem;
+}
 
 /* Buttons */
 .btn-yellow {
@@ -180,7 +183,8 @@ a {
 
 .btn-red {
 	background-color: rgb(179, 49, 49);
-	color: var(--card-color);
+    color: var(--card-color);
+    padding: 0 1.9rem;
 }
 
 .btn-style {
@@ -726,7 +730,7 @@ div.comments:nth-child(odd) {
 .overlay {
 	width: min-content;
 	top: 50%;
-	left: 50%;
+    left: 50%;
 	background-color: #dffdfa;
 	z-index: 2;
 	cursor: pointer;
@@ -745,8 +749,10 @@ div.comments:nth-child(odd) {
 .overlay_img {
 	width: 70vh;
 	height: auto;
-	opacity: 100%;
-	border-radius: 15%;
+    opacity: 100%;
+    max-width: unset;
+    border-radius: 15%;
+    display: block;
 	animation: fadeInOut ease-in-out 3s;
 	-webkit-animation: fadeInOut ease-in-out 3s;
 	-moz-animation: fadeInOut ease-in-out 3s;

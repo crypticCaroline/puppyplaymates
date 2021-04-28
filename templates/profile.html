@@ -385,7 +385,7 @@
                     {% endwith %}
     <h3 class="center-align heading">Do you need to get in touch?</h3>
     <div class="center-align input-div">
-        <a href="{{ url_for('report_user')}}" class="btn btn-yellow center-align">Report User</a>
+        <a href="{{ url_for('report_user', report='report')}}" class="btn btn-yellow center-align">Report User</a>
         <a href="{{ url_for('contact_us')}}" class="btn btn-yellow">Contact Us</a>
         <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">Back to my
             profile</a>

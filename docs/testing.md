@@ -14,7 +14,7 @@
 
 ## User Stories
 
-For full test of user stories please see the video  :arrow_forward:
+For full test of user stories please see the video  :arrow_forward: :link:
 
  [![User Testing](images/user-stories.png)](https://www.youtube.com/watch?v=_W5o8BDtzcg)
 
