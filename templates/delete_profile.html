@@ -12,7 +12,7 @@
                 </div>
             </div>
             {% if session.user == username and session.user != "admin" %}
-            <div class="s12 l8 col form-indent">
+            <div class="s12 l8 col delete-container ">
                 <h3 class="heading align-center">Delete Profile</h3>
                 <p class="small-header">
                     What ever your reason for needing to leave us we are sorry to see you go
@@ -28,7 +28,7 @@
             </div>
             {% endif %}
             {% if session.user == "admin" %}
-            <div class="s12 l8 col form-indent">
+            <div class="s12 l8 col delete-container ">
                 <!-- Flash messages -->
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}

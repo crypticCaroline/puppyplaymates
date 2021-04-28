@@ -59,6 +59,10 @@ body {
 	margin-left: 0;
 }
 
+.row .col.s12.delete-container {
+    margin: 0.5rem;
+}
+
 /* Background Colors */
 
 .group-col {
