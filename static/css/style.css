@@ -261,12 +261,8 @@ a {
 	font-weight: 700;
 }
 
-.mob-nav {
-	margin: 0;
-	padding: 20px;
-	background-image: url("/static/images/paw.png");
-	background-repeat: no-repeat;
-	background-size: 35px;
+nav .button-collapse {
+    margin: 0;
 }
 
 /* Forms  */
@@ -440,6 +436,10 @@ ul.intro-list {
 	background-size: 35px;
 	font-family: 'Montserrat', sans-serif;
 	font-size: 1rem;
+}
+
+.mob-nav {
+    padding: 25px 0 25px 38px;
 }
 
 .policy-list li {
