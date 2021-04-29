@@ -244,7 +244,7 @@
                         <div class="row">
                             <div class="col s12 comment-area">
                                 <form method="POST" action="{{ url_for('add_comment', username=username) }}"
-                                    class="comments add-comment">
+                                    class="add-comment">
                                     <div class="input-field col s12">
                                         <textarea id="add_comment" name="add_comment" class="materialize-textarea"
                                             minlength="2" maxlength="2500" placeholder="Add Comment"
@@ -258,7 +258,7 @@
                                 </form>
                             </div>
                         </div>
-                        <!-- All comments  ADD DELETE BUTTON FOR USERS -->
+                        <!-- All comments  And DELETE BUTTON FOR USERS -->
                         <div class="row">
                             <div class="col s12 comment-area">
                                 {% for comments in user_profile.comments | reverse %}
@@ -377,6 +377,10 @@
                                     {% endif %}
                                 </div>
                                 {% endfor %}
+                                <a href="#" id="loadMore" class="btn btn-yellow">Show More</a>
+                                <p class="totop">
+                                    <a href="#top" id="top-toggle"><i class="fas fa-arrow-circle-up"></i></a>
+                                </p>                                
                             </div>
                         </div>
                     </div>

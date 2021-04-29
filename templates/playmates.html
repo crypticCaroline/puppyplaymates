@@ -30,14 +30,14 @@
             <!--Inline style for allocation of background-image for each card in loop -->
             <div class="valign-wrapper user-cards__image" style="background-image: url('{{ user.image_url }}')">
                 <a href="{{url_for('profile', username=user.username)}}" aria-label="Link to {{user.dog_name}} profile">
-                <img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}" class="sm_img">
+                    <img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}" class="sm_img">
                 </a>
             </div>
 
             <div class="content">
                 <a href="{{url_for('profile', username=user.username)}}">
                     <p class="small-header">{{ user.dog_name }}</p>
-                    <p class="bio-overflow" >{{ user.dog_description }}</p>
+                    <p class="bio-overflow">{{ user.dog_description }}</p>
                     {% if user.puppy_love %}
                     <p><i class="fas fa-heart "></i></p>
                     {% endif %}
@@ -46,11 +46,16 @@
                     {% endif %}
                     <p>{{user.dog_gender}}</p>
                     <p>{{user.dog_location}}</p>
-                 </a>   
+                </a>
             </div>
         </div>
+
         {% endif %}
         {% endfor %}
+        <a href="#" id="loadMore" class="btn btn-yellow">Show More</a>
+        <p class="totop">
+            <a href="#top" id="top-toggle"><i class="fas fa-arrow-circle-up"></i></a>
+        </p>
         {% else %}
         <div class="form-bottom">
             <h5 class="center-align">No users matching your search</h5>

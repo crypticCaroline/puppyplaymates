@@ -183,14 +183,14 @@ a {
 }
 
 /* Buttons */
-.btn-yellow {
+.btn-yellow, .btn:visited, .btn:focus {
 	background-color: var(--yellow-color);
 	color: var(--dark-font-color);
 	font-weight: 700;
     margin-top: 1%;
 }
 
-.btn-red {
+.btn-red, .btn-red:visited {
 	background-color: rgb(179, 49, 49);
     color: var(--card-color);
     padding: 0 1.9rem;
@@ -203,12 +203,7 @@ a {
 	margin-right: 0;
 }
 
-.btn-yellow:hover {
-	background-color: var(--dark-font-color);
-	color: var(--yellow-color)
-}
-
-.btn-yellow:after {
+.btn-yellow:hover, .btn:active, .btn:target, .btn:after {
 	background-color: var(--dark-font-color);
 	color: var(--yellow-color)
 }
@@ -529,8 +524,8 @@ h5.policy-spacing {
 	-moz-box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
 	-webkit-box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
 	box-shadow: 0 0 3px rgb(43, 38, 38, 0.5);
-	overflow: hidden;
-	display: flex;
+    overflow: hidden;
+    display:none;
 	width: 100%;
 	margin: 0 0 5px 0;
 	background-color: var(--card-color);
@@ -580,6 +575,27 @@ h5.policy-spacing {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 3;
+}
+
+/* Show more and toggle to top */
+.totop {
+    position: fixed;
+    bottom: 15px;
+    right: 8px;
+    font-size: 1.5rem;
+    opacity: 0.9;
+}
+
+.totop a {
+    display: none;
+}
+
+#loadMore {
+    box-shadow: 0 1px 1px #ccc;
+    transition: all 600ms ease-in-out;
+    -webkit-transition: all 600ms ease-in-out;
+    -moz-transition: all 600ms ease-in-out;
+    -o-transition: all 600ms ease-in-out;
 }
 
 /*  Profile and modals */
@@ -692,11 +708,16 @@ div.comments:nth-child(odd) {
 	overflow: auto;
 }
 
-.comments {
+.comments, .add-comment {
 	padding: 0.5%;
 	margin: 5%;
 	margin-top: 0;
-	border-radius: 5%;
+    border-radius: 5%;
+    
+}
+
+.comment-area .comments{
+    display: none;
 }
 
 .add-comment {
@@ -876,4 +897,9 @@ h3.error {
     padding-left: 0;
     padding-right: 50%;
 }
+    .totop {
+    bottom: 20px;
+    right: 50px;
+    font-size: 3rem;
+    }
 }
