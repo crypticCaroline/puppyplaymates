@@ -35,13 +35,13 @@ $(function () {
 
 // Show more for comments
 $(function () {
-    $(".comment-area .comments").slice(0, 5).css('display', 'unset');
+    $(".comment-area .comments").slice(0, 5).css('display', 'block');
     if ($(".comment-area .comments:hidden").length == 0) {
         $("#loadMore").css('display', 'none');
     }
     $("#loadMore").on('click', function (e) {
         e.preventDefault();
-        $(".comment-area .comments:hidden").slice(0, 3).css('display', 'unset');
+        $(".comment-area .comments:hidden").slice(0, 3).css('display', 'block');
         if ($(".comment-area .comments:hidden").length == 0) {
             $("#load").fadeOut('slow');
             $("#loadMore").fadeOut('slow');
