@@ -183,7 +183,7 @@ a {
 }
 
 /* Buttons */
-.btn-yellow, .btn:visited, .btn:focus {
+.btn-yellow {
 	background-color: var(--yellow-color);
 	color: var(--dark-font-color);
 	font-weight: 700;
@@ -203,7 +203,7 @@ a {
 	margin-right: 0;
 }
 
-.btn-yellow:hover, .btn:active, .btn:target, .btn:after {
+.btn-yellow:hover, .btn:active, .btn:target, .btn:after, .btn-focus, .btn:visited {
 	background-color: var(--dark-font-color);
 	color: var(--yellow-color)
 }
@@ -699,12 +699,12 @@ h5.policy-spacing {
 }
 
 div.comments {
-	background: rgba(120, 189, 180, 0.03);
+	background-color: rgba(120, 189, 180, 0.03);
 	overflow: auto;
 }
 
 div.comments:nth-child(odd) {
-	background: rgba(238, 125, 168, 0.03);
+	background-color: rgba(238, 125, 168, 0.03);
 	overflow: auto;
 }
 

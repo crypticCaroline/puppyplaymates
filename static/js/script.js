@@ -35,7 +35,7 @@ $(function () {
 
 // Show more for comments
 $(function () {
-    $(".comment-area .comments").slice(0, 5).css('display', 'block');
+    $(".comment-area .comments").slice(0, 3).css('display', 'block');
     if ($(".comment-area .comments:hidden").length == 0) {
         $("#loadMore").css('display', 'none');
     }
@@ -118,5 +118,3 @@ function walkDate() {
     document.getElementById("walk_date").setAttribute("min", today);
     document.getElementById("walk_date").setAttribute("max", eventDate);
 }
-
-
