@@ -391,7 +391,9 @@ Please refer to [structure](#structure) to see the navigation and user pathways
     * Displays all comments on user profile 
     * If private only the author and user of that profile can see the message. 
     * The user of that profile can delete any message, and this will toggle delete comment Modal.  The author of the comment can edit their comments and when clicked the author can either edit or delete their own comment. The comments are displayed with the authors image, name, and a time stamp. 
+    * The page shows 5 comments to start with.  If there are more comments then when you click how more it will reveal further comments.
 * Add Comment - all users can add comments and select whether they make them a private message. 
+* Up toggle so the user can bit navigated back to the top of the page
 
 
 
@@ -424,12 +426,15 @@ Please refer to [structure](#structure) to see the navigation and user pathways
 ### Playmates 
 #### Display 
 * Uses a loop to build individual cards for each user containing:
-    * Dog name
-    * Dog profile photos
+    * Dog Name
+    * Dog Profile Photos
     * First 3 lines of dog description
+    * Dogs Gender
     * If looking for love displays a heart icon
     * If neutered or spade displays a scissor icon 
-    * Each card is clickable and take the user to that full profile if logged in, else send them to log in page with a flash message
+    * Each card is clickable and take the user to that full profile if logged in, else send them to login page with a flash message
+    * I have used a See More button at the botton of the page so the user can click to reveal the next group of dogs.  If there are no more dogs the button will disapear. This will help to reduce load time for the user and provides a better UI experience. 
+    * There is an up arrow on the right hand side then when clicked will take the user back to the top of the page. 
 
 #### Search  
 * Allows user to search for other dogs by breed, size, location, gender, and name.
@@ -515,6 +520,7 @@ Below is a list of future features I would like to add into PuppyPlaymates
 * Maps - shows dogs by nearest location on the playmates page 
 * WOOFCHAT - Live chat app using web sockets, was in the original plans for playmates but outside the scope at this point
 * Pagination on the playmates page 
+* Pagination for comments 
 * Preferences - multi search queries on playmates page 
 * Ability to add multiple dogs to one human profile 
 * Use a database call to render up to date photos on comments/ liker rather than using the image at time of posting.  
@@ -522,7 +528,6 @@ Below is a list of future features I would like to add into PuppyPlaymates
 * Keep a track of previous walks in another section of the profile page 
 * Pagination for comments 
 * Add a data store for all comments that are posted for safeguarding purposes.  If a user deletes or edits their comments, they will be stored on the database in a separate collection along with their username, time stamp, email address. This would be for the purpose of safeguarding so if the comments violate the safe spaces policy, then action can be taken against the user. 
-* Add all deleted accounts/emails to a separate nonuser visible collection - this would give the ability to ban certain users/email addresses if policies were violated. 
 * Continue working on the profanity checker
 
 ***
@@ -944,6 +949,7 @@ Using the [Materialize](https://materializecss.com/) validate class it validates
 * [Help to build age check](https://www.geeksforgeeks.org/python-program-to-calculate-age-in-year/)
 * [GitHub Emoji for Markdown](https://gist.github.com/rxaviers/7360908)
 * [Flask Mail Help](https://www.twilio.com/blog/2018/03/send-email-programmatically-with-gmail-python-and-flask.html)
+* [Load more content](https://codepen.io/elmahdim/pen/sGkvH)
 
 For all technologies used head to [Technologies](#technolgies)
 
