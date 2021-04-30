@@ -154,7 +154,8 @@ def register():
             register = {
                 'username': request.form.get('username'),
                 'email': request.form.get('email'),
-                'password': generate_password_hash(request.form.get('password')),
+                'password': generate_password_hash(
+                    request.form.get('password')),
                 'image_url': default_image_url,
                 'dog_name': '',
                 'dog_description': '',
@@ -269,7 +270,8 @@ def login():
 
             elif existing_email:
                 if check_password_hash(
-                        existing_email['password'], request.form.get('password')):
+                        existing_email['password'], request.form.get(
+                            'password')):
                     session['user'] = existing_email['username']
                     return redirect(url_for(
                         'profile',
