@@ -188,7 +188,8 @@ a {
 /* Buttons */
 
 .btn-yellow, 
-.btn-yellow:focus {
+.btn-yellow:focus, 
+.btn-yellow:visited {
 	background-color: var(--yellow-color);
 	color: var(--dark-font-color);
 	font-weight: 700;

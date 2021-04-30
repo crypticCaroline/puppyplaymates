@@ -21,7 +21,7 @@ $(document).ready(function () {
 
 // Show more functionality for playmates page
 if ($(".user-list .user-cards").length > 0) {
-    $("#loadMore").css("display", "inline-block")
+    $("#loadMore").css("display", "inline-block");
     $(function () {
         $(".user-list .user-cards").slice(0, 10).css("display", "flex");
         $("#loadMore").on("click", function (e) {
@@ -37,7 +37,7 @@ if ($(".user-list .user-cards").length > 0) {
 
 // // Show more for comments
 if ($(".comment-area .comments").length > 0) {
-    console.log($(".comment-area .comments"))
+    $("#loadMore").css("display", "inline-block");
     $(function () {
         $(".comment-area .comments").slice(0, 3).css("display", "block");
         $(".comment-area .comments").each(function () {
@@ -48,12 +48,12 @@ if ($(".comment-area .comments").length > 0) {
         if ($(".comment-area .comments:hidden").length == 0) {
             $("#loadMore.comments-btn").css("display", "none");
         }
-        $("#loadMore.comments-btn").css("display", "inline-block")
+        $("#loadMore.comments-btn").css("display", "inline-block");
         $("#loadMore").on("click", function (e) {
             e.preventDefault();
             $(".comment-area .comments:hidden").slice(0, 3).css("display", "block");
             $(".comment-area .comments").each(function () {
-                if ($(this).find(".comment-content ").length > 0) {
+                if (!$(this).find(".comment-content ").length > 0) {
                     $(this).css("display", "block");
                 }
             });
