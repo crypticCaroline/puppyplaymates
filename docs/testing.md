@@ -1,15 +1,21 @@
 *** 
 
 ## Testing Index 
-
-* [User Stories](#user) 
-* [Email Testing](#email-testing)
-* [Browser Compatibility](#browser-Compatibility)
-* [Validators](#Validators)
-* [OS Compatibility](#os-compatibility)
-* [Performance Testing](#performance-testing)
-* [Usability Testing](#usability-testing)
-* [User Testing](#testing-logs)
+- [User Stories](#user-stories)
+    + [New User](#new-user)
+    + [Existing User](#existing-user)
+    + [All Users](#all-users)
+- [Email Testing](#email-testing)
+- [Function Testing](#function-testing)
+- [Regrex Testing](#regrex-testing)
+- [Code Validators](#code-validators)
+- [Schema Testing](#schema-testing)
+- [Performance Testing](#performance-testing)
+- [Browser & OS Compatibility](#browser---os-compatibility)
+    + [Testing for Responsiveness](#testing-for-responsiveness)
+- [Usability](#usability)
+  * [User Testing](#user-testing)
+- [User Feedback Testing Log](#user-feedback-testing-logs)
 
 
 ## User Stories
@@ -18,6 +24,8 @@ For full test of user stories please see the video  :arrow_forward: :link:
 
  [![User Testing](images/user-stories.png)](https://www.youtube.com/watch?v=_W5o8BDtzcg)
 
+
+***
 
 #### New User
 * I would like to find out what the site is about - About Section on Homepage :heavy_check_mark:
@@ -43,11 +51,14 @@ For full test of user stories please see the video  :arrow_forward: :link:
 * I would like to be able to add/edit/delete dog information - Build profile page, edit info and delete profile :heavy_check_mark:
 * I would like to be able to add/edit/delete my information - Build profile page, edit human and delete profile  :heavy_check_mark:
 
+***
+
 ## Email Testing
 
 I have used [Temp Mail](https://temp-mail.org/en/) for part of my user testing so I could create multiple profiles at a time to test the interactions between the accounts.  This also meant I was able to check that each email was being sent correctly. 
 ![Email’s testing](images/email-testing.png)
 
+***
 
 ## Function Testing
 
@@ -55,10 +66,13 @@ Every function written was passed individually through a [Python Tutor](http://p
 
 I paid particular attention to the backend validation when testing my functions and tried to use different data types at input to test whether they would pass.  
 
+***
+
 ## Regrex Testing
 
 I checked the integrity of my Regrex pattern on my backend by passing each pattern into [Regrex101](https://regex101.com/r/OnE0BG/1/) and running a series of random checks through it. 
 
+***
 
 ## Code Validators
 
@@ -80,7 +94,11 @@ I used [Studio 3T](https://studio3t.com/) to run an analysis on my database to e
 ![Database Scheme Check](database/database_schema.png)
 
 ## Performance Testing
-I passed every page through Dev Tools Lighthouse to check to see how well the website was functioning. Please see the below screen shots of the homepage, playmates, and profile.  
+I passed every page through Dev Tools Lighthouse to check to see how well the website was functioning. A few things were flagged and changed during this round of the testing.  
+
+![Lighthouse Images](images/lighthouse.png)
+
+*** 
 
 
 ## Browser & OS Compatibility
@@ -91,6 +109,10 @@ Tested on Chrome, Firefox, Opera, Brave, Internet Explorer, Microsoft Edge, Safa
 
 #### Testing for Responsiveness 
 I manually tested the responsiveness of the app by testing every page on my Android.  I asked a friend with an iPhone to check the site on their IOS  :heavy_check_mark:
+
+Please see [Mobile Site Images](images/mobile-images) for images of each page of the application from a mobile view
+
+***
 
 ## Usability 
 
@@ -113,7 +135,7 @@ I manually tested all the following calls to action:
 * Searching the users :heavy_check_mark:
 
 
-## Testing Logs from user feedback
+## User Feedback Testing Logs
 I put the site out to a small group of users to feedback on how they found the application.  Please see the logs below to see what feedback was received and how this feedback was used in the testing process
 
 | Feedback  |Investigation | Fix |   Decision |   
@@ -131,6 +153,4 @@ I put the site out to a small group of users to feedback on how they found the a
 |  Perhaps it would be nice to have a dropdown menu which takes the values from your database for the breeds etc | Currently the search is text based  |  Could add a database for different dog breeds allowing for a check list of breeds, however this is an extension of scope | May be implemented in future feature  |   
 |   |   |   |   |   
 
-
-
-
+***
