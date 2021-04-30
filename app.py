@@ -657,7 +657,7 @@ def edit_comment(username, comment_id):
         user_session = mongo.db.users.find_one({'username': session['user']})
 
         if request.method == 'POST':
-            comment_date = datetime.now().strftime('%d-%m-%Y, %H:%M')
+            comment_date = datetime.now().strftime('%d/%m/%Y, %H:%M')
             edit_comment_date = "Edited  " + comment_date
             private = request.form.get('private')
             is_private = False
@@ -730,7 +730,6 @@ def delete_profile(username):
                 archive_user = mongo.db.users.find_one(
                     {'_id': ObjectId(remove_user)})
                 if session['user'] == username:
-                    print(remove_user)
                     session.pop('user')
                     mongo.db.archives.insert_one(archive_user)
                     mongo.db.users.remove(remove_user)
@@ -912,7 +911,7 @@ def contact_user(username):
             contact_message = request.form.get('contact-message')
 
             if check_input(contact_message, 3000):
-                return redirect(url_for('delete_profile'))
+                return redirect(url_for('delete_profile', username=username))
 
             contact_user_mail(user_email, contact_message)
 

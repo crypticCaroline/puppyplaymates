@@ -5,23 +5,23 @@
 <div class="policy-background">
     <div class="container">
         <h3 class="heading">Safe Spaces </h3>
-        <p>It is important to us at PuppyPlaymates that all of our users feel safe. By setting up a profile you agree to
+        <p>It is important to us at PuppyPlaymates that all our users feel safe. By setting up a profile you agree to
             abide to our safe spaces policy and code of conduct. Failure to comply may result in your account being
             removed</p>
-        <p>Puppy Playmayes as the right to remove any comments, images or profiles that do not comply</p>
+        <p>Puppy Playmates as the right to remove any comments, images or profiles that do not comply</p>
 
         <ul class="intro-list">
-            <li>Behave in a friendly, cooperative, polite and responsible manner towards everyone</li>
-            <li>Do not give out any personal information of other memembers. We recommend to refrain from sharing your
-                own personal infomation. If the need does arise you can set these comments to private </li>
+            <li>Behave in a friendly, cooperative, polite, and responsible manner towards everyone</li>
+            <li>Do not give out any personal information of other members. We recommend refraining from sharing your
+                own personal information. If the need does arise you can set these comments to private </li>
             <li>Use of swear or curse words are not permitted on any part of the site</li>
             <li>Please ensure any images uploaded are of your own dog and you do have permission to share</li>
             <li>Do not spam other users with messages</li>
-            <li>Racial slurs, harrasment, and abuse of any kind will not be tolerated</li>
+            <li>Racial slurs, harassment, and abuse of any kind will not be tolerated</li>
         </ul>
 
         {% if session.user %}
-        <p>Need to report a user</p>
+        <p>Need to report a user?</p>
         <a href="{{ url_for('report_user', report='report')}}" class="btn-yellow btn-large btn-space">Report User</a>
         {% else %}
         <p class="small-header">Need to contact us</p>

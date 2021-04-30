@@ -13,9 +13,11 @@ def contact_us_mail(email, message_text):
     msg = Message('Contacting us at PuppyPlaymates',
                   html=('<p> Thank you for contacting us '
                         'with the following message: </p>'
+                        '<br>'
                         '<p> %s </p>'
                         '<p>We will endevour to get back to you '
                         'within 48hr</p>'
+                        '<br>'
                         '<p>The Team at PuppyPlaymates</p>' % message_text),
                   sender=our_email,
                   cc=[email],
@@ -75,7 +77,7 @@ def report_user_mail(user_email, user_report, user_info):
     Constructions a message to send to the user and playmates
     Sends a copy of message to user and to playmates
     """
-    report = ('<p>You have reported'
+    report = ('<p>You have reported: '
               '<b>' +
               user_report +
               '</b></p>'
