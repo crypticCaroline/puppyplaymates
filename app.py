@@ -722,25 +722,25 @@ def delete_profile(username):
     Directs back to Homepage
     If not session redirects to login
     """
+    remove_user = mongo.db.users.find_one(
+        {'username': username})['_id']
+    archive_user = mongo.db.users.find_one(
+        {'_id': ObjectId(remove_user)})
+
     if 'user' in session:
         if request.method == 'POST':
-            if session['user'] == username or session['user'] == 'admin':
-                remove_user = mongo.db.users.find_one(
-                    {'username': username})['_id']
-                archive_user = mongo.db.users.find_one(
-                    {'_id': ObjectId(remove_user)})
-                if session['user'] == username:
-                    session.pop('user')
-                    mongo.db.archives.insert_one(archive_user)
-                    mongo.db.users.remove(remove_user)
-                    flash(flash_profile_removed)
-                    return redirect(url_for('homepage'))
-                else:
-                    mongo.db.archives.insert_one(archive_user)
-                    mongo.db.users.remove(remove_user)
-                    flash(flash_profile_removed)
-                    return redirect(url_for('profile',
-                                            username=session['user']))
+            if session['user'] == username:
+                session.pop('user')
+                mongo.db.archives.insert_one(archive_user)
+                mongo.db.users.remove(remove_user)
+                flash(flash_profile_removed)
+                return redirect(url_for('homepage'))
+            else:
+                mongo.db.archives.insert_one(archive_user)
+                mongo.db.users.remove(remove_user)
+                flash(flash_profile_removed)
+                return redirect(url_for('profile',
+                                        username=session['user']))
         return render_template('delete_profile.html',
                                username=username)
 
