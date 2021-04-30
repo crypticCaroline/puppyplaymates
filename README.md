@@ -5,13 +5,14 @@
 
 [GitHub Repo](https://github.com/crypticCaroline/puppy-playmates)
 
+
 *** 
 
 ## About  
 Welcome to Puppyplaymates, a webapp to help dogs find love! 
 This is a Python Flask app using MongoDB, cloudinary and Flask Mail to produce a social media style application.
 
-PuppyPlaymates currently brings users together and allows them to get in contact with the pups they love! The application lets the users create a profile that allows them to add their dogs’ details, add photos, let other users know when the next walk with their dog is happening, add comments both public and private and add likes on other profiles.  The site offers the additional functionality, reset passwords, change passwords, reporting other users, contact us, editing and deleting comments, backend validation, profanity checking and birthday checking. Please look at the [features](#features) section for a more detailed description. 
+PuppyPlaymates currently brings users together and allows them to get in contact with the pups they love! The application lets the users create a profile that allows them to add their dogs’ details, add photos, let other users know when the next walk with their dog is happening, add comments both public and private and add likes on other profiles.  The site offers the additional functionality; reset passwords, change passwords, reporting other users, contact us, editing and deleting comments, backend validation, profanity checking and birthday checking. Please look at the [features](#features) section for a more detailed description. 
 The application has a lot of room for growth and a list of future features to implement. 
 
 ## Index – Table of Contents
@@ -66,11 +67,12 @@ The application has a lot of room for growth and a list of future features to im
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
+
 *** 
 
 ## User Experience (UX)
 ## Strategy
-With PuppyPlaymates I wanted to be able to give dog owners a way to communicate with other dog owners in a fun and safe way. By combining social media and data profile principles I have created a playmate finding service dedicated to human’s best friend.
+With PuppyPlaymates I wanted to be able to give dog owners a way to communicate with other dog owners in a fun and safe way. By combining social media and dating profile principles I have created a playmate finding service dedicated to human’s best friend.
 
 ### User Stories 
 
@@ -142,16 +144,18 @@ A way to bring together dog owner for:
 * To safeguard users by having a report pathway and to be able to remove inappropriate comments, images, and accounts 
 
 
+***
+
+
 ## Structure
 The diagram below is of the information architecture of the Web App.  This shows the journeys the users can take throughout the website. Please see the [Features](#features) section for more information on what user actions are on each page 
 ![Site Structure](docs/images/structure.png)
+
 
 ***
 
 ## Database 
 #### Database Schema 
-
-Schema I have used for the database 
 I have used a non-relational database which has meant that I have kept all of a user’s data stored within one document and used Key Value pairs with nested arrays and objects to store and access the appropriate data.  Most the data I have stored as "strings" If they are text based, all of which will have to pass through [validation](#validation), "bools" for switches, dates for DOB and Walks and ObjectIds. I have chosen to set the time of the walk and the date/time of the comments as strings this is because this information is only for user info and will serve no function in sorting through the data/time as a searchable function, this removes the need to reformat the data on entry and retrieval of the database. The nested arrays / objects are also passed through backend [validation](#validation) to ensure they fit the schema for the database. 
 
 
@@ -159,7 +163,7 @@ I have used a non-relational database which has meant that I have kept all of a 
 ![Database Schema](docs/database/schema.png)
 
 
-I have used backend validation to make sure the data is formatted correctly before being sent to the back end. Booleans are set to a default False, Dates are formatted before insertions, string fields are checked to make sure they are strings.  I ran the database through [Studio 3T](https://studio3t.com/) To check to make sure all my data was conforming to my intended Schema.
+I have used backend validation to make sure the data is formatted correctly before being sent to the database. Booleans are set to a default False, Dates are formatted before insertions, string fields are checked to make sure they are strings.  I ran the database through [Studio 3T](https://studio3t.com/) To check to make sure all my data was conforming to my intended Schema.
 
 
 ![Database Scheme Check](docs/database/database_schema.png)
@@ -186,6 +190,10 @@ I have used backend validation to make sure the data is formatted correctly befo
 
 When a user is deleted, I have chosen to add them into an archive.  This means that if a user is accidentally deleted, we have the means to access the data.  The schema is identical to above and directly transferred over before the user is removed from the user’s collection.
 
+
+***
+
+
 ## Validation
 
 ### Backend Validation 
@@ -202,7 +210,7 @@ Check Size - checks to make sure the user’s input is "Small", "Medium" or "Lar
 Check Gender - checks to make sure the user’s input is "Male" or "Female" 
 
 
-Date Format - Using stringfy, if the data cannot be formatted it will throw an error and won't be able to be input to the database
+Date Format - Using stringfy, if the data cannot be formatted it will throw an error and will not be able to be input to the database
 
 
 Booleans - default set to False unless the switch is activated to == "on" the  bool will then be True    
@@ -238,6 +246,9 @@ I have used the following attributes along with the [Materialize](https://materi
 If any of these fail the box will turn red to show that it has not met the requirements.  I have used helper text and titles on hover to help the user pass both validations. 
 
 
+***
+
+
 ##  Security
 
 Username -  The username can only exist once in the database and at registration the username is checked against the current usernames
@@ -257,6 +268,9 @@ Reset Password - If the user tries to reset their password, they are sent an ema
 Data Input - In the app.py the session user is compared with the username to see if that user can make changes. 
 Most functions will find the details of the document to update using the session user’s cookie. This means even if the user manages to pass the front end security, they will only end up updating their own document. 
 There are a couple of exceptions for example, delete/edit comments, delete images and delete profile.  This checks to see if the user is an author of the post or admin which can remove if necessary.  
+
+
+***
 
 
 ## Features 
@@ -295,7 +309,7 @@ Please see [Testing DOC](docs/testing.md) for a walk through of the site on a de
 
 ## Surface 
 
-The colours I have used in the closely resembles the colours used in the gifs/ images of the webapp.  I have chosen to go with a bright and fun colour scheme of yellow, off whites, dark blue/black, light blue, and soft pink.  The yellow and off-white colour combination of the dark blue for contrast have been used to make the features standout. Notes of slightly varying shades and opacity of blue and pink are used throughout the website to give subtle accents.  I have often used a slight difference in shade between cards and the profile containers to give a sense of depth.  
+The colours I have used in web app closely resembles the colours used in the gifs/ images of the webapp.  I have chosen to go with a bright and fun colour scheme of yellow, off whites, dark blue/black, light blue, and soft pink.  The yellow and off-white colour combination of the dark blue for contrast have been used to make the features standout. Notes of slightly varying shades and opacity of blue and pink are used throughout the website to give subtle accents.  I have often used a slight difference in shade between cards and the profile containers to give a sense of depth.  
 
 I often used the same colour as the images/gif for the background colour of elements to create a more cohesive user experience. 
 
@@ -305,7 +319,7 @@ I often used the same colour as the images/gif for the background colour of elem
 ### Typography
 I have chosen to use a font from Google fonts I have used Montserrat. This font is a sans serif font which means it does not have decoration at the end of the letter. This can cause issues with readability seen in serif fonts. The Montserrat font playful and offers nice spacing between the letters as standard.
 
-For headings I have increased the letter spacing, font weight and font size to make them stand outstand out.
+For headings I have increased the letter spacing, font weight and font size to make them stand out.
 
 I imported using the following code at the top of my style.css file:
 
@@ -371,7 +385,11 @@ For smaller devices I have cropped the image to include the first 3 dogs.
 [Dog Barking](https://dribbble.com/shots/2652719-barking-up-the-wrong-tree)
 
 #### Sizing 
-To ensure the application was fully reponsive I chose not to set a height and width for more user images.  I mostly used them as background images and filled the space. This does mean on some screens the images are zoomed in and it would be nice to add the option for users to crop their images as a future feature. 
+To ensure the application was fully responsive I chose not to set a height and width for more user images.  I mostly used them as background images and filled the space. This does mean on some screens the images are zoomed in and it would be nice to add the option for users to crop their images as a future feature. 
+
+
+***
+
 
 ## Technologies
 #### Languages & Frameworks 
@@ -425,6 +443,7 @@ I used the following Extensions:
 * [Studio 3T](https://studio3t.com/) - Testing Database Schema 
 * [Regrex101](https://regex101.com/r/OnE0BG/1/) - Testing Regrex Patterns
 * DEV Tools - Lighthouse
+
 
 ***
 #### Technology Configuration
@@ -492,12 +511,16 @@ You will also need to enable IMAP as well.  You can find some helpful tips [Flas
 I have used Gmail’s smtp server.  -  see [Configuration](#Configeration) to set up your application configurations
 
 
+***
 
 ## Testing 
 
 [TESTING DOC ](docs/testing.md)
 
 Please see the testing document for Testing
+
+
+***
 
 
 ## Deployment 
@@ -658,9 +681,13 @@ You will need to install the requirements.txt using the following command the co
         pip3 install -r requirements.txt
 * You will need to set up your local environments and key value pairs for deployment and running the application in your local environment. 
 
+
+*** 
+
 ## Known Bugs 
 
 Using the [Materialize](https://materializecss.com/) validate class it validates the field on focus out rather than on change.  With more time I would write my own validation class to work on change or key up so the fields would validate quicker for the user. 
+
 
 ***
 
@@ -728,7 +755,9 @@ I asked users to create profile, most of the profiles have been created by test 
 Code & Content (not already attributed): Rebecca Kelsall
 
 
-### Inspiration and Research:
+***
+
+## Inspiration and Research:
 The vast majority of research focused on Social Media website and Dating applications.  Such as :
 * [Facebook](www.facebook.com)
 * [Bumble](https://bumble.com/)

@@ -187,15 +187,15 @@ a {
 
 /* Buttons */
 
-.btn-yellow {
+.btn-yellow, 
+.btn-yellow:focus {
 	background-color: var(--yellow-color);
 	color: var(--dark-font-color);
 	font-weight: 700;
 	margin-top: 1%;
 }
 
-.btn-yellow:hover,
-.btn-yellow:focus {
+.btn-yellow:hover {
 	background-color: var(--dark-font-color);
 	color: var(--yellow-color)
 }
@@ -618,7 +618,7 @@ h5.policy-spacing {
 	-webkit-transition: all 600ms ease-in-out;
 	-moz-transition: all 600ms ease-in-out;
 	-o-transition: all 600ms ease-in-out;
-	display: inline-block;
+	display: none;
 }
 
 /*  Profile and modals */
