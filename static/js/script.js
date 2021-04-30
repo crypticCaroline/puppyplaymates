@@ -35,13 +35,24 @@ $(function () {
 
 // Show more for comments
 $(function () {
-    $(".comment-area .comments").slice(0, 3).css('display', 'block');
+    $(".comment-area .comments").slice(0, 3);
+    $(".comment-area .comments").each(function () {
+        if ($(this).find('.comment-content ').length > 0) {
+            $(this).css('display', 'block')
+        }
+    })
     if ($(".comment-area .comments:hidden").length == 0) {
-        $("#loadMore").css('display', 'none');
+        $("#loadMore.comments-btn").css('display', 'none');
     }
+
     $("#loadMore").on('click', function (e) {
         e.preventDefault();
         $(".comment-area .comments:hidden").slice(0, 3).css('display', 'block');
+        $(".comment-area .comments").each(function () {
+            if ($(this).find('.comment-content ').length > 0) {
+                $(this).css('display', 'block')
+            }
+        })
         if ($(".comment-area .comments:hidden").length == 0) {
             $("#load").fadeOut('slow');
             $("#loadMore").fadeOut('slow');
@@ -65,14 +76,6 @@ $(window).scroll(function () {
     }
 });
 
-$(function () {
-    $('.comments-area .comments').each(function () {
-        if ($(this).is(':empty')) {
-            $(this).css('display', 'none')
-        }
-    })
-});
-    
 
 // Overylay Gif function
 like = document.getElementById('overlay_happy');

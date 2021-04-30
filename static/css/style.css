@@ -190,10 +190,21 @@ a {
     margin-top: 1%;
 }
 
-.btn-red, .btn-red:visited {
+.btn-yellow:hover, .btn-yellow:focus {
+	background-color: var(--dark-font-color);
+	color: var(--yellow-color)
+}
+
+.btn-red, .btn-red:visited, .btn-red:focus {
 	background-color: rgb(179, 49, 49);
     color: var(--card-color);
+    
     padding: 0 1.9rem;
+}
+
+.btn-red:hover {
+    background-color: var(--dark-font-color);
+	color: var(--yellow-color)
 }
 
 .btn-style {
@@ -203,10 +214,6 @@ a {
 	margin-right: 0;
 }
 
-.btn-yellow:hover, .btn:active, .btn:target, .btn:after, .btn-focus, .btn:visited {
-	background-color: var(--dark-font-color);
-	color: var(--yellow-color)
-}
 
 .btn-med {
     font-size: 0.9rem;
@@ -596,6 +603,7 @@ h5.policy-spacing {
     -webkit-transition: all 600ms ease-in-out;
     -moz-transition: all 600ms ease-in-out;
     -o-transition: all 600ms ease-in-out;
+    display: inline-block;
 }
 
 /*  Profile and modals */
