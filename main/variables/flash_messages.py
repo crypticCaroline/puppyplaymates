@@ -1,4 +1,4 @@
-
+# Flash messages
 
 flash_login = 'You need to be logged in to view this page'
 

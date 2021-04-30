@@ -24,7 +24,7 @@
         <p>Need to report a user</p>
         <a href="{{ url_for('report_user', report='report')}}" class="btn-yellow btn-large btn-space">Report User</a>
         {% else %}
-        <h6>Need to contact us</h6>
+        <p class="small-header">Need to contact us</p>
         <a href="{{ url_for('contact_us')}}" class="btn-yellow btn-large btn-space">Contact Us</a>
         {% endif %}
     </div>
