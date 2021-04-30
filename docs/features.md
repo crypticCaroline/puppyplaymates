@@ -92,7 +92,7 @@ I have added keywords, author, and description to the meta data to make the webs
 * If the user is not signed in the button will take them back to the homepage
 
 #### 500 
-* If there is an internal server error the user will be shown a message to say the account may no longer be active (if the account has been deleted) or the profile is incomplete if it is their own profile, and they didn't complete registration fully then they will be able to click the Build profile button to take them back to finish the set up. 
+* If there is an internal server error the user will be shown a message to say  the error has occurred.
 * They will also get button to take them back to their profile if they are a session user and back to the homepage if not. 
 
 #### 403
@@ -132,14 +132,14 @@ I have added keywords, author, and description to the meta data to make the webs
     * Displays all comments on user profile 
     * If private only the author and user of that profile can see the message. 
     * The user of that profile can delete any message, and this will toggle delete comment Modal.  The author of the comment can edit their comments and when clicked the author can either edit or delete their own comment. The comments are displayed with the authors image, name, and a time stamp. 
-    * The page shows 5 comments to start with.  If there are more comments then when you click how more it will reveal further comments.
+    * The page shows 5 comments to start with.  If there are more comments, then when you click how more it will reveal further comments.
 * Add Comment - all users can add comments and select whether they make them a private message. 
-* Up toggle so the user can bit navigated back to the top of the page
+* Up toggle so the user can navigate back to the top of the page
 
 
 
 #### Admin
-* If the user is admin, they will be able to delete any comment on the site, delete images and also delete profiles if they feel like there has been inappropriate behaviour.   
+* If the user is admin, they will be able to delete any comment on the site, delete images and delete profiles if they feel like there has been inappropriate behaviour.   
 * When visiting the admin profile, instead of the above there are buttons that sends the user to contact us, report and back to profile 
 
 
@@ -154,7 +154,7 @@ I have added keywords, author, and description to the meta data to make the webs
 * Edit Images 
     * Uses a loop to create a card for each image and builds a make profile picture and delete image button.
     * Enables user to upload a new image and give them the option to make it the profile image straight away – ( The image is uploaded to a cloudinary and a URL string is created and added to MongoDB)
-    * The upload tab is held within a collapsible, so it doesn't take up the entire space of the modal
+    * The upload tab is held within a collapsible, so it does not take up the entire space of the modal
     * The file extension is checked prior to upload and only allow if jpg, png, gif and jpeg
     * If the image is set as the profile image, when is it deleted the default avatar replaces the profile image
     * If the image is not the profile image, then a button will appear to make it the profile image
@@ -174,8 +174,8 @@ I have added keywords, author, and description to the meta data to make the webs
     * If looking for love displays a heart icon
     * If neutered or spade displays a scissor icon 
     * Each card is clickable and take the user to that full profile if logged in, else send them to login page with a flash message
-    * I have used a See More button at the botton of the page so the user can click to reveal the next group of dogs.  If there are no more dogs the button will disapear. This will help to reduce load time for the user and provides a better UI experience. 
-    * There is an up arrow on the right hand side then when clicked will take the user back to the top of the page. 
+    * I have used a See More button at the button of the page so the user can click to reveal the next group of dogs.  If there are no more dogs the button will disappear. This will help to reduce load time for the user and provides a better UI experience. 
+    * There is an up arrow on the right-hand side then when clicked will take the user back to the top of the page. 
 
 #### Search  
 * Allows user to search for other dogs by breed, size, location, gender, and name.
@@ -231,7 +231,7 @@ All the form pages have the following features:
 * Allows the user to add their own name and description
 * Input fields are put through a validator to check they are acceptable and text fields are put through the profanity filter  
 * The date of birth field has a date range of today and up to 20 years.  This is to stop users giving their dog a future date or a date that does not exists
-* If the user has already built their profile these fields will be prefilled out, so the user doesn't have to re-enter them.    
+* If the user has already built their profile these fields will be prefilled out, so the user does not have to re-enter them.    
 
 ### Contact Us
 * Has a field for the email address if the user is not signed in so they can enter their email
