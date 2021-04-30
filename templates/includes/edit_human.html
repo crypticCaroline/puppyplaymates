@@ -8,12 +8,13 @@
             <div class="form-left">
                 <label for="human_name">Name</label>
                 <input type="text" id="human_name" name="human_name" class="validate" minlength="2" maxlength="15"
-                    pattern="^[a-zA-Z0-9]{2,15}$" value="{{user_profile.human_name}}" required>
+                    pattern="^[a-zA-Z0-9\s]{2,35}$" value="{{user_profile.human_name}}" required>
             </div>
             <div class="form-bottom">
                 <label for="human_description" class="bio-label">Description</label>
                 <textarea id="human_description" name="human_description"
-                    class="validate materialize-textarea form-no-indent" minlength="5" maxlength="1000"
+                    class="validate materialize-textarea form-no-indent" minlength="5" 
+                    maxlength="1500" title="Max ength 1500 characters"
                     required>{{user_profile.human_description}}</textarea>
                 <button type="submit" class="btn-large btn-yellow">
                     Update

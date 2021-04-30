@@ -245,11 +245,12 @@
                         <!-- Add comments  -->
                         <div class="row">
                             <div class="col s12 comment-area">
+                                <!-- Form -->
                                 <form method="POST" action="{{ url_for('add_comment', username=username) }}"
                                     class="add-comment">
                                     <div class="input-field col s12">
                                         <textarea id="add_comment" name="add_comment" class="materialize-textarea"
-                                            minlength="2" maxlength="2500" placeholder="Add Comment"
+                                            minlength="2" maxlength="2500" title="Max length 2500 characters" placeholder="Add Comment"
                                             required></textarea>
                                     </div>
                                     <div class="add-comment col s12">
@@ -338,12 +339,13 @@
                                     <!-- Modal Structure -->
                                     <div id="modal{{comments._id}}" class="modal">
                                         <div class="modal-content">
+                                            <!-- Forms  -->
                                             <form method="POST"
                                                 action="{{ url_for('edit_comment', username=username, comment_id=comments._id)}}">
                                                 <h2>Edit Comment </h2>
                                                 <div class="input-field">
                                                     <input type="text" id="{{comments._id}}" name="edit_comment"
-                                                        class="validate" value="{{comments.text}}" required>
+                                                        class="validate" minlength="5" maxlength="2500" title="Max length 2500 characters" value="{{comments.text}}" required>
                                                 </div>
                                                 <button type="submit" class="btn btn-yellow">
                                                     Update

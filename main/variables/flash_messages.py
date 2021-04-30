@@ -49,3 +49,5 @@ flash_human = ('Are you really called that? '
 flash_location = 'Please refrain from using profanity and use a real location'
 
 flash_length = 'Your input is a little too long '
+
+flash_profanity = 'Please refrain from using profanity'

@@ -33,7 +33,7 @@
                     <div class="row flush input-div">
                         <div class="input-field col s12">
                             <input id="password" type="password" name="password" class="validate" minlength="5"
-                                pattern="^^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])[A-Za-z\d@$!%*_-#?&]{8,30}"
+                                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])([A-Za-z\d@$!%-_*#?&]){8,30}$"
                                 maxlength="30" autocomplete="current-password" required>
                             <label for="password">Password</label>
                         </div>

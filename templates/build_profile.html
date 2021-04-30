@@ -24,7 +24,7 @@
                 <div class="row flush">
                     <div class="input-field col s12">
                         <input type="text" id="dog_name" name="dog_name" class="validate form-indent" minlength="2"
-                            maxlength="35" pattern="^[a-zA-Z0-9\s/g]{2,35}$" value="{{user.dog_name}}" required>
+                            maxlength="35" pattern="^[a-zA-Z0-9\s]{2,35}$" value="{{user.dog_name}}" required>
                         <label for="dog_name" class="form-indent">Puppy Name</label>
                     </div>
                 </div>
@@ -38,8 +38,7 @@
                 <div class="row flush">
                     <div class="input-field col s12">
                         <input type="text" id="dog_location" name="dog_location" class="validate form-indent"
-                            value="{{user.dog_location}}" minlength="2" maxlength="40"
-                            pattern="^[a-zA-Z0-9\s/g]{2,40}$">
+                            value="{{user.dog_location}}" minlength="2" maxlength="50">
                         <label for="dog_location" class="form-indent">Home Town</label>
                     </div>
                 </div>
@@ -133,14 +132,14 @@
                     <div class=" col s12 form-indent">
                         <label for="dog_description" class="form-indent">Dog Bio</label>
                         <textarea id="dog_description" name="dog_description"
-                            class="validate materialize-textarea form-indent" minlength="5" maxlength="1000"
-                            required>{{user.dog_description}}</textarea>
+                            class="validate materialize-textarea form-indent" minlength="5" maxlength="1500"
+                            title="Max length 1500 Characters" required>{{user.dog_description}}</textarea>
                     </div>
                 </div>
                 <div class="row flush">
                     <div class="input-field col s12 human-name">
                         <input type="text" id="human_name" name="human_name" class="validate form-indent" minlength="2"
-                            maxlength="35" pattern="^[a-zA-Z0-9\s/g]{2,35}$" value="{{user.human_name}}" required>
+                            maxlength="35" pattern="^[a-zA-Z0-9\s]{2,35}$" value="{{user.human_name}}" required>
                         <label for="human_name" class="form-indent">Human's Name</label>
                     </div>
                 </div>
@@ -148,8 +147,8 @@
                     <div class=" col s12 form-indent">
                         <label for="human_description" class="form-indent">Human Bio</label>
                         <textarea id="human_description" name="human_description"
-                            class="validate materialize-textarea form-indent" minlength="5" maxlength="1000"
-                            required>{{user.human_description}}</textarea>
+                            class="validate materialize-textarea form-indent" minlength="5" maxlength="1500"
+                            title="Max length 1500 Characters" required>{{user.human_description}}</textarea>
                     </div>
                 </div>
             </div>

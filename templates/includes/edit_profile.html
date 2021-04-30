@@ -7,13 +7,12 @@
                 <h3 class="heading">Edit {{ user_profile.dog_name }}'s Profile infomation</h3>
 
                 <label for="dog_name">Puppy Name</label>
-                <input type="text" id="dog_name" name="dog_name" class="validate" minlength="2" maxlength="15"
-                    pattern="^[a-zA-Z0-9]{2,25}$" value="{{user_profile.dog_name}}" required>
+                <input type="text" id="dog_name" name="dog_name" class="validate" minlength="2" maxlength="35"
+                    pattern="^[a-zA-Z0-9]{2,35}$" value="{{user_profile.dog_name}}" required>
 
                 <label for="dog_location">Home Town</label>
                 <input type="text" id="dog_location" name="dog_location" class="validate"
-                    value="{{user_profile.dog_location}}" minlength="2" maxlength="40"
-                    pattern="^[a-zA-Z0-9\s/g]{2,40}$">
+                    value="{{user_profile.dog_location}}" minlength="2" maxlength="50">
 
                 <label>Pup Size</label>
                 <select name="dog_size" size="4" required>
@@ -51,6 +50,7 @@
                 <label for="dog_description" class="bio-label">Bio</label>
                 <textarea id="dog_description" name="dog_description"
                     class="validate materialize-textarea form-no-indent" minlength="5"
+                    maxlength="1500" title="Max length 1500 characters"
                     required>{{user_profile.dog_description}}</textarea>
                 <button type="submit" class="col s12 btn-large btn-yellow">
                     Update

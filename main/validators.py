@@ -8,8 +8,8 @@ from main.variables.flash_messages import *
 
 
 password_pattern = (
-    r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])([A-Za-z\d@$!%-_*#?&]{8,30})$")
-username_pattern = (r"^(?=.*[A-Za-z])([a-zA-Z0-9/^\s*]){4,20}$")
+    r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])([A-Za-z\d@$!%-_*#?&]){8,30}$")
+username_pattern = (r"^(?=.*[A-Za-z])[a-zA-Z0-9]{4,20}$")
 email_pattern = (r'[^@]+@[^@]+\.[^@]+')
 
 
@@ -160,6 +160,7 @@ def check_not_valid_build():
     dog_location = request.form.get('dog_location')
     dog_size = request.form.get('dog_size')
     dog_gender = request.form.get('dog_gender')
+    dog_breed = request.form.get('dog_breed')
 
     if check_text_input(dog_description, 1500):
         return True
@@ -173,22 +174,28 @@ def check_not_valid_build():
         flash(flash_description)
         return True
 
-    if check_text_input(dog_name, 30):
+    if check_text_input(dog_name, 35):
         return True
     if profanity_check(dog_name):
         flash(flash_dogname)
         return True
 
-    if check_text_input(human_name, 30):
+    if check_text_input(human_name, 35):
         return True
     if profanity_check(human_name):
         flash(flash_human)
         return True
 
-    if check_text_input(dog_location, 30):
+    if check_text_input(dog_location, 50):
         return True
     if profanity_check(dog_location):
         flash(flash_location)
+        return True
+
+    if check_text_input(dog_breed, 30):
+        return True
+    if profanity_check(dog_breed):
+        flash(flash_profanity)
         return True
 
     if check_size(dog_size):
