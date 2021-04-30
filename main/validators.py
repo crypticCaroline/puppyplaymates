@@ -223,13 +223,13 @@ def check_not_valid_edit():
         flash(flash_description)
         return True
 
-    if check_text_input(dog_name, 30):
+    if check_text_input(dog_name, 35):
         return True
     if profanity_check(dog_name):
         flash(flash_dogname)
         return True
 
-    if check_text_input(dog_location, 30):
+    if check_text_input(dog_location, 50):
         return True
     if profanity_check(dog_location):
         flash(flash_location)
@@ -253,7 +253,7 @@ def check_not_valid_edit_human():
         flash(flash_description)
         return True
 
-    if check_text_input(human_name, 30):
+    if check_text_input(human_name, 35):
         return True
     if profanity_check(human_name):
         flash(flash_name)
