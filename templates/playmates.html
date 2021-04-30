@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Playmates{% endblock %}
-
 {% block content %}
 <div class="container form-popout">
     <div class="search-heading">
-        <h3 class="heading center-align ">Playmates</h3>
+        <h3 class="heading center-align">Playmates</h3>
         <p class="center-align">Take a look at all the different pups looking for playmates</p>
     </div>
     <div class="profile-items search-wrapper">
+        <!-- Search Bar form -->
         <form action="{{ url_for('search') }}" method="post">
             <div id="search-bar" class="input-field no-indent">
                 <label for="query">Search Puppys</label>
@@ -20,7 +20,7 @@
             <a href="{{ url_for('playmates') }}" class="btn btn-yellow btn-red btn-med">Reset</a>
         </form>
     </div>
-
+    <!-- Users -->
     <div class="user-list" id="user-container">
         {% if users %}
         {% for user in users | reverse %}
@@ -33,7 +33,7 @@
                     <img src="{{ user.image_url }}" alt="Image of {{ user.dog_name}}" class="sm_img">
                 </a>
             </div>
-
+            <!-- Card -->
             <div class="content">
                 <a href="{{url_for('profile', username=user.username)}}">
                     <p class="small-header">{{ user.dog_name }}</p>
@@ -49,9 +49,9 @@
                 </a>
             </div>
         </div>
-
         {% endif %}
         {% endfor %}
+        <!--Show More Button -->
         <a href="#" id="loadMore" class="btn btn-yellow">Show More</a>
         <p class="totop">
             <a href="#top" id="top-toggle"><i class="fas fa-arrow-circle-up"></i></a>
@@ -63,5 +63,4 @@
         {% endif %}
     </div>
 </div>
-
 {% endblock %}

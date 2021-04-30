@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
-
 {% block content %}
 <!-- Hidden overlays for like/dislike function -->
 <div id="overlay_happy" class="overlay">
@@ -25,7 +24,7 @@
         <div class="col s12">
             <!-- Profile form -->
             <div class="row">
-                <!-- Name and like button -->
+                <!-- Heading and like button -->
                 <div class=" col s12">
                     <!-- Flash messages -->
                     {% with messages = get_flashed_messages() %}
@@ -37,15 +36,18 @@
                     {% endfor %}
                     {% endif %}
                     {% endwith %}
+                    <!-- Build if user hasn't finished their profile -->
                     {% if user_profile.dog_name == "" and username == session['user'] %}
-                    <h3 class="  profile-heading heading col s12 center-align ">You haven't
+                    <h3 class="profile-heading heading col s12 center-align">You haven't
                         finished building your profile please do so now</h3>
                     <a class="btn btn-yellow" href="{{ url_for('build_profile', username=session['user'])}}">Build
                         Profile</a>
                     <p>You won't appear in the search as a playmate until your profile is complete</p>
                     {% else %}
-                    <h2 class="  profile-heading heading col s8 push-s2 center-align ">{{ user_profile.dog_name}}</h2>
+                    <h2 class="profile-heading heading col s8 push-s2 center-align">{{ user_profile.dog_name}}</h2>
                     {% endif %}
+
+                    <!-- Like button build if not the profile owner or admin -->
                     {% if session.user != username and session.user != "admin" %}
                     {% if dog_liked %}
                     <form method="POST" action="{{ url_for('profile', username=username) }}" id="form_dislike">
@@ -59,11 +61,11 @@
                     </form>
                     {% endif %}
                     {% endif %}
+                    <!-- If admin remove button -->
                     {% if session.user == "admin" %}
                     <a href="{{ url_for('delete_profile', username=user_profile.username)}}"
                         class="btn btn-yellow btn-red">Contact User or Remove</a>
                     {% endif %}
-
                 </div>
                 <!-- checks if its the dogs birthday -->
                 {% if birthday %}
@@ -77,12 +79,12 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="profile-wrapper">
+                            <!-- Toggle is the profile owner for images -->
                             {% if username == session['user'] %}
                             <a href="#edit_images" data-target="edit_images" data-toggle="modal"
                                 class="modal-trigger"><img src="{{ user_profile.image_url }}"
                                     alt="Image of {{ user_profile.dog_name}}" class="profile-image"
                                     aria-label="Edit Images Link"></a>
-
                             {% else %}
                             <img src="{{ user_profile.image_url }}" alt="Image of {{ user_profile.dog_name}}"
                                 class="profile-image">
@@ -139,11 +141,12 @@
             </div>
             <!-- Walk/admirers/pictures-->
             <div class="col s12 l6 ">
-                <!-- walk information -->
+                <!-- Walk information -->
                 <div class="col s12">
                     <div class="row">
                         <div class="col s12 profile-wrapper profile-items-wrapper">
                             <h4>The Next Walk with {{user_profile.dog_name}}</h4>
+                            <!-- Text dependent on if the profile owner -->
                             {% if session.user == username %}
                             <p>Add a walk to let people know where you are next taking {{user_profile.dog_name}} out
                                 <small>When you add a new walk the previous walk and comments will be
@@ -153,12 +156,13 @@
                             <p>Like the look of this walk? Add a comment and let {{user_profile.dog_name}} know that
                                 {{user_session.dog_name}} will be joining</p>
                             {% endif %}
+                            <!-- Toggle for profile owner -->
                             {% if session.user == username%}
                             <a data-target="add_walk" data-toggle="modal" class="modal-trigger btn btn-yellow"
                                 href="#add_walk">
                                 Add Walk</a>
                             {% endif %}
-
+                            <!-- Next Walk exists or not  -->
                             {% if user_profile.next_walk %}
                             <p><span class="profile-items">Date:
                                 </span>{{user_profile.next_walk.date.strftime('%d-%m-%y')}}</p>
@@ -171,12 +175,13 @@
                             {% endif %}
                         </div>
                     </div>
-                    <!-- pictures -->
+                    <!-- Images -->
                     <div class="row">
                         <div class="col s12 profile-items-wrapper profile-wrapper">
                             <div class="row">
                                 <h4 class="col">{{ user_profile.dog_name}}'s Photos</h4>
                             </div>
+                            <!-- Toggle for profile owner or admin -->
                             {% if session.user == username or session.user == "admin" %}
                             <a data-target="edit_images" data-toggle="modal" class="modal-trigger btn btn-yellow "
                                 href="#edit_images">Edit Images</a>
@@ -207,14 +212,11 @@
                                 <h5 class="profile-items">Admirers <i class="fas fa-heart"></i></h5>
                                 <div class="admirers-section">
                                     {% for liker in user_profile.dog_liker %}
-                                    {% if liker.dog_name == "Puppy Playmates" %}
-                                    {% else %}
                                     <div class="chip">
                                         <img src="{{liker.image_url}}" alt="Image of {{liker.dog_name}}">
                                         <a href="{{url_for('profile', username=liker.username)}}"
                                             aria-label="Link to {{liker.dog_name}} profile">{{liker.dog_name}}</a>
                                     </div>
-                                    {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
@@ -297,10 +299,8 @@
                                                 {{user_profile.dog_name}}'s
                                                 owner can see it</small></p>
                                     </div>
-
                                     {% endif %}
                                     {% else %}
-
                                     <!-- build for standard message -->
                                     <div class="comment-image valign-wrapper"
                                         style="background-image: url('{{ comments.img_url }}')">

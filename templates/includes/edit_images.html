@@ -24,9 +24,9 @@
             </div>
         </div>
         {% endif %}
+        <!-- All Images -->
         <h3>Your Images</h3>
         <div class="col s12 m10 offset-m1">
-
             {% for image in user_profile.all_images  %}
             {% if session.user == username or session.user == "admin" %}
             <div class="card card__img">
@@ -55,14 +55,11 @@
             </div>
             {% endif %}
             {% endfor %}
-
         </div>
-
         {% else %}
         <div>
             <p>Bad Dog you can't edit another Pups Profile</p>
             <p><a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a></p>
-
         </div>
         {% endif %}
     </div>

@@ -3,20 +3,21 @@
 
 {% block content %}
 {% if session.user == user.username %}
-
 <div class="container">
     <div class=" form-popout">
         <h3 class="align-center col s12 heading">Build Profile</h3>
         <p class="align-center">Please do not leave this page until completed</p>
+        <!-- Flash Messages -->
         {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="row flashes">
-                        <p class="center-align col s12">{{ message }}</p>
-                    </div>
-                {% endfor %}
-            {% endif %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="row flashes">
+            <p class="center-align col s12">{{ message }}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
         {% endwith%}
+        <!-- Form for Building Profile -->
         <form class="col s12 m8 offset-m2" method="POST"
             action="{{ url_for('build_profile', username=session['user']) }}">
             <div class="small-form">
@@ -27,7 +28,6 @@
                         <label for="dog_name" class="form-indent">Puppy Name</label>
                     </div>
                 </div>
-
                 <div class="row flush">
                     <div class="input-field col s12">
                         <input id="dog_breed" type="text" name="dog_breed" class="validate form-indent"
@@ -38,7 +38,8 @@
                 <div class="row flush">
                     <div class="input-field col s12">
                         <input type="text" id="dog_location" name="dog_location" class="validate form-indent"
-                            value="{{user.dog_location}}" minlength="2" maxlength="40" pattern="^[a-zA-Z0-9\s/g]{2,40}$">
+                            value="{{user.dog_location}}" minlength="2" maxlength="40"
+                            pattern="^[a-zA-Z0-9\s/g]{2,40}$">
                         <label for="dog_location" class="form-indent">Home Town</label>
                     </div>
                 </div>
@@ -54,13 +55,13 @@
                 </div>
                 <div class="row flush">
                     <div class="form-indent col s12">
-                        <label for="dog_dob" class="form-indent" >Date of Birth</label>
+                        <label for="dog_dob" class="form-indent">Date of Birth</label>
                     </div>
                 </div>
                 <div class="row flush">
                     <div class="form-indent col s12">
                         <input id="dog_dob" name="dog_dob" type="date" class="validate form-indent"
-                            value="{{ user_dog_dob }}" onclick="dogDob()"  required>
+                            value="{{ user_dog_dob }}" onclick="dogDob()" required>
                     </div>
                 </div>
                 <div class="row flush">
@@ -68,17 +69,17 @@
                         <p class="form-indent">Gender</p>
                     </div>
                 </div>
-                
+
                 <div class="row flush">
                     <p class="col s12 form-indent">
                         {% if user.dog_gender == Female %}
                         <input type="radio" id="dog_gender_f" name="dog_gender" class="with-gap form-indent"
                             value="Female" checked required>
-                        {% else %}   
+                        {% else %}
                         <input type="radio" id="dog_gender_f" name="dog_gender" class="with-gap form-indent"
                             value="Female" required>
-                        {% endif %}     
-                    
+                        {% endif %}
+
                         <label for="dog_gender_f" class="form-indent">Female</label>
                     </p>
                 </div>
@@ -87,10 +88,10 @@
                         {% if user.dog_gender == Male %}
                         <input type="radio" id="dog_gender_m" name="dog_gender" class="with-gap form-indent"
                             value="Male" checked>
-                        {% else %} 
+                        {% else %}
                         <input type="radio" id="dog_gender_m" name="dog_gender" class="with-gap form-indent"
-                            value="Male" checked>   
-                        {% endif %}    
+                            value="Male" checked>
+                        {% endif %}
                         <label for="dog_gender_m" class="form-indent">Male</label>
                     </p>
                 </div>
@@ -120,7 +121,7 @@
                                 {% if user.puppy_love %}
                                 <input type="checkbox" name="puppy_love" checked>
                                 {% else %}
-                                <input type="checkbox" name="puppy_love" >
+                                <input type="checkbox" name="puppy_love">
                                 {% endif %}
                                 <span class="lever"></span>
                                 WOOF WOOF
@@ -159,14 +160,10 @@
             </div>
         </form>
     </div>
-
 </div>
-
-
 {% else %}
 <p>Bad Dog you can't edit another Pups Profile</p>
 <a href="{{url_for('profile', username=username)}}">Back to {{username}} Profile</a>
 {% endif %}
-
 
 {% endblock %}

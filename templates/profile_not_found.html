@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 {% block title %}Not Found{% endblock %}
-
-
 {% block content %}
 <div class="notfound-page">
     <div class="row">
@@ -16,8 +14,8 @@
             <a href="{{ url_for('homepage')}}" class="btn btn-yellow">Homepage</a>
             {% endif %}
         </div>
-        <img src="{{ url_for('static', filename='images/delete-dog.gif') }}" class="align-right s4 col" 
-        alt="Gif of dog">
+        <img src="{{ url_for('static', filename='images/delete-dog.gif') }}" class="align-right s4 col"
+            alt="Gif of dog">
     </div>
 </div>
 

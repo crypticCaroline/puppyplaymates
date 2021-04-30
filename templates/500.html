@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 {% block title %}500{% endblock %}
-
-
 {% block content %}
 <div class="error-page">
     <div class="row">
@@ -9,21 +7,24 @@
             <h1>500</h1>
             <h3>Oh Dear</h3>
             <h4>Something went wrong at our end, its not you it's us!</h4>
-                {% if session['user'] %}
-                    <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">Profile</a>
-                {% else %}
-                    <a href="{{ url_for('homepage')}}" class="btn btn-yellow">Homepage</a>
-                {% endif %}
+            {% if session['user'] %}
+            <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">
+                Profile
+            </a>
+            {% else %}
+            <a href="{{ url_for('homepage')}}" class="btn btn-yellow">
+                Homepage
+            </a>
+            {% endif %}
 
-             <p>If this keeps happening please contact us and let us know what went wrong</p>
-             <a href="{{url_for('contact_us')}}" class="btn btn-yellow">Contact Us</a>   
+            <p>If this keeps happening please contact us and let us know what went wrong</p>
+            <a href="{{url_for('contact_us')}}" class="btn btn-yellow">
+                Contact Us
+            </a>
         </div>
-        <img src="{{ url_for('static', filename='images/barking.jpg') }}" alt="Gif of dog" class="align-right hide-on-small-only m4 col">
+        <img src="{{ url_for('static', filename='images/barking.jpg') }}" alt="Gif of dog"
+            class="align-right hide-on-small-only m4 col">
     </div>
 </div>
-
-
-
-
 
 {% endblock %}

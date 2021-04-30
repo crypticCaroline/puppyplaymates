@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block title %}Delete Profile{% endblock %}
-
 {% block content %}
 <div class="container">
     <div class="form-popout">
@@ -19,15 +18,17 @@
                 </p>
                 <p>You can change your dog if you need to. It will replace all infomation about your current dog</p>
                 <div class="delete-btn-wrapper">
-                <a href="{{ url_for('build_profile', username=session['user'])}}" class="btn btn-yellow">Change Dog</a>
-                <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">My profile</a>
-                <a href="#delete_modal" data-target="delete_modal" class=" modal-trigger btn btn-yellow btn-red">Delete Profile</a>
+                    <a href="{{ url_for('build_profile', username=session['user'])}}" class="btn btn-yellow">Change
+                        Dog</a>
+                    <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">My profile</a>
+                    <a href="#delete_modal" data-target="delete_modal"
+                        class=" modal-trigger btn btn-yellow btn-red">Delete Profile</a>
                 </div>
             </div>
             {% endif %}
             {% if session.user == "admin" %}
-            <div class="s12 l8 col delete-container ">
-                <!-- Flash messages -->
+            <div class="s12 l8 col delete-container">
+                <!-- Flash messages for admin contact -->
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
                 {% for message in messages %}
@@ -39,10 +40,11 @@
                 {% endwith %}
                 <h3>Remove User</h3>
                 <p>{{username}}</p>
-                    <a href="#delete_modal" data-target="delete_modal" class=" modal-trigger btn btn-yellow btn-red">Delete Profile</a>
+                <a href="#delete_modal" data-target="delete_modal" class=" modal-trigger btn btn-yellow btn-red">Delete
+                    Profile</a>
                 <p>Alternatively send them an email to discuss the reason for removal
                 </p>
-
+                <!-- Form for email -->
                 <form method="POST" action="{{ url_for('contact_user', username=username)}}">
                     <label for="contact-message">Reason for Reporting</label>
                     <textarea id="contact-message" name="contact-message"
@@ -52,7 +54,6 @@
                 </form>
             </div>
             {% endif %}
-
         </div>
     </div>
 </div>

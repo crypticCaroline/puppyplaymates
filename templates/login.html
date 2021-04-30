@@ -1,40 +1,40 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
-
 {% block content %}
 <div class="container">
     <div class=" form-popout">
         <div class="row flush">
             <div class="col hide-on-small-only m5 login-dog valign-wrapper">
                 <div class="row">
-                    <img src="{{ url_for('static', filename='images/waiting-dog.gif') }}"
-                        alt="Gif of dog"
+                    <img src="{{ url_for('static', filename='images/waiting-dog.gif') }}" alt="Gif of dog"
                         class="align-center col s12 m10 offset-m1">
                 </div>
             </div>
             <div class="col s12 m7">
                 <h3 class="align-center sub-heading">Login</h3>
+                <!-- Flash Messages -->
                 {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="row flashes">
-                                <h5 class="center-align col s12">{{ message }}</h5>
-                            </div>
-                        {% endfor %}
+                {% if messages %}
+                {% for message in messages %}
+                <div class="row flashes">
+                    <h5 class="center-align col s12">{{ message }}</h5>
+                </div>
+                {% endfor %}
                 {% endif %}
                 {% endwith%}
+                <!-- Form -->
                 <form method="POST" action="{{ url_for('login')}}">
                     <div class="row flush input-div">
                         <div class="input-field col s12">
-                            <input type="text" id="username" name="username" class="validate"  
-                                 required>
+                            <input type="text" id="username" name="username" class="validate" required>
                             <label for="username">Username or Email</label>
                         </div>
                     </div>
                     <div class="row flush input-div">
                         <div class="input-field col s12">
                             <input id="password" type="password" name="password" class="validate" minlength="5"
-                                pattern="^^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])[A-Za-z\d@$!%*_-#?&]{8,30}" maxlength="30" autocomplete="current-password" required>
+                                pattern="^^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])[A-Za-z\d@$!%*_-#?&]{8,30}"
+                                maxlength="30" autocomplete="current-password" required>
                             <label for="password">Password</label>
                         </div>
                     </div>

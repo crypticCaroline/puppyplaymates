@@ -14,7 +14,8 @@
             <div class="col s12 m7">
                 <h3 class="align-center heading">Create Account</h3>
                 <p>Please create a username for yourself, you will be able to add your dogs name in
-                        a moment</p>
+                    a moment</p>
+                <!--Flash Messages  -->
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
                 {% for message in messages %}
@@ -24,6 +25,7 @@
                 {% endfor %}
                 {% endif %}
                 {% endwith%}
+                <!-- Form -->
                 <form method="POST" action="{{ url_for('register')}}">
                     <div class="row flush input-div">
                         <div class="input-field col s12">
@@ -36,21 +38,21 @@
                     </div>
                     <div class="row flush input-div">
                         <div class="input-field col s12 ">
-                            <input type="email" id="email" name="email" class="validate" title="Please fill in a valid email" required>
+                            <input type="email" id="email" name="email" class="validate"
+                                title="Please fill in a valid email" required>
                             <label for="username">Email</label>
                         </div>
                     </div>
                     <div class="row flush input-div">
                         <div class="input-field col s12">
                             <input id="password" type="password" name="password" class="validate" minlength="5"
-                                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])([A-Za-z\d@$!%-_*#?&]{8,30})$"
+                                pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*-_#?&])([A-Za-z\d@$!%-_*#?&]){8,30})$"
                                 maxlength="30" title="Passwords must be at least 8 characters long and include a mixture of
-                                numbers, letters and one of the following special character - @$!%*_-#?&" autocomplete="current-password" required>
+                                numbers, letters and one of the following special character - @$!%*_-#?&"
+                                autocomplete="current-password" required>
                             <label for="password">Password</label>
-
                         </div>
                     </div>
-
                     <div class="row flush input-div">
                         <div class="input-field col s12">
                             <input id="repeat-password" type="password" name="repeat-password" class="validate"
@@ -59,7 +61,6 @@
                                 maxlength="30" title="Passwords must be at least 8 characters long and include a mixture of
                                 numbers, letters and one of the following special character - @$!%*_-#?&" required>
                             <label for="password">Repeat Password</label>
-
                         </div>
                     </div>
                     <div class="row flush input-div">
@@ -68,13 +69,15 @@
                     </div>
                     <div class="row flush input-div">
                         <p class="col s12">By setting up an this account you agree to our <a
-                                href="{{ url_for('safe_spaces')}}" target="_blank" aria-label="Safe Spaces opens in a new tab" class="links">Safe Spaces</a> and <a
-                                href="{{ url_for('privacy_policy')}}" target="_blank" aria-label="Policy Privacy opens in a new tab" class="links">Privacy Policy</a>
+                                href="{{ url_for('safe_spaces')}}" target="_blank"
+                                aria-label="Safe Spaces opens in a new tab" class="links">Safe Spaces</a> and <a
+                                href="{{ url_for('privacy_policy')}}" target="_blank"
+                                aria-label="Policy Privacy opens in a new tab" class="links">Privacy Policy</a>
                         </p>
                     </div>
                     <div class="row flush input-div">
-                            <input type="checkbox" id="policy" name="policy" required />
-                            <label for="policy" class="check-box">I agree to the Privacy and Safe Spaces Policy</label>
+                        <input type="checkbox" id="policy" name="policy" required />
+                        <label for="policy" class="check-box">I agree to the Privacy and Safe Spaces Policy</label>
                     </div>
                     <div class="row">
                         <button type="submit" class=" btn-large btn-style btn-yellow align-center col s12 m7">
