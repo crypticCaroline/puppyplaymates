@@ -10,7 +10,7 @@
         </form>
         {% elif session.user == "admin" %}
         <p class="small-header">Deleting this profile will not remove any comments or likes on other profiles.</p>
-        <form method="POST" action="{{ url_for('delete_profile', username=session['user'])}}">
+        <form method="POST" action="{{ url_for('delete_profile', username=username)}}">
             <button type="submit" class=" btn btn-yellow btn-red ">Delete Profile</button>
         </form>
         {% else %}
