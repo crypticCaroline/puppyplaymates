@@ -150,7 +150,7 @@ During the last round of user testing, I found a few styling and functional bugs
 * BUG with colour of buttons - FIX used CSS to correct the colour :heavy_check_mark:
 * BUG issue with button hover. FIX changed :target and :focus in style.css :heavy_check_mark:
 * BUG had display as unset for comments. FIX changed to display block  :heavy_check_mark:
-* BUG overlay dogs stopped working, FIX unset max-width heavy_check_mark:
+* BUG overlay dogs stopped working, FIX unset max-width :heavy_check_mark:
 
 
 ## User Feedback Testing Logs

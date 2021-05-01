@@ -335,6 +335,7 @@ On other clickable links, cards, and images I have used a more subtle call to ac
 
 For the nav bar I have used a shading on the tabs to indicate they can be clicked. 
 
+
 ### Imagery
 
 #### Background 
@@ -362,11 +363,15 @@ For bullet points I have used a paw print found on [Canva](https://www.canva.com
 ![Paw](static/images/paw.png)
 
 #### Homepage
-![Homepage Image](https://www.freepik.com/free-photo/group-portrait-adorable-puppies_3532149.htm#page=1&query=puppy%20love&position=2)
+[Homepage Image](https://www.freepik.com/free-photo/group-portrait-adorable-puppies_3532149.htm#page=1&query=puppy%20love&position=2)
+
+
 For smaller devices I have cropped the image to include the first 3 dogs. 
 
 
 #### Gifs
+
+
 [Waiting Dog](https://dribbble.com/shots/6335402-Dog)
 
 [Happy and Angry Dogs ](https://dribbble.com/imargarita)
