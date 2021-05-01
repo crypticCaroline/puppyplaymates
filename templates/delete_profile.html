@@ -26,7 +26,7 @@
                 </div>
             </div>
             {% endif %}
-            {% if session.user == "admin" %}
+            {% if session.user == "admin" and username != "admin" %}
             <div class="s12 l8 col delete-container">
                 <!-- Flash messages for admin contact -->
                 {% with messages = get_flashed_messages() %}
@@ -52,6 +52,12 @@
 
                     <button type="submit" class=" btn btn-yellow">Send Message</button>
                 </form>
+            </div>
+            {% endif %}
+            {% if session.user == "admin" and username == "admin" %}
+            <div class="s12 l8 col delete-container ">
+                <h3 class="heading align-center">Delete Profile</h3>
+                <p>You can't delete the admins profile</p>
             </div>
             {% endif %}
         </div>
