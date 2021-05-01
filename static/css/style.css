@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,800&display=swap');
 :root {
-	--dark-font-color: #221c1c;
-	--yellow-color: #ffdb39;
-	--light-blue: #d4e6f4;
-	--silver-blue: #d6d6d6e0;
-	--card-color: #fffcf8;
-	--form-color: #fefff4;
+	--dark-font-color: rgb(34, 28, 28);
+	--yellow-color: rgb(255, 219, 57);
+	--light-blue: rgb(212, 230, 244);
+	--silver-blue: rgba(214, 214, 214, 0.88);
+	--card-color: rgb(255, 252, 248);
+	--form-color: rgb(254, 255, 244);
 }
 
 html {
@@ -73,19 +73,19 @@ body {
 /* Background Colors */
 
 .group-col {
-	background-color: #fec2b3;
+	background-color: rgb(254, 194, 179);
 }
 
 .login-dog {
-	background-color: #e8e7dd;
+	background-color: rgb(232, 231, 221);
 }
 
 .change-password {
-	background-color: #ffe26d;
+	background-color: rgb(255, 226, 109);
 }
 
 .space-dog {
-	background-color: #091a28;
+	background-color: rgb(9, 26, 40);
 }
 
 .nav-bar-col {
@@ -97,15 +97,15 @@ body {
 }
 
 .notfound-page {
-	background-color: #4cbf9a;
+	background-color: rgb(76, 191, 154);
 }
 
 .about {
-	background-color: #ffffff;
+	background-color: rgb(255, 255, 255);
 }
 
 .error-page {
-	background-color: #89daf7;
+	background-color: rgb(137, 218, 247);
 	padding: 3rem;
 }
 
@@ -187,13 +187,17 @@ a {
 
 /* Buttons */
 
-.btn-yellow, 
-.btn-yellow:focus, 
-.btn-yellow:visited {
+.btn-yellow {
 	background-color: var(--yellow-color);
 	color: var(--dark-font-color);
 	font-weight: 700;
 	margin-top: 1%;
+}
+
+.btn-yellow:focus, 
+.btn-yellow:visited {
+    background-color: var(--yellow-color);
+	color: var(--dark-font-color)
 }
 
 .btn-yellow:hover {
@@ -262,7 +266,6 @@ a {
 	display: block;
 }
 
-
 /* Header  */
 
 #header {
@@ -292,7 +295,6 @@ a {
 nav .button-collapse {
 	margin: 0;
 }
-
 
 /* Forms  */
 
@@ -330,7 +332,7 @@ textarea.materialize-textarea {
 }
 
 textarea.materlize-textarea {
-	background-color: #dddbbd;
+	background-color: rgb(221, 219, 189);
 }
 
 textarea.materialize-textarea.contact-form {
@@ -379,7 +381,6 @@ textarea.materialize-textarea.form-no-indent,
 	padding: 1%;
 }
 
-
 /* Images */
 
 img {
@@ -423,7 +424,7 @@ img {
 
 .homepage-wrapper {
 	margin-top: -21%;
-	background-color: #d4e6f4;
+	background-color: var(--light-blue);
 	margin-bottom: 0;
 	padding-top: 21%;
 }
@@ -448,7 +449,7 @@ img {
 
 .get-started {
 	height: min-content;
-	background-color: #d4e6f4;
+	background-color: var(--light-blue);
 	margin-bottom: -6%;
 }
 
@@ -488,18 +489,18 @@ ul.intro-list {
 }
 
 .links {
-	color: #1c7ba0;
+	color: rgb(28, 123, 160);
 }
 
 .links:hover {
-	color: #3997bd;
+	color: rgb(57, 151, 189);
 }
 
 .policy-background {
 	padding: 12%;
 	margin-top: -8%;
 	margin-bottom: -8%;
-	background-color: #ffffff;
+	background-color: rgb(255, 255, 255);
 }
 
 h5.policy-spacing {
@@ -512,7 +513,6 @@ h5.policy-spacing {
 .check-box {
 	margin: 1.5rem;
 }
-
 
 /* Playmates Page */
 
@@ -598,7 +598,6 @@ h5.policy-spacing {
 	-webkit-line-clamp: 3;
 }
 
-
 /* Show more and toggle to top */
 
 .totop {
@@ -614,7 +613,7 @@ h5.policy-spacing {
 }
 
 #loadMore {
-	box-shadow: 0 1px 1px #ccc;
+	box-shadow: 0 1px 1px rgb(204, 204, 204);
 	transition: all 600ms ease-in-out;
 	-webkit-transition: all 600ms ease-in-out;
 	-moz-transition: all 600ms ease-in-out;
@@ -665,7 +664,7 @@ h5.policy-spacing {
 }
 
 .chip {
-	background-color: #ffdde29c
+	background-color: rgba(255, 221, 226, 0.61)
 }
 
 .pup-profile {
@@ -706,7 +705,7 @@ h5.policy-spacing {
 	padding-top: 2%;
 	margin: 2%;
 	margin-top: 0;
-	background-color: #e7e19a17;
+	background-color: rgba(231, 225, 154, 0.09);
 	border-radius: 5%;
 	border-bottom: solid var(--silver-blue);
 }
@@ -777,7 +776,6 @@ div.comments:nth-child(odd) {
 	margin-top: 5%;
 }
 
-
 /* Overlays hidden by default */
 
 #overlay_happy {
@@ -792,7 +790,7 @@ div.comments:nth-child(odd) {
 	width: min-content;
 	top: 50%;
 	left: 50%;
-	background-color: #dffdfa;
+	background-color: rgb(223, 253, 250);
 	z-index: 2;
 	cursor: pointer;
 	position: fixed;

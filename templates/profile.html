@@ -241,6 +241,7 @@
                 <div class="row">
                     <div class=" col s12 comment-section">
                         <h5 class="heading center-align">Comments</h5>
+                        {% if not session.user == "admin" %}
                         <p class="center-align">Add a comment to {{user_profile.dog_name}} profile</p>
                         <!-- Add comments  -->
                         <div class="row">
@@ -261,6 +262,7 @@
                                 </form>
                             </div>
                         </div>
+                        {% endif %}
                         <!-- All comments  And DELETE BUTTON FOR USERS -->
                         <div class="row">
                             <div class="col s12 comment-area">
