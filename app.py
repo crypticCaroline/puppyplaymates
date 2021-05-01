@@ -612,7 +612,7 @@ def add_comment(username):
     if 'user' in session:
         user_session = mongo.db.users.find_one({'username': session['user']})
         if request.method == 'POST':
-            comment_date = datetime.now().strftime('%d-%m-%y, %H:%M')
+            comment_date = datetime.now().strftime('%d/%m/%y, %H:%M')
             private = request.form.get('private')
             is_private = False
             comment_input = request.form.get('add_comment')
