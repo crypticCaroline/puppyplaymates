@@ -188,7 +188,7 @@ I have used backend validation to make sure the data is formatted correctly befo
 
 ##### Archives
 
-When a user is deleted, I have chosen to add them into an archive.  This means that if a user is accidentally deleted, we have the means to access the data.  The schema is identical to above and directly transferred over before the user is removed from the user’s collection.
+When a user is deleted, I have chosen to add them into an archive.  This means that if a user is accidentally deleted, we have the means to access the data.  The schema is identical to above and directly transferred over before the user is removed from the user’s collection. If a user does want to rejoin with the same details the document can be copied to the users collection.  I have specified in the privacy policy that removal of profile doesn't remove their data automatically.  They can however use the contact form to ask for the data to be removed. 
 
 
 ***
@@ -201,7 +201,7 @@ When a user is deleted, I have chosen to add them into an archive.  This means t
 All users’ inputs are passed through the appropriate validators to ensure no bad data enters the database. The users are notified through a flash message if any of these checks fails.  
 
 
-Check Length - Makes sure in text fields there is a min/max length 
+Check Length - Makes sure in text fields there is a length.  The length argument is passed to the function with the text and replaces sets the max length. 
 
 
 Check Size - checks to make sure the user’s input is "Small", "Medium" or "Large"
@@ -267,7 +267,7 @@ Reset Password - If the user tries to reset their password, they are sent an ema
 
 Data Input - In the app.py the session user is compared with the username to see if that user can make changes. 
 Most functions will find the details of the document to update using the session user’s cookie. This means even if the user manages to pass the front end security, they will only end up updating their own document. 
-There are a couple of exceptions for example, delete/edit comments, delete images and delete profile.  This checks to see if the user is an author of the post or admin which can remove if necessary.  
+There are a couple of exceptions for example, delete/edit comments, delete images and delete profile.  This checks to see if the user is an author of the post or if the session user is admin (which can remove if necessary)  
 
 
 ***
@@ -293,7 +293,7 @@ Initial Wireframe -
 ![original](docs/wireframes/original.png)
 
 I started working on the wireframe for the profile page first as this is where most of the site functionality would be.  The original wireframe is slightly different from the final one due to changing the WOOF Chat tab in the navigation to be comments on the user’s page instead.  This was because I decided to reduce the scope and include the live chat app functionality in a future release. 
-The other difference is the size of the user’s image from spanning the entire width on desktop to taking half the width. 
+The other difference is the size of the user’s image from spanning the entire width on desktop to taking half the width. The image still takes up the full width on smaller devices.  
 
 Please see the [Wireframes](docs/wireframes) for the final wireframes
 
@@ -319,7 +319,9 @@ I often used the same colour as the images/gif for the background colour of elem
 ### Typography
 I have chosen to use a font from Google fonts I have used Montserrat. This font is a sans serif font which means it does not have decoration at the end of the letter. This can cause issues with readability seen in serif fonts. The Montserrat font playful and offers nice spacing between the letters as standard.
 
-For headings I have increased the letter spacing, font weight and font size to make them stand out.
+For headings I have increased the letter spacing, font weight and font size to make them stand out. 
+
+I have used media queries to adjust the font so that the text is always easy to read. 
 
 I imported using the following code at the top of my style.css file:
 
@@ -354,13 +356,13 @@ I created the Icon image in [Canva](https://www.canva.com/) using the same colou
 ![Icon](static/images/avatar-icon.png)
 
 ##### Bullet Points
-For bullet Points I have used a paw print found on [Canva](https://www.canva.com/) with a transparent background.
+For bullet points I have used a paw print found on [Canva](https://www.canva.com/) with a transparent background. These have been used on the Homepage, Safespaces Policy and Privacy Policy
 
 
 ![Paw](static/images/paw.png)
 
 #### Homepage
-[Homepage Image](https://www.freepik.com/free-photo/group-portrait-adorable-puppies_3532149.htm#page=1&query=puppy%20love&position=2)
+![Homepage Image](https://www.freepik.com/free-photo/group-portrait-adorable-puppies_3532149.htm#page=1&query=puppy%20love&position=2)
 For smaller devices I have cropped the image to include the first 3 dogs. 
 
 
@@ -385,7 +387,7 @@ For smaller devices I have cropped the image to include the first 3 dogs.
 [Dog Barking](https://dribbble.com/shots/2652719-barking-up-the-wrong-tree)
 
 #### Sizing 
-To ensure the application was fully responsive I chose not to set a height and width for more user images.  I mostly used them as background images and filled the space. This does mean on some screens the images are zoomed in and it would be nice to add the option for users to crop their images as a future feature. 
+To ensure the application was fully responsive I chose not to set a height and width for more user images.  I mostly used them as background images and filled the space. This does mean on some screens the images are zoomed in and it would be nice to add the option for users to crop their images as a future feature. This could be by utilising Cloudinarys transitions on input. 
 
 
 ***
@@ -407,7 +409,7 @@ To ensure the application was fully responsive I chose not to set a height and w
 #### Front End
 * [Google fonts](https://fonts.google.com/)  - for the font
 * [Font Awesome](https://fontawesome.com/) - for icons used
-* [Canva](https://www.canva.com/)-Designing the background, default image and Icon
+* [Canva](https://www.canva.com/)- Designing the background, default image and Icon
 
 #### Backend 
 * [MongoDB](https://www.mongodb.com/)
@@ -454,7 +456,7 @@ I used the following Extensions:
 
 * Sign up to MongoDB
 * Create a new shared Cluster
-*  Select a Cloud provider and region (I used AWS and Ireland)
+* Select a Cloud provider and region (I used AWS and Ireland)
 * For free use  m0 cluster tier
 * Give your cluster a name
 * Go to collections and add a database

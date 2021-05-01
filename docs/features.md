@@ -47,7 +47,18 @@
 
 ### Responsiveness
 
-The website is fully responsive between different screen resolutions.  I have done this by using media queries, containers, rows, and columns. I have chosen to hide the GIF images on small devices.  
+The website is fully responsive between different screen resolutions.  I have done this by using media queries, containers, rows, and columns. I have chosen to hide the GIF images on small devices.  I have also changed the font size depending on the device to help with user experience.
+
+I have also not set explicit sizing for the images so they can scale up and down depending on the screen size. This can cause some minor issues with speed of load but results in a better user experience overall. 
+
+I have used: 
+        #content {
+	        flex: 1 0 auto;
+        }
+            display: flex
+
+Many of the elements have display: flex in combinations with the flex values.  This means that the elements are able to grow but will not shrink.  This improves the user experience and means that elements will line up on all devices. 
+
 
 ### Accessibility
 
@@ -58,16 +69,16 @@ The website is fully responsive between different screen resolutions.  I have do
 * Ensured that the logo has an aria-label of 'Home' to make navigation easier. 
 
 ### Flash Messages
-Flash messages are displayed toward the top of the pages and includes a soft pink banner to alert users to the text they contain when the  
+Flash messages are displayed toward the top of the pages and includes a soft pink banner to alert users to the information. I have decided to use a range of flash messages to improve the user experience. I have set the flash messages as variables which can be changed easily. 
 
 
 ### Input Fields 
 
 * Text Input Fields -Type specific and have validate patterns that have to match, they are also set with min and max length to ensure that the right data is entered. I have used the materialize validate class to turn the input box green when the field is valid, else the form will not be submitted. 
 * Validators - I have used back-end validation as a fail-safe to check if the input matches the same pattern on the front end.  If it does not match the pattern, then the user will get a flash message explaining that it is not a valid input.  
-* Profanity - At the same time the text input is passed through a profanity checker to check from a pre-set list of words to see if any of the words match.  If they do match, then the user will get a flash message asking them to refrain from using profanity and will not submit the message to the database.
+* Profanity - At the same time the text input is passed through a profanity checker to check from a pre-set list of words to see if any of the words match.  If they do match, then the user will get a flash message asking them to refrain from using profanity and will not submit the message to the database. The profanity checker currently only tests individual words. I would like to improve this feature in future releases. 
 * Date – I have created a JavaScript function to check the current date and limit the date options:	
-    * DOB – the dog cannot have a future Dob and I have also limited the age of the dog to 20 years 
+    * DOB – the dog cannot have a future DOB and I have also limited the age of the dog to 20 years 
 	* Upcoming walks – can be set to have the date from today onwards but not be set in the past. 
 
 
@@ -75,11 +86,11 @@ Flash messages are displayed toward the top of the pages and includes a soft pin
 
 ### Base Templates 
 
-The base template is formed of the Meta Data, Navigation, and Footer.  The block content is rendered in between the navigation and footer.  The page description is also changed for each page. 
+The base template is formed of the Meta Data, Navigation, and Footer.  The block content is rendered in between the navigation and footer.  The page description is also changed for each page, so users know what page they are visiting. 
 #### Nav
-The Navigation Bar is at the top of the webpage. If the user is signed in, they have navigations to their Profile Page, Playmates and Sign Out. If a user is not logged in the user will view Login and Register. All change colour when they are hovered over. The active page is slightly lighter, so the user knows what page they are on.  The nav links direct the user to the correct page of the website. When the logo is clicked on it will take the user to the homepage. 
+The Navigation Bar is at the top of the webpage. If the user is signed in, they have navigations to their Profile Page, Playmates and Sign Out. If a user is not logged in the user will view Login and Register. All change colour when they are hovered over.  The nav links direct the user to the correct page of the website. When the logo is clicked on it will take the user to the homepage. I have added an aria-label to the logo so that the site is easier to navigate with screen reader.
 #### Footer
-The footer consists of the company moto on the left-hand side and on the right the user can find more internal links.  If the user is logged in, they will see Contact Us, Report User, Change Password, Delete Account, Privacy Policy and Safe Spaces Policy and Sign Out. If the user is not logged in, they will be able to view Contact Us, Sign In, Register, Privacy Policy and Safe Spaces Policy.  
+The footer consists of the company moto on the left-hand side and on the right the user can find more internal links.  If the user is logged in, they will see Contact Us, Report User, Change Password, Delete Account, Privacy Policy and Safe Spaces Policy and Sign Out. If the user is not logged in, they will be able to view Contact Us, Sign In, Register, Privacy Policy and Safe Spaces Policy.  I have also added a link to my GitHub in the footer that opens in a new tab when clicked. 
 ##### Meta data
 I have added keywords, author, and description to the meta data to make the website easier to find.  This increases traffic to the website.  I have also given each page a different name, so the user knows which tab they are on. 
 
@@ -132,7 +143,7 @@ I have added keywords, author, and description to the meta data to make the webs
     * Displays all comments on user profile 
     * If private only the author and user of that profile can see the message. 
     * The user of that profile can delete any message, and this will toggle delete comment Modal.  The author of the comment can edit their comments and when clicked the author can either edit or delete their own comment. The comments are displayed with the authors image, name, and a time stamp. 
-    * The page shows 5 comments to start with.  If there are more comments, then when you click how more it will reveal further comments.
+    * The page shows 3 comments to start with.  If there are more comments, then when you click how more it will reveal further comments.
 * Add Comment - all users can add comments and select whether they make them a private message. 
 * Up toggle so the user can navigate back to the top of the page
 
@@ -141,15 +152,16 @@ I have added keywords, author, and description to the meta data to make the webs
 #### Admin
 * If the user is admin, they will be able to delete any comment on the site, delete images and delete profiles if they feel like there has been inappropriate behaviour.   
 * When visiting the admin profile, instead of the above there are buttons that sends the user to contact us, report and back to profile 
+* Admins can also send users an email if they need to discuss something through the website.  The like button is replaced by the contact user / delete  button.
+* Admins cannot add comments to profiles as serve as a watcher only
 
 
 #### Edit Modals 
 
 * Add Walk - brings up a form so the user can add a walk to their profile:
     * The date can only be set from today date onwards as past dates are not useful
-
 * Edit Profile - Brings up a form to allow the user to change some of the dog’s details 
-    * Not all details can be changed such as the Name, Gender and DOB as this should not change for the dog.  The user can rebuild their whole profile using the rebuild profile navigation in the footer and can also be directed to the build_profile page from the delete page where they are offered the chance to add change all the dog details.
+    * Not all details can be changed such as the Name, Gender and DOB as this should not change for the dog.  The user can rebuild their whole profile using the rebuild profile navigation in the footer and can also be directed to the build profile page from the delete page where they are offered the chance to add change all the dog details.
     *  The fields are prefilled out with the users details from accessed from the database
 * Edit Images 
     * Uses a loop to create a card for each image and builds a make profile picture and delete image button.
@@ -158,10 +170,11 @@ I have added keywords, author, and description to the meta data to make the webs
     * The file extension is checked prior to upload and only allow if jpg, png, gif and jpeg
     * If the image is set as the profile image, when is it deleted the default avatar replaces the profile image
     * If the image is not the profile image, then a button will appear to make it the profile image
+    * Admins are able to delete the image is inappropriate
 * Edit Human - brings a form up so users can enter the human name and bio 
 * Image Modal - modal which displays a larger version of the image the user had added 
 * Edit Comment - allows authors to edit comments also renders a button to delete the comment as well
-* Delete Comment - allows authors or profile owners to delete comment. If the profile owner, it also brings up button to report user if comment makes them feel uncomfortable. 
+* Delete Comment - allows authors or profile owners to delete comment. If the profile owner, it also brings up button to report user if comment makes them feel uncomfortable. The admin is also able to remove comments if they are inappropriate
 
 
 ### Playmates 
@@ -178,18 +191,22 @@ I have added keywords, author, and description to the meta data to make the webs
     * There is an up arrow on the right-hand side then when clicked will take the user back to the top of the page. 
 
 #### Search  
-* Allows user to search for other dogs by breed, size, location, gender, and name.
+* Allows user to search for other dogs by breed, size, location, gender, and name. 
+* If there is nothing found on the database matching their query, they will see an image advising them that nothing was found
+* The user can reset the search or type in a new query
 
 ### Homepage
 * Displays information about the company and the steps to create an account
-* Shows a button so potential users can see the playmates section of the web app but when clicked on will prompt them to login
+* Shows a button so potential users can see the playmates section of the web app. When the user clicks on an individual profile, they will be directed to the login page
 
 ### Delete Account 
 * Button to take user back to their profile
-* Button to ask if the user wants to change their dogs’ details - this will take them back to build profile and allows the user to change all the details. 
-* Button to delete their profile that triggers the modal
+* Button to ask if the user wants to change their dogs’ details - this will take them back to build profile and allows the user to change all the details including the date of birth, gender and breed. 
+* Button to delete their profile that triggers the delete modal
 * Delete Modal helps to stop users accidentally deleting their accounts
-*  The entire document will be added to the archives in case of accidental removal
+* Delete Modal informs user that deleting their profile will not delete their comments or their likes. 
+* The entire document will be added to the archives in case of accidental removal 
+* The admin can remove any user as the username is passed through as a parameter.  The admin user cannot delete the admin profile
 
 
 ### Safe Spaces Policy
@@ -214,6 +231,7 @@ All the form pages have the following features:
 ### Register
 * Create profile form - containing field for username, email, password, and repeat password.
 * Checks to see if username or email already exists and will render a flask message if they do.
+* The archive is checked to make sure the username hasn't been used before.
 * Check to make sure passwords match 
 * Checks validity of fields
 * links and confirmation that the privacy and safeguarding policy have been agreed to
@@ -240,7 +258,9 @@ All the form pages have the following features:
  
 ### Report User 
 * Has a field for the username they are reporting 
-* Asks the user to enter a message explaining what they are reporting. When sent the user is sent a copy of the email to their inbox and the email is sent to PuppyPlaymates 
+* Asks the user to enter a message explaining what they are reporting. When sent the user is sent a copy of the email to their inbox and the email is sent to PuppyPlaymates.
+* If the user users, the report user button in the delete comment modal the username of the author will be passed through as a parameter and the username will be prefilled.
+ 
 
 ### Reset Password
 * Asks user for email address and send a random generated string to the user’s emails address if they are a registered user. 
@@ -252,6 +272,8 @@ All the form pages have the following features:
 * The current password field requires the user to use either the temp_password they were assigned when they reset their password or current password
 *  The repeat password and new password must match
 * On a successful password change the temp_password field is given a new ransom string so it cannot be used again. 
+* If the user is signed in, they will not need to add their username.  
+* If the user has clicked on the link, they will need to enter their username at the top as a security measure.
 
 
 ***
@@ -271,9 +293,8 @@ Below is a list of future features I would like to add into PuppyPlaymates
 * Use a database call to render up to date photos on comments/ liker rather than using the image at time of posting.  
 * Showcase all walk/events - option to promote your walk or keep it just on your profile  
 * Keep a track of previous walks in another section of the profile page 
-* Pagination for comments 
 * Add a data store for all comments that are posted for safeguarding purposes.  If a user deletes or edits their comments, they will be stored on the database in a separate collection along with their username, time stamp, email address. This would be for the purpose of safeguarding so if the comments violate the safe spaces policy, then action can be taken against the user. 
-* Continue working on the profanity checker
+* Continue working on the profanity checker - will ability to look for curse words hidden within words. 
 
 
 ***

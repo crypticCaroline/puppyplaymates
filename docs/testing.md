@@ -15,14 +15,17 @@
     + [Testing for Responsiveness](#testing-for-responsiveness)
 - [Usability](#usability)
   * [User Testing](#user-testing)
+  * [Bugs](#bugs)
 - [User Feedback Testing Log](#user-feedback-testing-logs)
 
 
 ## User Stories
 
-For full test of user stories please see the video  :arrow_forward: :link:
+For full test of user stories please see the video - when clicked will take you to Youtube  :arrow_forward: :link:
 
  [![User Testing](images/user-stories.png)](https://www.youtube.com/watch?v=_W5o8BDtzcg)
+
+For a view from Mobile Devices see [Mobile Images](images/mobile-images)
 
 
 ***
@@ -55,14 +58,14 @@ For full test of user stories please see the video  :arrow_forward: :link:
 
 ## Email Testing
 
-I have used [Temp Mail](https://temp-mail.org/en/) for part of my user testing so I could create multiple profiles at a time to test the interactions between the accounts.  This also meant I was able to check that each email was being sent correctly. 
+I have used [Temp Mail](https://temp-mail.org/en/) for part of my user testing so I could create multiple profiles at a time to test the interactions between the accounts.  This also meant I was able to check that each email was being sent correctly. I adjusted the format of the email using HTML in the mail functions. I have also checked the PuppyPlaymates Gmail account to ensure each email is in their sent box. 
 ![Email’s testing](images/email-testing.png)
 
 ***
 
 ## Function Testing
 
-Every function written was passed individually through a [Python Tutor](http://pythontutor.com/), I assigned input variables stepped through each line of code to ensure expected outcomes.  
+Every function written was passed individually through  [Python Tutor](http://pythontutor.com/), I assigned input variables and then stepped through each line of code to ensure expected outcomes.  
 
 I paid particular attention to the backend validation when testing my functions and tried to use different data types at input to test whether they would pass.  
 
@@ -70,13 +73,13 @@ I paid particular attention to the backend validation when testing my functions 
 
 ## Regrex Testing
 
-I checked the integrity of my Regrex pattern on my backend by passing each pattern into [Regrex101](https://regex101.com/r/OnE0BG/1/) and running a series of random checks through it. 
+I checked the integrity of my Regrex pattern on my backend by passing each pattern into [Regrex101](https://regex101.com/r/OnE0BG/1/) and running a series of random checks through each pattern. Regrex101 have lots of helpful tips in creating patterns.
 
 ***
 
 ## Code Validators
 
-Every page of the website was run through [HTML Validator](https://validator.w3.org/) because of flask being a templating language the code would not show as valid html. I copied the code from within DEV Tools and pasted it into the validators to check the validity at render. - All pages :heavy_check_mark:
+Every page of the website was run through [HTML Validator](https://validator.w3.org/) because of flask being a templating language the code would not show as valid html. I copied the code from within DEV Tools, both by viewing page source and from within the inspect as HTML and pasted it into the validators to check the validity at render. - All pages :heavy_check_mark:
 
 
 I passed the CSS file through [CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) - :heavy_check_mark:
@@ -87,7 +90,7 @@ Every Python file has been run through to check for Pep8 compliances and to test
 
 The JavaScript file has been run through a JavaScript to test the validity of the code. [JSHint](https://jshint.com/) - :heavy_check_mark:
 
-:heavy_exclamation_mark: Exception to testing above -  The select feature does not pass the HTML validation. This is a Materialize class and not my own code that is causing this issue.  I have done thorough testing manually on the select feature to ensure it does not impact user experience. 
+:heavy_exclamation_mark: Exception to testing above -  The select feature when inputting from dev tools and inspecting as html does not pass the HTML validation. This is a Materialize class and not my own code that is causing this issue.  I have done thorough testing manually on the select feature to ensure it does not impact user experience. 
 
 ## Schema Testing 
 I used [Studio 3T](https://studio3t.com/) to run an analysis on my database to ensure that the data was of the correct type. 
@@ -106,6 +109,9 @@ I passed every page through Dev Tools Lighthouse to check to see how well the we
 Tested on Chrome, Firefox, Opera, Brave, Internet Explorer, Microsoft Edge, Safari.  iOS, Android 10, and Windows 10.  I used a combination of manual browser checks and used [PowerMapper](https://www.powermapper.com/) to check for browser compatibility.  Internet Explorer is the only browser that has shown issues with compatibility. As internet explorer is a much older browser with limited support, I have chosen not make changes for this release.
 
 ![Browser testing](images/browser-testing.png)
+
+A user mentioned they struggles with sign up using Safari, they retested it at a later date and have said they it is now working.
+I was unable to find the cause of this bug but am aware if it happens again. 
 
 #### Testing for Responsiveness 
 I manually tested the responsiveness of the app by testing every page on my Android.  I asked a friend with an iPhone to check the site on their IOS  :heavy_check_mark:
@@ -134,11 +140,23 @@ I manually tested all the following calls to action:
 * Contact Us/Report User :heavy_check_mark:
 * Searching the users :heavy_check_mark:
 
+### Bugs
+
+During the last round of user testing, I found a few styling and functional bugs: 
+
+* BUG Add Comment button jumping on hover - FIX margin was causing an issue, split out into separate class :heavy_check_mark:
+* BUG Admins could delete own profile - FIX Added templating to not show delete button and advise can't be deleted. :heavy_check_mark:
+* BUG Show more not showing - FIX added display using js :heavy_check_mark:
+* BUG with colour of buttons - FIX used CSS to correct the colour :heavy_check_mark:
+* BUG issue with button hover. FIX changed :target and :focus in style.css :heavy_check_mark:
+* BUG had display as unset for comments. FIX changed to display block  :heavy_check_mark:
+* BUG overlay dogs stopped working, FIX unset max-width heavy_check_mark:
+
 
 ## User Feedback Testing Logs
 I put the site out to a small group of users to feedback on how they found the application.  Please see the logs below to see what feedback was received and how this feedback was used in the testing process
 
-| Feedback  |Investigation | Fix |   Decision |   
+| Feedback  |Investigation | Fox |   Decision |   
 |---|---|---|---|
 |  Can't remember if Name and About were options on signup, I feel like I put dummy data in here? |  Hadn’t included human in the profile set up, users expected it |  Added these fields in the build profile part of the site |  :heavy_check_mark: |   
 | The line remains yellow "as if indicating the password doesn’t match  | Goes green when you click somewhere else on the page but not key up  |  Could write a function to change the Materialize class to work on key up | Could be used added in a future release  |   
