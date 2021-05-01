@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Delete Profile{% endblock %}
 {% block content %}
+{% if session.user == username or session.user == "admin" %}
 <div class="container">
     <div class="form-popout">
         <div class="row form-indent">
@@ -26,6 +27,7 @@
                 </div>
             </div>
             {% endif %}
+
             {% if session.user == "admin" and username != "admin" %}
             <div class="s12 l8 col delete-container">
                 <!-- Flash messages for admin contact -->
@@ -63,5 +65,13 @@
         </div>
     </div>
 </div>
+{% else %}
+<div class="container">
+    <div class="form-popout">
+        <h2>Bad Dog you can't delete another profile</h2>
+        <a href="{{ url_for('profile', username=session['user'])}}" class="btn btn-yellow">My profile</a>
+    </div>
+</div>
+{% endif %}
 {% include "includes/delete_modal.html" %}
 {% endblock %}
